@@ -9,7 +9,8 @@
         it = window.it,
         expect = window.expect,
         BiblicalReference = window.BiblicalReference,
-        TikkunColumnRow = window.TikkunColumnRow;
+        TikkunColumnRow = window.TikkunColumnRow,
+        TikkunColumn = window.TikkunColumn;
 
     describe("Biblical Reference", function () {
 
@@ -122,6 +123,19 @@
             describe("aliyot", function () {
                 it("should equal [3, 2]", function () {
                     expect(sut.aliyot()).toEqual([3, 2]);
+                });
+            });
+        });
+    });
+
+    describe("Tikkun Column", function () {
+        describe("when creating a Tikkun Column with rows", function () {
+            describe("rows", function () {
+                it("should be identical to input rows", function () {
+                    var rows = [new TikkunColumnRow(), new TikkunColumnRow(), new TikkunColumnRow()],
+                        sut = new TikkunColumn(rows);
+
+                    expect(sut.rows()).toEqual(rows);
                 });
             });
         });

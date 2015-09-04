@@ -27,6 +27,33 @@
         return this._word;
     };
 
+    BiblicalReference.prototype.isBeforeReference = function (other) {
+
+        if (this.book() < other.book()) {
+            return true;
+        }
+
+        if (this.book() === other.book()) {
+
+            if (this.chapter() < other.chapter()) {
+                return true;
+            }
+
+            if (this.chapter() === other.chapter()) {
+
+                if (this.verse() < other.verse()) {
+                    return true;
+                }
+
+                if (this.verse() === other.verse()) {
+                    return this.word() < other.word();
+                }
+            }
+        }
+
+        return false;
+    };
+
     window.BiblicalReference = BiblicalReference;
 }());
 

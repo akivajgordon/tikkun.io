@@ -21,9 +21,9 @@
             sut = null;
         });
 
-        describe("when creating a new Biblical Reference with Book 1, Chapter 1, Verse 1", function () {
+        describe("when creating a new Biblical Reference with Book 1, Chapter 1, Verse 1, Word 1", function () {
             beforeEach(function () {
-                sut = new BiblicalReference(1, 1, 1);
+                sut = new BiblicalReference(1, 1, 1, 1);
             });
 
             describe("book", function () {
@@ -43,11 +43,17 @@
                     expect(sut.verse()).toBe(1);
                 });
             });
+
+            describe("word", function () {
+                it("should be 1", function () {
+                    expect(sut.word()).toBe(1);
+                });
+            });
         });
 
-        describe("when creating a new Biblical Reference with Book 2, Chapter 3, Verse 4", function () {
+        describe("when creating a new Biblical Reference with Book 2, Chapter 3, Verse 4, Word 2", function () {
             beforeEach(function () {
-                sut = new BiblicalReference(2, 3, 4);
+                sut = new BiblicalReference(2, 3, 4, 2);
             });
 
             describe("book", function () {
@@ -65,6 +71,21 @@
             describe("verse", function () {
                 it("should be 4", function () {
                     expect(sut.verse()).toBe(4);
+                });
+            });
+
+            describe("word", function () {
+                it("should be 2", function () {
+                    expect(sut.word()).toBe(2);
+                });
+            });
+        });
+
+        describe("when word is not provided", function () {
+            describe("word", function () {
+                it("should be 1", function () {
+                    sut = new BiblicalReference(1, 1, 1);
+                    expect(sut.word()).toBe(1);
                 });
             });
         });

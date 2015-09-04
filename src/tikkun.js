@@ -4,10 +4,11 @@
 (function () {
     "use strict";
 
-    function BiblicalReference(book, chapter, verse) {
+    function BiblicalReference(book, chapter, verse, word) {
         this._book = book;
         this._chapter = chapter;
         this._verse = verse;
+        this._word = word || 1;
     }
 
     BiblicalReference.prototype.book = function () {
@@ -20,6 +21,10 @@
 
     BiblicalReference.prototype.verse = function () {
         return this._verse;
+    };
+
+    BiblicalReference.prototype.word = function () {
+        return this._word;
     };
 
     window.BiblicalReference = BiblicalReference;

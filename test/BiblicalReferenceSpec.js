@@ -5,7 +5,7 @@
 
     var afterEach = window.afterEach,
         beforeEach = window.beforeEach,
-        BiblicalReference = window.BiblicalReference,
+        BiblicalReference = window.Tikkun.BiblicalReference,
         describe = window.describe,
         expect = window.expect,
         it = window.it;

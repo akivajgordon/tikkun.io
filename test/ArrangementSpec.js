@@ -4,9 +4,9 @@
     "use strict";
 
     var afterEach = window.afterEach,
-        Arrangement = window.Arrangement,
+        Arrangement = window.Tikkun.Arrangement,
         beforeEach = window.beforeEach,
-        BiblicalReference = window.BiblicalReference,
+        BiblicalReference = window.Tikkun.BiblicalReference,
         describe = window.describe,
         expect = window.expect,
         it = window.it;

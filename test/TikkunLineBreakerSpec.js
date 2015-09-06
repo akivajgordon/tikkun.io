@@ -8,7 +8,7 @@
         describe = window.describe,
         expect = window.expect,
         it = window.it,
-        TikkunLineBreaker = window.TikkunLineBreaker;
+        TikkunLineBreaker = window.Tikkun.TikkunLineBreaker;
 
     describe("Tikkun Line Breaker", function () {
 

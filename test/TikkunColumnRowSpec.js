@@ -8,7 +8,7 @@
         describe = window.describe,
         expect = window.expect,
         it = window.it,
-        TikkunColumnRow = window.TikkunColumnRow;
+        TikkunColumnRow = window.Tikkun.TikkunColumnRow;
 
     describe("Tikkun Column Row", function () {
 

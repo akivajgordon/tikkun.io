@@ -7,7 +7,7 @@
         expect = window.expect,
         it = window.it,
         TikkunColumn = window.TikkunColumn,
-        TikkunColumnRow = window.TikkunColumnRow;
+        TikkunColumnRow = window.Tikkun.TikkunColumnRow;
 
     describe("Tikkun Column", function () {
         describe("when creating a Tikkun Column with rows", function () {

@@ -1,0 +1,8 @@
+.toolbar {
+    background-color: hsl(0, 0%, 80%);
+    height: 3rem;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}

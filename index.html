@@ -3,55 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>tikkun.io</title>
-        <!-- <link rel="stylesheet" href="/css/master.css" media="screen" charset="utf-8"> -->
-        <style>
-            @font-face {
-                font-family: "ShlomosemiStam";
-                src: url(assets/fonts/ShlomosemiStam.ttf);
-            }
-
-            body {
-                /*dir: rtl;*/
-                margin: 0;
-                padding: 0;
-            }
-
-            .toolbar {
-                align-items: center;
-                background-color: hsl(0, 0%, 80%);
-                box-shadow: 0px 2px 5px hsla(0, 0%, 0%, 0.5);
-                display: flex;
-                height: 3rem;
-                justify-content: space-between;
-                left: 0;
-                position: fixed;
-                top: 0;
-                width: 100%;
-            }
-
-                .toolbar-parsha-selection {
-                    font-size: 1em;
-                }
-
-            .pages {
-                direction: rtl;
-                background-color: lightblue;
-                margin-top: 3rem;
-                padding-top: 1rem;
-                width: 100%;
-            }
-
-                .pages-page-text-line {
-                    font-family: Shlomosemistam;
-                    text-align: justify;
-                }
-
-                .pages-page-text-line::after {
-                    content: "";
-                    width: 100%;
-                    display: inline-block;
-                }
-        </style>
+        <link rel="stylesheet" href="css/master.css" media="screen" charset="utf-8">
     </head>
     <body>
         <header class="toolbar">
@@ -67,7 +19,10 @@
                 <option>תולדות</option>
                 <option>ויצא</option>
             </select>
-            <label class="toggle"><input type="checkbox" name="show-annotations" value=""></label>
+            <div class="toolbar-annotations-toggle">
+                <input class="toolbar-annotations-toggle-input" id="toolbar-annotations-toggle-input" type="checkbox">
+                <label for="toolbar-annotations-toggle-input" class="toolbar-annotations-toggle-track"></label>
+            </div>
         </header>
         <section class="pages">
             <article class="pages-page">

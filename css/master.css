@@ -10,12 +10,15 @@ body {
 }
 
 .toolbar {
+    -webkit-align-items: center;
     align-items: center;
     background-color: hsl(0, 0%, 80%);
     box-shadow: 0px 2px 5px hsla(0, 0%, 0%, 0.5);
+    display: -webkit-flex;
     display: flex;
     height: 3rem;
-    justify-content: space-between;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
     left: 0;
     position: fixed;
     top: 0;

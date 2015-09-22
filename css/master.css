@@ -124,6 +124,7 @@ body {
     .pages-page-verses {
         color: hsla(0, 0%, 0%, 0.5);
         padding: 0 2rem;
+        text-align: end;
     }
 
     .pages-page-aliyot {

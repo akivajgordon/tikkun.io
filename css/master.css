@@ -1,23 +1,25 @@
+@charset "UTF-8";
+
 @font-face {
     font-family: "ShlomosemiStam";
     src: url(../assets/fonts/ShlomosemiStam.ttf);
 }
 
+
 body {
-    /*dir: rtl;*/
     margin: 0;
     padding: 0;
 }
 
 .toolbar {
     -webkit-align-items: center;
+    -webkit-justify-content: space-around;
     align-items: center;
     background-color: hsl(0, 0%, 80%);
     box-shadow: 0px 2px 5px hsla(0, 0%, 0%, 0.5);
     display: -webkit-flex;
     display: flex;
     height: 3rem;
-    -webkit-justify-content: space-around;
     justify-content: space-around;
     left: 0;
     position: fixed;
@@ -26,70 +28,114 @@ body {
 }
 
     .toolbar-parsha-selection {
-        font-size: 1em;
+        background-color: hsla(0, 0%, 0%, 0.1);
+        border-radius: 4px;
+        direction: rtl;
+        font-family: Helvetica;
+        padding: 8px 24px;
     }
 
-    .toolbar-annotations-toggle-input {
-        display: none;
+    .toolbar-parsha-selection:hover {
+        background-color: hsla(0, 0%, 0%, 0.15);
     }
 
-    .toolbar-annotations-toggle-track {
-        background-color: hsla(0, 0%, 0%, 0.25);
-        border-radius: 0.75rem;
-        box-shadow: 0 0 2px 0;
-        display: inline-block;
-        height: 1.5rem;
-        left: 0;
-        position: relative;
-        top: 0;
-        width: 3rem;
-        transition: 0.25s;
+    .toolbar-parsha-selection::after {
+        content: "▾";
     }
 
-    .toolbar-annotations-toggle-track::after {
-        background-color: hsla(0, 0%, 100%, 0.75);
-        border-radius: 0.75rem;
-        box-shadow: 0 0 2px 0;
-        content: "א";
-        display: block;
-        font-family: ShlomosemiStam;
-        font-size: 0.75em;
-        height: 1.5rem;
-        left: 0;
-        line-height: 1.5rem;
-        position: relative;
-        text-align: center;
-        top: 0;
-        width: 1.5rem;
-        transition: 0.25s;
+    .toolbar-annotations-toggle {
+        height: 2rem;
+        width: 4rem;
     }
 
-    .toolbar-annotations-toggle-input:checked + .toolbar-annotations-toggle-track {
-        background-color: hsla(0, 0%, 0%, 0.75);
-    }
+        .toolbar-annotations-toggle-input {
+            display: none;
+        }
 
-    .toolbar-annotations-toggle-input:checked + .toolbar-annotations-toggle-track::after {
-        background-color: hsla(0, 0%, 0%, 0.5);
-        color: white;
-        content: "אֶ֨";
-        left: 1.5rem;
-    }
+        .toolbar-annotations-toggle-track {
+            background-color: hsla(0, 0%, 100%, 0.9);
+            border-radius: 50% / 200%;
+            cursor: pointer;
+            display: inline-block;
+            height: 50%;
+            left: 0;
+            position: relative;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            -webkit-transition: 0.25s;
+            transition: 0.25s;
+            width: 100%;
+        }
+
+        .toolbar-annotations-toggle-track::after {
+            background-color: hsla(0, 0%, 90%, 1);
+            border-radius: 50%;
+            box-shadow: 0 0 1px 1px gray;
+            content: "א";
+            display: block;
+            font-family: ShlomosemiStam;
+            height: 200%;
+            left: 0;
+            line-height: 200%;
+            position: relative;
+            text-align: center;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            -webkit-transition: 0.25s;
+            transition: 0.25s;
+            width: 50%;
+        }
+
+        .toolbar-annotations-toggle-track:hover::after {
+            box-shadow: 0 0 5px 2px gray;
+        }
+
+        .toolbar-annotations-toggle-input:checked + .toolbar-annotations-toggle-track {
+            background-color: hsla(0, 0%, 0%, 0.9);
+        }
+
+        .toolbar-annotations-toggle-input:checked + .toolbar-annotations-toggle-track::after {
+            content: "אֶ֨";
+            left: 50%;
+        }
 
 .pages {
+    -webkit-justify-content: center;
     direction: rtl;
-    background-color: lightblue;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
     margin-top: 3rem;
     padding-top: 1rem;
     width: 100%;
 }
 
-    .pages-page-text-line {
-        font-family: Shlomosemistam;
-        text-align: justify;
+    .pages-page {
+        font-family: Helvetica;
     }
 
-    .pages-page-text-line::after {
+    .pages-page td {
+        line-height: 100%;
+    }
+
+    .pages-page-verses {
+        color: hsla(0, 0%, 0%, 0.5);
+        padding: 0 2rem;
+    }
+
+    .pages-page-aliyot {
+        color: hsla(203, 100%, 50%, 0.75);
+    }
+
+    .pages-page td::after {
         content: "";
         display: inline-block;
         width: 100%;
+    }
+
+    .pages-page-text-line {
+        font-family: Shlomosemistam;
+        text-align: justify;
     }

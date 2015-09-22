@@ -53,6 +53,8 @@ body {
         }
 
         .toolbar-annotations-toggle-track {
+            -webkit-transform: translateY(-50%);
+            -webkit-transition: 0.25s;
             background-color: hsla(0, 0%, 100%, 0.9);
             border-radius: 50% / 200%;
             cursor: pointer;
@@ -61,14 +63,14 @@ body {
             left: 0;
             position: relative;
             top: 50%;
-            -webkit-transform: translateY(-50%);
             transform: translateY(-50%);
-            -webkit-transition: 0.25s;
             transition: 0.25s;
             width: 100%;
         }
 
         .toolbar-annotations-toggle-track::after {
+            -webkit-transform: translateY(-50%);
+            -webkit-transition: 0.25s;
             background-color: hsla(0, 0%, 90%, 1);
             border-radius: 50%;
             box-shadow: 0 0 1px 1px gray;
@@ -81,9 +83,7 @@ body {
             position: relative;
             text-align: center;
             top: 50%;
-            -webkit-transform: translateY(-50%);
             transform: translateY(-50%);
-            -webkit-transition: 0.25s;
             transition: 0.25s;
             width: 50%;
         }
@@ -102,18 +102,19 @@ body {
         }
 
 .pages {
-    -webkit-justify-content: center;
-    direction: rtl;
-    display: -webkit-flex;
-    display: flex;
-    justify-content: center;
     margin-top: 3rem;
     padding-top: 1rem;
     width: 100%;
 }
 
     .pages-page {
+        -webkit-justify-content: center;
+        direction: rtl;
+        display: -webkit-flex;
+        display: flex;
         font-family: Helvetica;
+        justify-content: center;
+        margin-top: 2rem;
     }
 
     .pages-page td {
@@ -135,7 +136,7 @@ body {
         width: 100%;
     }
 
-    .pages-page-text-line {
+    .pages-page-text {
         font-family: Shlomosemistam;
         text-align: justify;
     }

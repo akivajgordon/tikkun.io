@@ -27,21 +27,62 @@ body {
     width: 100%;
 }
 
-    .toolbar-parsha-selection {
+    .select {
         background-color: hsla(0, 0%, 0%, 0.1);
         border-radius: 4px;
+        border: none;
+        cursor: pointer;
         direction: rtl;
         font-family: Helvetica;
+        font-size: 1rem;
+        outline: none;
         padding: 8px 24px;
+        position: relative;
+    }
+
+        .select-selection::after {
+            content: " ▾ ";
+        }
+
+        .select-options {
+            background-color: white;
+            border-radius: inherit;
+            border: 1px solid darkgray;
+            box-shadow: 0px 0 10px 0px gray;
+            display: none;
+            height: 10rem;
+            list-style-type: none;
+            margin: 0;
+            min-width: 100%;
+            overflow-y: auto;
+            padding: 0;
+            position: absolute;
+            right: 0;
+            text-align: start;
+            top: calc(100% + 4px);
+        }
+
+        .select-options.mod-opened {
+            display: inherit;
+        }
+
+            .select-options-option {
+                color: hsla(0, 0%, 0%, 0.75);
+                padding: 0.5rem;
+            }
+
+            .select-options-option:hover {
+                background-color: hsla(0, 0%, 0%, 0.075);
+            }
+
+    .toolbar-parsha-selection {
+        direction: rtl;
     }
 
     .toolbar-parsha-selection:hover {
         background-color: hsla(0, 0%, 0%, 0.15);
     }
 
-    .toolbar-parsha-selection::after {
-        content: "▾";
-    }
 
     .toolbar-annotations-toggle {
         height: 2rem;

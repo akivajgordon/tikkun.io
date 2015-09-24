@@ -31,8 +31,8 @@
             <article class="pages-page" ng-repeat="page in pages" ng-controller="PageController">
                 <table>
                     <tr ng-repeat="line in page">
-                        <td class="pages-page-aliyot">{{line.aliyot}}</td>
-                        <td class="pages-page-verses">{{line.verses | range}}</td>
+                        <td class="pages-page-aliyot">{{line.aliyot | aliyotNames | range}}</td>
+                        <td class="pages-page-verses">{{line.verses | hebrewNumerals | range}}</td>
                         <td class="pages-page-text">{{line.text}}</td>
                     </tr>
                 </table>

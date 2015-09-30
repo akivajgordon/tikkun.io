@@ -4,7 +4,13 @@
     "use strict";
 
     var PASEQ = " ׀",
-        PASEQ_REPLACE = "#׀";
+        PASEQ_RE = / ׀/g,
+        PASEQ_REPLACE = "#׀",
+        PASEQ_REPLACE_RE = /#׀/g,
+        MAQAF = "־",
+        MAQAF_RE = /־/g,
+        MAQAF_REPLACE = "־ ",
+        MAQAF_REPLACE_RE = /־ /g;
 
     angular.module("tikkun")
         .factory("lineBreaker", function () {
@@ -22,12 +28,12 @@
                             }()),
 
                             // Because the PASEQ character counts as a word (since it is separated by spaces on either side), we need to replace it with a string that removes the preceding space. Later, re-replace the string to undo it.
-                            allWordsFromIncludedVerses = includedVerses.join(" ").replace(PASEQ, PASEQ_REPLACE).split(/[\s־]/),
-                            lastVerseWordCount = includedVerses[includedVerses.length - 1].replace(PASEQ, PASEQ_REPLACE).split(/[\s־]/).length,
+                            allWordsFromIncludedVerses = includedVerses.join(" ").replace(PASEQ_RE, PASEQ_REPLACE).replace(MAQAF_RE, MAQAF_REPLACE).split(/\s/),
+                            lastVerseWordCount = includedVerses[includedVerses.length - 1].replace(PASEQ_RE, PASEQ_REPLACE).replace(MAQAF_RE, MAQAF_REPLACE).split(/\s/).length,
                             allWordsInLine = allWordsFromIncludedVerses.slice(line.w - 1, -(lastVerseWordCount - nextLine.w  + 1)),
 
                             // ...and put back the original space-separated PASEQ
-                            text = allWordsInLine.join(" ").replace(PASEQ_REPLACE, PASEQ),
+                            text = allWordsInLine.join(" ").replace(PASEQ_REPLACE_RE, PASEQ).replace(MAQAF_REPLACE_RE, MAQAF),
                             theVerses = (function () {
                                 var versesNumbers = [];
 

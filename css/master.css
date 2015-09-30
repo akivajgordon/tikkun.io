@@ -146,3 +146,7 @@ body {
         font-family: Shlomosemistam;
         text-align: justify;
     }
+
+    .pages-page-text.mod-petucha {
+        text-align: start;
+    }

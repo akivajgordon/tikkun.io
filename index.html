@@ -34,7 +34,7 @@
                     <tr ng-repeat="line in page">
                         <td class="pages-page-aliyot">{{line.aliyot | aliyotNames | range}}</td>
                         <td class="pages-page-verses">{{line.verses | hebrewNumerals | range}}</td>
-                        <td class="pages-page-text">{{line.text | practiceMode:showAnnotations}}</td>
+                        <td class="pages-page-text" ng-class="{'mod-petucha': line.petucha}">{{line.text | practiceMode:showAnnotations}}</td>
                     </tr>
                 </table>
             </article>

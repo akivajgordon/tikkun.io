@@ -10,7 +10,8 @@
         MAQAF = "־",
         MAQAF_RE = /־/g,
         MAQAF_REPLACE = "־ ",
-        MAQAF_REPLACE_RE = /־ /g;
+        MAQAF_REPLACE_RE = /־ /g,
+        PETUCHA = "(פ)";
 
     angular.module("tikkun")
         .factory("lineBreaker", function () {
@@ -46,12 +47,14 @@
                                 }
 
                                 return versesNumbers;
-                            }());
+                            }()),
+                            petucha = allWordsInLine.indexOf(PETUCHA) !== -1;
 
                         return {
                             text: text,
                             verses: theVerses,
-                            aliyot: []
+                            aliyot: [],
+                            petucha: petucha
                         };
 
 

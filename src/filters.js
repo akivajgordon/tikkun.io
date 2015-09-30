@@ -86,5 +86,15 @@
 
                 return verses[0] + "-" + verses[verses.length - 1];
             };
+        })
+        .filter("practiceMode", function () {
+
+            function torahSideText(text) {
+                return text.replace(/־/g, " ").replace(/\(פ\)/g, "").match(/[א-ת]|\s/g).join("").trim();
+            }
+
+            return function (text, shouldShowAnnotations) {
+                return shouldShowAnnotations ? text : torahSideText(text);
+            };
         });
 }(window.angular || {}));

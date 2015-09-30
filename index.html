@@ -5,7 +5,7 @@
         <title>tikkun.io</title>
         <link rel="stylesheet" href="css/master.css" media="screen" charset="utf-8">
     </head>
-    <body>
+    <body ng-app="tikkun" ng-controller="PagesController">
         <header class="toolbar">
             <a href="#" title="Go to GitHub repository">
                 <img src="assets/images/GitHub-Mark-32px.png" alt="GitHub" height="32px" width="32px"/>
@@ -23,18 +23,18 @@
                 <option>ויצא</option>
             </select> -->
             <div class="toolbar-annotations-toggle">
-                <input class="toolbar-annotations-toggle-input" id="toolbar-annotations-toggle-input" type="checkbox">
+                <input class="toolbar-annotations-toggle-input" id="toolbar-annotations-toggle-input" type="checkbox" ng-model="showAnnotations">
                 <label for="toolbar-annotations-toggle-input" class="toolbar-annotations-toggle-track"></label>
             </div>
         </header>
-        <section class="pages" ng-app="tikkun" ng-controller="PagesController">
+        <section class="pages">
             <button ng-click="prependPage()">prepend</button>
             <article class="pages-page" ng-repeat="page in pages" ng-controller="PageController">
                 <table>
                     <tr ng-repeat="line in page">
                         <td class="pages-page-aliyot">{{line.aliyot | aliyotNames | range}}</td>
                         <td class="pages-page-verses">{{line.verses | hebrewNumerals | range}}</td>
-                        <td class="pages-page-text">{{line.text}}</td>
+                        <td class="pages-page-text">{{line.text | practiceMode:showAnnotations}}</td>
                     </tr>
                 </table>
             </article>

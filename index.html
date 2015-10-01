@@ -5,10 +5,10 @@
         <title>tikkun.io</title>
         <link rel="stylesheet" href="css/master.css" media="screen" charset="utf-8">
     </head>
-    <body>
+    <body ng-app="tikkun" ng-controller="PagesController">
         <header class="toolbar">
             <a href="#" title="Go to GitHub repository">
-                <img src="assets/images/GitHub-Mark-32px.png" alt="GitHub" height="32px" width="32px"/>
+                <img class="toolbar-github" src="assets/images/GitHub-Mark-32px.png" alt="GitHub" height="32px" width="32px"/>
             </a>
             <button class="select toolbar-parsha-selection">
                 <div class="select-selection">חיי שרה</div>
@@ -23,20 +23,22 @@
                 </ol>
             </button>
             <div class="toolbar-annotations-toggle">
-                <input class="toolbar-annotations-toggle-input" id="toolbar-annotations-toggle-input" type="checkbox">
+                <input class="toolbar-annotations-toggle-input" id="toolbar-annotations-toggle-input" type="checkbox" ng-model="showAnnotations">
                 <label for="toolbar-annotations-toggle-input" class="toolbar-annotations-toggle-track"></label>
             </div>
         </header>
-        <section class="pages" ng-app="tikkun" ng-controller="PagesController">
+        <section class="pages">
+            <button ng-click="prependPage()">prepend</button>
             <article class="pages-page" ng-repeat="page in pages" ng-controller="PageController">
                 <table>
                     <tr ng-repeat="line in page">
-                        <td class="pages-page-aliyot">{{line.aliyot}}</td>
-                        <td class="pages-page-verses">{{line.verses | range}}</td>
-                        <td class="pages-page-text">{{line.text}}</td>
+                        <td class="pages-page-aliyot">{{line.aliyot | aliyotNames | range}}</td>
+                        <td class="pages-page-verses">{{line.verses | hebrewNumerals | range}}</td>
+                        <td class="pages-page-text" ng-class="{'mod-petucha': line.petucha}">{{line.text | practiceMode:showAnnotations}}</td>
                     </tr>
                 </table>
             </article>
+            <button ng-click="appendPage()">append</button>
         </section>
 
         <script src="bower_components/jquery/dist/jquery.js" charset="utf-8"></script>
@@ -53,6 +55,7 @@
         <script src="bower_components/angular/angular.js" charset="utf-8"></script>
         <script src="src/app.js" charset="utf-8"></script>
         <script src="src/filters.js" charset="utf-8"></script>
+        <script src="src/factories.js" charset="utf-8"></script>
         <script src="src/controllers.js" charset="utf-8"></script>
     </body>
 </html>

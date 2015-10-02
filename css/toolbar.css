@@ -4,136 +4,138 @@
 }
 
 .toolbar {
-    -webkit-align-items: center;
-    -webkit-justify-content: space-around;
-    align-items: center;
     background-color: hsl(0, 0%, 90%);
     box-shadow: 0px 2px 10px hsla(0, 0%, 0%, 0.5);
-    display: -webkit-flex;
-    display: flex;
     height: 3rem;
-    justify-content: space-around;
     left: 0;
     position: fixed;
     top: 0;
     width: 100%;
 }
 
-    .toolbar-github {
-        vertical-align: middle;
+    .toolbar-items {
+        -webkit-align-items: center;
+        -webkit-justify-content: space-between;
+        align-items: center;
+        justify-content: space-between;
+        display: -webkit-flex;
+        display: flex;
+        height: 100%;
+        margin: 0 auto;
+        max-width: 960px;
+        padding: 0 1rem;
     }
 
-    .select {
-        background-color: hsla(0, 0%, 0%, 0.1);
-        border-radius: 4px;
-        border: none;
-        cursor: pointer;
-        direction: rtl;
-        font-family: Helvetica;
-        font-size: 1rem;
-        outline: none;
-        padding: 8px 24px;
-        position: relative;
-    }
-
-        .select-selection::after {
-            content: " ▾ ";
+        .toolbar-github {
+            vertical-align: middle;
         }
 
-        .select-options {
-            background-color: white;
-            border-radius: inherit;
-            border: 1px solid darkgray;
-            box-shadow: 0px 0 10px 0px gray;
-            display: none;
-            height: 10rem;
-            list-style-type: none;
-            margin: 0;
-            min-width: 100%;
-            overflow-y: auto;
-            padding: 0;
-            position: absolute;
-            right: 0;
-            text-align: start;
-            top: calc(100% + 4px);
-        }
-
-        .select-options.mod-opened {
-            display: inherit;
-        }
-
-            .select-options-option {
-                color: hsla(0, 0%, 0%, 0.75);
-                padding: 0.5rem;
-            }
-
-            .select-options-option:hover {
-                background-color: hsla(0, 0%, 0%, 0.075);
-            }
-
-    .toolbar-parsha-selection {
-        direction: rtl;
-    }
-
-    .toolbar-parsha-selection:hover {
-        background-color: hsla(0, 0%, 0%, 0.15);
-    }
-
-
-    .toolbar-annotations-toggle {
-        height: 2rem;
-        width: 4rem;
-    }
-
-        .toolbar-annotations-toggle-input {
-            display: none;
-        }
-
-        .toolbar-annotations-toggle-track {
-            -webkit-transform: translateY(-50%);
-            -webkit-transition: 0.25s;
-            background-color: hsla(0, 0%, 100%, 0.9);
-            border-radius: 50% / 200%;
+        .select {
+            background-color: hsla(0, 0%, 0%, 0.1);
+            border-radius: 4px;
+            border: none;
             cursor: pointer;
-            display: inline-block;
-            height: 50%;
-            left: 0;
+            direction: rtl;
+            font-family: Helvetica;
+            font-size: 1rem;
+            outline: none;
+            padding: 8px 24px;
             position: relative;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: 0.25s;
-            width: 100%;
         }
 
-        .toolbar-annotations-toggle-track::after {
-            -webkit-transform: translateY(-50%);
-            -webkit-transition: 0.25s;
-            background-color: hsla(0, 0%, 95%, 1);
-            border-radius: 50%;
-            box-shadow: 0 0 3px 0px hsla(0, 0%, 0%, 0.5);
-            content: "א";
-            display: block;
-            font-family: ShlomosemiStam;
-            height: 200%;
-            left: 0;
-            line-height: 200%;
-            position: relative;
-            text-align: center;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: 0.2s;
-            width: 50%;
+        .select:hover {
+            background-color: hsla(0, 0%, 0%, 0.15);
         }
 
-        .toolbar-annotations-toggle-track:hover::after {
-            box-shadow: 0 0 5px 0px hsla(0, 0%, 0%, 0.5);
+            .select-selection::after {
+                content: " ▾ ";
+            }
+
+            .select-options {
+                background-color: white;
+                border-radius: inherit;
+                border: 1px solid darkgray;
+                box-shadow: 0px 0 10px 0px gray;
+                display: none;
+                height: 10rem;
+                list-style-type: none;
+                margin: 0;
+                min-width: 100%;
+                overflow-y: auto;
+                padding: 0;
+                position: absolute;
+                right: 0;
+                text-align: start;
+                top: calc(100% + 4px);
+            }
+
+            .select-options.mod-opened {
+                display: inherit;
+            }
+
+                .select-options-option {
+                    color: hsla(0, 0%, 0%, 0.75);
+                    padding: 0.5rem;
+                }
+
+                .select-options-option:hover {
+                    background-color: hsla(0, 0%, 0%, 0.075);
+                }
+
+        .toolbar-annotations-toggle {
+            height: 2rem;
+            width: 4rem;
         }
 
-        .toolbar-annotations-toggle-input:checked + .toolbar-annotations-toggle-track {
-            background-color: hsla(0, 0%, 0%, 0.9);
-        }
+            .toolbar-annotations-toggle-input {
+                display: none;
+            }
 
-        .toolbar-annotations-toggle-input:checked + .toolbar-annotations-toggle-track::after {
-            content: "אֶ֨";
-            left: 50%;
-        }
+            .toolbar-annotations-toggle-track {
+                -webkit-transform: translateY(-50%);
+                -webkit-transition: 0.25s;
+                background-color: hsla(0, 0%, 100%, 0.9);
+                border-radius: 50% / 200%;
+                cursor: pointer;
+                display: inline-block;
+                height: 50%;
+                left: 0;
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+                transition: 0.25s;
+                width: 100%;
+            }
+
+            .toolbar-annotations-toggle-track::after {
+                -webkit-transform: translateY(-50%);
+                -webkit-transition: 0.25s;
+                background-color: hsla(0, 0%, 95%, 1);
+                border-radius: 50%;
+                box-shadow: 0 0 3px 0px hsla(0, 0%, 0%, 0.5);
+                content: "א";
+                display: block;
+                font-family: ShlomosemiStam;
+                height: 200%;
+                left: 0;
+                line-height: 200%;
+                position: relative;
+                text-align: center;
+                top: 50%;
+                transform: translateY(-50%);
+                transition: 0.2s;
+                width: 50%;
+            }
+
+            .toolbar-annotations-toggle-track:hover::after {
+                box-shadow: 0 0 5px 0px hsla(0, 0%, 0%, 0.5);
+            }
+
+            .toolbar-annotations-toggle-input:checked + .toolbar-annotations-toggle-track {
+                background-color: hsla(0, 0%, 0%, 0.9);
+            }
+
+            .toolbar-annotations-toggle-input:checked + .toolbar-annotations-toggle-track::after {
+                content: "אֶ֨";
+                left: 50%;
+            }

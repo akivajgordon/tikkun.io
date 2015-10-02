@@ -7,24 +7,26 @@
     </head>
     <body ng-app="tikkun" ng-controller="PagesController">
         <header class="toolbar">
-            <a href="#" title="Go to GitHub repository">
-                <img class="toolbar-github" src="assets/images/GitHub-Mark-32px.png" alt="GitHub" height="32px" width="32px"/>
-            </a>
-            <button class="select toolbar-parsha-selection">
-                <div class="select-selection">חיי שרה</div>
-                <ol class="select-options">
-                    <li class="select-options-option">בראשית</li>
-                    <li class="select-options-option">נח</li>
-                    <li class="select-options-option">לך לך</li>
-                    <li class="select-options-option">וירא</li>
-                    <li class="select-options-option">חיי שרה</li>
-                    <li class="select-options-option">תולדות</li>
-                    <li class="select-options-option">ויצא</li>
-                </ol>
-            </button>
-            <div class="toolbar-annotations-toggle">
-                <input class="toolbar-annotations-toggle-input" id="toolbar-annotations-toggle-input" type="checkbox" ng-model="showAnnotations">
-                <label for="toolbar-annotations-toggle-input" class="toolbar-annotations-toggle-track"></label>
+            <div class="toolbar-items">
+                <a href="#" title="Go to GitHub repository">
+                    <img class="toolbar-github" src="assets/images/GitHub-Mark-32px.png" alt="GitHub" height="32px" width="32px"/>
+                </a>
+                <button class="select">
+                    <div class="select-selection">חיי שרה</div>
+                    <ol class="select-options">
+                        <li class="select-options-option">בראשית</li>
+                        <li class="select-options-option">נח</li>
+                        <li class="select-options-option">לך לך</li>
+                        <li class="select-options-option">וירא</li>
+                        <li class="select-options-option">חיי שרה</li>
+                        <li class="select-options-option">תולדות</li>
+                        <li class="select-options-option">ויצא</li>
+                    </ol>
+                </button>
+                <div class="toolbar-annotations-toggle">
+                    <input class="toolbar-annotations-toggle-input" id="toolbar-annotations-toggle-input" type="checkbox" ng-model="showAnnotations">
+                    <label for="toolbar-annotations-toggle-input" class="toolbar-annotations-toggle-track"></label>
+                </div>
             </div>
         </header>
         <section class="pages">

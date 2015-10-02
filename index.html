@@ -10,18 +10,18 @@
             <a href="#" title="Go to GitHub repository">
                 <img class="toolbar-github" src="assets/images/GitHub-Mark-32px.png" alt="GitHub" height="32px" width="32px"/>
             </a>
-            <div class="toolbar-parsha-selection">
-                חיי שרה
-            </div>
-            <!-- <select class="toolbar-parsha-selection">
-                <option>בראשית</option>
-                <option>נח</option>
-                <option>לך לך</option>
-                <option>וירא</option>
-                <option selected>חיי שרה</option>
-                <option>תולדות</option>
-                <option>ויצא</option>
-            </select> -->
+            <button class="select toolbar-parsha-selection">
+                <div class="select-selection">חיי שרה</div>
+                <ol class="select-options">
+                    <li class="select-options-option">בראשית</li>
+                    <li class="select-options-option">נח</li>
+                    <li class="select-options-option">לך לך</li>
+                    <li class="select-options-option">וירא</li>
+                    <li class="select-options-option">חיי שרה</li>
+                    <li class="select-options-option">תולדות</li>
+                    <li class="select-options-option">ויצא</li>
+                </ol>
+            </button>
             <div class="toolbar-annotations-toggle">
                 <input class="toolbar-annotations-toggle-input" id="toolbar-annotations-toggle-input" type="checkbox" ng-model="showAnnotations">
                 <label for="toolbar-annotations-toggle-input" class="toolbar-annotations-toggle-track"></label>
@@ -41,6 +41,17 @@
             <button ng-click="appendPage()">append</button>
         </section>
 
+        <script src="bower_components/jquery/dist/jquery.js" charset="utf-8"></script>
+        <script>
+            $(".select").click(function (event){
+                $(".select-options").toggleClass("mod-opened");
+            });
+
+            $(".select-options-option").click(function (event) {
+                $(event.target).addClass(".mod-selected");
+                $(".select-selection").html($(event.target).html());
+            });
+        </script>
         <script src="bower_components/angular/angular.js" charset="utf-8"></script>
         <script src="src/app.js" charset="utf-8"></script>
         <script src="src/filters.js" charset="utf-8"></script>

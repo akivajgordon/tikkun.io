@@ -69,8 +69,8 @@
                 var pageAtIndex = function (pageIndex, callback) {
                         // pageIndex = Math.min(Math.max(0, pageIndex), pages.length - 1);
 
-                        $http.get("http://localhost:8000/data/tikkun-simanim.json").success(function (simanim) {
-                            $http.get("http://localhost:8000/data/tanach/genesis.json").success(function (torah) {
+                        $http.get("/data/tikkun-simanim.json").success(function (simanim) {
+                            $http.get("/data/tanach/genesis.json").success(function (torah) {
 
                                 var page = lineBreaker(torah.text, simanim, pageIndex);
                                 callback(page);

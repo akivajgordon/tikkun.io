@@ -13,7 +13,10 @@
                 MAQAF_RE = /־/g,
                 MAQAF_REPLACE = "־ ",
                 MAQAF_REPLACE_RE = /־ /g,
-                PETUCHA = "(פ)";
+                PETUCHA = "(פ)",
+                NBSP = '\xa0',
+                SETUMA = /\(ס\)/g,
+                SETUMA_REPLACE = NBSP.repeat(15);
 
             return function (torahText, arrangement, pageIndex) {
 
@@ -34,7 +37,7 @@
                             allWordsInLine = allWordsFromIncludedVerses.slice(line.w - 1, -(lastVerseWordCount - nextLine.w  + 1)),
 
                             // ...and put back the original space-separated PASEQ
-                            text = allWordsInLine.join(" ").replace(PASEQ_REPLACE_RE, PASEQ).replace(MAQAF_REPLACE_RE, MAQAF),
+                            text = allWordsInLine.join(" ").replace(PASEQ_REPLACE_RE, PASEQ).replace(MAQAF_REPLACE_RE, MAQAF).replace(SETUMA, SETUMA_REPLACE),
                             theVerses = (function () {
                                 var versesNumbers = [];
 

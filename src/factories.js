@@ -3,18 +3,18 @@
 (function (angular) {
     "use strict";
 
-    var PASEQ = " ׀",
-        PASEQ_RE = / ׀/g,
-        PASEQ_REPLACE = "#׀",
-        PASEQ_REPLACE_RE = /#׀/g,
-        MAQAF = "־",
-        MAQAF_RE = /־/g,
-        MAQAF_REPLACE = "־ ",
-        MAQAF_REPLACE_RE = /־ /g,
-        PETUCHA = "(פ)";
-
     angular.module("tikkun")
         .factory("lineBreaker", function () {
+            var PASEQ = " ׀",
+                PASEQ_RE = / ׀/g,
+                PASEQ_REPLACE = "#׀",
+                PASEQ_REPLACE_RE = /#׀/g,
+                MAQAF = "־",
+                MAQAF_RE = /־/g,
+                MAQAF_REPLACE = "־ ",
+                MAQAF_REPLACE_RE = /־ /g,
+                PETUCHA = "(פ)";
+
             return function (torahText, arrangement, pageIndex) {
 
                 var thisColumn = arrangement[pageIndex],

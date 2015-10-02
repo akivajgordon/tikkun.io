@@ -1,0 +1,50 @@
+@font-face {
+    font-family: "ShlomosemiStam";
+    src: url(../assets/fonts/ShlomosemiStam.ttf);
+}
+
+.pages {
+    font-size: 1.5rem;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    width: 100%;
+}
+
+    .pages-page {
+        -webkit-justify-content: center;
+        direction: rtl;
+        display: -webkit-flex;
+        display: flex;
+        font-family: Helvetica;
+        justify-content: center;
+        margin-bottom: 8rem;
+    }
+
+    .pages-page td {
+        line-height: 100%;
+    }
+
+    .pages-page-verses {
+        color: hsla(0, 0%, 0%, 0.35);
+        padding: 0 2rem;
+        text-align: end;
+    }
+
+    .pages-page-aliyot {
+        color: hsla(203, 100%, 50%, 0.75);
+    }
+
+    .pages-page td::after {
+        content: "";
+        display: inline-block;
+        width: 100%;
+    }
+
+    .pages-page-text {
+        font-family: Shlomosemistam;
+        text-align: justify;
+    }
+
+    .pages-page-text.mod-petucha {
+        text-align: start;
+    }

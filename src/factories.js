@@ -4,69 +4,120 @@
     "use strict";
 
     angular.module("tikkun")
-        .factory("lineBreaker", function () {
+        .factory("wordBreaker", function () {
+            return function (text) {
+                var PASEQ_RE = / ׀/g,
+                    PASEQ_REPLACE = "#׀",
+                    MAQAF_RE = /־/g,
+                    MAQAF_REPLACE = "־ ";
+
+                return text.replace(PASEQ_RE, PASEQ_REPLACE).replace(MAQAF_RE, MAQAF_REPLACE).split(/\s/);
+            };
+        })
+        .factory("newLineBuilder", ["wordBreaker", function (wordBreaker) {
             var PASEQ = " ׀",
-                PASEQ_RE = / ׀/g,
-                PASEQ_REPLACE = "#׀",
                 PASEQ_REPLACE_RE = /#׀/g,
                 MAQAF = "־",
-                MAQAF_RE = /־/g,
-                MAQAF_REPLACE = "־ ",
                 MAQAF_REPLACE_RE = /־ /g,
-                PETUCHA = "(פ)",
                 NBSP = '\xa0',
                 SETUMA = /\(ס\)/g,
                 SETUMA_REPLACE = NBSP.repeat(15);
 
-            return function (torahText, arrangement, pageIndex) {
+            return function (source, line, nextLine) {
+                var includedVerses = (function () {
+                        if (line.c === nextLine.c) {
+                            return source[line.c - 1].slice(line.v - 1, nextLine.v);
+                        }
+                        return [].concat(source[line.c - 1].slice(line.v - 1), source[nextLine.c - 1].slice(0, nextLine.v));
+                    }()),
 
-                var thisColumn = arrangement[pageIndex],
-                    nextColumn = arrangement[pageIndex + 1],
-                    lines = thisColumn.map(function (line, lineIndex, column) {
-                        var nextLine = lineIndex + 1 < column.length ? column[lineIndex + 1] : nextColumn[0],
-                            includedVerses = (function () {
-                                if (line.c === nextLine.c) {
-                                    return torahText[line.c - 1].slice(line.v - 1, nextLine.v);
-                                }
-                                return [].concat(torahText[line.c - 1].slice(line.v - 1), torahText[nextLine.c - 1].slice(0, nextLine.v));
-                            }()),
+                    // Because the PASEQ character counts as a word (since it is separated by spaces on either side), we need to replace it with a string that removes the preceding space. Later, re-replace the string to undo it.
+                    allWordsFromIncludedVerses = wordBreaker(includedVerses.join(" ")),
+                    lastVerseWordCount = wordBreaker(includedVerses[includedVerses.length - 1]).length,
+                    allWordsInLine = allWordsFromIncludedVerses.slice(line.w - 1, -(lastVerseWordCount - nextLine.w  + 1)),
 
-                            // Because the PASEQ character counts as a word (since it is separated by spaces on either side), we need to replace it with a string that removes the preceding space. Later, re-replace the string to undo it.
-                            allWordsFromIncludedVerses = includedVerses.join(" ").replace(PASEQ_RE, PASEQ_REPLACE).replace(MAQAF_RE, MAQAF_REPLACE).split(/\s/),
-                            lastVerseWordCount = includedVerses[includedVerses.length - 1].replace(PASEQ_RE, PASEQ_REPLACE).replace(MAQAF_RE, MAQAF_REPLACE).split(/\s/).length,
-                            allWordsInLine = allWordsFromIncludedVerses.slice(line.w - 1, -(lastVerseWordCount - nextLine.w  + 1)),
+                    // ...and put back the original space-separated PASEQ
+                    text = allWordsInLine.join(" ").replace(PASEQ_REPLACE_RE, PASEQ).replace(MAQAF_REPLACE_RE, MAQAF).replace(SETUMA, SETUMA_REPLACE),
+                    theVerses = (function () {
+                        var versesNumbers = [];
 
-                            // ...and put back the original space-separated PASEQ
-                            text = allWordsInLine.join(" ").replace(PASEQ_REPLACE_RE, PASEQ).replace(MAQAF_REPLACE_RE, MAQAF).replace(SETUMA, SETUMA_REPLACE),
-                            theVerses = (function () {
-                                var versesNumbers = [];
+                        if (line.w === 1) {
+                            versesNumbers.push(line.v);
+                        }
 
-                                if (line.w === 1) {
-                                    versesNumbers.push(line.v);
-                                }
+                        if (line.v !== nextLine.v && nextLine.w > 1) {
+                            versesNumbers.push(nextLine.v);
+                        }
 
-                                if (line.v !== nextLine.v && nextLine.w > 1) {
-                                    versesNumbers.push(nextLine.v);
-                                }
+                        return versesNumbers;
+                    }());
 
-                                return versesNumbers;
-                            }()),
-                            petucha = allWordsInLine.indexOf(PETUCHA) !== -1;
-
-                        return {
-                            text: text,
-                            verses: theVerses,
-                            aliyot: [],
-                            petucha: petucha
-                        };
-
-
-                    });
-
-                return lines;
+                return {
+                    text: text,
+                    verses: theVerses,
+                    aliyot: []
+                };
             };
+        }])
+        .factory("newLine", function () {
+            var PETUCHA = "(פ)";
+
+            function newLine(spec) {
+                var text = spec.text,
+                    verses = spec.verses,
+                    aliyot = spec.aliyot,
+                    isPetucha = text.indexOf(PETUCHA) !== -1;
+
+                return {
+                    text: text,
+                    verses: verses,
+                    aliyot: aliyot,
+                    isPetucha: isPetucha
+                };
+            }
+
+            return newLine;
         })
-        .factory("columnFetcher", ["$http", "lineBreaker", function ($http, lineBreaker) {
+        .factory("newPageBuilder", ["newLineBuilder", "newLine", function (newLineBuilder, newLine) {
+            function newPageBuilder(spec) {
+
+                var arrangement = spec.arrangement,
+                    torahText = spec.torahText,
+                    linesForPage = function (pageIndex) {
+                        var thisColumn = arrangement[pageIndex],
+                            nextColumn = arrangement[pageIndex + 1];
+
+                        return thisColumn.map(function (lineStart, lineIndex, column) {
+                            var nextLine = lineIndex + 1 < column.length ? column[lineIndex + 1] : nextColumn[0],
+                                lineBuilder = newLineBuilder(torahText, lineStart, nextLine);
+
+                            return newLine({
+                                text: lineBuilder.text,
+                                verses: lineBuilder.verses,
+                                aliyot: lineBuilder.aliyot
+                            });
+                        });
+                    };
+
+                return Object.freeze({
+                    linesForPage: linesForPage
+                });
+            }
+
+            return newPageBuilder;
+        }])
+        .factory("newPage", function () {
+            function newPage(spec) {
+                var lines = spec.lines;
+
+                return {
+                    lines: lines
+                };
+            }
+
+            return newPage;
+        })
+        .factory("columnFetcher", ["$http", "newPageBuilder", "newPage", function ($http, newPageBuilder, newPage) {
 
             function newColumnFetcher() {
                 var pageAtIndex = function (pageIndex, callback) {
@@ -75,7 +126,13 @@
                         $http.get("/data/tikkun-simanim.json").success(function (simanim) {
                             $http.get("/data/tanach/genesis.json").success(function (torah) {
 
-                                var page = lineBreaker(torah.text, simanim, pageIndex);
+                                var pageBuilder = newPageBuilder({
+                                        torahText: torah.text,
+                                        arrangement: simanim
+                                    }),
+                                    page = newPage({
+                                        lines: pageBuilder.linesForPage(pageIndex)
+                                    });
                                 callback(page);
                             });
                         });

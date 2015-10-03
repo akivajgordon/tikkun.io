@@ -33,10 +33,10 @@
             <button ng-click="prependPage()">prepend</button>
             <article class="pages-page" ng-repeat="page in pages" ng-controller="PageController">
                 <table>
-                    <tr ng-repeat="line in page">
+                    <tr ng-repeat="line in page.lines">
                         <td class="pages-page-aliyot">{{line.aliyot | aliyotNames | range}}</td>
                         <td class="pages-page-verses">{{line.verses | hebrewNumerals | range}}</td>
-                        <td class="pages-page-text" ng-class="{'mod-petucha': line.petucha}">{{line.text | practiceMode:showAnnotations}}</td>
+                        <td class="pages-page-text" ng-class="{'mod-petucha': line.isPetucha}">{{line.text | practiceMode:showAnnotations}}</td>
                     </tr>
                 </table>
             </article>

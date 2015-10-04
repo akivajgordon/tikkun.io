@@ -3,6 +3,45 @@
 (function (angular) {
     "use strict";
 
+    function newReference(spec) {
+        var book = spec.book,
+            chapter = spec.chapter,
+            verse = spec.verse,
+            word = spec.word,
+            isBeforeReference = function (other) {
+                if (book === other.book) {
+                    if (chapter === other.chapter) {
+                        if (verse === other.verse) {
+                            return word < other.word;
+                        }
+                        return verse < other.verse;
+                    }
+                    return chapter < other.chapter;
+                }
+                return book < other.book;
+            };
+
+        return Object.freeze({
+            book: book,
+            chapter: chapter,
+            verse: verse,
+            word: word,
+            isBeforeReference: isBeforeReference
+        });
+    }
+
+    function newReferenceSet(spec) {
+        var start = spec.start,
+            end = spec.end,
+            containsReference = function (reference) {
+                return !reference.isBeforeReference(start) && reference.isBeforeReference(end);
+            };
+
+        return Object.freeze({
+            containsReference: containsReference
+        });
+    }
+
     angular.module("tikkun")
         .factory("wordBreaker", function () {
             return function (text) {
@@ -23,7 +62,7 @@
                 SETUMA = /\(ס\)/g,
                 SETUMA_REPLACE = NBSP.repeat(15);
 
-            return function (source, line, nextLine) {
+            return function (source, aliyotList, line, nextLine) {
                 var includedVerses = (function () {
                         if (line.c === nextLine.c) {
                             return source[line.c - 1].slice(line.v - 1, nextLine.v);
@@ -50,12 +89,50 @@
                         }
 
                         return versesNumbers;
+                    }()),
+                    aliyot = (function () {
+                        var parshiyot = aliyotList[line.b - 1],
+                            referenceSet = newReferenceSet({
+                                start: newReference({
+                                    book: line.b,
+                                    chapter: line.c,
+                                    verse: line.v,
+                                    word: line.w
+                                }),
+                                end: newReference({
+                                    book: nextLine.b,
+                                    chapter: nextLine.c,
+                                    verse: nextLine.v,
+                                    word: nextLine.w
+                                })
+                            }),
+                            result = [];
+
+                        parshiyot.some(function (parsha) {
+                            return parsha.some(function (aliyah, aliyahIndex) {
+                                var ref = newReference({
+                                    book: line.b,
+                                    chapter: aliyah.c,
+                                    verse: aliyah.v,
+                                    word: 1
+                                });
+
+                                if (referenceSet.containsReference(ref)) {
+                                    result.push(aliyahIndex + 1);
+                                    return true;
+                                }
+
+                                return false;
+                            });
+                        });
+
+                        return result;
                     }());
 
                 return {
                     text: text,
                     verses: theVerses,
-                    aliyot: []
+                    aliyot: aliyot
                 };
             };
         }])
@@ -83,13 +160,14 @@
 
                 var arrangement = spec.arrangement,
                     torahText = spec.torahText,
+                    aliyot = spec.aliyot,
                     linesForPage = function (pageIndex) {
                         var thisColumn = arrangement[pageIndex],
                             nextColumn = arrangement[pageIndex + 1];
 
                         return thisColumn.map(function (lineStart, lineIndex, column) {
                             var nextLine = lineIndex + 1 < column.length ? column[lineIndex + 1] : nextColumn[0],
-                                lineBuilder = newLineBuilder(torahText, lineStart, nextLine);
+                                lineBuilder = newLineBuilder(torahText, aliyot, lineStart, nextLine);
 
                             return newLine({
                                 text: lineBuilder.text,
@@ -125,15 +203,18 @@
 
                         $http.get("/data/tikkun-simanim.json").success(function (simanim) {
                             $http.get("/data/tanach/genesis.json").success(function (torah) {
+                                $http.get("/data/aliyot.json").success(function (aliyot) {
 
-                                var pageBuilder = newPageBuilder({
-                                        torahText: torah.text,
-                                        arrangement: simanim
-                                    }),
-                                    page = newPage({
-                                        lines: pageBuilder.linesForPage(pageIndex)
-                                    });
-                                callback(page);
+                                    var pageBuilder = newPageBuilder({
+                                            torahText: torah.text,
+                                            arrangement: simanim,
+                                            aliyot: aliyot
+                                        }),
+                                        page = newPage({
+                                            lines: pageBuilder.linesForPage(pageIndex)
+                                        });
+                                    callback(page);
+                                });
                             });
                         });
                     };

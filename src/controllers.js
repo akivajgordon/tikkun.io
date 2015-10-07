@@ -10,6 +10,8 @@
 
             $scope.prependPage = pagesDataSource.prepend;
 
+            $scope.goToParsha = pagesDataSource.goToParsha;
+
             $scope.pages = pagesDataSource.pages;
         }])
         .controller("PageController", ["$scope", function ($scope) {

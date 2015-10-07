@@ -4,6 +4,9 @@
     "use strict";
 
     angular.module("tikkun")
+        .controller("MainController", ["$scope", "parshiyotDataSource", function ($scope, parshiyotDataSource) {
+            $scope.parshiyot = parshiyotDataSource.parshiyot;
+        }])
         .controller("PagesController", ["$scope", "pagesDataSource", function ($scope, pagesDataSource) {
 
             $scope.appendPage = pagesDataSource.append;

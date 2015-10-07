@@ -5,19 +5,23 @@
 
     angular.module("tikkun")
         .filter("aliyotNames", function () {
+
+            var aliyotStrings = [
+                "ראשון",
+                "שני",
+                "שלישי",
+                "רביעי",
+                "חמישי",
+                "ששי",
+                "שביעי",
+                "מפטיר"
+            ];
+
             return function (aliyot) {
                 return aliyot.filter(function (aliyah) {
-                    return aliyah >= 0 && aliyah <= 6;
+                    return aliyah > 0 && aliyah <= aliyotStrings.length;
                 }).map(function (aliyah) {
-                    return [
-                        "ראשון",
-                        "שני",
-                        "שלישי",
-                        "רביעי",
-                        "חמישי",
-                        "ששי",
-                        "שביעי"
-                    ][aliyah - 1];
+                    return aliyotStrings[aliyah - 1];
                 });
             };
         })

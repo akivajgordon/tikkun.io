@@ -262,5 +262,22 @@
             });
 
             return newPagesDataSource(spec);
+        }])
+        .factory("parshiyotDataSource", ["$http", function ($http) {
+            function newParshiyotDataSource() {
+                var parshiyot = [];
+
+                $http.get("/data/parshiyot.json").success(function (data) {
+                    data.forEach(function (sefer) {
+                        Array.prototype.push.apply(parshiyot, sefer);
+                    });
+                });
+
+                return Object.freeze({
+                    parshiyot: parshiyot
+                });
+            }
+
+            return newParshiyotDataSource();
         }]);
 }(window.angular));

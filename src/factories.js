@@ -1,46 +1,15 @@
 /*jslint browser: true */
 
-(function (angular) {
+(function (spec) {
     "use strict";
 
-    function newReference(spec) {
-        var book = spec.book,
-            chapter = spec.chapter,
-            verse = spec.verse,
-            word = spec.word,
-            isBeforeReference = function (other) {
-                if (book === other.book) {
-                    if (chapter === other.chapter) {
-                        if (verse === other.verse) {
-                            return word < other.word;
-                        }
-                        return verse < other.verse;
-                    }
-                    return chapter < other.chapter;
-                }
-                return book < other.book;
-            };
-
-        return Object.freeze({
-            book: book,
-            chapter: chapter,
-            verse: verse,
-            word: word,
-            isBeforeReference: isBeforeReference
-        });
-    }
-
-    function newReferenceSet(spec) {
-        var start = spec.start,
-            end = spec.end,
-            containsReference = function (reference) {
-                return !reference.isBeforeReference(start) && reference.isBeforeReference(end);
-            };
-
-        return Object.freeze({
-            containsReference: containsReference
-        });
-    }
+    var angular = spec.angular,
+        newLine = spec.Tikkun.Line,
+        newPage = spec.Tikkun.Page,
+        newPageBuilder = spec.Tikkun.PageBuilder,
+        newPagesDataSource = spec.Tikkun.PagesDataSource,
+        newReference = spec.Tikkun.Reference,
+        newReferenceSet = spec.Tikkun.ReferenceSet;
 
     angular.module("tikkun")
         .factory("wordBreaker", function () {
@@ -136,66 +105,7 @@
                 };
             };
         }])
-        .factory("newLine", function () {
-            var PETUCHA = "(פ)";
-
-            function newLine(spec) {
-                var text = spec.text,
-                    verses = spec.verses,
-                    aliyot = spec.aliyot,
-                    isPetucha = text.indexOf(PETUCHA) !== -1;
-
-                return {
-                    text: text,
-                    verses: verses,
-                    aliyot: aliyot,
-                    isPetucha: isPetucha
-                };
-            }
-
-            return newLine;
-        })
-        .factory("newPageBuilder", ["newLineBuilder", "newLine", function (newLineBuilder, newLine) {
-            function newPageBuilder(spec) {
-
-                var arrangement = spec.arrangement,
-                    torahText = spec.torahText,
-                    aliyot = spec.aliyot,
-                    linesForPage = function (pageIndex) {
-                        var thisColumn = arrangement[pageIndex],
-                            nextColumn = arrangement[pageIndex + 1];
-
-                        return thisColumn.map(function (lineStart, lineIndex, column) {
-                            var nextLine = lineIndex + 1 < column.length ? column[lineIndex + 1] : nextColumn[0],
-                                lineBuilder = newLineBuilder(torahText, aliyot, lineStart, nextLine);
-
-                            return newLine({
-                                text: lineBuilder.text,
-                                verses: lineBuilder.verses,
-                                aliyot: lineBuilder.aliyot
-                            });
-                        });
-                    };
-
-                return Object.freeze({
-                    linesForPage: linesForPage
-                });
-            }
-
-            return newPageBuilder;
-        }])
-        .factory("newPage", function () {
-            function newPage(spec) {
-                var lines = spec.lines;
-
-                return {
-                    lines: lines
-                };
-            }
-
-            return newPage;
-        })
-        .factory("columnFetcher", ["$http", "newPageBuilder", "newPage", function ($http, newPageBuilder, newPage) {
+        .factory("columnFetcher", ["$http", "newLineBuilder", function ($http, newLineBuilder) {
 
             function newColumnFetcher() {
                 var pageAtIndex = function (pageIndex, callback) {
@@ -208,7 +118,9 @@
                                     var pageBuilder = newPageBuilder({
                                             torahText: torah.text,
                                             arrangement: simanim,
-                                            aliyot: aliyot
+                                            aliyot: aliyot,
+                                            newLine: newLine,
+                                            newLineBuilder: newLineBuilder
                                         }),
                                         page = newPage({
                                             lines: pageBuilder.linesForPage(pageIndex)
@@ -228,47 +140,10 @@
         }])
         .factory("pagesDataSource", ["columnFetcher", function (columnFetcher) {
 
-            function newPagesDataSource(spec) {
-                var startColumn = spec.startColumn,
-                    pages = spec.pages,
-                    append = function () {
-
-                        columnFetcher.pageAtIndex(startColumn + pages.length, function (page) {
-                            pages.push(page);
-                        });
-                    },
-                    prepend = function () {
-                        startColumn -= 1;
-                        columnFetcher.pageAtIndex(startColumn, function (page) {
-                            pages.unshift(page);
-                        });
-                    },
-                    pageIndexContainingReference = function () {
-                        return 2;
-                    },
-                    goToParsha = function (parsha) {
-                        var ref = null,//parsha.startReference,
-                            index = pageIndexContainingReference(ref);
-
-                        columnFetcher.pageAtIndex(index, function (page) {
-                            startColumn = index;
-                            pages.length = 0;
-                            pages.push(page);
-                        });
-                    };
-
-                return Object.freeze({
-                    startColumn: startColumn,
-                    pages: pages,
-                    append: append,
-                    prepend: prepend,
-                    goToParsha: goToParsha
-                });
-            }
-
             var spec = {
-                startColumn: 1,
-                pages: []
+                columnFetcher: columnFetcher,
+                pages: [],
+                startColumn: 1
             };
 
             columnFetcher.pageAtIndex(1, function (page) {
@@ -277,4 +152,7 @@
 
             return newPagesDataSource(spec);
         }]);
-}(window.angular));
+}({
+    angular: window.angular,
+    Tikkun: window.Tikkun
+}));

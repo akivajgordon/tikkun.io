@@ -5,7 +5,7 @@
         <title>tikkun.io</title>
         <link rel="stylesheet" href="css/master.css" media="screen" charset="utf-8">
     </head>
-    <body ng-app="tikkun" ng-controller="PagesController">
+    <body ng-app="tikkun" ng-controller="MainController">
         <header class="toolbar">
             <div class="toolbar-items">
                 <a href="#" title="Go to GitHub repository">
@@ -13,14 +13,8 @@
                 </a>
                 <button class="select">
                     <div class="select-selection">חיי שרה</div>
-                    <ol class="select-options" ng-click="goToParsha()">
-                        <li class="select-options-option">בראשית</li>
-                        <li class="select-options-option">נח</li>
-                        <li class="select-options-option">לך לך</li>
-                        <li class="select-options-option">וירא</li>
-                        <li class="select-options-option">חיי שרה</li>
-                        <li class="select-options-option">תולדות</li>
-                        <li class="select-options-option">ויצא</li>
+                    <ol class="select-options">
+                        <li class="select-options-option" ng-repeat="parsha in parshiyot">{{parsha.he}}</li>
                     </ol>
                 </button>
                 <div class="toolbar-annotations-toggle">
@@ -29,7 +23,7 @@
                 </div>
             </div>
         </header>
-        <section class="pages">
+        <section class="pages" ng-controller="PagesController">
             <button ng-click="prependPage()">prepend</button>
             <article class="pages-page" ng-repeat="page in pages" ng-controller="PageController">
                 <table>

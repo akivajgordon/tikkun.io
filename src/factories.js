@@ -10,7 +10,11 @@
         newPagesDataSource = spec.Tikkun.PagesDataSource,
         newParsha = spec.Tikkun.Parsha,
         newReference = spec.Tikkun.Reference,
-        newReferenceSet = spec.Tikkun.ReferenceSet;
+        newReferenceSet = spec.Tikkun.ReferenceSet,
+        Notifications = {
+            AliyotLoaded: "AliyotLoaded",
+            ParshiyotLoaded: "ParshiyotLoaded"
+        };
 
     angular.module("tikkun")
         .factory("wordBreaker", function () {
@@ -123,7 +127,7 @@
 
             return newArrangementDataSource();
         }])
-        .factory("aliyotDataSource", ["$http", function ($http) {
+        .factory("aliyotDataSource", ["$rootScope", "$http", function ($rootScope, $http) {
             function newAliyotDataSource() {
                 var aliyot = [];
 
@@ -131,6 +135,8 @@
                     aliyotStarts.forEach(function (sefer) {
                         aliyot.push(sefer);
                     });
+
+                    $rootScope.$broadcast(Notifications.AliyotLoaded);
                 });
 
                 return Object.freeze({
@@ -160,20 +166,19 @@
         .factory("columnFetcher", ["newLineBuilder", "arrangementDataSource", "aliyotDataSource", "torahDataSource", function (newLineBuilder, arrangementDataSource, aliyotDataSource, torahDataSource) {
 
             function newColumnFetcher() {
-                var pageAtIndex = function (pageIndex, callback) {
+                var pageBuilder = newPageBuilder({
+                        torahText: torahDataSource.torahText,
+                        arrangement: arrangementDataSource.arrangement,
+                        aliyot: aliyotDataSource.aliyot,
+                        newLine: newLine,
+                        newLineBuilder: newLineBuilder
+                    }),
+                    pageAtIndex = function (pageIndex, callback) {
                         // pageIndex = Math.min(Math.max(0, pageIndex), pages.length - 1);
 
-                        var pageBuilder = newPageBuilder({
-                                torahText: torahDataSource.torahText,
-                                arrangement: arrangementDataSource.arrangement,
-                                aliyot: aliyotDataSource.aliyot,
-                                newLine: newLine,
-                                newLineBuilder: newLineBuilder
-                            }),
-                            page = newPage({
-                                lines: pageBuilder.linesForPage(pageIndex)
-                            });
-                        callback(page);
+                        callback(newPage({
+                            lines: pageBuilder.linesForPage(pageIndex)
+                        }));
                     };
 
                 return Object.freeze({
@@ -184,45 +189,49 @@
             return newColumnFetcher();
         }])
         .factory("pagesDataSource", [
-            "columnFetcher", "aliyotDataSource", "arrangementDataSource",
-            function (columnFetcher, aliyotDataSource, arrangementDataSource) {
+            "$rootScope", "columnFetcher", "parshiyotDataSource", "arrangementDataSource",
+            function ($rootScope, columnFetcher, parshiyotDataSource, arrangementDataSource) {
 
-                var spec = {
-                    aliyotDataSource: aliyotDataSource,
+                var pagesDataSource = newPagesDataSource({
                     arrangementDataSource: arrangementDataSource,
                     columnFetcher: columnFetcher,
                     pages: [],
                     startColumn: 1
-                };
-
-                columnFetcher.pageAtIndex(1, function (page) {
-                    spec.pages.push(page);
                 });
 
-                return newPagesDataSource(spec);
+                $rootScope.$on(Notifications.ParshiyotLoaded, function () {
+                    pagesDataSource.goToParsha(parshiyotDataSource.parshiyot[0]);
+                });
+
+                return pagesDataSource;
             }])
-        .factory("parshiyotDataSource", ["$http", "aliyotDataSource", function ($http, aliyotDataSource) {
+        .factory("parshiyotDataSource", ["$rootScope", "$http", "aliyotDataSource", function ($rootScope, $http, aliyotDataSource) {
             function newParshiyotDataSource() {
                 var parshiyot = [];
 
-                $http.get("/data/parshiyot.json").success(function (data) {
-                    data.forEach(function (sefer, seferIndex) {
-                        sefer.forEach(function (parsha, parshaIndex) {
+                $rootScope.$on(Notifications.AliyotLoaded, function () {
+                    $http.get("/data/parshiyot.json").success(function (data) {
+                        data.forEach(function (sefer, seferIndex) {
+                            sefer.forEach(function (parsha, parshaIndex) {
 
-                            var aliyahStart = aliyotDataSource.aliyot[seferIndex][parshaIndex][0];
+                                var aliyahStart = aliyotDataSource.aliyot[seferIndex][parshaIndex][0];
 
-                            parshiyot.push(newParsha({
-                                positionInBook: parshaIndex,
-                                hebrewName: parsha.he,
-                                startReference: newReference({
-                                    book: seferIndex + 1,
-                                    chapter: aliyahStart.c,
-                                    verse: aliyahStart.v,
-                                    word: 1
-                                })
-                            }));
+                                parshiyot.push(newParsha({
+                                    positionInBook: parshaIndex,
+                                    hebrewName: parsha.he,
+                                    startReference: newReference({
+                                        book: seferIndex + 1,
+                                        chapter: aliyahStart.c,
+                                        verse: aliyahStart.v,
+                                        word: 1
+                                    })
+                                }));
+                            });
                         });
+
+                        $rootScope.$broadcast(Notifications.ParshiyotLoaded);
                     });
+
                 });
 
                 return Object.freeze({

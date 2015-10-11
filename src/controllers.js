@@ -17,8 +17,9 @@
             };
 
             $scope.notifyJumpToParsha = function (parsha) {
-                $scope.selectedParsha = parshiyotDataSource.parshiyot[parsha];
-                $rootScope.$broadcast(ParshaSelectionChangedNotification, parsha);
+                var selectedParsha = parshiyotDataSource.parshiyot[parsha];
+                $scope.selectedParsha = selectedParsha;
+                $rootScope.$broadcast(ParshaSelectionChangedNotification, selectedParsha);
             };
         }])
         .controller("PagesController", ["$rootScope", "$scope", "pagesDataSource", function ($rootScope, $scope, pagesDataSource) {

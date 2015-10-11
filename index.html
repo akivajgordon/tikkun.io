@@ -12,9 +12,9 @@
                     <img class="toolbar-github" src="assets/images/GitHub-Mark-32px.png" alt="GitHub" height="32px" width="32px"/>
                 </a>
                 <button class="select" ng-click="toggleShowParshiyotOptions()">
-                    <div class="select-selection">{{selectedParsha.he}}</div>
+                    <div class="select-selection">{{selectedParsha.hebrewName}}</div>
                     <ol class="select-options" ng-show="shouldShowParshiyotOptions">
-                        <li class="select-options-option" ng-repeat="parsha in parshiyot" ng-click="notifyJumpToParsha($index)">{{parsha.he}}</li>
+                        <li class="select-options-option" ng-repeat="parsha in parshiyot" ng-click="notifyJumpToParsha($index)">{{parsha.hebrewName}}</li>
                     </ol>
                 </button>
                 <div class="toolbar-annotations-toggle">
@@ -39,6 +39,7 @@
 
         <script src="src/utils/string.js" charset="utf-8"></script>
         <script src="src/Tikkun.js" charset="utf-8"></script>
+        <script src="src/Parsha.js" charset="utf-8"></script>
         <script src="src/Line.js" charset="utf-8"></script>
         <script src="src/Page.js" charset="utf-8"></script>
         <script src="src/PageBuilder.js" charset="utf-8"></script>

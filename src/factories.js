@@ -8,6 +8,7 @@
         newPage = spec.Tikkun.Page,
         newPageBuilder = spec.Tikkun.PageBuilder,
         newPagesDataSource = spec.Tikkun.PagesDataSource,
+        newParsha = spec.Tikkun.Parsha,
         newReference = spec.Tikkun.Reference,
         newReferenceSet = spec.Tikkun.ReferenceSet;
 
@@ -183,14 +184,13 @@
             return newColumnFetcher();
         }])
         .factory("pagesDataSource", [
-            "columnFetcher", "parshiyotDataSource", "aliyotDataSource", "arrangementDataSource",
-            function (columnFetcher, parshiyotDataSource, aliyotDataSource, arrangementDataSource) {
+            "columnFetcher", "aliyotDataSource", "arrangementDataSource",
+            function (columnFetcher, aliyotDataSource, arrangementDataSource) {
 
                 var spec = {
                     aliyotDataSource: aliyotDataSource,
                     arrangementDataSource: arrangementDataSource,
                     columnFetcher: columnFetcher,
-                    parshiyotDataSource: parshiyotDataSource,
                     pages: [],
                     startColumn: 1
                 };
@@ -201,13 +201,27 @@
 
                 return newPagesDataSource(spec);
             }])
-        .factory("parshiyotDataSource", ["$http", function ($http) {
+        .factory("parshiyotDataSource", ["$http", "aliyotDataSource", function ($http, aliyotDataSource) {
             function newParshiyotDataSource() {
                 var parshiyot = [];
 
                 $http.get("/data/parshiyot.json").success(function (data) {
-                    data.forEach(function (sefer) {
-                        Array.prototype.push.apply(parshiyot, sefer);
+                    data.forEach(function (sefer, seferIndex) {
+                        sefer.forEach(function (parsha, parshaIndex) {
+
+                            var aliyahStart = aliyotDataSource.aliyot[seferIndex][parshaIndex][0];
+
+                            parshiyot.push(newParsha({
+                                positionInBook: parshaIndex,
+                                hebrewName: parsha.he,
+                                startReference: newReference({
+                                    book: seferIndex + 1,
+                                    chapter: aliyahStart.c,
+                                    verse: aliyahStart.v,
+                                    word: 1
+                                })
+                            }));
+                        });
                     });
                 });
 

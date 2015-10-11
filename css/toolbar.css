@@ -56,7 +56,6 @@
                 border-radius: inherit;
                 border: 1px solid darkgray;
                 box-shadow: 0px 0 10px 0px gray;
-                display: none;
                 height: 10rem;
                 list-style-type: none;
                 margin: 0;
@@ -67,10 +66,6 @@
                 right: 0;
                 text-align: start;
                 top: calc(100% + 4px);
-            }
-
-            .select-options.mod-opened {
-                display: inherit;
             }
 
                 .select-options-option {

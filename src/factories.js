@@ -105,30 +105,74 @@
                 };
             };
         }])
-        .factory("columnFetcher", ["$http", "newLineBuilder", function ($http, newLineBuilder) {
+        .factory("arrangementDataSource", ["$http", function ($http) {
+            function newArrangementDataSource() {
+                var arrangement = [];
+
+                $http.get("/data/tikkun-simanim.json").success(function (columnLines) {
+                    columnLines.forEach(function (column) {
+                        arrangement.push(column);
+                    });
+                });
+
+                return Object.freeze({
+                    arrangement: arrangement
+                });
+            }
+
+            return newArrangementDataSource();
+        }])
+        .factory("aliyotDataSource", ["$http", function ($http) {
+            function newAliyotDataSource() {
+                var aliyot = [];
+
+                $http.get("/data/aliyot.json").success(function (aliyotStarts) {
+                    aliyotStarts.forEach(function (sefer) {
+                        aliyot.push(sefer);
+                    });
+                });
+
+                return Object.freeze({
+                    aliyot: aliyot
+                });
+            }
+
+            return newAliyotDataSource();
+        }])
+        .factory("torahDataSource", ["$http", function ($http) {
+            function newTorahDataSource() {
+                var torahText = [];
+
+                $http.get("/data/tanach/genesis.json").success(function (data) {
+                    data.text.forEach(function (chapter) {
+                        torahText.push(chapter);
+                    });
+                });
+
+                return Object.freeze({
+                    torahText: torahText
+                });
+            }
+
+            return newTorahDataSource();
+        }])
+        .factory("columnFetcher", ["newLineBuilder", "arrangementDataSource", "aliyotDataSource", "torahDataSource", function (newLineBuilder, arrangementDataSource, aliyotDataSource, torahDataSource) {
 
             function newColumnFetcher() {
                 var pageAtIndex = function (pageIndex, callback) {
                         // pageIndex = Math.min(Math.max(0, pageIndex), pages.length - 1);
 
-                        $http.get("/data/tikkun-simanim.json").success(function (simanim) {
-                            $http.get("/data/tanach/genesis.json").success(function (torah) {
-                                $http.get("/data/aliyot.json").success(function (aliyot) {
-
-                                    var pageBuilder = newPageBuilder({
-                                            torahText: torah.text,
-                                            arrangement: simanim,
-                                            aliyot: aliyot,
-                                            newLine: newLine,
-                                            newLineBuilder: newLineBuilder
-                                        }),
-                                        page = newPage({
-                                            lines: pageBuilder.linesForPage(pageIndex)
-                                        });
-                                    callback(page);
-                                });
+                        var pageBuilder = newPageBuilder({
+                                torahText: torahDataSource.torahText,
+                                arrangement: arrangementDataSource.arrangement,
+                                aliyot: aliyotDataSource.aliyot,
+                                newLine: newLine,
+                                newLineBuilder: newLineBuilder
+                            }),
+                            page = newPage({
+                                lines: pageBuilder.linesForPage(pageIndex)
                             });
-                        });
+                        callback(page);
                     };
 
                 return Object.freeze({
@@ -138,20 +182,25 @@
 
             return newColumnFetcher();
         }])
-        .factory("pagesDataSource", ["columnFetcher", function (columnFetcher) {
+        .factory("pagesDataSource", [
+            "columnFetcher", "parshiyotDataSource", "aliyotDataSource", "arrangementDataSource",
+            function (columnFetcher, parshiyotDataSource, aliyotDataSource, arrangementDataSource) {
 
-            var spec = {
-                columnFetcher: columnFetcher,
-                pages: [],
-                startColumn: 1
-            };
+                var spec = {
+                    aliyotDataSource: aliyotDataSource,
+                    arrangementDataSource: arrangementDataSource,
+                    columnFetcher: columnFetcher,
+                    parshiyotDataSource: parshiyotDataSource,
+                    pages: [],
+                    startColumn: 1
+                };
 
-            columnFetcher.pageAtIndex(1, function (page) {
-                spec.pages.push(page);
-            });
+                columnFetcher.pageAtIndex(1, function (page) {
+                    spec.pages.push(page);
+                });
 
-            return newPagesDataSource(spec);
-        }])
+                return newPagesDataSource(spec);
+            }])
         .factory("parshiyotDataSource", ["$http", function ($http) {
             function newParshiyotDataSource() {
                 var parshiyot = [];

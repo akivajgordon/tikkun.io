@@ -11,8 +11,8 @@
             newLine = spec.newLine,
             newLineBuilder = spec.newLineBuilder,
             linesForPage = function (pageIndex) {
-                var thisColumn = arrangement[pageIndex],
-                    nextColumn = arrangement[pageIndex + 1];
+                var thisColumn = arrangement[pageIndex] || [],
+                    nextColumn = arrangement[pageIndex + 1] || [];
 
                 return thisColumn.map(function (lineStart, lineIndex, column) {
                     var nextLine = lineIndex + 1 < column.length ? column[lineIndex + 1] : nextColumn[0],

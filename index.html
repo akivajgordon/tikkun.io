@@ -14,6 +14,7 @@
                 <button class="select" ng-click="toggleShowParshiyotOptions()">
                     <div class="select-selection">{{selectedParsha.he}}</div>
                     <ol class="select-options" ng-show="shouldShowParshiyotOptions">
+                        <li class="select-options-option" ng-repeat="parsha in parshiyot" ng-click="notifyJumpToParsha($index)">{{parsha.he}}</li>
                     </ol>
                 </button>
                 <div class="toolbar-annotations-toggle">
@@ -41,8 +42,8 @@
         <script src="src/Line.js" charset="utf-8"></script>
         <script src="src/Page.js" charset="utf-8"></script>
         <script src="src/PageBuilder.js" charset="utf-8"></script>
-        <script src="src/PagesDataSource.js" charset="utf-8"></script>
         <script src="src/Reference.js" charset="utf-8"></script>
+        <script src="src/PagesDataSource.js" charset="utf-8"></script>
         <script src="src/ReferenceSet.js" charset="utf-8"></script>
         <script src="bower_components/angular/angular.js" charset="utf-8"></script>
         <script src="src/app.js" charset="utf-8"></script>

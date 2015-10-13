@@ -32,15 +32,13 @@
     function newPageBuilder(spec) {
 
         var arrangement = spec.arrangement,
-            torahText = spec.torahText,
-            aliyot = spec.aliyot,
-            newLineBuilder = spec.newLineBuilder,
+            lineBuilder = spec.lineBuilder,
             pageAtIndex = function (pageIndex) {
                 var thisColumn = arrangement[pageIndex] || [],
                     lines = thisColumn.map(function (lineStart, lineIndex) {
                         var nextLine = lineAfterLineInColumn(lineIndex, pageIndex, arrangement);
 
-                        return newLineBuilder(torahText, aliyot, lineStart, nextLine);
+                        return lineBuilder.lineFromStartReferenceToEndReference(lineStart, nextLine);
                     });
 
                 return newPage({lines: lines});

@@ -11,10 +11,7 @@
         newParsha = spec.Tikkun.Parsha,
         newReference = spec.Tikkun.Reference,
         newReferenceSet = spec.Tikkun.ReferenceSet,
-        Notifications = {
-            AliyotLoaded: "AliyotLoaded",
-            ParshiyotLoaded: "ParshiyotLoaded"
-        };
+        Notifications = spec.Tikkun.Notifications;
 
     angular.module("tikkun")
         .factory("wordBreaker", function () {

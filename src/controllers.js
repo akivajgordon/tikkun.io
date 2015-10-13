@@ -3,13 +3,16 @@
 (function (angular) {
     "use strict";
 
-    var ParshaSelectionChangedNotification = "ParshaSelectionChangedNotification";
+    var Notifications = window.Tikkun.Notifications;
 
     angular.module("tikkun")
         .controller("MainController", ["$rootScope", "$scope", "parshiyotDataSource", function ($rootScope, $scope, parshiyotDataSource) {
             $scope.parshiyot = parshiyotDataSource.parshiyot;
 
-            $scope.selectedParsha = parshiyotDataSource.parshiyot[0];
+            $scope.selectedParsha = {};
+            $rootScope.$on(Notifications.ParshiyotLoaded, function () {
+                $scope.selectedParsha = parshiyotDataSource.parshiyot[0];
+            });
 
             $scope.shouldShowParshiyotOptions = false;
             $scope.toggleShowParshiyotOptions = function () {
@@ -19,7 +22,7 @@
             $scope.notifyJumpToParsha = function (parsha) {
                 var selectedParsha = parshiyotDataSource.parshiyot[parsha];
                 $scope.selectedParsha = selectedParsha;
-                $rootScope.$broadcast(ParshaSelectionChangedNotification, selectedParsha);
+                $rootScope.$broadcast(Notifications.ParshaSelectionChangedNotification, selectedParsha);
             };
         }])
         .controller("PagesController", ["$rootScope", "$scope", "pagesDataSource", function ($rootScope, $scope, pagesDataSource) {
@@ -28,7 +31,7 @@
 
             $scope.prependPage = pagesDataSource.prepend;
 
-            $rootScope.$on(ParshaSelectionChangedNotification, function (event, parsha) {
+            $rootScope.$on(Notifications.ParshaSelectionChangedNotification, function (event, parsha) {
                 pagesDataSource.goToParsha(parsha);
             });
 

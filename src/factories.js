@@ -99,11 +99,11 @@
                         return result;
                     }());
 
-                return {
+                return newLine({
                     text: text,
                     verses: theVerses,
                     aliyot: aliyot
-                };
+                });
             };
         }])
         .factory("arrangementDataSource", ["$http", function ($http) {
@@ -166,7 +166,6 @@
                         torahText: torahDataSource.torahText,
                         arrangement: arrangementDataSource.arrangement,
                         aliyot: aliyotDataSource.aliyot,
-                        newLine: newLine,
                         newLineBuilder: newLineBuilder
                     }),
                     pageAtIndex = function (pageIndex, callback) {

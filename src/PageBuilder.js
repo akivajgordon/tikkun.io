@@ -34,19 +34,13 @@
         var arrangement = spec.arrangement,
             torahText = spec.torahText,
             aliyot = spec.aliyot,
-            newLine = spec.newLine,
             newLineBuilder = spec.newLineBuilder,
             pageAtIndex = function (pageIndex) {
                 var thisColumn = arrangement[pageIndex] || [],
                     lines = thisColumn.map(function (lineStart, lineIndex) {
-                        var nextLine = lineAfterLineInColumn(lineIndex, pageIndex, arrangement),
-                            lineBuilder = newLineBuilder(torahText, aliyot, lineStart, nextLine);
+                        var nextLine = lineAfterLineInColumn(lineIndex, pageIndex, arrangement);
 
-                        return newLine({
-                            text: lineBuilder.text,
-                            verses: lineBuilder.verses,
-                            aliyot: lineBuilder.aliyot
-                        });
+                        return newLineBuilder(torahText, aliyot, lineStart, nextLine);
                     });
 
                 return newPage({lines: lines});

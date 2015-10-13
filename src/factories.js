@@ -5,7 +5,6 @@
 
     var angular = spec.angular,
         newLine = spec.Tikkun.Line,
-        newPage = spec.Tikkun.Page,
         newPageBuilder = spec.Tikkun.PageBuilder,
         newPagesDataSource = spec.Tikkun.PagesDataSource,
         newParsha = spec.Tikkun.Parsha,
@@ -173,9 +172,7 @@
                     pageAtIndex = function (pageIndex, callback) {
                         // pageIndex = Math.min(Math.max(0, pageIndex), pages.length - 1);
 
-                        callback(newPage({
-                            lines: pageBuilder.linesForPage(pageIndex)
-                        }));
+                        callback(pageBuilder.pageAtIndex(pageIndex));
                     };
 
                 return Object.freeze({

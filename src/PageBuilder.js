@@ -3,6 +3,8 @@
 (function (Tikkun) {
     "use strict";
 
+    var newPage = Tikkun.Page;
+
     function newPageBuilder(spec) {
 
         var arrangement = spec.arrangement,
@@ -10,24 +12,25 @@
             aliyot = spec.aliyot,
             newLine = spec.newLine,
             newLineBuilder = spec.newLineBuilder,
-            linesForPage = function (pageIndex) {
+            pageAtIndex = function (pageIndex) {
                 var thisColumn = arrangement[pageIndex] || [],
-                    nextColumn = arrangement[pageIndex + 1] || [];
+                    nextColumn = arrangement[pageIndex + 1] || [],
+                    lines = thisColumn.map(function (lineStart, lineIndex, column) {
+                        var nextLine = lineIndex + 1 < column.length ? column[lineIndex + 1] : nextColumn[0],
+                            lineBuilder = newLineBuilder(torahText, aliyot, lineStart, nextLine);
 
-                return thisColumn.map(function (lineStart, lineIndex, column) {
-                    var nextLine = lineIndex + 1 < column.length ? column[lineIndex + 1] : nextColumn[0],
-                        lineBuilder = newLineBuilder(torahText, aliyot, lineStart, nextLine);
-
-                    return newLine({
-                        text: lineBuilder.text,
-                        verses: lineBuilder.verses,
-                        aliyot: lineBuilder.aliyot
+                        return newLine({
+                            text: lineBuilder.text,
+                            verses: lineBuilder.verses,
+                            aliyot: lineBuilder.aliyot
+                        });
                     });
-                });
+
+                return newPage({lines: lines});
             };
 
         return Object.freeze({
-            linesForPage: linesForPage
+            pageAtIndex: pageAtIndex
         });
     }
 

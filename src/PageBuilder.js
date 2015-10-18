@@ -33,12 +33,13 @@
 
         var arrangement = spec.arrangement,
             lineBuilder = spec.lineBuilder,
+            source = spec.source,
             pageAtIndex = function (pageIndex) {
                 var thisColumn = arrangement[pageIndex] || [],
                     lines = thisColumn.map(function (lineStart, lineIndex) {
                         var nextLine = lineAfterLineInColumn(lineIndex, pageIndex, arrangement);
 
-                        return lineBuilder.lineFromStartReferenceToEndReference(lineStart, nextLine);
+                        return lineBuilder.lineFromStartReferenceToEndReference(lineStart, nextLine, source);
                     });
 
                 return newPage({lines: lines});

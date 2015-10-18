@@ -81,10 +81,10 @@
                 var pageBuilder = newPageBuilder({
                         arrangement: arrangementDataSource.arrangement,
                         lineBuilder: newLineBuilder({
-                            source: torahDataSource.torahText,
                             aliyot: aliyotDataSource.aliyot,
                             wordBreaker: wordBreaker
-                        })
+                        }),
+                        source: torahDataSource.torahText
                     }),
                     pageAtIndex = function (pageIndex, callback) {
                         // pageIndex = Math.min(Math.max(0, pageIndex), pages.length - 1);

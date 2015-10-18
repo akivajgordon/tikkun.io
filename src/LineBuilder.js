@@ -85,10 +85,9 @@
     }
 
     function newLineBuilder(spec) {
-        var source = spec.source,
-            aliyotList = spec.aliyot,
+        var aliyotList = spec.aliyot,
             wordBreaker = spec.wordBreaker,
-            lineFromStartReferenceToEndReference = function (line, nextLine) {
+            lineFromStartReferenceToEndReference = function (line, nextLine, source) {
                 return newLine({
                     text: textFromStartReferenceToEndReference(line, nextLine, source, wordBreaker),
                     verses: verseNumbersFromStartReferenceToEndReference(line, nextLine),

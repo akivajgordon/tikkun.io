@@ -86,10 +86,19 @@
                         }),
                         source: torahDataSource.torahText
                     }),
+                    store = [],
                     pageAtIndex = function (pageIndex, callback) {
                         // pageIndex = Math.min(Math.max(0, pageIndex), pages.length - 1);
+                        var page, stored;
 
-                        callback(pageBuilder.pageAtIndex(pageIndex));
+                        stored = store[pageIndex];
+                        if (stored) {
+                            page = stored;
+                        } else {
+                            page = pageBuilder.pageAtIndex(pageIndex);
+                            store[pageIndex] = page;
+                        }
+                        callback(page);
                     };
 
                 return Object.freeze({

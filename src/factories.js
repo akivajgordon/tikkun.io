@@ -1,4 +1,5 @@
 /*jslint browser: true */
+/*global window*/
 
 (function (spec) {
     "use strict";
@@ -8,8 +9,7 @@
         newPageBuilder = spec.Tikkun.PageBuilder,
         newPagesDataSource = spec.Tikkun.PagesDataSource,
         newParsha = spec.Tikkun.Parsha,
-        newReference = spec.Tikkun.Reference,
-        Notifications = spec.Tikkun.Notifications;
+        newReference = spec.Tikkun.Reference;
 
     angular.module("tikkun")
         .factory("wordBreaker", function () {
@@ -39,20 +39,22 @@
 
             return newArrangementDataSource();
         }])
-        .factory("aliyotDataSource", ["$rootScope", "$http", function ($rootScope, $http) {
+        .factory("aliyotDataSource", ["$http", function ($http) {
             function newAliyotDataSource() {
-                var aliyot = [];
+                var aliyot = [],
+                    fetch = function () {
+                        return $http.get('/data/aliyot.json')
+                            .then(function (response) {
+                                var aliyotStarts = response.data;
 
-                $http.get("/data/aliyot.json").success(function (aliyotStarts) {
-                    aliyotStarts.forEach(function (sefer) {
-                        aliyot.push(sefer);
-                    });
-
-                    $rootScope.$broadcast(Notifications.AliyotLoaded);
-                });
+                                Array.prototype.push
+                                    .apply(aliyot, aliyotStarts);
+                            });
+                    };
 
                 return Object.freeze({
-                    aliyot: aliyot
+                    aliyot: aliyot,
+                    fetch: fetch
                 });
             }
 
@@ -109,8 +111,8 @@
             return newColumnFetcher();
         }])
         .factory("pagesDataSource", [
-            "$rootScope", "columnFetcher", "parshiyotDataSource", "arrangementDataSource",
-            function ($rootScope, columnFetcher, parshiyotDataSource, arrangementDataSource) {
+            "columnFetcher", "parshiyotDataSource", "arrangementDataSource",
+            function (columnFetcher, parshiyotDataSource, arrangementDataSource) {
 
                 var pagesDataSource = newPagesDataSource({
                     arrangementDataSource: arrangementDataSource,
@@ -119,43 +121,49 @@
                     startColumn: 1
                 });
 
-                $rootScope.$on(Notifications.ParshiyotLoaded, function () {
-                    pagesDataSource.goToParsha(parshiyotDataSource.parshiyot[0]);
-                });
-
-                return pagesDataSource;
-            }])
-        .factory("parshiyotDataSource", ["$rootScope", "$http", "aliyotDataSource", function ($rootScope, $http, aliyotDataSource) {
-            function newParshiyotDataSource() {
-                var parshiyot = [];
-
-                $rootScope.$on(Notifications.AliyotLoaded, function () {
-                    $http.get("/data/parshiyot.json").success(function (data) {
-                        data.forEach(function (sefer, seferIndex) {
-                            sefer.forEach(function (parsha, parshaIndex) {
-
-                                var aliyahStart = aliyotDataSource.aliyot[seferIndex][parshaIndex][0];
-
-                                parshiyot.push(newParsha({
-                                    positionInBook: parshaIndex,
-                                    hebrewName: parsha.he,
-                                    startReference: newReference({
-                                        book: seferIndex + 1,
-                                        chapter: aliyahStart.c,
-                                        verse: aliyahStart.v,
-                                        word: 1
-                                    })
-                                }));
-                            });
-                        });
-
-                        $rootScope.$broadcast(Notifications.ParshiyotLoaded);
+                parshiyotDataSource.fetch()
+                    .then(function () {
+                        pagesDataSource.goToParsha(parshiyotDataSource.parshiyot[0]);
                     });
 
-                });
+                return pagesDataSource;
+            }
+        ])
+        .factory("parshiyotDataSource", ["$http", "aliyotDataSource", function ($http, aliyotDataSource) {
+            function newParshiyotDataSource() {
+                var parshiyot = [],
+                    fetch = function () {
+                        return aliyotDataSource.fetch()
+                            .then(function () {
+                                return $http.get("/data/parshiyot.json");
+                            })
+                            .then(function (response) {
+                                var data = response.data;
+
+                                data.forEach(function (sefer, seferIndex) {
+                                    sefer.forEach(function (parsha, parshaIndex) {
+
+                                        var aliyahStart = aliyotDataSource.aliyot[seferIndex][parshaIndex][0];
+
+                                        parshiyot.push(newParsha({
+                                            positionInBook: parshaIndex,
+                                            hebrewName: parsha.he,
+                                            startReference: newReference({
+                                                book: seferIndex + 1,
+                                                chapter: aliyahStart.c,
+                                                verse: aliyahStart.v,
+                                                word: 1
+                                            })
+                                        }));
+                                    });
+                                });
+                            });
+                    };
+
 
                 return Object.freeze({
-                    parshiyot: parshiyot
+                    parshiyot: parshiyot,
+                    fetch: fetch
                 });
             }
 

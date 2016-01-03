@@ -1,11 +1,10 @@
 /*jslint browser: true */
+/*global window*/
 
 (function (Tikkun) {
     "use strict";
 
     var Notifications = {
-        AliyotLoaded: "AliyotLoaded",
-        ParshiyotLoaded: "ParshiyotLoaded",
         ParshaSelectionChangedNotification: "ParshaSelectionChangedNotification"
     };
 

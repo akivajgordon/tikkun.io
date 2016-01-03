@@ -1,4 +1,5 @@
 /*jslint browser: true */
+/*global window*/
 
 (function (angular) {
     "use strict";
@@ -10,9 +11,11 @@
             $scope.parshiyot = parshiyotDataSource.parshiyot;
 
             $scope.selectedParsha = {};
-            $rootScope.$on(Notifications.ParshiyotLoaded, function () {
-                $scope.selectedParsha = parshiyotDataSource.parshiyot[0];
-            });
+
+            parshiyotDataSource.fetch()
+                .then(function () {
+                    $scope.selectedParsha = parshiyotDataSource.parshiyot[0];
+                });
 
             $scope.shouldShowParshiyotOptions = false;
             $scope.toggleShowParshiyotOptions = function () {

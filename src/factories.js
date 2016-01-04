@@ -14,7 +14,7 @@
     angular.module("tikkun")
         .factory("wordBreaker", function () {
             return function (text) {
-                var PASEQ_RE = / ׀/g,
+                var PASEQ_RE = /\ ׀/g,
                     PASEQ_REPLACE = "#׀",
                     MAQAF_RE = /־/g,
                     MAQAF_REPLACE = "־ ";

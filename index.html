@@ -18,9 +18,9 @@
                         <li class="select-options-option" ng-repeat="parsha in parshiyot" ng-click="notifyJumpToParsha($index)">{{parsha.hebrewName}}</li>
                     </ol>
                 </button>
-                <div class="toolbar-annotations-toggle">
-                    <input class="toolbar-annotations-toggle-input" id="toolbar-annotations-toggle-input" type="checkbox" ng-model="showAnnotations">
-                    <label for="toolbar-annotations-toggle-input" class="toolbar-annotations-toggle-track"></label>
+                <div>
+                    <input class="toggle-cb" id="toolbar-annotations-toggle-input" type="checkbox" hidden ng-model="showAnnotations">
+                    <label for="toolbar-annotations-toggle-input" class="toggle" data-off="א" data-on="אֶ֨"></label>
                 </div>
             </div>
         </header>

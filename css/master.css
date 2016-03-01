@@ -3,5 +3,6 @@
 @import "normalize.css";
 
 /* Components */
-@import "toolbar.css";
 @import "pages.css";
+@import "toggle.css";
+@import "toolbar.css";

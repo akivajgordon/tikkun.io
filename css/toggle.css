@@ -1,0 +1,54 @@
+@font-face {
+    font-family: "ShlomosemiStam";
+    src: url(../assets/fonts/ShlomosemiStam.ttf);
+}
+
+.toggle {
+  background-color: hsla(0, 0%, 0%, 0.25);
+  border-radius: 33.33% / 100%;
+  cursor: pointer;
+  display: inline-block;
+  font-family: ShlomosemiStam;
+  height: 1em;
+  left: 0;
+  position: relative;
+  top: 0;
+  vertical-align: middle;
+  width: 3em;
+}
+
+    .toggle::before {
+      background-color: white;
+      border-radius: 50%;
+      border: 1px solid hsla(0, 0%, 0%, 0.25);
+      box-shadow: 0 0 5px 1px hsla(0, 0%, 0%, 0.25);
+      box-sizing: border-box;
+      color: black;
+      content: attr(data-off);
+      display: inline-block;
+      height: 200%;
+      line-height: 200%;
+      position: relative;
+      text-align: center;
+      top: -50%;
+      transition: right 0.1s linear;
+      width: 66.66%;
+    }
+
+    .toggle:hover::before {
+        box-shadow: 0 0 5px 0px hsla(0, 0%, 0%, 0.5);
+    }
+
+
+.toggle-cb:checked ~ .toggle {
+  background-color: hsla(0, 0%, 0%, 0.75);
+}
+
+.toggle-cb:checked ~ .toggle::before {
+  background-color: black;
+  border: 1px solid hsla(0, 0%, 100%, 0.25);
+  color: white;
+  content: attr(data-on);
+  right: -33.33%;
+  transition: right 0.1s linear;
+}

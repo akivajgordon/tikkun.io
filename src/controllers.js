@@ -17,11 +17,6 @@
                     $scope.selectedParsha = parshiyotDataSource.parshiyot[0];
                 });
 
-            $scope.shouldShowParshiyotOptions = false;
-            $scope.toggleShowParshiyotOptions = function () {
-                $scope.shouldShowParshiyotOptions = !$scope.shouldShowParshiyotOptions;
-            };
-
             $scope.notifyJumpToParsha = function (parsha) {
                 var selectedParsha = parshiyotDataSource.parshiyot[parsha];
                 $scope.selectedParsha = selectedParsha;

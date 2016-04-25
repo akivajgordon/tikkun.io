@@ -12,7 +12,7 @@
                 <a href="#" title="Go to GitHub repository">
                     <img class="toolbar-github" src="assets/images/GitHub-Mark-32px.png" alt="GitHub" height="32px" width="32px"/>
                 </a>
-                <button class="select" ng-click="toggleShowParshiyotOptions()">
+                <button class="select" ng-click="shouldShowParshiyotOptions = !shouldShowParshiyotOptions">
                     <div class="select-selection">{{selectedParsha.hebrewName}}</div>
                     <ol class="select-options" ng-show="shouldShowParshiyotOptions">
                         <li class="select-options-option" ng-repeat="parsha in parshiyot" ng-click="notifyJumpToParsha($index)">{{parsha.hebrewName}}</li>

@@ -12,15 +12,20 @@
             startColumn = spec.startColumn,
             append = function () {
 
-                columnFetcher.pageAtIndex(startColumn + pages.length, function (page) {
-                    pages.push(page);
-                });
+                columnFetcher
+                    .pageAtIndex(startColumn + pages.length)
+                    .then(function (page) {
+                        pages.push(page);
+                    });
             },
             prepend = function () {
                 startColumn -= 1;
-                columnFetcher.pageAtIndex(startColumn, function (page) {
-                    pages.unshift(page);
-                });
+
+                columnFetcher
+                    .pageAtIndex(startColumn)
+                    .then(function (page) {
+                        pages.unshift(page);
+                    });
             },
             pageIndexContainingReference = function (ref) {
                 return arrangementDataSource.arrangement.findIndex(function (column) {
@@ -38,11 +43,15 @@
                 var ref = parsha.startReference,
                     index = pageIndexContainingReference(ref);
 
-                columnFetcher.pageAtIndex(index, function (page) {
-                    startColumn = index;
-                    pages.length = 0;
-                    pages.push(page);
-                });
+                index = 0;
+
+                columnFetcher
+                    .pageAtIndex(index)
+                    .then(function (page) {
+                        startColumn = index;
+                        pages.length = 0;
+                        pages.push(page);
+                    });
             };
 
         return Object.freeze({

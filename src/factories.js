@@ -5,23 +5,12 @@
     "use strict";
 
     var angular = spec.angular,
-        newLineBuilder = spec.Tikkun.LineBuilder,
-        newPageBuilder = spec.Tikkun.PageBuilder,
         newPagesDataSource = spec.Tikkun.PagesDataSource,
         newParsha = spec.Tikkun.Parsha,
-        newReference = spec.Tikkun.Reference;
+        newReference = spec.Tikkun.Reference,
+        Promise = window.Promise;
 
     angular.module("tikkun")
-        .factory("wordBreaker", function () {
-            return function (text) {
-                var PASEQ_RE = /\ ׀/g,
-                    PASEQ_REPLACE = "#׀",
-                    MAQAF_RE = /־/g,
-                    MAQAF_REPLACE = "־ ";
-
-                return text.replace(PASEQ_RE, PASEQ_REPLACE).replace(MAQAF_RE, MAQAF_REPLACE).split(/\s/);
-            };
-        })
         .factory("arrangementDataSource", ["$http", function ($http) {
             function newArrangementDataSource() {
                 var arrangement = [];
@@ -60,47 +49,25 @@
 
             return newAliyotDataSource();
         }])
-        .factory("torahDataSource", ["$http", function ($http) {
-            function newTorahDataSource() {
-                var torahText = [];
-
-                $http.get("/data/tanach/genesis.json").success(function (data) {
-                    data.text.forEach(function (chapter) {
-                        torahText.push(chapter);
-                    });
-                });
-
-                return Object.freeze({
-                    torahText: torahText
-                });
-            }
-
-            return newTorahDataSource();
-        }])
-        .factory("columnFetcher", ["wordBreaker", "arrangementDataSource", "aliyotDataSource", "torahDataSource", function (wordBreaker, arrangementDataSource, aliyotDataSource, torahDataSource) {
+        .factory("columnFetcher", ['$http', function ($http) {
 
             function newColumnFetcher() {
-                var pageBuilder = newPageBuilder({
-                        arrangement: arrangementDataSource.arrangement,
-                        lineBuilder: newLineBuilder({
-                            aliyot: aliyotDataSource.aliyot,
-                            wordBreaker: wordBreaker
-                        }),
-                        source: torahDataSource.torahText
-                    }),
-                    store = [],
-                    pageAtIndex = function (pageIndex, callback) {
+                var store = [],
+                    pageAtIndex = function (pageIndex) {
                         // pageIndex = Math.min(Math.max(0, pageIndex), pages.length - 1);
-                        var page, stored;
+                        var stored;
 
                         stored = store[pageIndex];
                         if (stored) {
-                            page = stored;
+                            return Promise.resolve(stored);
                         } else {
-                            page = pageBuilder.pageAtIndex(pageIndex);
-                            store[pageIndex] = page;
+                            return $http.get('/pages/' + (pageIndex + 1) + '.json')
+                                .then(function (response) {
+                                    var page = {lines: response.data};
+                                    store[pageIndex] = page;
+                                    return page;
+                                });
                         }
-                        callback(page);
                     };
 
                 return Object.freeze({

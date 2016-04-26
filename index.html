@@ -29,9 +29,15 @@
             <article class="pages-page" ng-repeat="page in pages" ng-controller="PageController">
                 <table>
                     <tr ng-repeat="line in page.lines">
-                        <td class="pages-page-aliyot">{{line.aliyot | aliyotNames | range}}</td>
-                        <td class="pages-page-verses">{{line.verses | hebrewNumerals | range}}</td>
-                        <td class="pages-page-text" ng-class="{'mod-petucha': line.isPetucha}">{{line.text | practiceMode:showAnnotations}}</td>
+                        <!-- <td class="pages-page-aliyot">{{line.aliyot | aliyotNames | range}}</td>
+                        <td class="pages-page-verses">{{line.verses | hebrewNumerals | range}}</td> -->
+                        <td class="pages-page-text" ng-class="{'mod-petucha': line.isPetucha}" ng-repeat="column in line">
+                            <span ng-repeat="fragment in column">
+                                <span>
+                                    {{fragment.join(' ') | practiceMode:showAnnotations}}
+                                </span>
+                            </span>
+                        </td>
                     </tr>
                 </table>
             </article>
@@ -44,10 +50,8 @@
         <script src="src/Parsha.js" charset="utf-8"></script>
         <script src="src/Line.js" charset="utf-8"></script>
         <script src="src/Page.js" charset="utf-8"></script>
-        <script src="src/PageBuilder.js" charset="utf-8"></script>
         <script src="src/Reference.js" charset="utf-8"></script>
         <script src="src/ReferenceSet.js" charset="utf-8"></script>
-        <script src="src/LineBuilder.js" charset="utf-8"></script>
         <script src="src/PagesDataSource.js" charset="utf-8"></script>
         <script src="bower_components/angular/angular.js" charset="utf-8"></script>
         <script src="src/app.js" charset="utf-8"></script>

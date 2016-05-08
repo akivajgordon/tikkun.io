@@ -2,10 +2,8 @@
     background-color: hsl(0, 0%, 90%);
     box-shadow: 0px 2px 10px hsla(0, 0%, 0%, 0.5);
     height: 3rem;
-    left: 0;
-    position: fixed;
-    top: 0;
     width: 100%;
+    z-index: 10;
 }
 
     .toolbar-items {

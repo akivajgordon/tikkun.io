@@ -6,3 +6,8 @@
 @import "pages.css";
 @import "toggle.css";
 @import "toolbar.css";
+
+.app {
+    display: flex;
+    flex-flow: column;
+}

@@ -29,12 +29,22 @@
             <article class="pages-page" ng-repeat="page in pages" ng-controller="PageController">
                 <table>
                     <tr ng-repeat="line in page.lines">
-                        <!-- <td class="pages-page-aliyot">{{line.aliyot | aliyotNames | range}}</td>
-                        <td class="pages-page-verses">{{line.verses | hebrewNumerals | range}}</td> -->
-                        <td class="pages-page-text" ng-class="{'mod-petucha': line.isPetucha}" ng-repeat="column in line">
-                            <span ng-repeat="fragment in column">
-                                <span>
-                                    {{fragment.join(' ') | practiceMode:showAnnotations}}
+                        <td
+                            class="pages-page-line"
+                            ng-class="{'mod-petucha': line.isPetucha}"
+                            ng-attr-data-verses="{{line.verses | hebrewNumerals | range}}"
+                            ng-attr-data-aliyot="{{line.aliyot | aliyotNames | range}}"
+                        >
+                            <span
+                                class="pages-page-line-column"
+                                ng-class="{'mod-setuma': column.length > 1}"
+                                ng-repeat="column in line.text"
+                            >
+                                <span
+                                    class="pages-page-line-column-fragment"
+                                    ng-repeat="fragment in column"
+                                >
+                                    {{fragment | practiceMode:showAnnotations}}
                                 </span>
                             </span>
                         </td>

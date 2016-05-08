@@ -5,9 +5,10 @@
 
 .pages {
     font-size: 1.5rem;
-    margin-top: 3rem;
     padding-top: 1rem;
     width: 100%;
+    height: calc(100vh - 3em);
+    overflow: auto;
 }
 
     .pages-page {
@@ -20,10 +21,6 @@
         margin-bottom: 8rem;
     }
 
-    .pages-page td {
-        line-height: 100%;
-    }
-
     .pages-page-verses {
         color: hsla(0, 0%, 0%, 0.35);
         padding: 0 2rem;
@@ -34,17 +31,33 @@
         color: hsla(203, 100%, 50%, 0.75);
     }
 
-    .pages-page td::after {
+    .pages-page-line {
+        font-family: Shlomosemistam;
+        text-align: justify;
+        position: relative;
+        display: block;
+        line-height: 100%;
+    }
+
+        .pages-page-line.mod-petucha {
+            text-align: start;
+        }
+
+    .pages-page-line::before {
+        content: attr(data-verses);
+        color: hsla(203, 100%, 50%, 0.75);
+        position: absolute;
+        right: -6ch;
+        font-family: sans-serif;
+    }
+
+    .pages-page-line::after {
         content: "";
         display: inline-block;
         width: 100%;
     }
 
-    .pages-page-text {
-        font-family: Shlomosemistam;
-        text-align: justify;
-    }
-
-    .pages-page-text.mod-petucha {
-        text-align: start;
+    .pages-page-line-column.mod-setuma {
+        display: flex;
+        justify-content: space-between;
     }

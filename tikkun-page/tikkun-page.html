@@ -1,0 +1,55 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../tikkun-line/tikkun-line.html">
+
+<dom-module id="tikkun-page">
+    <template>
+        <style>
+            :host {
+                justify-content: center;
+                direction: rtl;
+                display: flex;
+                font-family: Helvetica;
+                justify-content: center;
+                margin-bottom: 8rem;
+            }
+        </style>
+
+        <iron-ajax
+            id="fetcher"
+            auto
+            url="/pages/{{pageNumber}}.json"
+            last-response="{{lines}}">
+        </iron-ajax>
+        <table>
+            <template is="dom-repeat" items="{{lines}}" as="line">
+                <tr>
+                    <td>
+                        <tikkun-line
+                            columns="[[line.text]]"
+                            verses="[[line.verses]]"
+                            aliyot="[[line.aliyot]]"
+                            petucha="[[line.isPetucha]]">
+                        </tikkun-line>
+                    </td>
+                </tr>
+            </template>
+        </table>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'tikkun-page',
+
+            properties: {
+                lines: {
+                    type: Array
+                },
+
+                pageNumber: {
+                    type: Number
+                }
+            }
+        })
+    </script>
+</dom-module>

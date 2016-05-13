@@ -14,5 +14,10 @@
   ],
   "devDependencies": {
     "jasmine-core": "~2.3.4"
+  },
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "iron-scroll-threshold": "PolymerElements/iron-scroll-threshold#^1.0.1",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.2.0"
   }
 }

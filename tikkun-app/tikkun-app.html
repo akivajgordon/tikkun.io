@@ -1,0 +1,26 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="../tikkun-toolbar/tikkun-toolbar.html">
+<link rel="import" href="../tikkun-page/tikkun-page.html">
+
+<dom-module id="tikkun-app">
+    <template>
+        <tikkun-toolbar showing-annotations={{showingAnnotations}}></tikkun-toolbar>
+        <section class="pages">
+            <button>prepend</button>
+            <tikkun-page page-number="1" annotated="[[showingAnnotations]]"></tikkun-page>
+            <button>append</button>
+        </section>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'tikkun-app',
+            properties: {
+                showingAnnotations: {
+                    type: Boolean,
+                    value: false
+                }
+            }
+        });
+    </script>
+</dom-module>

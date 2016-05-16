@@ -5,68 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>tikkun.io</title>
         <link rel="stylesheet" href="css/master.css" media="screen" charset="utf-8">
-    </head>
-    <body class="app" ng-app="tikkun" ng-controller="MainController">
-        <header class="toolbar">
-            <div class="toolbar-items">
-                <a href="#" title="Go to GitHub repository">
-                    <img class="toolbar-github" src="assets/images/GitHub-Mark-32px.png" alt="GitHub" height="32px" width="32px"/>
-                </a>
-                <button class="select" ng-click="shouldShowParshiyotOptions = !shouldShowParshiyotOptions">
-                    <div class="select-selection">{{selectedParsha.hebrewName}}</div>
-                    <ol class="select-options" ng-show="shouldShowParshiyotOptions">
-                        <li class="select-options-option" ng-repeat="parsha in parshiyot" ng-click="notifyJumpToParsha($index)">{{parsha.hebrewName}}</li>
-                    </ol>
-                </button>
-                <div>
-                    <input class="toggle-cb" id="toolbar-annotations-toggle-input" type="checkbox" hidden ng-model="showAnnotations">
-                    <label for="toolbar-annotations-toggle-input" class="toggle" data-off="א" data-on="אֶ֨"></label>
-                </div>
-            </div>
-        </header>
-        <section class="pages" ng-controller="PagesController">
-            <button ng-click="prependPage()">prepend</button>
-            <article class="pages-page" ng-repeat="page in pages" ng-controller="PageController">
-                <table>
-                    <tr ng-repeat="line in page.lines">
-                        <td
-                            class="pages-page-line"
-                            ng-class="{'mod-petucha': line.isPetucha}"
-                            ng-attr-data-verses="{{line.verses | hebrewNumerals | range}}"
-                            ng-attr-data-aliyot="{{line.aliyot | aliyotNames | range}}"
-                        >
-                            <span
-                                class="pages-page-line-column"
-                                ng-class="{'mod-setuma': column.length > 1}"
-                                ng-repeat="column in line.text"
-                            >
-                                <span
-                                    class="pages-page-line-column-fragment"
-                                    ng-repeat="fragment in column"
-                                >
-                                    {{fragment | practiceMode:showAnnotations}}
-                                </span>
-                            </span>
-                        </td>
-                    </tr>
-                </table>
-            </article>
-            <button ng-click="appendPage()">append</button>
-        </section>
 
-        <script src="src/utils/string.js" charset="utf-8"></script>
-        <script src="src/Tikkun.js" charset="utf-8"></script>
-        <script src="src/Notifications.js" charset="utf-8"></script>
-        <script src="src/Parsha.js" charset="utf-8"></script>
-        <script src="src/Line.js" charset="utf-8"></script>
-        <script src="src/Page.js" charset="utf-8"></script>
-        <script src="src/Reference.js" charset="utf-8"></script>
-        <script src="src/ReferenceSet.js" charset="utf-8"></script>
-        <script src="src/PagesDataSource.js" charset="utf-8"></script>
-        <script src="bower_components/angular/angular.js" charset="utf-8"></script>
-        <script src="src/app.js" charset="utf-8"></script>
-        <script src="src/filters.js" charset="utf-8"></script>
-        <script src="src/factories.js" charset="utf-8"></script>
-        <script src="src/controllers.js" charset="utf-8"></script>
+        <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+        <link rel="import" href="tikkun-app/tikkun-app.html">
+
+    </head>
+    <body class="app">
+        <tikkun-app></tikkun-app>
     </body>
 </html>

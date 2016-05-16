@@ -1,0 +1,45 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<dom-module id="tikkun-toolbar">
+    <template>
+        <header class="toolbar">
+            <div class="toolbar-items">
+                <a href="#" title="Go to GitHub repository">
+                    <img class="toolbar-github" src="/assets/images/GitHub-Mark-32px.png" alt="GitHub" height="32px" width="32px"/>
+                </a>
+                <button class="select" on-click="toggleShowOptions">
+                    <div class="select-selection">בראשית</div>
+                    <!-- <ol class="select-options" hidden$={{shouldShowOptions(_shouldShowOptions)}}>
+                        <li class="select-options-option" ng-repeat="parsha in parshiyot" ng-click="notifyJumpToParsha($index)">{{parsha.hebrewName}}</li>
+                    </ol> -->
+                </button>
+                <div>
+                    <input class="toggle-cb" id="toolbar-annotations-toggle-input" type="checkbox"  hidden checked="{{showingAnnotations::change}}">
+                    <label for="toolbar-annotations-toggle-input" class="toggle" data-off="א" data-on="אֶ֨"></label>
+                </div>
+            </div>
+        </header>
+    </template>
+
+    <script>
+        Polymer({
+            is: "tikkun-toolbar",
+
+            properties: {
+                showingAnnotations: {
+                    type: Boolean,
+                    notify: true
+                },
+
+                _shouldShowOptions: {
+                    type: Boolean,
+                    value: false
+                }
+            },
+
+            toggleCheckbox: function (e, a, b, c) {
+                this.showingAnnotations = e.target.checked;
+            }
+        })
+    </script>
+</dom-module>

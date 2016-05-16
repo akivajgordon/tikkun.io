@@ -29,7 +29,8 @@
                             columns="[[line.text]]"
                             verses="[[line.verses]]"
                             aliyot="[[line.aliyot]]"
-                            petucha="[[line.isPetucha]]">
+                            petucha="[[line.isPetucha]]"
+                            annotated="[[annotated]]">
                         </tikkun-line>
                     </td>
                 </tr>
@@ -42,13 +43,9 @@
             is: 'tikkun-page',
 
             properties: {
-                lines: {
-                    type: Array
-                },
-
-                pageNumber: {
-                    type: Number
-                }
+                lines: Array,
+                pageNumber: Number,
+                annotated: Boolean
             }
         })
     </script>

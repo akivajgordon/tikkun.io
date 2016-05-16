@@ -1,0 +1,195 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<dom-module id="tikkun-line">
+    <template>
+        <style>
+            @font-face {
+                font-family: "ShlomosemiStam";
+                src: url(../assets/fonts/ShlomosemiStam.ttf);
+            }
+
+            .line {
+                font-family: Shlomosemistam;
+                text-align: justify;
+                position: relative;
+                display: block;
+                line-height: 100%;
+            }
+
+            .line.mod-petucha {
+                text-align: start;
+            }
+
+            .line::after {
+                content: "";
+                display: inline-block;
+                width: 100%;
+            }
+
+            .verses {
+                position: absolute;
+                right: -6ch;
+                font-family: sans-serif;
+                color: hsla(0, 0%, 0%, 0.35);
+            }
+
+            .aliyot {
+                position: absolute;
+                right: -13ch;
+                font-family: sans-serif;
+                color: hsla(203, 100%, 50%, 0.75);
+            }
+
+            .column.mod-setuma {
+                display: flex;
+                justify-content: space-between;
+            }
+        </style>
+
+        <span class$="line {{petuchaClass(petucha)}}">
+            <span class="verses">{{asVersesRange(verses)}}</span>
+            <span class="aliyot">{{asAliyotRange(aliyot)}}</span>
+            <template is="dom-repeat" items="{{columns}}" as="column">
+                <span class$="column {{setumaClass(column)}}">
+                    <template is="dom-repeat" items="{{column}}" as="fragment">
+                        <span>{{displayText(fragment, annotated)}}</span>
+                    </template>
+                </span>
+            </template>
+        </span>
+    </template>
+
+    <script>
+        var hebrewNumerals = function (verses) {
+            var hebrewNumeralFromInteger = function (integer) {
+                var str = "";
+                var letters = [
+                    {"glyph": "א", "value": 1},
+                    {"glyph": "ב", "value": 2},
+                    {"glyph": "ג", "value": 3},
+                    {"glyph": "ד", "value": 4},
+                    {"glyph": "ה", "value": 5},
+                    {"glyph": "ו", "value": 6},
+                    {"glyph": "ז", "value": 7},
+                    {"glyph": "ח", "value": 8},
+                    {"glyph": "ט", "value": 9},
+                    {"glyph": "י", "value": 10},
+                    {"glyph": "כ", "value": 20},
+                    {"glyph": "ל", "value": 30},
+                    {"glyph": "מ", "value": 40},
+                    {"glyph": "נ", "value": 50},
+                    {"glyph": "ס", "value": 60},
+                    {"glyph": "ע", "value": 70},
+                    {"glyph": "פ", "value": 80},
+                    {"glyph": "צ", "value": 90},
+                    {"glyph": "ק", "value": 100},
+                    {"glyph": "ר", "value": 200},
+                    {"glyph": "ש", "value": 300},
+                    {"glyph": "ת", "value": 400}
+                ];
+
+                integer %= 1000;
+
+                letters.reverse().forEach(function (letter) {
+                    var letterValue = letter.value;
+                    while (integer >= letterValue) {
+                        if (integer === 15) {
+                            str += "טו";
+                            integer -= 15;
+                        } else if (integer === 16) {
+                            str += "טז";
+                            integer -= 16;
+                        } else {
+                            str += letter.glyph;
+                            integer -= letterValue;
+                        }
+                    }
+                });
+
+                return str;
+            };
+
+            return verses.map(hebrewNumeralFromInteger);
+        };
+
+        var aliyotNames = function (aliyot) {
+            var aliyotStrings = [
+                "ראשון",
+                "שני",
+                "שלישי",
+                "רביעי",
+                "חמישי",
+                "ששי",
+                "שביעי",
+                "מפטיר"
+            ];
+
+            return aliyot.filter(function (aliyah) {
+                return aliyah > 0 && aliyah <= aliyotStrings.length;
+            }).map(function (aliyah) {
+                return aliyotStrings[aliyah - 1];
+            });
+        };
+
+        var asRange = function (verses) {
+            if (!verses.length) {
+                return "";
+            }
+
+            if (verses.length === 1) {
+                return verses[0];
+            }
+
+            return verses[0] + "-" + verses[verses.length - 1];
+        };
+
+        Polymer({
+            is: 'tikkun-line',
+
+            properties: {
+                columns: Array,
+                verses: Array,
+                aliyot: Array,
+                petucha: Boolean,
+                annotated: Boolean
+            },
+
+            petuchaClass: function (isPetucha) {
+                return isPetucha
+                    ? 'mod-petucha'
+                    : '';
+            },
+
+            setumaClass: function (column) {
+                return column.length > 1
+                    ? 'mod-setuma'
+                    : '';
+            },
+
+            displayText: function (text, annotated) {
+                return annotated
+                    ? text
+                    : this.removeAnnotations(text);
+            },
+
+            removeAnnotations: function (text) {
+                return text
+                    .replace(/־/g, " ")
+                    .replace(/\(פ\)/g, "")
+                    .match(/[א-ת]|\s/g)
+                    .join("")
+                    .trim();
+            },
+
+            asRange: asRange,
+
+            asVersesRange: function (verses) {
+                return asRange(hebrewNumerals(verses));
+            },
+
+            asAliyotRange: function (aliyot) {
+                return asRange(aliyotNames(aliyot));
+            }
+        })
+    </script>
+</dom-module>

@@ -1,0 +1,141 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-scroll-threshold/iron-scroll-threshold.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../tikkun-page/tikkun-page.html">
+
+<dom-module id="tikkun-book">
+    <template>
+        <style>
+            :host {
+                display: flex;
+                flex-flow: column;
+                background-color: hsla(0, 0%, 0%, 0.1);
+            }
+
+            .toolbar {
+                background-color: pink;
+                flex-shrink: 0;
+            }
+
+            .toolbar-buttons {
+                direction: rtl;
+                display: flex;
+                padding: 5px;
+            }
+
+            .toolbar-buttons-button {
+                margin: 0;
+                padding: 1em;
+                border: 1px solid hsla(0, 0%, 0%, 0.5);
+                background-color: hsla(0, 0%, 0%, 0.5);
+                width: 30px;
+                height: 30px;
+                border-radius: 4px;
+            }
+
+            tikkun-page {
+                background-color: white;
+                padding: 4em 0;
+                margin: 1em 1em 4em;
+                border-radius: 4px;
+                box-shadow: 0 0 8px hsla(0, 0%, 0%, 0.5);
+            }
+        </style>
+
+        <iron-ajax url="/index.json" last-response="{{index}}" auto></iron-ajax>
+        <!-- <div class="toolbar">
+            <div class="toolbar-buttons">
+                <button class="toolbar-buttons-button" on-click="prev">&lt;</button>
+                <button class="toolbar-buttons-button" on-click="next">&gt;</button>
+            </div>
+        </div> -->
+        <iron-scroll-threshold id="scrollThreshold" lower-threshold="500" upper-threshold="500" on-upper-threshold="prev" on-lower-threshold="next">
+            <template is="dom-repeat" items="{{pageNumbers}}">
+                <tikkun-page page-number="{{item}}" annotated="[[annotated]]"></tikkun-page>
+            </template>
+        </iron-scroll-threshold>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'tikkun-book',
+
+            properties: {
+                annotated: {
+                    type: Boolean
+                },
+
+                pageNumbers: {
+                    type: Array,
+                    computed: 'range(firstPage, lastPage)'
+                },
+
+                firstPage: {
+                    type: Number,
+                    value: 1
+                },
+
+                lastPage: {
+                    type: Number,
+                    value: 1
+                },
+
+                index: {
+                    type: Array
+                }
+            },
+
+            range: function (first, last) {
+                this.$.scrollThreshold.clearTriggers();
+
+                var count = last - first + 1;
+                return Array(count)
+                    .join()
+                    .split(',')
+                    .map(function (ignore, i) {
+                        return first + i;
+                    });
+            },
+
+            next: function () {
+                this.lastPage++;
+            },
+
+            prev: function () {
+                this.firstPage = Math.max(this.firstPage - 1, 1);
+            },
+
+            jumpTo: function (ref) {
+
+                this.firstPage = this.lastPage = this
+                    .index
+                    .filter(function (pageRef) {
+                        if (pageRef.book < ref.b) {
+                            return true;
+                        }
+
+                        if (pageRef.book > ref.b) {
+                            return false;
+                        }
+
+                        if (pageRef.chapter < ref.c) {
+                            return true;
+                        }
+
+                        if (pageRef.chapter > ref.c) {
+                            return false;
+                        }
+
+                        if (pageRef.verse <= ref.v) {
+                            return true;
+                        }
+
+                        return false;
+                    })
+                    .length;
+
+                this.scrollTop = 0;
+            }
+        });
+    </script>
+</dom-module>

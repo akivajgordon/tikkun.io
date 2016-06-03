@@ -184,7 +184,9 @@
             asRange: asRange,
 
             asVersesRange: function (verses) {
-                return asRange(hebrewNumerals(verses));
+                return asRange(hebrewNumerals(verses.map(function (verse) {
+                    return verse.verse;
+                })));
             },
 
             asAliyotRange: function (aliyot) {

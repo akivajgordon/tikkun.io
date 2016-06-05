@@ -43,31 +43,26 @@
         </style>
 
         <iron-ajax url="/index.json" last-response="{{index}}" auto></iron-ajax>
-        <!-- <div class="toolbar">
-            <div class="toolbar-buttons">
-                <button class="toolbar-buttons-button" on-click="prev">&lt;</button>
-                <button class="toolbar-buttons-button" on-click="next">&gt;</button>
-            </div>
-        </div> -->
-        <iron-scroll-threshold id="scrollThreshold" lower-threshold="500" upper-threshold="500" on-upper-threshold="prev" on-lower-threshold="next">
-            <template is="dom-repeat" items="{{pageNumbers}}">
+
+        <iron-scroll-threshold id="scrollThreshold" lower-threshold="500" upper-threshold="0" on-upper-threshold="prev" on-lower-threshold="next">
+            <template is="dom-repeat" items="{{range(firstPage, lastPage)}}" on-dom-change="handleDomChange">
                 <tikkun-page page-number="{{item}}" annotated="[[annotated]]"></tikkun-page>
             </template>
         </iron-scroll-threshold>
     </template>
 
     <script>
+        var oldScrollTop = 0;
+        var oldHeight = 0;
+
+        var lastScrollDirection = 'bottom';
+
         Polymer({
             is: 'tikkun-book',
 
             properties: {
                 annotated: {
                     type: Boolean
-                },
-
-                pageNumbers: {
-                    type: Array,
-                    computed: 'range(firstPage, lastPage)'
                 },
 
                 firstPage: {
@@ -85,10 +80,14 @@
                 }
             },
 
+            ready: function () {
+                oldHeight = this.$.scrollThreshold.scrollHeight;
+            },
+
             range: function (first, last) {
                 this.$.scrollThreshold.clearTriggers();
 
-                var count = last - first + 1;
+                var count = Math.max(last - first, 0) + 1;
                 return Array(count)
                     .join()
                     .split(',')
@@ -98,10 +97,15 @@
             },
 
             next: function () {
+                lastScrollDirection = 'bottom';
+
                 this.lastPage++;
             },
 
             prev: function () {
+                oldScrollTop = this.$.scrollThreshold.scrollTop;
+                lastScrollDirection = 'top'
+
                 this.firstPage = Math.max(this.firstPage - 1, 1);
             },
 
@@ -135,6 +139,17 @@
                     .length;
 
                 this.scrollTop = 0;
+            },
+
+            handleDomChange: function () {
+
+                if (lastScrollDirection === 'top') {
+                    var newScrollTop = oldScrollTop + this.$.scrollThreshold.scrollHeight - oldHeight;
+
+                    this.$.scrollThreshold.scrollTop = newScrollTop;
+                }
+
+                oldHeight = this.$.scrollThreshold.scrollHeight;
             }
         });
     </script>

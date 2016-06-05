@@ -1,13 +1,3 @@
 @charset "UTF-8";
 
 @import "normalize.css";
-
-/* Components */
-@import "pages.css";
-@import "toggle.css";
-@import "toolbar.css";
-
-.app {
-    display: flex;
-    flex-flow: column;
-}

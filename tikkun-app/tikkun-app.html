@@ -1,25 +1,46 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="../tikkun-toolbar/tikkun-toolbar.html">
-<link rel="import" href="../tikkun-page/tikkun-page.html">
+<link rel="import" href="../tikkun-book/tikkun-book.html">
 
 <dom-module id="tikkun-app">
     <template>
-        <tikkun-toolbar showing-annotations={{showingAnnotations}}></tikkun-toolbar>
-        <section class="pages">
-            <button>prepend</button>
-            <tikkun-page page-number="1" annotated="[[showingAnnotations]]"></tikkun-page>
-            <button>append</button>
-        </section>
+        <style>
+            :host {
+                display: flex;
+                height: 100vh;
+            }
+
+            tikkun-toolbar {
+                background-color: slategray;
+                width: 300px;
+                height: 100%;
+                box-shadow: 8px 0px 8px -8px hsla(0, 0%, 0%, 0.5);
+            }
+
+            tikkun-book {
+                height: 100%;
+                overflow: auto;
+                flex: 1;
+                font-size: 1.5em;
+            }
+        </style>
+        <tikkun-toolbar id="toolbar" selected="{{jump}}"></tikkun-toolbar>
+        <tikkun-book id="book"></tikkun-book>
     </template>
 
     <script>
         Polymer({
             is: 'tikkun-app',
             properties: {
-                showingAnnotations: {
-                    type: Boolean,
-                    value: false
+                jump: {
+                    type: Number,
+                    observer: 'jumpTo'
                 }
+            },
+
+            jumpTo: function (index) {
+                var parsha = this.$.toolbar.parshiyot[index];
+                this.$.book.jumpTo(parsha.ref);
             }
         });
     </script>

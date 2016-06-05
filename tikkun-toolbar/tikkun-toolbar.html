@@ -1,24 +1,90 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/iron-selector/iron-selector.html">
+
+<link rel="stylesheet" href="/css/toggle.css">
 
 <dom-module id="tikkun-toolbar">
     <template>
-        <header class="toolbar">
-            <div class="toolbar-items">
-                <a href="#" title="Go to GitHub repository">
-                    <img class="toolbar-github" src="/assets/images/GitHub-Mark-32px.png" alt="GitHub" height="32px" width="32px"/>
-                </a>
-                <button class="select" on-click="toggleShowOptions">
-                    <div class="select-selection">בראשית</div>
-                    <!-- <ol class="select-options" hidden$={{shouldShowOptions(_shouldShowOptions)}}>
-                        <li class="select-options-option" ng-repeat="parsha in parshiyot" ng-click="notifyJumpToParsha($index)">{{parsha.hebrewName}}</li>
-                    </ol> -->
-                </button>
-                <div>
-                    <input class="toggle-cb" id="toolbar-annotations-toggle-input" type="checkbox"  hidden checked="{{showingAnnotations::change}}">
-                    <label for="toolbar-annotations-toggle-input" class="toggle" data-off="א" data-on="אֶ֨"></label>
-                </div>
-            </div>
+        <style>
+            :host {
+                display: flex;
+                flex-flow: column;
+                justify-content: space-between;
+            }
+
+            header {
+                display: flex;
+                padding: 1.5em;
+                box-shadow: 0px 8px 8px -8px hsla(0, 0%, 0%, 0.5);
+                justify-content: center;
+                background-color: hsla(0, 0%, 0%, 0.1);
+            }
+
+            .title {
+                text-transform: uppercase;
+                font-family: sans-serif;
+                color: hsla(0, 0%, 100%, 0.5);
+                letter-spacing: 1px;
+            }
+
+            .parshiyot {
+                overflow: auto;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                direction: rtl;
+                flex: 1;
+                text-align: center;
+            }
+
+                .parshiyot-parsha {
+                    padding: 1em;
+                    margin: 0 1em;
+                    display: block;
+                    text-decoration: none;
+                    color: hsla(0, 0%, 100%, 0.75);
+                    border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+                    cursor: pointer;
+                }
+
+                .parshiyot-parsha:hover {
+                    background-color: hsla(0, 0%, 0%, 0.1);
+                }
+
+                .parshiyot-parsha:active {
+                    background-color: hsla(0, 0%, 0%, 0.2);
+                }
+
+            .toolbar-github {
+                vertical-align: middle;
+            }
+
+            footer {
+                display: flex;
+                padding: 1em;
+                justify-content: center;
+                align-items: center;
+                box-shadow: 0px -8px 8px -8px hsla(0, 0%, 0%, 0.5);
+                background-color: hsla(0, 0%, 0%, 0.1);
+            }
+        </style>
+        <iron-ajax url="/data/parshiyot.json" last-response="{{sefarim}}" auto></iron-ajax>
+        <header>
+            <span class="title">Tikkun.io</span>
         </header>
+        <ol class="parshiyot">
+            <iron-selector selected="{{selected}}">
+                <template is="dom-repeat" items="{{parshiyot}}" as="parsha">
+                    <a class="parshiyot-parsha" href="#"><li>{{parsha.he}}</li></a>
+                </template>
+            </iron-selector>
+        </ol>
+        <footer>
+            <a href="https://www.github.com/akivajgordon/tikkun.io" target="_blank" title="Go to GitHub repository">
+                <img class="toolbar-github" src="/assets/images/GitHub-Mark-Light-32px.png" alt="GitHub" height="32px" width="32px"/>
+            </a>
+        </footer>
     </template>
 
     <script>
@@ -26,19 +92,34 @@
             is: "tikkun-toolbar",
 
             properties: {
-                showingAnnotations: {
-                    type: Boolean,
+                selected: {
+                    type: Number,
                     notify: true
                 },
 
-                _shouldShowOptions: {
-                    type: Boolean,
-                    value: false
+                parshiyot: {
+                    type: Array,
+                    computed: '_parshiyotFromSefarim(sefarim)'
                 }
             },
 
-            toggleCheckbox: function (e, a, b, c) {
-                this.showingAnnotations = e.target.checked;
+            _parshiyotFromSefarim: function (sefarim) {
+                return sefarim
+                    .reduce(function (all, sefer, bookIndex) {
+                        return all
+                            .concat(sefer
+                                .map(function (parsha) {
+                                    parsha.ref.map(function (ref) {
+                                        ref.b = bookIndex + 1;
+                                        return ref;
+                                    });
+
+                                    parsha.ref = parsha.ref[0];
+
+                                    return parsha;
+                                })
+                            );
+                    }, []);
             }
         })
     </script>

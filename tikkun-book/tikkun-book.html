@@ -10,27 +10,7 @@
                 display: flex;
                 flex-flow: column;
                 background-color: hsla(0, 0%, 0%, 0.1);
-            }
-
-            .toolbar {
-                background-color: pink;
-                flex-shrink: 0;
-            }
-
-            .toolbar-buttons {
-                direction: rtl;
-                display: flex;
-                padding: 5px;
-            }
-
-            .toolbar-buttons-button {
-                margin: 0;
-                padding: 1em;
-                border: 1px solid hsla(0, 0%, 0%, 0.5);
-                background-color: hsla(0, 0%, 0%, 0.5);
-                width: 30px;
-                height: 30px;
-                border-radius: 4px;
+                position: relative;
             }
 
             tikkun-page {
@@ -39,6 +19,12 @@
                 margin: 1em 1em 4em;
                 border-radius: 4px;
                 box-shadow: 0 0 8px hsla(0, 0%, 0%, 0.5);
+            }
+
+            .annotations-toggle {
+                position: absolute;
+                bottom: 1em;
+                left: 2em;
             }
         </style>
 
@@ -49,6 +35,12 @@
                 <tikkun-page page-number="{{item}}" annotated="[[annotated]]"></tikkun-page>
             </template>
         </iron-scroll-threshold>
+
+        <div class="annotations-toggle">
+            <input class="toggle-cb" id="toolbar-annotations-toggle-input" type="checkbox"  hidden checked="{{annotated::change}}">
+            <label for="toolbar-annotations-toggle-input" class="toggle" data-off="א" data-on="אֶ֨"></label>
+        </div>
+
     </template>
 
     <script>
@@ -62,7 +54,8 @@
 
             properties: {
                 annotated: {
-                    type: Boolean
+                    type: Boolean,
+                    value: false
                 },
 
                 firstPage: {

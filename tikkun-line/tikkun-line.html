@@ -26,17 +26,19 @@
                 width: 100%;
             }
 
-            .verses {
+            .location-indicator {
                 position: absolute;
-                right: -6ch;
                 font-family: sans-serif;
+                font-size: 0.8em;
+            }
+
+            .mod-verses {
+                right: -6ch;
                 color: hsla(0, 0%, 0%, 0.35);
             }
 
-            .aliyot {
-                position: absolute;
+            .mod-aliyot {
                 right: -13ch;
-                font-family: sans-serif;
                 color: hsla(203, 100%, 50%, 0.75);
             }
 
@@ -47,8 +49,8 @@
         </style>
 
         <span class$="line {{petuchaClass(petucha)}}">
-            <span class="verses">{{asVersesRange(verses)}}</span>
-            <span class="aliyot">{{asAliyotRange(aliyot)}}</span>
+            <span class="location-indicator mod-verses" hidden$="{{!annotated}}">{{asVersesRange(verses)}}</span>
+            <span class="location-indicator mod-aliyot" hidden$="{{!annotated}}">{{asAliyotRange(aliyot)}}</span>
             <template is="dom-repeat" items="{{columns}}" as="column">
                 <span class$="column {{setumaClass(column)}}">
                     <template is="dom-repeat" items="{{column}}" as="fragment">

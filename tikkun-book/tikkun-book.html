@@ -78,8 +78,8 @@
         <iron-ajax url="/index.json" last-response="{{index}}" auto></iron-ajax>
 
         <app-toolbar>
-            <paper-icon-button icon="image:navigate-before" on-click="next"></paper-icon-button>
-            <paper-icon-button icon="image:navigate-next" on-click="prev"></paper-icon-button>
+            <paper-icon-button id="next-button" icon="image:navigate-before" on-click="next"></paper-icon-button>
+            <paper-icon-button id="prev-button" icon="image:navigate-next" on-click="prev"></paper-icon-button>
             <div class="paper-labeled-toggle-button" data-off="א" data-on="אֶ֨">
                 <paper-toggle-button checked="{{annotated}}"></paper-toggle-button>
             </div>
@@ -90,10 +90,6 @@
     </template>
 
     <script>
-        var oldScrollTop = 0;
-        var oldHeight = 0;
-
-        var lastScrollDirection = 'bottom';
 
         Polymer({
             is: 'tikkun-book',
@@ -122,6 +118,55 @@
                 index: {
                     type: Array
                 }
+            },
+
+            ready: function () {
+
+                var lastEvent = 'keyup';
+
+                var keyMap = {
+                    32: 'SPACE',
+                    37: 'LEFT',
+                    39: 'RIGHT'
+                };
+
+                var keyActions = {
+                    SPACE: function (self) {
+                        self.annotated = !self.annotated;
+                    },
+                    LEFT: function (self) {
+                        self.next();
+                    },
+                    RIGHT: function (self) {
+                        self.prev();
+                    }
+                }
+
+                var that = this;
+
+                window.addEventListener('keydown', function (e) {
+
+                    var key = keyMap[e.keyCode];
+
+                    if (key && lastEvent === 'keyup') {
+                        keyActions[key](that);
+                        e.preventDefault();
+                    }
+
+
+                    lastEvent = 'keydown';
+                });
+
+                window.addEventListener('keyup', function (e) {
+
+                    var key = keyMap[e.keyCode]
+
+                    if (key === 'SPACE') {
+                        keyActions[key](that);
+                    }
+
+                    lastEvent = 'keyup';
+                })
             },
 
             next: function () {
@@ -162,17 +207,6 @@
                     .length;
 
                 this.scrollTop = 0;
-            },
-
-            handleDomChange: function () {
-
-                if (lastScrollDirection === 'top') {
-                    var newScrollTop = oldScrollTop + this.$.scrollThreshold.scrollHeight - oldHeight;
-
-                    this.$.scrollThreshold.scrollTop = newScrollTop;
-                }
-
-                oldHeight = this.$.scrollThreshold.scrollHeight;
             }
         });
     </script>

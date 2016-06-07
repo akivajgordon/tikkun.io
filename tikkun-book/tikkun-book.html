@@ -23,13 +23,14 @@
             }
 
             app-toolbar {
-                background-color: white;
+                background-color: slategray;
                 box-shadow: 0 8px 8px -8px hsla(0, 0%, 0%, 0.5);
+                color: hsla(0, 0%, 0%, 0.7);
             }
 
             app-toolbar paper-icon-button {
                 --paper-icon-button: {
-                    background-color: hsla(0, 0%, 0%, 0.05);
+                    background-color: hsla(0, 0%, 100%, 0.8);
                     border-radius: 50%;
                 };
             }
@@ -37,9 +38,9 @@
             .paper-labeled-toggle-button {
                 display: flex;
                 font-family: ShlomosemiStam;
-                background-color: hsla(0, 0%, 0%, 0.05);
+                background-color: hsla(0, 0%, 100%, 0.8);
                 border-radius: 4px;
-                padding: 0.5em;
+                padding: 0.3em 0.5em;
                 margin-left: 1.5em;
             }
 
@@ -61,12 +62,13 @@
             tikkun-page {
                 background-color: white;
                 padding: 4em 0;
-                margin: 1em 1em 4em;
+                margin: 1em;
+                /*margin: 1em 1em 4em;*/
                 border-radius: 4px;
                 box-shadow: 0 0 8px hsla(0, 0%, 0%, 0.5);
             }
 
-            #scrollThreshold {
+            .scroll-view {
                 overflow: auto;
                 flex: 1;
             }
@@ -76,17 +78,15 @@
         <iron-ajax url="/index.json" last-response="{{index}}" auto></iron-ajax>
 
         <app-toolbar>
-            <paper-icon-button icon="image:navigate-before"></paper-icon-button>
-            <paper-icon-button icon="image:navigate-next"></paper-icon-button>
+            <paper-icon-button icon="image:navigate-before" on-click="next"></paper-icon-button>
+            <paper-icon-button icon="image:navigate-next" on-click="prev"></paper-icon-button>
             <div class="paper-labeled-toggle-button" data-off="א" data-on="אֶ֨">
                 <paper-toggle-button checked="{{annotated}}"></paper-toggle-button>
             </div>
         </app-toolbar>
-        <iron-scroll-threshold id="scrollThreshold" lower-threshold="500" upper-threshold="0" on-upper-threshold="prev" on-lower-threshold="next">
-            <template is="dom-repeat" items="{{range(firstPage, lastPage)}}" on-dom-change="handleDomChange">
-                <tikkun-page page-number="{{item}}" annotated="[[annotated]]"></tikkun-page>
-            </template>
-        </iron-scroll-threshold>
+        <div class="scroll-view">
+            <tikkun-page page-number="{{currentPage}}" annotated="[[annotated]]"></tikkun-page>
+        </div>
     </template>
 
     <script>
@@ -104,6 +104,11 @@
                     value: false
                 },
 
+                currentPage: {
+                    type: Number,
+                    value: 1
+                },
+
                 firstPage: {
                     type: Number,
                     value: 1
@@ -119,38 +124,17 @@
                 }
             },
 
-            ready: function () {
-                oldHeight = this.$.scrollThreshold.scrollHeight;
-            },
-
-            range: function (first, last) {
-                this.$.scrollThreshold.clearTriggers();
-
-                var count = Math.max(last - first, 0) + 1;
-                return Array(count)
-                    .join()
-                    .split(',')
-                    .map(function (ignore, i) {
-                        return first + i;
-                    });
-            },
-
             next: function () {
-                lastScrollDirection = 'bottom';
-
-                this.lastPage++;
+                this.currentPage++;
             },
 
             prev: function () {
-                oldScrollTop = this.$.scrollThreshold.scrollTop;
-                lastScrollDirection = 'top'
-
-                this.firstPage = Math.max(this.firstPage - 1, 1);
+                this.currentPage = Math.max(this.currentPage - 1, 1);
             },
 
             jumpTo: function (ref) {
 
-                this.firstPage = this.lastPage = this
+                this.currentPage = this
                     .index
                     .filter(function (pageRef) {
                         if (pageRef.book < ref.b) {

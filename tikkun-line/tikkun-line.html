@@ -145,6 +145,27 @@
             return verses[0] + "-" + verses[verses.length - 1];
         };
 
+        var ketiv = function (text) {
+            return text
+                .split(' ')
+                .map(function (word) {
+                    const split = word.split('#[');
+
+                    return split[1] || split[0];
+                })
+                .join(' ')
+                .replace(/\]/g, '');
+        };
+
+        var keri = function (text) {
+            return text
+                .split(' ')
+                .map(function (word) {
+                    return word.split('#[')[0];
+                })
+                .join(' ');
+        }
+
         Polymer({
             is: 'tikkun-line',
 
@@ -170,12 +191,12 @@
 
             displayText: function (text, annotated) {
                 return annotated
-                    ? text
+                    ? ketiv(text)
                     : this.removeAnnotations(text);
             },
 
             removeAnnotations: function (text) {
-                return text
+                return keri(text)
                     .replace(/־/g, " ")
                     .replace(/\(פ\)/g, "")
                     .match(/[א-ת]|\s/g)

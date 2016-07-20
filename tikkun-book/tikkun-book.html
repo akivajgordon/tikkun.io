@@ -177,34 +177,9 @@
                 this.currentPage = Math.max(this.currentPage - 1, 1);
             },
 
-            jumpTo: function (ref) {
+            jumpTo: function (pageNumber) {
 
-                this.currentPage = this
-                    .index
-                    .filter(function (pageRef) {
-                        if (pageRef.book < ref.b) {
-                            return true;
-                        }
-
-                        if (pageRef.book > ref.b) {
-                            return false;
-                        }
-
-                        if (pageRef.chapter < ref.c) {
-                            return true;
-                        }
-
-                        if (pageRef.chapter > ref.c) {
-                            return false;
-                        }
-
-                        if (pageRef.verse <= ref.v) {
-                            return true;
-                        }
-
-                        return false;
-                    })
-                    .length;
+                this.currentPage = pageNumber;
 
                 this.scrollTop = 0;
             }

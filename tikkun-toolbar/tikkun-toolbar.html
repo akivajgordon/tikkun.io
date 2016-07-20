@@ -74,7 +74,7 @@
             }
         </style>
 
-        <iron-ajax url="/data/parshiyot.json" last-response="{{sefarim}}" auto></iron-ajax>
+        <iron-ajax url="/data/parshiyot.json" last-response="{{parshiyot}}" auto></iron-ajax>
         <app-drawer-layout>
             <app-drawer class="drawer">
                 <header>
@@ -104,31 +104,7 @@
                 selected: {
                     type: Number,
                     notify: true
-                },
-
-                parshiyot: {
-                    type: Array,
-                    computed: '_parshiyotFromSefarim(sefarim)'
                 }
-            },
-
-            _parshiyotFromSefarim: function (sefarim) {
-                return sefarim
-                    .reduce(function (all, sefer, bookIndex) {
-                        return all
-                            .concat(sefer
-                                .map(function (parsha) {
-                                    parsha.ref.map(function (ref) {
-                                        ref.b = bookIndex + 1;
-                                        return ref;
-                                    });
-
-                                    parsha.ref = parsha.ref[0];
-
-                                    return parsha;
-                                })
-                            );
-                    }, []);
             }
         })
     </script>

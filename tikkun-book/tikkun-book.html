@@ -83,6 +83,7 @@
             <div class="paper-labeled-toggle-button" data-off="א" data-on="אֶ֨">
                 <paper-toggle-button checked="{{annotated}}"></paper-toggle-button>
             </div>
+            <span>{{parshaDisplay(index, currentPage)}}</span>
         </app-toolbar>
         <div class="scroll-view">
             <tikkun-page page-number="{{currentPage}}" annotated="[[annotated]]"></tikkun-page>
@@ -113,10 +114,6 @@
                 lastPage: {
                     type: Number,
                     value: 1
-                },
-
-                index: {
-                    type: Array
                 }
             },
 
@@ -189,6 +186,10 @@
                 this.currentPage = pageNumber;
 
                 this.scrollTop = 0;
+            },
+
+            parshaDisplay: function (index, currentPage) {
+                return index[currentPage - 1].join(' – ');
             }
         });
     </script>

@@ -122,24 +122,37 @@
 
             ready: function () {
 
-                var lastEvent = 'keyup';
-
                 var keyMap = {
                     32: 'SPACE',
                     37: 'LEFT',
-                    39: 'RIGHT'
+                    39: 'RIGHT',
+                    190: 'PERIOD'
+                };
+
+                var previousKeyDirections = {
+                    annotationsToggle: 'up'
                 };
 
                 var keyActions = {
-                    SPACE: function (self) {
-                        self.annotated = !self.annotated;
+                    PERIOD: function (self, keyDirection) {
+                        if (keyDirection !== previousKeyDirections.annotationsToggle) {
+
+                            self.annotated = !self.annotated;
+
+                            previousKeyDirections.annotationsToggle = keyDirection;
+                        }
+
                     },
-                    LEFT: function (self) {
-                        self.next();
+                    LEFT: function (self, keyDirection) {
+                        if (keyDirection === 'down') {
+                            self.next();
+                        }
                     },
-                    RIGHT: function (self) {
-                        self.prev();
-                    }
+                    RIGHT: function (self, keyDirection) {
+                        if (keyDirection === 'down') {
+                            self.prev();
+                        }
+                    },
                 }
 
                 var that = this;
@@ -148,25 +161,19 @@
 
                     var key = keyMap[e.keyCode];
 
-                    if (key && lastEvent === 'keyup') {
-                        keyActions[key](that);
-                        e.preventDefault();
+                    if (key) {
+                        keyActions[key](that, 'down');
                     }
-
-
-                    lastEvent = 'keydown';
                 });
 
                 window.addEventListener('keyup', function (e) {
 
                     var key = keyMap[e.keyCode]
 
-                    if (key === 'SPACE') {
-                        keyActions[key](that);
+                    if (key) {
+                        keyActions[key](that, 'up');
                     }
-
-                    lastEvent = 'keyup';
-                })
+                });
             },
 
             next: function () {

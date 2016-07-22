@@ -199,8 +199,7 @@
                 return keri(text)
                     .replace(/־/g, " ")
                     .replace(/\(פ\)/g, "")
-                    .match(/[א-ת]|\s/g)
-                    .join("")
+                    .replace(/[^א-ת\s]/g, "")
                     .trim();
             },
 

@@ -102,7 +102,7 @@
                 {{parshaDisplay(index, currentPage)}}
             </div>
         </app-toolbar>
-        <div class="scroll-view">
+        <div id="scroll-view" class="scroll-view">
             <tikkun-page page-number="{{currentPage}}" annotated="[[annotated]]"></tikkun-page>
         </div>
     </template>
@@ -191,18 +191,18 @@
             },
 
             next: function () {
-                this.currentPage++;
+                this.jumpTo(this.currentPage + 1);
             },
 
             prev: function () {
-                this.currentPage = Math.max(this.currentPage - 1, 1);
+                this.jumpTo(Math.max(this.currentPage - 1, 1));
             },
 
             jumpTo: function (pageNumber) {
 
                 this.currentPage = pageNumber;
 
-                this.scrollTop = 0;
+                this.$['scroll-view'].scrollTop = 0;
             },
 
             parshaDisplay: function (index, currentPage) {

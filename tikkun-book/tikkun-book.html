@@ -26,6 +26,8 @@
                 background-color: slategray;
                 box-shadow: 0 8px 8px -8px hsla(0, 0%, 0%, 0.5);
                 color: hsla(0, 0%, 0%, 0.7);
+                display: flex;
+                justify-content: space-between;
             }
 
             app-toolbar paper-icon-button {
@@ -33,6 +35,15 @@
                     background-color: hsla(0, 0%, 100%, 0.8);
                     border-radius: 50%;
                 };
+            }
+
+            app-toolbar .actions {
+                display: flex;
+            }
+
+            app-toolbar .title {
+                color: hsla(0, 0%, 100%, 0.8);
+                font-size: 1.25em;
             }
 
             .paper-labeled-toggle-button {
@@ -78,12 +89,18 @@
         <iron-ajax url="/index.json" last-response="{{index}}" auto></iron-ajax>
 
         <app-toolbar>
-            <paper-icon-button id="next-button" icon="image:navigate-before" on-click="next"></paper-icon-button>
-            <paper-icon-button id="prev-button" icon="image:navigate-next" on-click="prev"></paper-icon-button>
-            <div class="paper-labeled-toggle-button" data-off="א" data-on="אֶ֨">
-                <paper-toggle-button checked="{{annotated}}"></paper-toggle-button>
+            <div class="actions">
+                <div class="actions-navigate">
+                    <paper-icon-button id="next-button" icon="image:navigate-before" on-click="next"></paper-icon-button>
+                    <paper-icon-button id="prev-button" icon="image:navigate-next" on-click="prev"></paper-icon-button>
+                </div>
+                <div class="paper-labeled-toggle-button" data-off="א" data-on="אֶ֨">
+                    <paper-toggle-button checked="{{annotated}}"></paper-toggle-button>
+                </div>
             </div>
-            <span>{{parshaDisplay(index, currentPage)}}</span>
+            <div class="title">
+                {{parshaDisplay(index, currentPage)}}
+            </div>
         </app-toolbar>
         <div class="scroll-view">
             <tikkun-page page-number="{{currentPage}}" annotated="[[annotated]]"></tikkun-page>

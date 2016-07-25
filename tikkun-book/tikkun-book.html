@@ -20,6 +20,7 @@
                 display: flex;
                 flex-flow: column;
                 height: 100vh;
+                direction: rtl;
             }
 
             app-toolbar {
@@ -30,20 +31,28 @@
                 justify-content: space-between;
             }
 
+            .navigation {
+                display: flex;
+                align-items: center;
+            }
+
+                .navigation-controls {
+                    display: flex;
+                    margin-left: 1em;
+                }
+
+                .navigation-title {
+                    color: hsla(0, 0%, 100%, 0.8);
+                    font-size: 1.25em;
+                }
+
             app-toolbar paper-icon-button {
                 --paper-icon-button: {
                     background-color: hsla(0, 0%, 100%, 0.8);
                     border-radius: 50%;
                 };
-            }
 
-            app-toolbar .actions {
-                display: flex;
-            }
-
-            app-toolbar .title {
-                color: hsla(0, 0%, 100%, 0.8);
-                font-size: 1.25em;
+                margin-left: 0.25em;
             }
 
             .paper-labeled-toggle-button {
@@ -52,7 +61,7 @@
                 background-color: hsla(0, 0%, 100%, 0.8);
                 border-radius: 4px;
                 padding: 0.3em 0.5em;
-                margin-left: 1.5em;
+                direction: ltr;
             }
 
             .paper-labeled-toggle-button::before {
@@ -89,17 +98,19 @@
         <iron-ajax url="/index.json" last-response="{{index}}" auto></iron-ajax>
 
         <app-toolbar>
-            <div class="actions">
-                <div class="actions-navigate">
-                    <paper-icon-button id="next-button" icon="image:navigate-before" on-click="next"></paper-icon-button>
+            <div class="navigation">
+                <div class="navigation-controls">
                     <paper-icon-button id="prev-button" icon="image:navigate-next" on-click="prev"></paper-icon-button>
+                    <paper-icon-button id="next-button" icon="image:navigate-before" on-click="next"></paper-icon-button>
                 </div>
+                <div class="navigation-title">
+                    {{parshaDisplay(index, currentPage)}}
+                </div>
+            </div>
+            <div class="actions">
                 <div class="paper-labeled-toggle-button" data-off="א" data-on="אֶ֨">
                     <paper-toggle-button checked="{{annotated}}"></paper-toggle-button>
                 </div>
-            </div>
-            <div class="title">
-                {{parshaDisplay(index, currentPage)}}
             </div>
         </app-toolbar>
         <div id="scroll-view" class="scroll-view">

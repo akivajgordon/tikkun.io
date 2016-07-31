@@ -69,16 +69,16 @@
         </style>
 
         <div class$="line {{petuchaClass(petucha)}}">
-            <span class="location-indicator mod-verses" hidden$="{{!annotated}}">{{asVersesRange(verses)}}</span>
-            <span class="location-indicator mod-aliyot" hidden$="{{!annotated}}">{{asAliyotRange(aliyot)}}</span>
             <template is="dom-repeat" items="{{columns}}" as="column">
                 <div class="column ">
                     <template is="dom-repeat" items="{{column}}" as="fragment">
                         <div class$="fragment {{setumaClass(column)}}">{{displayText(fragment, annotated)}}</span>
                     </template>
-                </span>
+                </div>
             </template>
-        </span>
+            <span class="location-indicator mod-verses" hidden$="{{!annotated}}">{{asVersesRange(verses)}}</span>
+            <span class="location-indicator mod-aliyot" hidden$="{{!annotated}}">{{asAliyotRange(aliyot)}}</span>
+        </div>
     </template>
 
     <script>

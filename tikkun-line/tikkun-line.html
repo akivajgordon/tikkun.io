@@ -3,27 +3,50 @@
 <dom-module id="tikkun-line">
     <template>
         <style>
-            @font-face {
-                font-family: "ShlomosemiStam";
-                src: url(../assets/fonts/ShlomosemiStam.ttf);
-            }
 
             .line {
-                font-family: Shlomosemistam;
-                text-align: justify;
                 position: relative;
-                display: block;
+
+                text-align: justify;
                 line-height: 100%;
+                display: flex;
+                justify-content: space-between;
             }
 
             .line.mod-petucha {
                 text-align: start;
             }
 
-            .line::after {
-                content: "";
-                display: inline-block;
+
+            .column {
+                flex: 1;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .column:nth-child(2) {
+                /*HACK: this rule is a special hack for פרשת האזינו
+                to properly display the columns:
+                    a) with space between the columns
+                    b) without the column line breaking into two
+                */
+                margin-right: 5em;
+                width: 12em;
+            }
+
+
+            .fragment {
                 width: 100%;
+            }
+
+            .fragment.mod-setuma {
+                width: auto;
+            }
+
+            .fragment:after {
+                content: '';
+                width: 100%;
+                display: inline-block;
             }
 
             .location-indicator {
@@ -32,30 +55,26 @@
                 font-size: 0.8em;
             }
 
-            .mod-verses {
+            .location-indicator.mod-verses {
                 right: -6ch;
                 color: hsla(0, 0%, 0%, 0.35);
             }
 
-            .mod-aliyot {
+            .location-indicator.mod-aliyot {
                 right: -13ch;
                 color: hsla(203, 100%, 50%, 0.75);
                 max-width: 8ch;
             }
 
-            .column.mod-setuma {
-                display: flex;
-                justify-content: space-between;
-            }
         </style>
 
-        <span class$="line {{petuchaClass(petucha)}}">
+        <div class$="line {{petuchaClass(petucha)}}">
             <span class="location-indicator mod-verses" hidden$="{{!annotated}}">{{asVersesRange(verses)}}</span>
             <span class="location-indicator mod-aliyot" hidden$="{{!annotated}}">{{asAliyotRange(aliyot)}}</span>
             <template is="dom-repeat" items="{{columns}}" as="column">
-                <span class$="column {{setumaClass(column)}}">
+                <div class="column ">
                     <template is="dom-repeat" items="{{column}}" as="fragment">
-                        <span>{{displayText(fragment, annotated)}}</span>
+                        <div class$="fragment {{setumaClass(column)}}">{{displayText(fragment, annotated)}}</span>
                     </template>
                 </span>
             </template>

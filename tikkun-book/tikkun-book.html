@@ -95,7 +95,7 @@
 
         </style>
 
-        <iron-ajax url="/index.json" last-response="{{index}}" auto></iron-ajax>
+        <iron-ajax url="/build/page-titles.json" last-response="{{pageTitles}}" auto></iron-ajax>
 
         <app-toolbar>
             <div class="navigation">
@@ -104,7 +104,7 @@
                     <paper-icon-button id="next-button" icon="image:navigate-before" on-click="next"></paper-icon-button>
                 </div>
                 <div class="navigation-title">
-                    {{parshaDisplay(index, currentPage)}}
+                    {{parshaDisplay(pageTitles, currentPage)}}
                 </div>
             </div>
             <div class="actions">
@@ -216,8 +216,8 @@
                 this.$['scroll-view'].scrollTop = 0;
             },
 
-            parshaDisplay: function (index, currentPage) {
-                return index[currentPage - 1].join(' – ');
+            parshaDisplay: function (pageTitles, currentPage) {
+                return pageTitles[currentPage - 1].join(' – ');
             }
         });
     </script>

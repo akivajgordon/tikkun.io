@@ -174,7 +174,8 @@
                     return split[1] || split[0];
                 })
                 .join(' ')
-                .replace(/\]/g, '');
+                .replace(/\]/g, '')
+                .replace("#(פ)", '');
         };
 
         var keri = function (text) {

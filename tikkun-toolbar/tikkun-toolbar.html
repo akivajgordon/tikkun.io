@@ -1,20 +1,17 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="/bower_components/iron-selector/iron-selector.html">
-<link rel="import" href="/bower_components/app-layout/app-layout.html">
 
 <link rel="stylesheet" href="/css/toggle.css">
 
 <dom-module id="tikkun-toolbar">
     <template>
         <style>
-            .drawer {
-                --app-drawer-content-container: {
-                    background-color: slategray;
-                    display: flex;
-                    flex-flow: column;
-                    box-shadow: 8px 0px 8px -8px hsla(0, 0%, 0%, 0.5);
-                }
+            :host {
+                height: 100%;
+                overflow: auto;
+                display: flex;
+                flex-flow: column;
             }
 
             header {
@@ -37,7 +34,6 @@
                 list-style: none;
                 margin: 0;
                 padding: 0;
-                direction: rtl;
                 flex: 1;
                 text-align: center;
             }
@@ -75,25 +71,22 @@
         </style>
 
         <iron-ajax url="/build/parshiyot.json" last-response="{{parshiyot}}" auto></iron-ajax>
-        <app-drawer-layout>
-            <app-drawer class="drawer" align="right">
-                <header>
-                    <span class="title">Tikkun.io</span>
-                </header>
-                <ol class="parshiyot">
-                    <iron-selector selected="{{selected}}">
-                        <template is="dom-repeat" items="{{parshiyot}}" as="parsha">
-                            <li class="parshiyot-parsha">{{parsha.he}}</li>
-                        </template>
-                    </iron-selector>
-                </ol>
-                <footer>
-                    <a href="https://www.github.com/akivajgordon/tikkun.io" target="_blank" title="Go to GitHub repository">
-                        <img class="toolbar-github" src="/assets/images/GitHub-Mark-Light-32px.png" alt="GitHub" height="32px" width="32px"/>
-                    </a>
-                </footer>
-            </app-drawer>
-        </app-drawer-layout>
+
+        <header>
+            <span class="title">Tikkun.io</span>
+        </header>
+        <ol class="parshiyot">
+            <iron-selector selected="{{selected}}">
+                <template is="dom-repeat" items="{{parshiyot}}" as="parsha">
+                    <li class="parshiyot-parsha">{{parsha.he}}</li>
+                </template>
+            </iron-selector>
+        </ol>
+        <footer>
+            <a href="https://www.github.com/akivajgordon/tikkun.io" target="_blank" title="Go to GitHub repository">
+                <img class="toolbar-github" src="/assets/images/GitHub-Mark-Light-32px.png" alt="GitHub" height="32px" width="32px"/>
+            </a>
+        </footer>
     </template>
 
     <script>

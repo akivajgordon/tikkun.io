@@ -4,6 +4,7 @@
 <link rel="import" href="/bower_components/iron-icons/image-icons.html">
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="/bower_components/app-storage/app-localstorage/app-localstorage-document.html">
 <link rel="import" href="../tikkun-page/tikkun-page.html">
 
 <dom-module id="tikkun-book">
@@ -81,6 +82,9 @@
         </style>
 
         <iron-ajax url="/build/page-titles.json" last-response="{{pageTitles}}" auto></iron-ajax>
+
+        <app-localstorage-document key="currentPage" data="{{currentPage}}">
+        </app-localstorage-document>
 
         <app-header-layout has-scrolling-region>
             <app-header fixed>

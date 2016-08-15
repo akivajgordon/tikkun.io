@@ -1,4 +1,6 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/app-layout/app-layout.html">
+
 <link rel="import" href="../tikkun-toolbar/tikkun-toolbar.html">
 <link rel="import" href="../tikkun-book/tikkun-book.html">
 
@@ -6,17 +8,29 @@
     <template>
         <style>
             :host {
-                display: flex;
-                flex-direction: row-reverse;
+                direction: rtl;
+                display: block;
+                background-color: hsla(0, 0%, 0%, 0.1);
+            }
+
+            tikkun-toolbar {
+                background-color: slategray;
+                box-shadow: -8px 0px 8px -8px hsla(0, 0%, 0%, 0.5);
             }
 
             tikkun-book {
-                flex: 1;
                 font-size: 1.5em;
+                height: 100vh;
+                display: block;
             }
         </style>
-        <tikkun-toolbar id="toolbar" selected="{{jump}}"></tikkun-toolbar>
-        <tikkun-book id="book"></tikkun-book>
+
+        <app-drawer-layout>
+            <app-drawer align="start">
+                <tikkun-toolbar id="toolbar" selected="{{jump}}"></tikkun-toolbar>
+            </app-drawer>
+            <tikkun-book id="book"></tikkun-book>
+        </app-drawer-layout>
     </template>
 
     <script>

@@ -111,7 +111,9 @@
         "verse": 2
       }
     ],
-    "aliyot": [],
+    "aliyot": [
+      7
+    ],
     "isPetucha": false
   },
   {
@@ -569,9 +571,7 @@
         "verse": 23
       }
     ],
-    "aliyot": [
-      7
-    ],
+    "aliyot": [],
     "isPetucha": false
   },
   {

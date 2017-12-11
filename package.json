@@ -1,0 +1,22 @@
+{
+  "name": "tikkun.io",
+  "version": "0.3.0",
+  "description": "Chant your heart out.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akivajgordon/tikkun.io.git"
+  },
+  "author": "Akiva Gordon <akivag29@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/akivajgordon/tikkun.io/issues"
+  },
+  "homepage": "https://github.com/akivajgordon/tikkun.io#readme",
+  "dependencies": {
+    "lit-html": "^0.7.1"
+  }
+}

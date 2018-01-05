@@ -4,7 +4,8 @@
   "description": "Chant your heart out.",
   "main": "index.js",
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "build": "webpack index.js dist/hebrew-numeral.js"
   },
   "repository": {
     "type": "git",

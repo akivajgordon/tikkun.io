@@ -18,6 +18,7 @@
   "homepage": "https://github.com/akivajgordon/tikkun.io#readme",
   "dependencies": {},
   "devDependencies": {
-    "ava": "^0.24.0"
+    "ava": "^0.24.0",
+    "webpack": "^3.10.0"
   }
 }

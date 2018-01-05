@@ -22,6 +22,21 @@ const letters = [
     {glyph: 'ש', value: 300},
     {glyph: 'ת', value: 400}
 ]
-  .reduce((map, letter) => Object.assign(map, {[letter.value]: letter.glyph}), {})
+  .reverse()
 
-module.exports = (n) => letters[n]
+const hebrewNumeral = (n) => {
+  if (n <= 0) return ''
+  if (n === 15) return 'טו'
+  if (n === 16) return 'טז'
+
+  let i = 0
+  while (n < letters[i].value) {
+    ++i
+  }
+
+  const letter = letters[i]
+
+  return `${letter.glyph}${hebrewNumeral(n - letter.value)}`
+}
+
+module.exports = hebrewNumeral

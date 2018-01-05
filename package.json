@@ -1,0 +1,23 @@
+{
+  "name": "tikkun.io",
+  "version": "1.0.0",
+  "description": "Chant your heart out.",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akivajgordon/tikkun.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akivajgordon/tikkun.io/issues"
+  },
+  "homepage": "https://github.com/akivajgordon/tikkun.io#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^0.24.0"
+  }
+}

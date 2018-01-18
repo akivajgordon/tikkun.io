@@ -1,3 +1,4 @@
 const hebrewNumeralFromInteger = require('./src/hebrew-numeral')
+const textFilter = require('./src/text-filter')
 
-window.hebrewNumeralFromInteger = window.hebrewNumeralFromInteger || hebrewNumeralFromInteger
+window.TikkunApp = window.TikkunApp || {textFilter, hebrewNumeralFromInteger}

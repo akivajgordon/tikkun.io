@@ -1,5 +1,5 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
-<script src="/dist/hebrew-numeral.js"></script>
+<script src="/dist/bundle.js"></script>
 
 <dom-module id="tikkun-line">
     <template>
@@ -83,7 +83,7 @@
     </template>
 
     <script>
-        console.log(hebrewNumeralFromInteger)
+        const {textFilter, hebrewNumeralFromInteger} = TikkunApp
         var aliyotNames = function (aliyot) {
             var aliyotStrings = [
                 "ראשון",
@@ -116,28 +116,6 @@
                 .join("-");
         };
 
-        var ketiv = function (text) {
-            return text
-                .split(' ')
-                .map(function (word) {
-                    const split = word.split('#[');
-
-                    return split[1] || split[0];
-                })
-                .join(' ')
-                .replace(/\]/g, '')
-                .replace("#(פ)", '');
-        };
-
-        var keri = function (text) {
-            return text
-                .split(' ')
-                .map(function (word) {
-                    return word.split('#[')[0];
-                })
-                .join(' ');
-        }
-
         Polymer({
             is: 'tikkun-line',
 
@@ -161,19 +139,7 @@
                     : '';
             },
 
-            displayText: function (text, annotated) {
-                return annotated
-                    ? ketiv(text)
-                    : this.removeAnnotations(text);
-            },
-
-            removeAnnotations: function (text) {
-                return keri(text)
-                    .replace(/־/g, " ")
-                    .replace(/\(פ\)/g, "")
-                    .replace(/[^א-ת\s]/g, "")
-                    .trim();
-            },
+            displayText: (text, annotated) => textFilter({text, annotated}),
 
             asRange: asRange,
 

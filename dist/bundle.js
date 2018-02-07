@@ -68,8 +68,9 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 const hebrewNumeralFromInteger = __webpack_require__(1)
+const textFilter = __webpack_require__(2)
 
-window.hebrewNumeralFromInteger = window.hebrewNumeralFromInteger || hebrewNumeralFromInteger
+window.TikkunApp = window.TikkunApp || {textFilter, hebrewNumeralFromInteger}
 
 
 /***/ }),
@@ -118,6 +119,39 @@ const hebrewNumeral = (n) => {
 }
 
 module.exports = hebrewNumeral
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+const ketiv = (text) => text
+  .replace('#(פ)', '')
+  .split(' ')
+  .map((word) => {
+    const parts = word.split('#')
+
+    if (parts.length <= 1) {
+      return parts[0]
+    }
+
+    return parts[1].slice(1, -1)
+  })
+  .join(' ')
+
+const kri = (text) => text
+  .replace(/־/g, ' ')
+  .replace('#(פ)', '')
+  .split(' ')
+  .map((word) => {
+    const parts = word.split('#')
+
+    return parts[0]
+  })
+  .join(' ')
+  .replace(/[^א-ת\s]/g, '')
+
+module.exports = ({text, annotated}) => annotated ? ketiv(text) : kri(text)
 
 
 /***/ })

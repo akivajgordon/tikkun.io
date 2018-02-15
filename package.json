@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "ava",
+    "e2e": "ava --serial e2e/index.test.js",
     "build": "webpack index.js dist/bundle.js"
   },
   "repository": {

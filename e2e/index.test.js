@@ -1,7 +1,9 @@
 import test from 'ava'
 const { Builder, By, until } = require('selenium-webdriver')
 const page1Text = require('./data/page1Text')
+const page22Text = require('./data/page22Text')
 const page23Text = require('./data/page23Text')
+const page24Text = require('./data/page24Text')
 
 let driver
 test.before(() => {
@@ -20,7 +22,7 @@ test.beforeEach(t => {
       launch: () => driver.get('http://localhost:8000'),
       currentTextContent: () => driver.wait(until.elementsLocated(By.css('.tikkun-line.column')), 2000)
         .then((elements) => Promise.all(elements.map((el) => el.getText())))
-        .then((lines) => lines.map((line) => line.trim()))
+        .then((lines) => lines.map((line) => line.trim().replace(/\s+/g, ' ')))
         .then((lines) => lines.map((line) => [line])),
       currentTitle: () => driver.wait(until.elementLocated(By.css('.navigation-title')), 2000)
         .then((el) => el.getText())
@@ -28,7 +30,11 @@ test.beforeEach(t => {
       jumpToParsha: (parsha) => driver.wait(until.elementsLocated(By.css('.parshiyot-parsha')), 2000)
         .then((elements) => Promise.all(elements.map((el) => el.getText().then((text) => ({el, text})))))
         .then((elements) => elements.find(({text}) => text === parsha))
-        .then(({el}) => el.click())
+        .then(({el}) => el.click()),
+      clickNextPage: () => driver.findElement(By.css('#next-button'))
+        .then((el) => el.click()),
+      clickPreviousPage: () => driver.findElement(By.css('#prev-button'))
+        .then((el) => el.click())
     }
   }
 })
@@ -67,6 +73,26 @@ test('clicking on a parsha from the list should display that parsha\'s first pag
     .then((textContent) => t.deepEqual(textContent, page23Text))
 })
 
-test.todo('clicking on a next page should show next page after this one')
-test.todo('clicking on a previous page should show previous page before this one')
+test('clicking on a next page should show next page after this one', t => {
+  const { app } = t.context
+
+  return app.launch()
+    .then(() => app.jumpToParsha('חיי שרה'))
+    .then(() => app.clickNextPage())
+    .then(() => driver.sleep(100))
+    .then(() => app.currentTextContent())
+    .then((textContent) => t.deepEqual(textContent, page24Text))
+})
+
+test('clicking on a previous page should show previous page before this one', t => {
+  const { app } = t.context
+
+  return app.launch()
+    .then(() => app.jumpToParsha('חיי שרה'))
+    .then(() => app.clickPreviousPage())
+    .then(() => driver.sleep(100))
+    .then(() => app.currentTextContent())
+    .then((textContent) => t.deepEqual(textContent, page22Text))
+})
+
 test.todo('changing annotation toggle from on to off should hide annotations')

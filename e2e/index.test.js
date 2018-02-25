@@ -1,6 +1,7 @@
 import test from 'ava'
 const { Builder, By, until } = require('selenium-webdriver')
 const page1Text = require('./data/page1Text')
+const page23Text = require('./data/page23Text')
 
 let driver
 test.before(() => {
@@ -57,7 +58,15 @@ test('clicking on a parsha from the list should display that parsha in the title
     })
 })
 
-test.todo('clicking on a parsha from the list should display that parsha\'s first page')
+test('clicking on a parsha from the list should display that parsha\'s first page', t => {
+  const { app } = t.context
+
+  return app.launch()
+    .then(() => app.jumpToParsha('חיי שרה'))
+    .then(() => app.currentTextContent())
+    .then((textContent) => t.deepEqual(textContent, page23Text))
+})
+
 test.todo('clicking on a next page should show next page after this one')
 test.todo('clicking on a previous page should show previous page before this one')
 test.todo('changing annotation toggle from on to off should hide annotations')

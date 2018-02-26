@@ -1,6 +1,7 @@
 import test from 'ava'
 const { Builder, By, until } = require('selenium-webdriver')
 const page1Text = require('./data/page1Text')
+const page1TextUnannotated = require('./data/page1Text.unannotated')
 const page22Text = require('./data/page22Text')
 const page23Text = require('./data/page23Text')
 const page24Text = require('./data/page24Text')
@@ -34,6 +35,8 @@ test.beforeEach(t => {
       clickNextPage: () => driver.findElement(By.css('#next-button'))
         .then((el) => el.click()),
       clickPreviousPage: () => driver.findElement(By.css('#prev-button'))
+        .then((el) => el.click()),
+      toggleAnnotations: () => driver.findElement(By.css('.js-annotations-toggle'))
         .then((el) => el.click())
     }
   }
@@ -95,4 +98,12 @@ test('clicking on a previous page should show previous page before this one', t 
     .then((textContent) => t.deepEqual(textContent, page22Text))
 })
 
-test.todo('changing annotation toggle from on to off should hide annotations')
+test('changing annotation toggle from on to off should hide annotations', t => {
+  const { app } = t.context
+
+  return app.launch()
+    .then(() => app.jumpToParsha('בראשית'))
+    .then(() => app.toggleAnnotations())
+    .then(() => app.currentTextContent())
+    .then((textContent) => t.deepEqual(textContent, page1TextUnannotated))
+})

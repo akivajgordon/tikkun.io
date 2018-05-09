@@ -3,24 +3,26 @@
 	Author Tobias Koppers @sokra
 */
 "use strict";
+
 const compareLocations = require("./compareLocations");
+const DependencyReference = require("./dependencies/DependencyReference");
 
 class Dependency {
 	constructor() {
 		this.module = null;
+		this.weak = false;
+		this.optional = false;
+		this.loc = undefined;
 	}
 
-	isEqualResource() {
-		return false;
+	getResourceIdentifier() {
+		return null;
 	}
 
 	// Returns the referenced module and export
 	getReference() {
-		if(!this.module) return null;
-		return {
-			module: this.module,
-			importedNames: true, // true: full object, false: only sideeffects/no export, array of strings: the exports with this names
-		};
+		if (!this.module) return null;
+		return new DependencyReference(this.module, true, this.weak);
 	}
 
 	// Returns the exported names
@@ -42,11 +44,6 @@ class Dependency {
 
 	disconnect() {
 		this.module = null;
-	}
-
-	// TODO: remove in webpack 3
-	compare(a, b) {
-		return compareLocations(a.loc, b.loc);
 	}
 }
 Dependency.compare = (a, b) => compareLocations(a.loc, b.loc);

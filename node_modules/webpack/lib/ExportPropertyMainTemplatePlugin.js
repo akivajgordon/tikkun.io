@@ -4,11 +4,11 @@
 */
 "use strict";
 
-const ConcatSource = require("webpack-sources").ConcatSource;
+const { ConcatSource } = require("webpack-sources");
 
-function accessorToObjectAccess(accessor) {
+const accessorToObjectAccess = accessor => {
 	return accessor.map(a => `[${JSON.stringify(a)}]`).join("");
-}
+};
 
 class ExportPropertyMainTemplatePlugin {
 	constructor(property) {
@@ -16,12 +16,21 @@ class ExportPropertyMainTemplatePlugin {
 	}
 
 	apply(compilation) {
-		const mainTemplate = compilation.mainTemplate;
-		compilation.templatesPlugin("render-with-entry", (source, chunk, hash) => {
+		const { mainTemplate, chunkTemplate } = compilation;
+
+		const onRenderWithEntry = (source, chunk, hash) => {
 			const postfix = `${accessorToObjectAccess([].concat(this.property))}`;
 			return new ConcatSource(source, postfix);
-		});
-		mainTemplate.plugin("hash", hash => {
+		};
+
+		for (const template of [mainTemplate, chunkTemplate]) {
+			template.hooks.renderWithEntry.tap(
+				"ExportPropertyMainTemplatePlugin",
+				onRenderWithEntry
+			);
+		}
+
+		mainTemplate.hooks.hash.tap("ExportPropertyMainTemplatePlugin", hash => {
 			hash.update("export property");
 			hash.update(`${this.property}`);
 		});

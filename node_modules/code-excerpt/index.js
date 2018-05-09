@@ -24,7 +24,7 @@ module.exports = (source, line, options) => {
 		throw new TypeError('Line number must start from `1`.');
 	}
 
-	source = tabsToSpaces(source).split('\n');
+	source = tabsToSpaces(source).split(/\r?\n/);
 
 	if (line > source.length) {
 		return null;

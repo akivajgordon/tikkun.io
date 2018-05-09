@@ -1,0 +1,68 @@
+Arguments: 
+  /usr/bin/node /usr/share/yarn/bin/yarn.js publish --tag latest --new-version 1.0.0-y.5
+
+PATH: 
+  /home/sven/Documents/xtuc/webassembly/packages/wast-parser/node_modules/.bin:/home/sven/Documents/xtuc/webassembly/packages/node_modules/.bin:/home/sven/Documents/xtuc/webassembly/node_modules/.bin:/home/sven/Documents/xtuc/node_modules/.bin:/home/sven/Documents/node_modules/.bin:/home/sven/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/usr/bin:/home/sven/.opam/4.02.3/bin:/home/sven/.tmuxifier/bin:/home/sven/.tmuxifier/bin:/home/sven/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/sven/.fzf/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/gettext/bin:/opt/scala-2.12.0/bin:/opt/node-v8.7.0-linux-x64/bin:/opt/ansible/bin:/opt/phantomjs-1.8.1-linux-x86_64/bin:./node_modules/.bin:/opt/depot_tools:/opt/docker:/home/sven/.local/bin:/home/sven/.rvm/bin:/opt/go/bin:/home/sven/go/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/gettext/bin:/opt/scala-2.12.0/bin:/opt/node-v8.7.0-linux-x64/bin:/opt/ansible/bin:/opt/phantomjs-1.8.1-linux-x86_64/bin:./node_modules/.bin:/opt/depot_tools:/opt/docker:/home/sven/.local/bin:/home/sven/.rvm/bin:/opt/go/bin:/home/sven/go/bin
+
+Yarn version: 
+  1.2.1
+
+Node version: 
+  6.11.4
+
+Platform: 
+  linux x64
+
+npm manifest: 
+  {
+    "name": "@webassemblyjs/wast-parser",
+    "version": "1.0.0-y.5",
+    "description": "WebAssembly text format parser",
+    "keywords": [
+      "webassembly",
+      "javascript",
+      "ast",
+      "parser",
+      "wat",
+      "wast"
+    ],
+    "main": "lib/index.js",
+    "scripts": {
+      "test": "mocha"
+    },
+    "author": "Sven Sauleau",
+    "license": "GPL-2.0",
+    "dependencies": {
+      "@babel/code-frame": "^7.0.0-beta.36",
+      "@webassemblyjs/ast": "1.0.0-y.5",
+      "long": "^3.2.0",
+      "webassembly-floating-point-hex-parser": "0.1.2",
+      "webassemblyjs": "1.0.0-y.5"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/xtuc/webassembly.git"
+    },
+    "publishConfig": {
+      "access": "public"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@webassemblyjs%2fwast-parser: You must sign up for private packages
+      at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:62027:18)
+      at Request.self.callback (/usr/share/yarn/lib/cli.js:123011:22)
+      at emitTwo (events.js:106:13)
+      at Request.emit (events.js:191:7)
+      at Request.<anonymous> (/usr/share/yarn/lib/cli.js:123994:10)
+      at emitOne (events.js:96:13)
+      at Request.emit (events.js:188:7)
+      at IncomingMessage.<anonymous> (/usr/share/yarn/lib/cli.js:123914:12)
+      at IncomingMessage.g (events.js:292:16)
+      at emitNone (events.js:91:20)

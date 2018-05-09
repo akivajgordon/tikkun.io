@@ -6,38 +6,61 @@
 const DependenciesBlock = require("./DependenciesBlock");
 
 module.exports = class AsyncDependenciesBlock extends DependenciesBlock {
-	constructor(name, module, loc) {
+	constructor(groupOptions, module, loc, request) {
 		super();
-		this.chunkName = name;
-		this.chunks = null;
+		if (typeof groupOptions === "string") {
+			groupOptions = { name: groupOptions };
+		} else if (!groupOptions) {
+			groupOptions = { name: undefined };
+		}
+		this.groupOptions = groupOptions;
+		this.chunkGroup = undefined;
 		this.module = module;
 		this.loc = loc;
+		this.request = request;
 	}
-	get chunk() {
-		throw new Error("`chunk` was been renamed to `chunks` and is now an array");
+
+	get chunkName() {
+		return this.groupOptions.name;
 	}
-	set chunk(chunk) {
-		throw new Error("`chunk` was been renamed to `chunks` and is now an array");
+
+	set chunkName(value) {
+		this.groupOptions.name = value;
 	}
+
+	get chunks() {
+		throw new Error("Moved to AsyncDependenciesBlock.chunkGroup");
+	}
+
+	set chunks(value) {
+		throw new Error("Moved to AsyncDependenciesBlock.chunkGroup");
+	}
+
 	updateHash(hash) {
-		hash.update(this.chunkName || "");
-		hash.update(this.chunks && this.chunks.map((chunk) => {
-			return chunk.id !== null ? chunk.id : "";
-		}).join(",") || "");
+		hash.update(JSON.stringify(this.groupOptions));
+		hash.update(
+			(this.chunkGroup &&
+				this.chunkGroup.chunks
+					.map(chunk => {
+						return chunk.id !== null ? chunk.id : "";
+					})
+					.join(",")) ||
+				""
+		);
 		super.updateHash(hash);
 	}
+
 	disconnect() {
-		this.chunks = null;
+		this.chunkGroup = undefined;
 		super.disconnect();
 	}
+
 	unseal() {
-		this.chunks = null;
+		this.chunkGroup = undefined;
 		super.unseal();
 	}
+
 	sortItems() {
 		super.sortItems();
-		if(this.chunks) {
-			this.chunks.sort((a, b) => a.compareTo(b));
-		}
 	}
 };

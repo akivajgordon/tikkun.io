@@ -21,8 +21,8 @@ import {directive, NodePart} from '../lit-html.js';
  * sanitized or escaped, as it may lead to cross-site-scripting
  * vulnerabilities.
  */
-export const unsafeHTML = (value: any) => directive((_part: NodePart) => {
+export const unsafeHTML = (value: any) => directive((part: NodePart) => {
   const tmp = document.createElement('template');
   tmp.innerHTML = value;
-  return document.importNode(tmp.content, true);
+  part.setValue(document.importNode(tmp.content, true));
 });

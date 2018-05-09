@@ -8,10 +8,11 @@ class Semaphore {
 	constructor(available) {
 		this.available = available;
 		this.waiters = [];
+		this._continue = this._continue.bind(this);
 	}
 
 	acquire(callback) {
-		if(this.available > 0) {
+		if (this.available > 0) {
 			this.available--;
 			callback();
 		} else {
@@ -20,11 +21,19 @@ class Semaphore {
 	}
 
 	release() {
-		if(this.waiters.length > 0) {
-			const callback = this.waiters.pop();
-			process.nextTick(callback);
-		} else {
-			this.available++;
+		this.available++;
+		if (this.waiters.length > 0) {
+			process.nextTick(this._continue);
+		}
+	}
+
+	_continue() {
+		if (this.available > 0) {
+			if (this.waiters.length > 0) {
+				this.available--;
+				const callback = this.waiters.pop();
+				callback();
+			}
 		}
 	}
 }

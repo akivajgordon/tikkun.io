@@ -1,10 +1,12 @@
 {
   "name": "tikkun.io",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Chant your heart out.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava",
+    "e2e": "ava --serial e2e/index.test.js",
+    "build": "webpack index.js dist/bundle.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +20,10 @@
   "homepage": "https://github.com/akivajgordon/tikkun.io#readme",
   "dependencies": {
     "lit-html": "^0.7.1"
+  },
+  "devDependencies": {
+    "ava": "^0.24.0",
+    "selenium-webdriver": "^4.0.0-alpha.1",
+    "webpack": "^3.10.0"
   }
 }

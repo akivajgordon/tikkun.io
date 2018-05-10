@@ -83,38 +83,7 @@
     </template>
 
     <script>
-        const {textFilter, hebrewNumeralFromInteger} = TikkunApp
-        var aliyotNames = function (aliyot) {
-            var aliyotStrings = [
-                "ראשון",
-                "שני",
-                "שלישי",
-                "רביעי",
-                "חמישי",
-                "ששי",
-                "שביעי",
-                "מפטיר"
-            ];
-
-            return aliyot.filter(function (aliyah) {
-                return aliyah > 0 && aliyah <= aliyotStrings.length;
-            }).map(function (aliyah) {
-                return aliyotStrings[aliyah - 1];
-            });
-        };
-
-        var asRange = function (strings) {
-            if (!strings.length) {
-                return "";
-            }
-
-            if (strings.length === 1) {
-                return strings[0];
-            }
-
-            return [strings[0], strings[strings.length - 1]]
-                .join("-");
-        };
+        const {textFilter, hebrewNumeralFromInteger, displayRange} = TikkunApp
 
         Polymer({
             is: 'tikkun-line',
@@ -141,36 +110,9 @@
 
             displayText: (text, annotated) => textFilter({text, annotated}),
 
-            asRange: asRange,
+            asVersesRange: displayRange.asVersesRange,
 
-            asVersesRange: function (verses) {
-                return asRange(verses
-                    .map(function (verse) {
-                        var components = [];
-
-                        if (verse.verse === 1) {
-                            components.push(verse.chapter);
-                        }
-
-                        components.push(verse.verse);
-
-                        return components
-                            .map(function (num) {
-                                return hebrewNumeralFromInteger(num);
-                            })
-                            .join(":");
-                    }));
-            },
-
-            asAliyotRange: function (aliyot) {
-                if (!aliyot.length) {
-                    return "";
-                }
-
-                var aliyotByName = aliyotNames(aliyot);
-
-                return aliyotByName[0] + (aliyotByName[1] ? " [" + aliyotByName[1] + "]" : "");
-            }
+            asAliyotRange: displayRange.asAliyotRange
         })
     </script>
 </dom-module>

@@ -60,21 +60,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const hebrewNumeralFromInteger = __webpack_require__(1)
-const textFilter = __webpack_require__(2)
-
-window.TikkunApp = window.TikkunApp || {textFilter, hebrewNumeralFromInteger}
-
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports) {
 
 const letters = [
@@ -122,6 +112,17 @@ module.exports = hebrewNumeral
 
 
 /***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const hebrewNumeralFromInteger = __webpack_require__(0)
+const textFilter = __webpack_require__(2)
+const displayRange = __webpack_require__(3)
+
+window.TikkunApp = window.TikkunApp || {textFilter, hebrewNumeralFromInteger, displayRange}
+
+
+/***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
@@ -152,6 +153,64 @@ const kri = (text) => text
   .replace(/[^א-ת\s]/g, '')
 
 module.exports = ({text, annotated}) => annotated ? ketiv(text) : kri(text)
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const hebrewNumeralFromInteger = __webpack_require__(0)
+
+var asRange = (strings) => {
+  if (!strings.length) {
+    return ''
+  }
+
+  if (strings.length === 1) {
+    return strings[0]
+  }
+
+  return [strings[0], strings[strings.length - 1]].join('-')
+}
+
+const aliyotStrings = [
+  "ראשון",
+  "שני",
+  "שלישי",
+  "רביעי",
+  "חמישי",
+  "ששי",
+  "שביעי",
+  "מפטיר"
+]
+
+var aliyotNames = (aliyot) => aliyot
+  .filter((aliyah) => aliyah > 0 && aliyah <= aliyotStrings.length)
+  .map((aliyah) => aliyotStrings[aliyah - 1])
+
+const asVersesRange = (verses) => asRange(verses.map((verse) => {
+  const components = []
+
+  if (verse.verse === 1) {
+    components.push(verse.chapter)
+  }
+
+  components.push(verse.verse)
+
+  return components
+    .map((num) => hebrewNumeralFromInteger(num))
+    .join(':')
+}))
+
+const asAliyotRange = (aliyot) => {
+  if (!aliyot.length) {
+    return ''
+  }
+
+  const aliyotByName = aliyotNames(aliyot)
+
+  return aliyotByName[0] + (aliyotByName[1] ? ` [${aliyotByName[1]}]` : '')
+}
 
 
 /***/ })

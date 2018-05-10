@@ -6,7 +6,7 @@
   "scripts": {
     "test": "ava",
     "e2e": "ava --serial e2e/index.test.js",
-    "build": "webpack index.js dist/bundle.js"
+    "build": "webpack src/index.js -o dist/bundle.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   "devDependencies": {
     "ava": "^0.25.0",
     "selenium-webdriver": "^4.0.0-alpha.1",
-    "webpack": "^4.8.1"
+    "webpack": "^4.8.1",
+    "webpack-cli": "^2.1.3"
   }
 }

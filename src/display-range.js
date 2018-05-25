@@ -13,14 +13,14 @@ var asRange = (strings) => {
 }
 
 const aliyotStrings = [
-  "ראשון",
-  "שני",
-  "שלישי",
-  "רביעי",
-  "חמישי",
-  "ששי",
-  "שביעי",
-  "מפטיר"
+  'ראשון',
+  'שני',
+  'שלישי',
+  'רביעי',
+  'חמישי',
+  'ששי',
+  'שביעי',
+  'מפטיר'
 ]
 
 var aliyotNames = (aliyot) => aliyot
@@ -50,3 +50,5 @@ const asAliyotRange = (aliyot) => {
 
   return aliyotByName[0] + (aliyotByName[1] ? ` [${aliyotByName[1]}]` : '')
 }
+
+module.exports = { asVersesRange, asAliyotRange }

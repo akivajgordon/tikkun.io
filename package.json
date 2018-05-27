@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "ava": "^0.25.0",
+    "cypress": "^2.1.0",
     "selenium-webdriver": "^4.0.0-alpha.1",
     "webpack": "^4.8.1",
     "webpack-cli": "^2.1.3"

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "ava",
     "e2e": "ava --serial e2e/index.test.js",
-    "build": "webpack --mode development src/index.js -o dist/bundle.js"
+    "build": "webpack --mode development index.js -o dist/bundle.js"
   },
   "repository": {
     "type": "git",

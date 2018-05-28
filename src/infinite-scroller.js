@@ -40,9 +40,6 @@ const oneAtATime = (promise) => {
 
 const loadContent = () => oneAtATime(() => delay(1000, makeBlock))
 
-// const container = document.querySelector('.infinite-scroll-view')
-
-// const InfiniteScroller = ({
 const InfiniteScroller = {
   new: ({ container }) => ({
     attach: () => container.addEventListener('scroll', (e) => {
@@ -59,13 +56,13 @@ const InfiniteScroller = {
           .then((content) => {
             const belowHeight = scrollView.scrollHeight - scrollView.scrollTop
 
-            insertBefore(container, content)
+            if (content) insertBefore(container, content)
             scrollView.scrollTop = scrollView.scrollHeight - belowHeight
           })
       } else if (hiddenBelowHeight < height) {
         loadContent()
           .then((content) => {
-            insertAfter(container, content)
+            if (content) insertAfter(container, content)
           })
       }
     })

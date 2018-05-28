@@ -1,5 +1,5 @@
 import { html, render } from 'lit-html/lib/lit-extended'
-import { displayRange, textFilter } from './src'
+import { displayRange, textFilter, InfiniteScroller } from './src'
 
 const petuchaClass = (isPetucha) => isPetucha ? 'mod-petucha' : ''
 
@@ -32,6 +32,7 @@ const Page = (lines, annotated) => html`
 `
 
 document.addEventListener('DOMContentLoaded', () => {
+  InfiniteScroller.new({ container: document.querySelector('#js-app') }).attach()
   window.fetch('/build/pages/1.json')
     .then((res) => res.json())
     .then((page) => {

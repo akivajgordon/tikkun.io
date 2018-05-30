@@ -31,9 +31,41 @@ const Page = (lines, annotated) => html`
   </div>
 `
 
+const insertBefore = (parent, child) => {
+  parent.insertAdjacentElement('afterbegin', child)
+}
+
+const insertAfter = (parent, child) => {
+  parent.insertAdjacentElement('beforeend', child)
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  InfiniteScroller.new({ container: document.querySelector('#js-app') }).attach()
-  window.fetch('/build/pages/1.json')
+  InfiniteScroller
+    .new({
+      container: document.querySelector('#js-app'),
+      fetchPreviousContent: {
+        fetch: () => window.fetch('/build/pages/222.json')
+          .then((res) => res.json())
+          .then((page) => Page(page, true)),
+        render: (container, content) => {
+          const node = document.createElement('div')
+          insertBefore(container, node)
+          render(content, node)
+        }
+      },
+      fetchNextContent: {
+        fetch: () => window.fetch('/build/pages/224.json')
+          .then((res) => res.json())
+          .then((page) => Page(page, true)),
+        render: (container, content) => {
+          const node = document.createElement('div')
+          insertAfter(container, node)
+          render(content, node)
+        }
+      }
+    })
+    .attach()
+  window.fetch('/build/pages/223.json')
     .then((res) => res.json())
     .then((page) => {
       render(Page(page, true), document.querySelector('#js-app'))

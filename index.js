@@ -1,5 +1,5 @@
 import { html, render } from 'lit-html/lib/lit-extended'
-import { displayRange, textFilter, InfiniteScroller } from './src'
+import { displayRange, textFilter, InfiniteScroller, IntegerIterator } from './src'
 
 const petuchaClass = (isPetucha) => isPetucha ? 'mod-petucha' : ''
 
@@ -39,14 +39,18 @@ const insertAfter = (parent, child) => {
   parent.insertAdjacentElement('beforeend', child)
 }
 
+const fetchPage = (n) => window.fetch(`/build/pages/${n}.json`)
+  .then((res) => res.json())
+  .then((page) => Page(page, true))
+
+const iterator = IntegerIterator.new({ startingAt: 223 })
+
 document.addEventListener('DOMContentLoaded', () => {
   InfiniteScroller
     .new({
       container: document.querySelector('#js-app'),
       fetchPreviousContent: {
-        fetch: () => window.fetch('/build/pages/222.json')
-          .then((res) => res.json())
-          .then((page) => Page(page, true)),
+        fetch: () => fetchPage(iterator.previous()),
         render: (container, content) => {
           const node = document.createElement('div')
           insertBefore(container, node)
@@ -54,9 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       },
       fetchNextContent: {
-        fetch: () => window.fetch('/build/pages/224.json')
-          .then((res) => res.json())
-          .then((page) => Page(page, true)),
+        fetch: () => fetchPage(iterator.next()),
         render: (container, content) => {
           const node = document.createElement('div')
           insertAfter(container, node)
@@ -65,9 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
     .attach()
-  window.fetch('/build/pages/223.json')
-    .then((res) => res.json())
+
+  fetchPage(iterator.next())
     .then((page) => {
-      render(Page(page, true), document.querySelector('#js-app'))
+      render(page, document.querySelector('#js-app'))
     })
 })

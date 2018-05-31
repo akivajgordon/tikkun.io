@@ -4,7 +4,7 @@
   "description": "Chant your heart out.",
   "main": "index.js",
   "scripts": {
-    "test": "ava",
+    "test": "ava 'src/*.test.js'",
     "e2e": "ava --serial e2e/index.test.js",
     "build": "webpack --mode development index.js -o dist/bundle.js",
     "watch": "onchange index.js 'src/*.js' -- npm run build"

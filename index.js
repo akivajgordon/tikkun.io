@@ -39,11 +39,15 @@ const insertAfter = (parent, child) => {
   parent.insertAdjacentElement('beforeend', child)
 }
 
-const fetchPage = (n) => window.fetch(`/build/pages/${n}.json`)
-  .then((res) => res.json())
-  .then((page) => Page(page, true))
+const fetchPage = (n) => {
+  if (n <= 0) return Promise.resolve()
 
-const iterator = IntegerIterator.new({ startingAt: 223 })
+  return window.fetch(`/build/pages/${n}.json`)
+    .then((res) => res.json())
+    .then((page) => Page(page, true))
+}
+
+const iterator = IntegerIterator.new({ startingAt: 1 })
 
 document.addEventListener('DOMContentLoaded', () => {
   InfiniteScroller

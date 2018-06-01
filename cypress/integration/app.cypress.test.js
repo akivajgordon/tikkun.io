@@ -11,7 +11,7 @@ describe('app', () => {
   })
 
   it('loads in the next page when scrolling down', () => {
-    cy.get('#js-app').scrollTo(0, 1000)
+    cy.get('#js-app').scrollTo(0, 3000)
 
     cy.contains('וְאֵ֛ת כָּל־רֶ֥מֶשׂ הָֽאֲדָמָ֖ה לְמִינֵ֑הוּ וַיַּ֥רְא אֱלֹהִ֖ים כִּי־טֽוֹב׃')
   })

@@ -15,6 +15,7 @@
                 display: flex;
                 justify-content: center;
                 font-family: Shlomosemistam;
+                margin-bottom: 10em;
             }
 
 
@@ -80,14 +81,78 @@
                 max-width: 8ch;
             }
 
-            #js-app {
+            .app {
                 height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .app-toolbar {
+                border-bottom: 1px solid transparent;
+                flex-shrink: 0;
+                box-shadow: 0 0 8px -4px black;
+                padding: 5px 0;
+            }
+
+            .app-body {
+                padding-top: 1em;
                 overflow: auto;
+                font-size: 1.5em;
+            }
+
+
+
+
+            .u-page-wrap {
+              max-width: 550px;
+              margin: 0 auto;
+            }
+
+            .toolbar-content {
+              display: flex;
+            }
+
+            .toolbar-wrapper {
+              align-items: center;
+              display: flex;
+            }
+
+            .toolbar-wrapper.mod-left, .toolbar-wrapper.mod-right {
+              flex: 1;
+            }
+
+            .toolbar-wrapper.mod-right {
+              justify-content: flex-end;
             }
         </style>
     </head>
     <body>
-        <div id='js-app' style="direction: rtl;"></div>
+        <div class="app">
+            <header class="app-toolbar">
+                <div class="toolbar-content u-page-wrap">
+                    <div class="toolbar-wrapper mod-left">
+                        <div class="toolbar-item">
+                            <div data-test-id="annotations-toggle">Toggle</div>
+                        </div>
+                    </div>
+                    <div class="toolbar-wrapper mod-center">
+                        <div class="toolbar-item">
+                            Parsha-picker
+                        </div>
+                    </div>
+                    <div class="toolbar-wrapper mod-right">
+                        <div class="toolbar-item">
+                            <a href="https://www.github.com/akivajgordon/tikkun.io" target="_blank" title="Go to GitHub repository">
+                                <img class="toolbar-github" src="/assets/images/GitHub-Mark-32px.png" alt="GitHub" height="32px" width="32px"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </header>
+            <div id='js-app' class="app-body" style="direction: rtl;"></div>
+        </div>
         <script src="/dist/bundle.js"></script>
         <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

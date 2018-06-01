@@ -124,6 +124,34 @@
             .toolbar-wrapper.mod-right {
               justify-content: flex-end;
             }
+
+
+            .toggle {
+              text-align: middle;
+              display: flex;
+              align-items: center;
+            }
+
+            .toggle [type="checkbox"] {
+              display: none;
+            }
+
+            .toggle-state {
+              color: hsla(0, 0%, 0%, 0.5);
+              transition: all 0.1s;
+            }
+
+            .toggle-state.mod-off { display: inline-block; margin-right: 0.25em; }
+
+            .toggle > [type="checkbox"]:checked ~ .toggle-state.mod-on,
+            .toggle > [type="checkbox"]:not(:checked) ~ .toggle-state.mod-off {
+              transform: scale(1.5);
+              color: black;
+            }
+
+            .annotations-toggle {
+                font-family: ShlomosemiStam
+            }
         </style>
     </head>
     <body>
@@ -132,7 +160,13 @@
                 <div class="toolbar-content u-page-wrap">
                     <div class="toolbar-wrapper mod-left">
                         <div class="toolbar-item">
-                            <div data-test-id="annotations-toggle">Toggle</div>
+                            <div class="annotations-toggle" data-test-id="annotations-toggle">
+                                <label class="toggle">
+                                    <input type="checkbox" />
+                                    <span class="toggle-state mod-off">א</span>
+                                    <span class="toggle-state mod-on">אֶ֨</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="toolbar-wrapper mod-center">

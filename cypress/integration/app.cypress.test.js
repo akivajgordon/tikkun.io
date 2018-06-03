@@ -17,8 +17,12 @@ describe('app', () => {
   })
 
   it('toggles annotations when clicking on the toggle', () => {
-    cy.get('[data-test-id="annotations-toggle"]').click()
+    cy.get('[data-test-id="annotations-toggle"]').as('toggle').click()
 
     cy.contains('בראשית ברא אלהים את השמים ואת הארץ')
+
+    cy.get('@toggle').click()
+
+    cy.contains('בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים אֵ֥ת הַשָּׁמַ֖יִם וְאֵ֥ת הָאָֽרֶץ׃')
   })
 })

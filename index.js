@@ -76,11 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .attach()
 
-  document.querySelector('[data-test-id="annotations-toggle"]').addEventListener('click', () => {
+  document.querySelector('[data-target-id="annotations-toggle"]').addEventListener('change', (e) => {
+    const showAnnotations = e.target.checked
+
     Object.keys(cache)
       .map(key => cache[key])
       .forEach(({ node, content }) => {
-        render(Page(content, false), node)
+        render(Page(content, showAnnotations), node)
       })
   })
 

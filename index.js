@@ -40,14 +40,16 @@ const insertAfter = (parent, child) => {
 }
 
 const fetchPage = (n) => {
-  if (n <= 0) return Promise.resolve()
+  if (n <= 0) return Promise.resolve({})
 
   return window.fetch(`/build/pages/${n}.json`)
     .then((res) => res.json())
-    .then((page) => Page(page, true))
+    .then((page) => ({ key: n, content: page }))
 }
 
 const iterator = IntegerIterator.new({ startingAt: 1 })
+
+const cache = {}
 
 document.addEventListener('DOMContentLoaded', () => {
   InfiniteScroller
@@ -55,25 +57,37 @@ document.addEventListener('DOMContentLoaded', () => {
       container: document.querySelector('#js-app'),
       fetchPreviousContent: {
         fetch: () => fetchPage(iterator.previous()),
-        render: (container, content) => {
+        render: (container, { key, content }) => {
           const node = document.createElement('div')
           insertBefore(container, node)
-          render(content, node)
+          cache[key] = { node, content }
+          render(Page(content, true), node)
         }
       },
       fetchNextContent: {
         fetch: () => fetchPage(iterator.next()),
-        render: (container, content) => {
+        render: (container, { key, content }) => {
           const node = document.createElement('div')
           insertAfter(container, node)
-          render(content, node)
+          cache[key] = { node, content }
+          render(Page(content, true), node)
         }
       }
     })
     .attach()
 
+  document.querySelector('[data-test-id="annotations-toggle"]').addEventListener('click', () => {
+    Object.keys(cache)
+      .map(key => cache[key])
+      .forEach(({ node, content }) => {
+        render(Page(content, false), node)
+      })
+  })
+
   fetchPage(iterator.next())
-    .then((page) => {
-      render(page, document.querySelector('#js-app'))
+    .then(({ key, content }) => {
+      const node = document.querySelector('#js-app')
+      cache[key] = { node, content }
+      render(Page(content, true), node)
     })
 })

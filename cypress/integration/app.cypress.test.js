@@ -15,4 +15,10 @@ describe('app', () => {
 
     cy.contains('וְאֵ֛ת כָּל־רֶ֥מֶשׂ הָֽאֲדָמָ֖ה לְמִינֵ֑הוּ וַיַּ֥רְא אֱלֹהִ֖ים כִּי־טֽוֹב׃')
   })
+
+  it('toggles annotations when clicking on the toggle', () => {
+    cy.get('[data-test-id="annotations-toggle"]').click()
+
+    cy.contains('בראשית ברא אלהים את השמים ואת הארץ')
+  })
 })

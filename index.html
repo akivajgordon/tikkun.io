@@ -95,12 +95,14 @@
             }
 
             .app-body {
-                padding-top: 1em;
                 overflow: auto;
-                font-size: 1.5em;
             }
 
 
+            .tikkun-book {
+                padding-top: 1em;
+                font-size: 1.5em;
+            }
 
 
             .u-page-wrap {
@@ -152,6 +154,55 @@
             .annotations-toggle {
                 font-family: ShlomosemiStam
             }
+
+
+
+
+
+
+
+            .parsha-picker {
+              display: flex;
+              justify-content: center;
+            }
+
+            .parsha-list {
+              list-style: none;
+              margin: 0;
+              padding: 1em;
+              display: inline-block;
+              text-align: center;
+            }
+
+            .parsha {
+              padding: 1em 5em;
+              transition: 0.1s background-color;
+              color: hsla(0, 0%, 0%, 0.7);
+            }
+
+            .parsha:hover {
+              background-color: hsla(0, 0%, 0%, 0.1);
+              color: black;
+              cursor: pointer;
+              transition: 0.1s background-color;
+            }
+
+            .parsha:not(:last-child) {
+              border-bottom: 1px solid hsla(0, 0%, 0%, 0.25);
+            }
+
+
+            .parsha-title {
+                background-color: hsla(0, 0%, 0%, 0.05);
+                padding: 0.5em 3em;
+                border-radius: 4px;
+                color: hsla(0, 0%, 0%, 0.7);
+            }
+
+            .parsha-title:hover {
+                background-color: hsla(0, 0%, 0%, 0.1);
+                cursor: pointer;
+            }
         </style>
     </head>
     <body>
@@ -171,7 +222,9 @@
                     </div>
                     <div class="toolbar-wrapper mod-center">
                         <div class="toolbar-item">
-                            Parsha-picker
+                            <div class="parsha-title" data-target-id="parsha-title">
+                                בראשית
+                            </div>
                         </div>
                     </div>
                     <div class="toolbar-wrapper mod-right">
@@ -185,7 +238,10 @@
 
 
             </header>
-            <div id='js-app' class="app-body" style="direction: rtl;"></div>
+            <div id='js-app' class="app-body" style="direction: rtl;">
+                <div class="tikkun-book" data-target-id="tikkun-book"></div>
+                <div class="" data-target-id="parsha-picker"></div>
+            </div>
         </div>
         <script src="/dist/bundle.js"></script>
         <script>

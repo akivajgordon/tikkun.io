@@ -31,6 +31,61 @@ const Page = (lines, annotated) => html`
   </div>
 `
 
+const ParshaPicker = () => html`
+  <div class="parsha-picker">
+    <ol class="parsha-list">
+      <li class="parsha">בראשית</li>
+
+      <li class="parsha">נח</li>
+
+      <li class="parsha">לך לך</li>
+
+      <li class="parsha">וירא</li>
+
+      <li class="parsha">וזאת הברכה</li>
+
+      <li class="parsha">בראשית</li>
+
+      <li class="parsha">בראשית</li>
+
+      <li class="parsha">וזאת הברכה</li>
+
+      <li class="parsha">בראשית</li>
+
+      <li class="parsha">בראשית</li>
+
+      <li class="parsha">וזאת הברכה</li>
+
+      <li class="parsha">בראשית</li>
+
+      <li class="parsha">בראשית</li>
+
+      <li class="parsha">וזאת הברכה</li>
+
+      <li class="parsha">בראשית</li>
+
+      <li class="parsha">בראשית</li>
+
+      <li class="parsha">וזאת הברכה</li>
+
+      <li class="parsha">בראשית</li>
+
+      <li class="parsha">בראשית</li>
+
+      <li class="parsha">וזאת הברכה</li>
+
+      <li class="parsha">בראשית</li>
+
+      <li class="parsha">בראשית</li>
+
+      <li class="parsha">וזאת הברכה</li>
+
+      <li class="parsha">בראשית</li>
+
+    </ol>
+  </div>
+`
+
 const insertBefore = (parent, child) => {
   parent.insertAdjacentElement('afterbegin', child)
 }
@@ -86,9 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
       })
   })
 
+  document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', () => {
+    render(html``, document.querySelector('[data-target-id="tikkun-book"]'))
+    render(ParshaPicker(), document.querySelector('[data-target-id="parsha-picker"]'))
+  })
+
   fetchPage(iterator.next())
     .then(({ key, content }) => {
-      const node = document.querySelector('#js-app')
+      const node = document.querySelector('[data-target-id="tikkun-book"]')
       cache[key] = { node, content }
       render(Page(content, true), node)
     })

@@ -25,4 +25,14 @@ describe('app', () => {
 
     cy.contains('בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים אֵ֥ת הַשָּׁמַ֖יִם וְאֵ֥ת הָאָֽרֶץ׃')
   })
+
+  it('opens the parsha picker when clicking on the current parsha', () => {
+    cy.get('.app-toolbar').contains('בראשית').click()
+
+    cy.contains('בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים אֵ֥ת הַשָּׁמַ֖יִם וְאֵ֥ת הָאָֽרֶץ׃').should('not.be.visible')
+
+    cy.contains('נח')
+    cy.contains('לך לך')
+    cy.contains('וירא')
+  })
 })

@@ -106,17 +106,48 @@ const iterator = IntegerIterator.new({ startingAt: 1 })
 
 const cache = {}
 
+const iff = (cond, then) => {
+  if (cond) {
+    return then
+  }
+
+  return ''
+}
+
+const unpackCache = (cache) => Object.keys(cache).map(key => cache[key])
+
+const TikkunBook = (pages) => html`
+  ${pages.map(page => (html`<div>${page}</div>`))}
+`
+
+const App = ({ showingParshaPicker, cache }) => html`
+  <div class="tikkun-book" data-target-id="tikkun-book">
+    ${iff(!showingParshaPicker, (html`
+      ${TikkunBook(unpackCache(cache).map(({ content }) => Page(content, true)))}
+    `))}
+  </div>
+  ${iff(showingParshaPicker, (html`
+    <div data-target-id="parsha-picker">
+      ${ParshaPicker()}
+    </div>
+  `))}
+`
+
+let isShowingParshaPicker = false
+
 document.addEventListener('DOMContentLoaded', () => {
+  render(App({ showingParshaPicker: isShowingParshaPicker, cache }), document.querySelector('#js-app'))
+
   InfiniteScroller
     .new({
-      container: document.querySelector('#js-app'),
+      container: document.querySelector('[data-target-id="tikkun-book"]'),
       fetchPreviousContent: {
         fetch: () => fetchPage(iterator.previous()),
         render: (container, { key, content }) => {
           const node = document.createElement('div')
           insertBefore(container, node)
           cache[key] = { node, content }
-          render(Page(content, true), node)
+          render(App({ showingParshaPicker: isShowingParshaPicker, cache }), document.querySelector('#js-app'))
         }
       },
       fetchNextContent: {
@@ -125,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const node = document.createElement('div')
           insertAfter(container, node)
           cache[key] = { node, content }
-          render(Page(content, true), node)
+          render(App({ showingParshaPicker: isShowingParshaPicker, cache }), document.querySelector('#js-app'))
         }
       }
     })
@@ -142,14 +173,14 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', () => {
-    render(html``, document.querySelector('[data-target-id="tikkun-book"]'))
-    render(ParshaPicker(), document.querySelector('[data-target-id="parsha-picker"]'))
+    isShowingParshaPicker = !isShowingParshaPicker
+    render(App({ showingParshaPicker: isShowingParshaPicker, cache }), document.querySelector('#js-app'))
   })
 
   fetchPage(iterator.next())
     .then(({ key, content }) => {
       const node = document.querySelector('[data-target-id="tikkun-book"]')
       cache[key] = { node, content }
-      render(Page(content, true), node)
+      render(App({ showingParshaPicker: isShowingParshaPicker, cache }), document.querySelector('#js-app'))
     })
 })

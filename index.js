@@ -121,15 +121,13 @@ const TikkunBook = (pages) => html`
 `
 
 const App = ({ showingParshaPicker, cache }) => html`
-  <div class="tikkun-book" data-target-id="tikkun-book">
-    ${iff(!showingParshaPicker, (html`
+  ${iff(!showingParshaPicker, (html`
+    <div class="tikkun-book" data-target-id="tikkun-book">
       ${TikkunBook(unpackCache(cache).map(({ content }) => Page(content, true)))}
-    `))}
-  </div>
-  ${iff(showingParshaPicker, (html`
-    <div data-target-id="parsha-picker">
-      ${ParshaPicker()}
     </div>
+  `))}
+  ${iff(showingParshaPicker, (html`
+    ${ParshaPicker()}
   `))}
 `
 

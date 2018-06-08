@@ -11,6 +11,19 @@
                 src: url(/assets/fonts/ShlomosemiStam.ttf);
             }
 
+            body {
+                height: 100vh;
+            }
+
+            :root {
+                /* HACK: I don't like that I have to specify the header height
+                   here, but I don't know how else to use flexbox to say that
+                   the header's height should fit to content, and the body's
+                   height should fill the rest of the container (in this case
+                   the screen), regardless of overflow */
+                --header-height: 47px;
+            }
+
             .tikkun-page {
                 display: flex;
                 justify-content: center;
@@ -95,8 +108,7 @@
             }
 
             .app-body {
-                overflow: auto;
-                height: 100%;
+                height: calc(100% - var(--header-height));
             }
 
 
@@ -105,6 +117,7 @@
                 font-size: 1.5em;
                 height: 100%;
                 overflow: auto;
+                box-sizing: border-box;
             }
 
 
@@ -167,6 +180,8 @@
             .parsha-picker {
               display: flex;
               justify-content: center;
+              overflow: auto;
+              height: 100%;
             }
 
             .parsha-list {

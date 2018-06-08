@@ -1,0 +1,16 @@
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-toolbar {
+  border-bottom: 1px solid transparent;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px -4px black;
+  padding: 5px 0;
+}
+
+.app-body {
+  height: calc(100% - var(--header-height));
+}

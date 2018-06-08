@@ -1,0 +1,32 @@
+.toolbar-content {
+  display: flex;
+}
+
+.toolbar-wrapper {
+  align-items: center;
+  display: flex;
+}
+
+.toolbar-wrapper.mod-left, .toolbar-wrapper.mod-right {
+  flex: 1;
+}
+
+.toolbar-wrapper.mod-right {
+  justify-content: flex-end;
+}
+
+.annotations-toggle {
+  font-family: ShlomosemiStam
+}
+
+.parsha-title {
+  background-color: hsla(0, 0%, 0%, 0.05);
+  padding: 0.5em 3em;
+  border-radius: 4px;
+  color: hsla(0, 0%, 0%, 0.7);
+}
+
+.parsha-title:hover {
+  background-color: hsla(0, 0%, 0%, 0.1);
+  cursor: pointer;
+}

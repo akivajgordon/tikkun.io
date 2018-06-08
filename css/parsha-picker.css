@@ -1,0 +1,31 @@
+.parsha-picker {
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  height: 100%;
+}
+
+.parsha-list {
+  list-style: none;
+  margin: 0;
+  padding: 1em;
+  display: inline-block;
+  text-align: center;
+}
+
+.parsha {
+  padding: 1em 5em;
+  transition: 0.1s background-color;
+  color: hsla(0, 0%, 0%, 0.7);
+}
+
+.parsha:hover {
+  background-color: hsla(0, 0%, 0%, 0.1);
+  color: black;
+  cursor: pointer;
+  transition: 0.1s background-color;
+}
+
+.parsha:not(:last-child) {
+  border-bottom: 1px solid hsla(0, 0%, 0%, 0.25);
+}

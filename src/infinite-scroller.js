@@ -32,7 +32,7 @@ const InfiniteScroller = {
           })
       } else if (hiddenBelowHeight < 0.5 * height) {
         oneAtATime(() => fetchNextContent.fetch())
-          .then(({ key, content }) => {
+          .then(({ key, content } = {}) => {
             if (content) fetchNextContent.render(container, { key, content })
           })
       }

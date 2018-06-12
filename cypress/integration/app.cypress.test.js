@@ -35,4 +35,14 @@ describe('app', () => {
     cy.contains('לך לך')
     cy.contains('וירא')
   })
+
+  it('honors annotations toggle when dismissing the parsha picker', () => {
+    cy.get('.app-toolbar').contains('בראשית')
+      .click() // open parsha-picker
+      .click() // and close it again
+
+    cy.get('[data-test-id="annotations-toggle"]').click()
+
+    cy.contains('בראשית ברא אלהים את השמים ואת הארץ')
+  })
 })

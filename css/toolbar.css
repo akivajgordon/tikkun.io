@@ -24,9 +24,13 @@
   padding: 0.5em 3em;
   border-radius: 4px;
   color: hsla(0, 0%, 0%, 0.7);
+  cursor: pointer;
 }
 
 .parsha-title:hover {
   background-color: hsla(0, 0%, 0%, 0.1);
-  cursor: pointer;
+}
+
+.parsha-title:active {
+  background-color: hsla(0, 0%, 0%, 0.2);
 }

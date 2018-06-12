@@ -9,8 +9,10 @@
   flex-shrink: 0;
   box-shadow: 0 0 8px -4px black;
   padding: 5px 0;
+  z-index: 100;
 }
 
 .app-body {
   height: calc(100% - var(--header-height));
+  position: relative;
 }

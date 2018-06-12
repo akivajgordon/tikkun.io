@@ -41,7 +41,7 @@ body {
      the header's height should fit to content, and the body's
      height should fill the rest of the container (in this case
      the screen), regardless of overflow */
-  --header-height: 47px;
+  --header-height: 45px;
 }
 
 .tikkun-book {

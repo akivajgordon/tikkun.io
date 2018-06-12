@@ -1,5 +1,6 @@
 .toolbar-content {
   display: flex;
+  padding: 0 10px;
 }
 
 .toolbar-wrapper {
@@ -33,4 +34,8 @@
 
 .parsha-title:active {
   background-color: hsla(0, 0%, 0%, 0.2);
+}
+
+.toolbar-github {
+  vertical-align: middle; /* HACK: https://stackoverflow.com/a/27999850/2374361 */
 }

@@ -45,4 +45,12 @@ describe('app', () => {
 
     cy.contains('בראשית ברא אלהים את השמים ואת הארץ')
   })
+
+  it('hides annotations toggle and repo link when showing parsha picker', () => {
+    cy.get('.app-toolbar').contains('בראשית')
+      .click()
+
+    cy.get('[data-test-id="annotations-toggle"]').should('not.be.visible')
+    cy.get('a[href^="https://www.github.com"]').should('not.be.visible')
+  })
 })

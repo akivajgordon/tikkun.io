@@ -178,6 +178,18 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', () => {
     isShowingParshaPicker = !isShowingParshaPicker
 
+    ;[
+      '[data-test-id="annotations-toggle"]',
+      '[data-target-id="repo-link"]',
+      '[data-target-id="tikkun-book"]'
+    ]
+      .map(selector => document.querySelector(selector))
+      .map(el => el.classList)
+      .forEach(classList => {
+        classList.toggle('u-hidden')
+        classList.toggle('mod-animated')
+      })
+
     if (isShowingParshaPicker) {
       document.querySelector('#js-app').appendChild(htmlToElement(ParshaPicker()))
     } else {

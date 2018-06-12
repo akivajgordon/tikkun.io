@@ -21,6 +21,20 @@ body {
   margin: 0 auto;
 }
 
+.u-hidden {
+  display: none;
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+.u-hidden.mod-animated {
+  animation: fade-out 0.2s;
+}
+
 :root {
   /* HACK: I don't like that I have to specify the header height
      here, but I don't know how else to use flexbox to say that

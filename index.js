@@ -1,4 +1,5 @@
 import { displayRange, textFilter, InfiniteScroller, IntegerIterator } from './src'
+import parshiyot from './build/parshiyot.json'
 
 const petuchaClass = (isPetucha) => isPetucha ? 'mod-petucha' : ''
 
@@ -33,54 +34,7 @@ const Page = (lines, annotated) => `
 const ParshaPicker = () => `
   <div class="parsha-picker">
     <ol class="parsha-list">
-      <li class="parsha">בראשית</li>
-
-      <li class="parsha">נח</li>
-
-      <li class="parsha">לך לך</li>
-
-      <li class="parsha">וירא</li>
-
-      <li class="parsha">וזאת הברכה</li>
-
-      <li class="parsha">בראשית</li>
-
-      <li class="parsha">בראשית</li>
-
-      <li class="parsha">וזאת הברכה</li>
-
-      <li class="parsha">בראשית</li>
-
-      <li class="parsha">בראשית</li>
-
-      <li class="parsha">וזאת הברכה</li>
-
-      <li class="parsha">בראשית</li>
-
-      <li class="parsha">בראשית</li>
-
-      <li class="parsha">וזאת הברכה</li>
-
-      <li class="parsha">בראשית</li>
-
-      <li class="parsha">בראשית</li>
-
-      <li class="parsha">וזאת הברכה</li>
-
-      <li class="parsha">בראשית</li>
-
-      <li class="parsha">בראשית</li>
-
-      <li class="parsha">וזאת הברכה</li>
-
-      <li class="parsha">בראשית</li>
-
-      <li class="parsha">בראשית</li>
-
-      <li class="parsha">וזאת הברכה</li>
-
-      <li class="parsha">בראשית</li>
-
+      ${parshiyot.map(({ he, page }) => (`<li class="parsha" data-target-id="parsha" data-jump-to-page="${page}">${he}</li>`)).join('')}
     </ol>
   </div>
 `
@@ -142,6 +96,16 @@ const setState = (updates) => {
   render(newState)
 }
 
+const emptyObject = (obj) => {
+  for (const key in obj) {
+    delete obj[key]
+  }
+}
+
+const emptyNode = (node) => {
+  while (node.firstChild) node.removeChild(node.firstChild)
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   InfiniteScroller
     .new({
@@ -192,6 +156,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isShowingParshaPicker) {
       document.querySelector('#js-app').appendChild(htmlToElement(ParshaPicker()))
+      ;[...document.querySelectorAll('[data-target-id="parsha"]')]
+        .forEach((parsha) => {
+          parsha.addEventListener('click', (e) => {
+            const page = e.target.getAttribute('data-jump-to-page')
+
+            emptyObject(cache)
+            const iterator = IntegerIterator.new({ startingAt: Number(page) })
+
+            emptyNode(document.querySelector('[data-target-id="tikkun-book"]'))
+
+            fetchPage(iterator.next())
+              .then(({ key, content }) => {
+                const node = document.createElement('div')
+                cache[key] = { node, content }
+                insertAfter(document.querySelector('[data-target-id="tikkun-book"]'), node)
+
+                setState({ cache, showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked })
+              })
+
+            document.querySelector('[data-target-id="parsha-title"]').innerHTML = e.target.textContent
+          })
+        })
     } else {
       document.querySelector('#js-app').removeChild(document.querySelector('.parsha-picker'))
     }

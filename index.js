@@ -106,6 +106,55 @@ const emptyNode = (node) => {
   while (node.firstChild) node.removeChild(node.firstChild)
 }
 
+const showParshaPicker = () => {
+  document.querySelector('#js-app').appendChild(htmlToElement(ParshaPicker()))
+  ;[...document.querySelectorAll('[data-target-id="parsha"]')]
+    .forEach((parsha) => {
+      parsha.addEventListener('click', (e) => {
+        const page = e.target.getAttribute('data-jump-to-page')
+
+        emptyObject(cache)
+        const iterator = IntegerIterator.new({ startingAt: Number(page) })
+
+        emptyNode(document.querySelector('[data-target-id="tikkun-book"]'))
+
+        fetchPage(iterator.next())
+          .then(({ key, content }) => {
+            const node = document.createElement('div')
+            cache[key] = { node, content }
+            insertAfter(document.querySelector('[data-target-id="tikkun-book"]'), node)
+
+            setState({ cache, showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked })
+          })
+
+        document.querySelector('[data-target-id="parsha-title"]').innerHTML = e.target.textContent
+        toggleParshaPicker()
+      })
+    })
+}
+
+const toggleParshaPicker = () => {
+  isShowingParshaPicker = !isShowingParshaPicker
+
+  ;[
+    '[data-test-id="annotations-toggle"]',
+    '[data-target-id="repo-link"]',
+    '[data-target-id="tikkun-book"]'
+  ]
+    .map(selector => document.querySelector(selector))
+    .map(el => el.classList)
+    .forEach(classList => {
+      classList.toggle('u-hidden')
+      classList.toggle('mod-animated')
+    })
+
+  if (isShowingParshaPicker) {
+    showParshaPicker()
+  } else {
+    document.querySelector('#js-app').removeChild(document.querySelector('.parsha-picker'))
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   InfiniteScroller
     .new({
@@ -139,49 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setState({ showAnnotations })
   })
 
-  document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', () => {
-    isShowingParshaPicker = !isShowingParshaPicker
-
-    ;[
-      '[data-test-id="annotations-toggle"]',
-      '[data-target-id="repo-link"]',
-      '[data-target-id="tikkun-book"]'
-    ]
-      .map(selector => document.querySelector(selector))
-      .map(el => el.classList)
-      .forEach(classList => {
-        classList.toggle('u-hidden')
-        classList.toggle('mod-animated')
-      })
-
-    if (isShowingParshaPicker) {
-      document.querySelector('#js-app').appendChild(htmlToElement(ParshaPicker()))
-      ;[...document.querySelectorAll('[data-target-id="parsha"]')]
-        .forEach((parsha) => {
-          parsha.addEventListener('click', (e) => {
-            const page = e.target.getAttribute('data-jump-to-page')
-
-            emptyObject(cache)
-            const iterator = IntegerIterator.new({ startingAt: Number(page) })
-
-            emptyNode(document.querySelector('[data-target-id="tikkun-book"]'))
-
-            fetchPage(iterator.next())
-              .then(({ key, content }) => {
-                const node = document.createElement('div')
-                cache[key] = { node, content }
-                insertAfter(document.querySelector('[data-target-id="tikkun-book"]'), node)
-
-                setState({ cache, showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked })
-              })
-
-            document.querySelector('[data-target-id="parsha-title"]').innerHTML = e.target.textContent
-          })
-        })
-    } else {
-      document.querySelector('#js-app').removeChild(document.querySelector('.parsha-picker'))
-    }
-  })
+  document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
 
   fetchPage(iterator.next())
     .then(({ key, content }) => {

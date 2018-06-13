@@ -60,6 +60,8 @@ describe('app', () => {
 
     cy.contains('שופטים').click()
 
+    cy.contains('בראשית').should('not.exist')
+
     cy.contains('שֹׁפְטִ֣ים וְשֹֽׁטְרִ֗ים')
 
     cy.get('.app-toolbar').contains('שופטים')

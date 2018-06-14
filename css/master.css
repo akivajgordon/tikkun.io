@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import "/bower_components/normalize-css/normalize.css";
+@import "/dist/normalize.css";
 
 @import "./app-layout.css";
 @import "./page.css";

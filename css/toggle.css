@@ -2,6 +2,7 @@
   text-align: middle;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .toggle [type="checkbox"] {

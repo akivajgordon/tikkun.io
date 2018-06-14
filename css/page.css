@@ -2,7 +2,15 @@
   display: flex;
   justify-content: center;
   font-family: Shlomosemistam;
-  margin-bottom: 10em;
+}
+
+.tikkun-page:not(:first-child) {
+  padding-top: 5em;
+}
+
+.tikkun-page:not(:last-child) {
+  padding-bottom: 5em;
+  border-bottom: 1px solid hsla(0, 0%, 0%, 0.2);
 }
 
 .line {

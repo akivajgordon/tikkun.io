@@ -74,7 +74,9 @@ const htmlToElement = (html) => {
   return template.content.firstChild
 }
 
-const state = {}
+const state = {
+  iterator
+}
 
 const render = ({ cache, showAnnotations }) => {
   unpackCache(cache)
@@ -114,11 +116,11 @@ const showParshaPicker = () => {
         const page = e.target.getAttribute('data-jump-to-page')
 
         emptyObject(cache)
-        const iterator = IntegerIterator.new({ startingAt: Number(page) })
+        state.iterator = IntegerIterator.new({ startingAt: Number(page) })
 
         emptyNode(document.querySelector('[data-target-id="tikkun-book"]'))
 
-        fetchPage(iterator.next())
+        fetchPage(state.iterator.next())
           .then(({ key, content }) => {
             const node = document.createElement('div')
             cache[key] = { node, content }
@@ -160,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .new({
       container: document.querySelector('[data-target-id="tikkun-book"]'),
       fetchPreviousContent: {
-        fetch: () => fetchPage(iterator.previous()),
+        fetch: () => fetchPage(state.iterator.previous()),
         render: (container, { key, content }) => {
           const node = document.createElement('div')
           insertBefore(container, node)
@@ -170,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       },
       fetchNextContent: {
-        fetch: () => fetchPage(iterator.next()),
+        fetch: () => fetchPage(state.iterator.next()),
         render: (container, { key, content }) => {
           const node = document.createElement('div')
           insertAfter(container, node)
@@ -190,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
 
-  fetchPage(iterator.next())
+  fetchPage(state.iterator.next())
     .then(({ key, content }) => {
       const node = document.createElement('div')
       cache[key] = { node, content }

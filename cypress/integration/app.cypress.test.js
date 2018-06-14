@@ -68,4 +68,15 @@ describe('app', () => {
 
     cy.contains('בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים אֵ֥ת הַשָּׁמַ֖יִם וְאֵ֥ת הָאָֽרֶץ׃').should('not.exist')
   })
+
+  it('scrolling after jumping to another parsha should show the right content', () => {
+    cy.get('.app-toolbar').contains('בראשית')
+      .click()
+
+    cy.contains('שופטים').click()
+
+    cy.get('[data-target-id="tikkun-book"]').scrollTo(0, 3000)
+
+    cy.contains('הָעֹמֵ֞ד לְשָׁ֤רֶת שָׁם֙ אֶת־יְהוָ֣ה אֱלֹהֶ֔יךָ א֖וֹ אֶל־הַשֹּׁפֵ֑ט')
+  })
 })

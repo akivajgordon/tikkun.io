@@ -14,21 +14,19 @@ const Line = ({ text, verses, aliyot, isPetucha }, annotated) => `
         `)).join('')}
       </div>
     `)).join('')}
-    <span class="location-indicator mod-verses" hidden="${!annotated}">${displayRange.asVersesRange(verses)}</span>
-    <span class="location-indicator mod-aliyot" hidden="${!annotated}">${displayRange.asAliyotRange(aliyot)}</span>
+    <span class="location-indicator mod-verses" ${annotated ? '' : 'hidden'}>${displayRange.asVersesRange(verses)}</span>
+    <span class="location-indicator mod-aliyot" ${annotated ? '' : 'hidden'}>${displayRange.asAliyotRange(aliyot)}</span>
   </div>
 `
 
 const Page = (lines, annotated) => `
-  <div class="tikkun-page">
-    <table>
-      ${lines.map((line) => (`
-        <tr>
-          <td>${Line(line, annotated)}</td>
-        </tr>
-      `)).join('')}
-    </table>
-  </div>
+  <table>
+    ${lines.map((line) => (`
+      <tr>
+        <td>${Line(line, annotated)}</td>
+      </tr>
+    `)).join('')}
+  </table>
 `
 
 const ParshaPicker = () => `
@@ -123,6 +121,8 @@ const showParshaPicker = () => {
         fetchPage(state.iterator.next())
           .then(({ key, content }) => {
             const node = document.createElement('div')
+            node.classList.add('tikkun-page')
+
             cache[key] = { node, content }
             insertAfter(document.querySelector('[data-target-id="tikkun-book"]'), node)
 
@@ -165,6 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch: () => fetchPage(state.iterator.previous()),
         render: (container, { key, content }) => {
           const node = document.createElement('div')
+          node.classList.add('tikkun-page')
+
           insertBefore(container, node)
           cache[key] = { node, content }
 
@@ -175,6 +177,8 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch: () => fetchPage(state.iterator.next()),
         render: (container, { key, content }) => {
           const node = document.createElement('div')
+          node.classList.add('tikkun-page')
+
           insertAfter(container, node)
           cache[key] = { node, content }
 
@@ -195,6 +199,8 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchPage(state.iterator.next())
     .then(({ key, content }) => {
       const node = document.createElement('div')
+      node.classList.add('tikkun-page')
+
       cache[key] = { node, content }
       insertAfter(document.querySelector('[data-target-id="tikkun-book"]'), node)
 

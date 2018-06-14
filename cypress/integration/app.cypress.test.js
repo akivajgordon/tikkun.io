@@ -79,4 +79,14 @@ describe('app', () => {
 
     cy.contains('הָעֹמֵ֞ד לְשָׁ֤רֶת שָׁם֙ אֶת־יְהוָ֣ה אֱלֹהֶ֔יךָ א֖וֹ אֶל־הַשֹּׁפֵ֑ט')
   })
+
+  it('displays the pasuk and aliyot markers', () => {
+    cy.contains('א:א').should('be.visible')
+    cy.contains('ראשון').should('be.visible')
+
+    cy.get('[data-test-id="annotations-toggle"]').as('toggle').click()
+
+    cy.contains('א:א').should('be.hidden')
+    cy.contains('ראשון').should('be.hidden')
+  })
 })

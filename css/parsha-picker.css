@@ -19,6 +19,7 @@
   display: flex;
   justify-content: center;
   overflow: auto;
+  -webkit-overflow-scrolling: touch; /*https://css-tricks.com/snippets/css/momentum-scrolling-on-ios-overflow-elements/*/
   height: 100%;
   animation: fade-in 0.2s forwards;
 }
@@ -29,6 +30,12 @@
   padding: 1em;
   display: inline-block;
   text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+  .parsha-list {
+    width: 100%;
+  }
 }
 
 .parsha {

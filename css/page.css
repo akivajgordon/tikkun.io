@@ -4,6 +4,32 @@
   font-family: Shlomosemistam;
 }
 
+
+@media screen and (max-width: 900px) {
+  .tikkun-page {
+    font-size: 0.9em;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .tikkun-page {
+    font-size: 0.8em;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .tikkun-page {
+    font-size: 0.7em;
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+  .tikkun-page {
+    font-size: 0.6em;
+  }
+}
+
 .tikkun-page:not(:first-child) {
   padding-top: 5em;
 }

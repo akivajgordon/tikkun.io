@@ -49,5 +49,6 @@ body {
   font-size: 1.5em;
   height: 100%;
   overflow: auto;
+  -webkit-overflow-scrolling: touch; /*https://css-tricks.com/snippets/css/momentum-scrolling-on-ios-overflow-elements/*/
   box-sizing: border-box;
 }

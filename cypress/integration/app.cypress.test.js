@@ -89,4 +89,26 @@ describe('app', () => {
     cy.contains('א:א').should('be.hidden')
     cy.contains('ראשון').should('be.hidden')
   })
+
+  it('toggles annotations when the SHIFT key is pressed', () => {
+    cy.get('body').as('book')
+
+    cy.get('@book').trigger('keydown', { key: 'Shift' })
+
+    cy.contains('בראשית ברא אלהים את השמים ואת הארץ')
+
+    cy.get('@book').trigger('keyup', { key: 'Shift' })
+
+    cy.contains('בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים אֵ֥ת הַשָּׁמַ֖יִם וְאֵ֥ת הָאָֽרֶץ׃')
+
+    cy.get('[data-test-id="annotations-toggle"]').as('toggle').click()
+
+    cy.get('@book').trigger('keydown', { key: 'Shift' })
+
+    cy.contains('בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים אֵ֥ת הַשָּׁמַ֖יִם וְאֵ֥ת הָאָֽרֶץ׃')
+
+    cy.get('@book').trigger('keyup', { key: 'Shift' })
+
+    cy.contains('בראשית ברא אלהים את השמים ואת הארץ')
+  })
 })

@@ -157,6 +157,16 @@ const toggleParshaPicker = () => {
   }
 }
 
+const toggleAnnotations = (e) => {
+  if (e.key !== 'Shift') return
+
+  const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
+
+  toggle.checked = !toggle.checked
+
+  setState({ showAnnotations: toggle.checked })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   InfiniteScroller
     .new({
@@ -194,25 +204,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setState({ showAnnotations })
   })
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Shift') return
-
-    const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
-
-    toggle.checked = !toggle.checked
-
-    setState({ showAnnotations: toggle.checked })
-  })
-
-  document.addEventListener('keyup', (e) => {
-    if (e.key !== 'Shift') return
-
-    const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
-
-    toggle.checked = !toggle.checked
-
-    setState({ showAnnotations: toggle.checked })
-  })
+  document.addEventListener('keydown', toggleAnnotations)
+  document.addEventListener('keyup', toggleAnnotations)
 
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
 

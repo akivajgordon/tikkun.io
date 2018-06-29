@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "ava 'src/*.test.js'",
+    "test:watch": "npm test -- --watch",
     "test:ui": "cypress run",
     "e2e": "ava --serial e2e/index.test.js",
     "build:css": "cp node_modules/normalize.css/normalize.css dist/",

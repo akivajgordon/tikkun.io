@@ -1,5 +1,6 @@
-import { displayRange, textFilter, InfiniteScroller, IntegerIterator } from './src'
+import { displayRange, textFilter, InfiniteScroller, IntegerIterator, title as getTitle } from './src'
 import parshiyot from './build/parshiyot.json'
+import pageTitles from './build/page-titles.json'
 
 const petuchaClass = (isPetucha) => isPetucha ? 'mod-petucha' : ''
 
@@ -76,7 +77,7 @@ const state = {
   iterator
 }
 
-const render = ({ cache, showAnnotations }) => {
+const render = ({ cache, showAnnotations, title }) => {
   unpackCache(cache)
     .forEach(({ node, content }) => {
       const el = htmlToElement(Page(content, showAnnotations))
@@ -88,6 +89,8 @@ const render = ({ cache, showAnnotations }) => {
         node.appendChild(el)
       }
     })
+
+  document.querySelector('[data-target-id="parsha-title"]').innerHTML = title
 }
 
 const setState = (updates) => {
@@ -111,10 +114,11 @@ const showParshaPicker = () => {
   ;[...document.querySelectorAll('[data-target-id="parsha"]')]
     .forEach((parsha) => {
       parsha.addEventListener('click', (e) => {
-        const page = e.target.getAttribute('data-jump-to-page')
+        const page = Number(e.target.getAttribute('data-jump-to-page'))
+        const title = getTitle(pageTitles[page - 1])
 
         emptyObject(cache)
-        state.iterator = IntegerIterator.new({ startingAt: Number(page) })
+        state.iterator = IntegerIterator.new({ startingAt: page })
 
         emptyNode(document.querySelector('[data-target-id="tikkun-book"]'))
 
@@ -122,14 +126,18 @@ const showParshaPicker = () => {
           .then(({ key, content }) => {
             const node = document.createElement('div')
             node.classList.add('tikkun-page')
+            node.setAttribute('data-page-number', key)
 
             cache[key] = { node, content }
             insertAfter(document.querySelector('[data-target-id="tikkun-book"]'), node)
 
-            setState({ cache, showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked })
+            setState({
+              cache,
+              showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked,
+              title
+            })
           })
 
-        document.querySelector('[data-target-id="parsha-title"]').innerHTML = e.target.textContent
         toggleParshaPicker()
       })
     })
@@ -167,6 +175,33 @@ const toggleAnnotations = (e) => {
   setState({ showAnnotations: toggle.checked })
 }
 
+const isInView = (view, scrollView) => {
+  return (
+    view.offsetTop < scrollView.scrollTop + scrollView.clientHeight
+  ) && (
+    view.offsetTop + view.clientHeight > scrollView.scrollTop
+  )
+}
+
+let lastCalledTimestamp = Date.now()
+
+const calledRecently = () => Date.now() - lastCalledTimestamp < 1000
+
+const updatePageTitle = (scrollView) => {
+  if (!calledRecently()) {
+    const pages = [...document.querySelectorAll('.tikkun-page')]
+
+    const inViewPages = pages.filter((page) => isInView(page, scrollView))
+
+    const firstPageInView = inViewPages[0]
+
+    const n = Number(firstPageInView.getAttribute('data-page-number'))
+    setState({ title: getTitle(pageTitles[n - 1]) })
+
+    lastCalledTimestamp = Date.now()
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   InfiniteScroller
     .new({
@@ -176,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
         render: (container, { key, content }) => {
           const node = document.createElement('div')
           node.classList.add('tikkun-page')
+          node.setAttribute('data-page-number', key)
 
           insertBefore(container, node)
           cache[key] = { node, content }
@@ -188,6 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
         render: (container, { key, content }) => {
           const node = document.createElement('div')
           node.classList.add('tikkun-page')
+          node.setAttribute('data-page-number', key)
 
           insertAfter(container, node)
           cache[key] = { node, content }
@@ -197,6 +234,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
     .attach()
+
+  document.querySelector('[data-target-id="tikkun-book"]').addEventListener('scroll', (e) => {
+    updatePageTitle(e.target)
+  })
 
   document.querySelector('[data-target-id="annotations-toggle"]').addEventListener('change', (e) => {
     const showAnnotations = e.target.checked
@@ -213,10 +254,15 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(({ key, content }) => {
       const node = document.createElement('div')
       node.classList.add('tikkun-page')
+      node.setAttribute('data-page-number', key)
 
       cache[key] = { node, content }
       insertAfter(document.querySelector('[data-target-id="tikkun-book"]'), node)
 
-      setState({ cache, showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked })
+      setState({
+        cache,
+        showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked,
+        title: getTitle(pageTitles[key - 1])
+      })
     })
 })

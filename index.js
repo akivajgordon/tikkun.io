@@ -183,23 +183,21 @@ const isInView = (view, scrollView) => {
   )
 }
 
-let lastCalledTimestamp = Date.now()
-
-const calledRecently = () => Date.now() - lastCalledTimestamp < 1000
-
 const updatePageTitle = (scrollView) => {
-  if (!calledRecently()) {
-    const pages = [...document.querySelectorAll('.tikkun-page')]
+  const pages = [...document.querySelectorAll('.tikkun-page')]
 
-    const inViewPages = pages.filter((page) => isInView(page, scrollView))
+  const inViewPages = pages.filter((page) => isInView(page, scrollView))
 
-    const firstPageInView = inViewPages[0]
+  const firstPageInView = inViewPages[0]
 
-    const n = Number(firstPageInView.getAttribute('data-page-number'))
-    setState({ title: getTitle(pageTitles[n - 1]) })
+  const n = Number(firstPageInView.getAttribute('data-page-number'))
+  setState({ title: getTitle(pageTitles[n - 1]) })
+}
 
-    lastCalledTimestamp = Date.now()
-  }
+let timeout
+const debounce = (f) => {
+  clearTimeout(timeout)
+  timeout = setTimeout(f, 100)
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -236,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .attach()
 
   document.querySelector('[data-target-id="tikkun-book"]').addEventListener('scroll', (e) => {
-    updatePageTitle(e.target)
+    debounce(() => updatePageTitle(e.target))
   })
 
   document.querySelector('[data-target-id="annotations-toggle"]').addEventListener('change', (e) => {

@@ -1,0 +1,25 @@
+.toggle {
+  text-align: middle;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.toggle [type="checkbox"] {
+  display: none;
+}
+
+.toggle-state {
+  color: hsla(0, 0%, 0%, 0.5);
+  transition: all 0.1s;
+}
+
+.toggle-state.mod-off {
+  display: inline-block;
+  margin-right: 0.25em;
+}
+
+.toggle>[type="checkbox"]:checked~.toggle-state.mod-on, .toggle>[type="checkbox"]:not(:checked)~.toggle-state.mod-off {
+  transform: scale(1.5);
+  color: black;
+}

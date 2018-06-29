@@ -4,24 +4,35 @@
   "description": "Chant your heart out.",
   "main": "index.js",
   "scripts": {
-    "test": "ava",
+    "test": "ava 'src/*.test.js'",
+    "test:watch": "npm test -- --watch",
+    "test:ui": "cypress run",
     "e2e": "ava --serial e2e/index.test.js",
-    "build": "webpack index.js dist/bundle.js"
+    "build:css": "cp node_modules/normalize.css/normalize.css dist/",
+    "webpack": "webpack --mode development index.js -o dist/bundle.js",
+    "build": "npm run build:css && npm run webpack",
+    "watch": "onchange index.js 'src/*.js' -- npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/akivajgordon/tikkun.io.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Akiva Gordon <akivag29@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/akivajgordon/tikkun.io/issues"
   },
   "homepage": "https://github.com/akivajgordon/tikkun.io#readme",
-  "dependencies": {},
+  "dependencies": {
+    "lit-html": "^0.10.0",
+    "normalize.css": "^8.0.0"
+  },
   "devDependencies": {
-    "ava": "^0.24.0",
+    "ava": "^0.25.0",
+    "cypress": "^3.0.1",
+    "onchange": "^4.0.0",
     "selenium-webdriver": "^4.0.0-alpha.1",
-    "webpack": "^3.10.0"
+    "webpack": "^4.10.2",
+    "webpack-cli": "^3.0.1"
   }
 }

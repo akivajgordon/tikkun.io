@@ -3,16 +3,54 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="icon" type="image/png" href="/assets/images/android-chrome-192x192.png" sizes="192x192">
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+        <link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#000000">
+
         <title>tikkun.io</title>
         <link rel="stylesheet" href="css/master.css" media="screen" charset="utf-8">
-
-        <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-
-        <link rel="import" href="tikkun-app/tikkun-app.html">
-
     </head>
     <body>
-        <tikkun-app></tikkun-app>
+        <div class="app">
+            <header class="app-toolbar">
+                <div class="toolbar-content u-page-wrap">
+                    <div class="toolbar-wrapper mod-left">
+                        <div class="toolbar-item">
+                            <div class="annotations-toggle" data-test-id="annotations-toggle">
+                                <label class="toggle">
+                                    <input data-target-id="annotations-toggle" type="checkbox" checked />
+                                    <span class="toggle-state mod-off">א</span>
+                                    <span class="toggle-state mod-on">אֶ֨</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="toolbar-wrapper mod-center">
+                        <div class="toolbar-item">
+                            <div class="parsha-title" data-target-id="parsha-title">
+                                בראשית
+                            </div>
+                        </div>
+                    </div>
+                    <div class="toolbar-wrapper mod-right">
+                        <div class="toolbar-item">
+                            <a href="https://www.github.com/akivajgordon/tikkun.io" target="_blank" data-target-id="repo-link" title="Go to GitHub repository">
+                                <img class="toolbar-github" src="/assets/images/github.svg" alt="GitHub" height="32px" width="32px"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </header>
+            <div id='js-app' class="app-body" style="direction: rtl;">
+                <div class="tikkun-book" data-target-id="tikkun-book"></div>
+                <div class="" data-target-id="parsha-picker"></div>
+            </div>
+        </div>
+        <script src="/dist/bundle.js"></script>
         <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

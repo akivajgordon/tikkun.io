@@ -1,3 +1,54 @@
 @charset "UTF-8";
+@import "/dist/normalize.css";
 
-@import "/bower_components/normalize-css/normalize.css";
+@import "./app-layout.css";
+@import "./page.css";
+@import "./parsha-picker.css";
+@import "./toggle.css";
+@import "./toolbar.css";
+
+@font-face {
+  font-family: "ShlomosemiStam";
+  src: url(/assets/fonts/ShlomosemiStam.ttf);
+}
+
+body {
+  height: 100vh;
+}
+
+.u-page-wrap {
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.u-hidden {
+  display: none;
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+.u-hidden.mod-animated {
+  animation: fade-out 0.2s;
+}
+
+:root {
+  /* HACK: I don't like that I have to specify the header height
+     here, but I don't know how else to use flexbox to say that
+     the header's height should fit to content, and the body's
+     height should fill the rest of the container (in this case
+     the screen), regardless of overflow */
+  --header-height: 45px;
+}
+
+.tikkun-book {
+  padding-top: 1em;
+  font-size: 1.5em;
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; /*https://css-tricks.com/snippets/css/momentum-scrolling-on-ios-overflow-elements/*/
+  box-sizing: border-box;
+}

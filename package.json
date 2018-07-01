@@ -24,15 +24,14 @@
   },
   "homepage": "https://github.com/akivajgordon/tikkun.io#readme",
   "dependencies": {
-    "lit-html": "^0.10.0",
     "normalize.css": "^8.0.0"
   },
   "devDependencies": {
     "ava": "^0.25.0",
-    "cypress": "^3.0.1",
+    "cypress": "^3.0.2",
     "onchange": "^4.0.0",
     "selenium-webdriver": "^4.0.0-alpha.1",
     "webpack": "^4.10.2",
-    "webpack-cli": "^3.0.1"
+    "webpack-cli": "^3.0.8"
   }
 }

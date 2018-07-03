@@ -1,42 +1,7 @@
-import { displayRange, textFilter, InfiniteScroller, IntegerIterator, title as getTitle } from './src'
-import parshiyot from './build/parshiyot.json'
+import { InfiniteScroller, IntegerIterator, title as getTitle } from './src'
+import Page from './components/Page'
+import ParshaPicker from './components/ParshaPicker'
 import pageTitles from './build/page-titles.json'
-
-const petuchaClass = (isPetucha) => isPetucha ? 'mod-petucha' : ''
-
-const setumaClass = (column) => column.length > 1 ? 'mod-setuma' : ''
-
-const Line = ({ text, verses, aliyot, isPetucha }, annotated) => `
-  <div class="line ${petuchaClass(isPetucha)}">
-    ${text.map((column) => (`
-      <div class="column">
-        ${column.map((fragment) => (`
-          <span class="fragment ${setumaClass(column)}">${textFilter({ text: fragment, annotated })}</span>
-        `)).join('')}
-      </div>
-    `)).join('')}
-    <span class="location-indicator mod-verses" ${annotated ? '' : 'hidden'}>${displayRange.asVersesRange(verses)}</span>
-    <span class="location-indicator mod-aliyot" ${annotated ? '' : 'hidden'}>${displayRange.asAliyotRange(aliyot)}</span>
-  </div>
-`
-
-const Page = (lines, annotated) => `
-  <table>
-    ${lines.map((line) => (`
-      <tr>
-        <td>${Line(line, annotated)}</td>
-      </tr>
-    `)).join('')}
-  </table>
-`
-
-const ParshaPicker = () => `
-  <div class="parsha-picker">
-    <ol class="parsha-list">
-      ${parshiyot.map(({ he, page }) => (`<li class="parsha" data-target-id="parsha" data-jump-to-page="${page}">${he}</li>`)).join('')}
-    </ol>
-  </div>
-`
 
 const insertBefore = (parent, child) => {
   parent.insertAdjacentElement('afterbegin', child)

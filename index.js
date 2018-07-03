@@ -109,13 +109,20 @@ const emptyNode = (node) => {
   while (node.firstChild) node.removeChild(node.firstChild)
 }
 
+const makePageNode = (n) => {
+  const node = document.createElement('div')
+  node.classList.add('tikkun-page')
+  node.setAttribute('data-page-number', n)
+
+  return node
+}
+
 const showParshaPicker = () => {
   document.querySelector('#js-app').appendChild(htmlToElement(ParshaPicker()))
   ;[...document.querySelectorAll('[data-target-id="parsha"]')]
     .forEach((parsha) => {
       parsha.addEventListener('click', (e) => {
         const page = Number(e.target.getAttribute('data-jump-to-page'))
-        const title = getTitle(pageTitles[page - 1])
 
         emptyObject(cache)
         state.iterator = IntegerIterator.new({ startingAt: page })
@@ -123,20 +130,7 @@ const showParshaPicker = () => {
         emptyNode(document.querySelector('[data-target-id="tikkun-book"]'))
 
         fetchPage(state.iterator.next())
-          .then(({ key, content }) => {
-            const node = document.createElement('div')
-            node.classList.add('tikkun-page')
-            node.setAttribute('data-page-number', key)
-
-            cache[key] = { node, content }
-            insertAfter(document.querySelector('[data-target-id="tikkun-book"]'), node)
-
-            setState({
-              cache,
-              showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked,
-              title
-            })
-          })
+          .then(renderNext)
 
         toggleParshaPicker()
       })
@@ -200,35 +194,33 @@ const debounce = (f) => {
   timeout = setTimeout(f, 100)
 }
 
+const renderPage = ({ doInsert }) => ({ key, content }) => {
+  const node = makePageNode(key)
+
+  cache[key] = { node, content }
+  doInsert(document.querySelector('[data-target-id="tikkun-book"]'), node)
+
+  setState({
+    cache,
+    showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked,
+    title: getTitle(pageTitles[key - 1])
+  })
+}
+
+const renderPrevious = renderPage({ doInsert: insertBefore })
+const renderNext = renderPage({ doInsert: insertAfter })
+
 document.addEventListener('DOMContentLoaded', () => {
   InfiniteScroller
     .new({
       container: document.querySelector('[data-target-id="tikkun-book"]'),
       fetchPreviousContent: {
         fetch: () => fetchPage(state.iterator.previous()),
-        render: (container, { key, content }) => {
-          const node = document.createElement('div')
-          node.classList.add('tikkun-page')
-          node.setAttribute('data-page-number', key)
-
-          insertBefore(container, node)
-          cache[key] = { node, content }
-
-          setState({ cache })
-        }
+        render: (container, { key, content }) => renderPrevious({ key, content })
       },
       fetchNextContent: {
         fetch: () => fetchPage(state.iterator.next()),
-        render: (container, { key, content }) => {
-          const node = document.createElement('div')
-          node.classList.add('tikkun-page')
-          node.setAttribute('data-page-number', key)
-
-          insertAfter(container, node)
-          cache[key] = { node, content }
-
-          setState({ cache })
-        }
+        render: (container, { key, content }) => renderNext({ key, content })
       }
     })
     .attach()
@@ -249,18 +241,5 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
 
   fetchPage(state.iterator.next())
-    .then(({ key, content }) => {
-      const node = document.createElement('div')
-      node.classList.add('tikkun-page')
-      node.setAttribute('data-page-number', key)
-
-      cache[key] = { node, content }
-      insertAfter(document.querySelector('[data-target-id="tikkun-book"]'), node)
-
-      setState({
-        cache,
-        showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked,
-        title: getTitle(pageTitles[key - 1])
-      })
-    })
+    .then(renderNext)
 })

@@ -124,4 +124,6 @@ describe('app', () => {
 
     cy.contains('בראשית ברא אלהים את השמים ואת הארץ')
   })
+
+  it('shows a tooltip to press the "Shift" key to toggle quickly') // can't test this because cypress does not have `cy.get('...').hover` – see https://docs.cypress.io/api/commands/hover.html#
 })

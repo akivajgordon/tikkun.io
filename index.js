@@ -1,42 +1,7 @@
-import { displayRange, textFilter, InfiniteScroller, IntegerIterator, title as getTitle } from './src'
-import parshiyot from './build/parshiyot.json'
+import { InfiniteScroller, IntegerIterator, title as getTitle } from './src'
+import Page from './components/Page'
+import ParshaPicker from './components/ParshaPicker'
 import pageTitles from './build/page-titles.json'
-
-const petuchaClass = (isPetucha) => isPetucha ? 'mod-petucha' : ''
-
-const setumaClass = (column) => column.length > 1 ? 'mod-setuma' : ''
-
-const Line = ({ text, verses, aliyot, isPetucha }, annotated) => `
-  <div class="line ${petuchaClass(isPetucha)}">
-    ${text.map((column) => (`
-      <div class="column">
-        ${column.map((fragment) => (`
-          <span class="fragment ${setumaClass(column)}">${textFilter({ text: fragment, annotated })}</span>
-        `)).join('')}
-      </div>
-    `)).join('')}
-    <span class="location-indicator mod-verses" ${annotated ? '' : 'hidden'}>${displayRange.asVersesRange(verses)}</span>
-    <span class="location-indicator mod-aliyot" ${annotated ? '' : 'hidden'}>${displayRange.asAliyotRange(aliyot)}</span>
-  </div>
-`
-
-const Page = (lines, annotated) => `
-  <table>
-    ${lines.map((line) => (`
-      <tr>
-        <td>${Line(line, annotated)}</td>
-      </tr>
-    `)).join('')}
-  </table>
-`
-
-const ParshaPicker = () => `
-  <div class="parsha-picker">
-    <ol class="parsha-list">
-      ${parshiyot.map(({ he, page }) => (`<li class="parsha" data-target-id="parsha" data-jump-to-page="${page}">${he}</li>`)).join('')}
-    </ol>
-  </div>
-`
 
 const insertBefore = (parent, child) => {
   parent.insertAdjacentElement('afterbegin', child)
@@ -109,13 +74,20 @@ const emptyNode = (node) => {
   while (node.firstChild) node.removeChild(node.firstChild)
 }
 
+const makePageNode = (n) => {
+  const node = document.createElement('div')
+  node.classList.add('tikkun-page')
+  node.setAttribute('data-page-number', n)
+
+  return node
+}
+
 const showParshaPicker = () => {
   document.querySelector('#js-app').appendChild(htmlToElement(ParshaPicker()))
   ;[...document.querySelectorAll('[data-target-id="parsha"]')]
     .forEach((parsha) => {
       parsha.addEventListener('click', (e) => {
         const page = Number(e.target.getAttribute('data-jump-to-page'))
-        const title = getTitle(pageTitles[page - 1])
 
         emptyObject(cache)
         state.iterator = IntegerIterator.new({ startingAt: page })
@@ -123,20 +95,7 @@ const showParshaPicker = () => {
         emptyNode(document.querySelector('[data-target-id="tikkun-book"]'))
 
         fetchPage(state.iterator.next())
-          .then(({ key, content }) => {
-            const node = document.createElement('div')
-            node.classList.add('tikkun-page')
-            node.setAttribute('data-page-number', key)
-
-            cache[key] = { node, content }
-            insertAfter(document.querySelector('[data-target-id="tikkun-book"]'), node)
-
-            setState({
-              cache,
-              showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked,
-              title
-            })
-          })
+          .then(renderNext)
 
         toggleParshaPicker()
       })
@@ -200,35 +159,33 @@ const debounce = (f) => {
   timeout = setTimeout(f, 100)
 }
 
+const renderPage = ({ doInsert }) => ({ key, content }) => {
+  const node = makePageNode(key)
+
+  cache[key] = { node, content }
+  doInsert(document.querySelector('[data-target-id="tikkun-book"]'), node)
+
+  setState({
+    cache,
+    showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked,
+    title: getTitle(pageTitles[key - 1])
+  })
+}
+
+const renderPrevious = renderPage({ doInsert: insertBefore })
+const renderNext = renderPage({ doInsert: insertAfter })
+
 document.addEventListener('DOMContentLoaded', () => {
   InfiniteScroller
     .new({
       container: document.querySelector('[data-target-id="tikkun-book"]'),
       fetchPreviousContent: {
         fetch: () => fetchPage(state.iterator.previous()),
-        render: (container, { key, content }) => {
-          const node = document.createElement('div')
-          node.classList.add('tikkun-page')
-          node.setAttribute('data-page-number', key)
-
-          insertBefore(container, node)
-          cache[key] = { node, content }
-
-          setState({ cache })
-        }
+        render: (container, { key, content }) => renderPrevious({ key, content })
       },
       fetchNextContent: {
         fetch: () => fetchPage(state.iterator.next()),
-        render: (container, { key, content }) => {
-          const node = document.createElement('div')
-          node.classList.add('tikkun-page')
-          node.setAttribute('data-page-number', key)
-
-          insertAfter(container, node)
-          cache[key] = { node, content }
-
-          setState({ cache })
-        }
+        render: (container, { key, content }) => renderNext({ key, content })
       }
     })
     .attach()
@@ -249,18 +206,5 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
 
   fetchPage(state.iterator.next())
-    .then(({ key, content }) => {
-      const node = document.createElement('div')
-      node.classList.add('tikkun-page')
-      node.setAttribute('data-page-number', key)
-
-      cache[key] = { node, content }
-      insertAfter(document.querySelector('[data-target-id="tikkun-book"]'), node)
-
-      setState({
-        cache,
-        showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked,
-        title: getTitle(pageTitles[key - 1])
-      })
-    })
+    .then(renderNext)
 })

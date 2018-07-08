@@ -17,7 +17,8 @@
 }
 
 .annotations-toggle {
-  font-family: ShlomosemiStam
+  font-family: ShlomosemiStam;
+  position: relative;
 }
 
 .parsha-title {

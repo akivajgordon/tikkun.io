@@ -2,6 +2,7 @@
 @import "/dist/normalize.css";
 
 @import "./app-layout.css";
+@import "./tooltip.css";
 @import "./page.css";
 @import "./parsha-picker.css";
 @import "./toggle.css";

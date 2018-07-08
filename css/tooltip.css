@@ -1,0 +1,23 @@
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  background-color: hsl(0, 0%, 20%);
+  color: white;
+  display: inline-block;
+  position: absolute;
+  top: 200%;
+  padding: 1em 1.5em;
+  border-radius: 4px;
+  font-size: 0.8em;
+  white-space: nowrap;
+  left: 50%;
+  transform: translate(-50%, 0) scale(0);
+  transform-origin: top center;
+  box-shadow: 0 0 8px -4px black;
+  font-family: sans-serif;
+}
+
+[data-tooltip]:hover::after {
+  transform: translate(-50%, 0) scale(1.0);
+  transition: transform 0.15s;
+  transition-delay: 1s;
+}

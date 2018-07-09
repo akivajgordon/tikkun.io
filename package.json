@@ -1,13 +1,12 @@
 {
   "name": "tikkun.io",
   "version": "1.0.0",
-  "description": "Chant your heart out.",
+  "description": "The online tikkun you always wanted, but never had.",
   "main": "index.js",
   "scripts": {
     "test": "ava 'src/*.test.js'",
     "test:watch": "npm test -- --watch",
     "test:ui": "cypress run",
-    "e2e": "ava --serial e2e/index.test.js",
     "build:css": "cp node_modules/normalize.css/normalize.css dist/",
     "webpack": "webpack --mode development index.js -o dist/bundle.js",
     "build": "npm run build:css && npm run webpack",
@@ -30,7 +29,6 @@
     "ava": "^0.25.0",
     "cypress": "^3.0.2",
     "onchange": "^4.0.0",
-    "selenium-webdriver": "^4.0.0-alpha.1",
     "webpack": "^4.10.2",
     "webpack-cli": "^3.0.8"
   }

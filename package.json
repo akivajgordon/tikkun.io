@@ -4,6 +4,7 @@
   "description": "The online tikkun you always wanted, but never had.",
   "main": "index.js",
   "scripts": {
+    "start": "python -m SimpleHTTPServer",
     "test": "ava 'src/*.test.js'",
     "test:watch": "npm test -- --watch",
     "test:ui": "cypress run",

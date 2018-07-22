@@ -64,13 +64,13 @@ const setState = (updates) => {
   render(newState)
 }
 
-const emptyObject = (obj) => {
+const purgeObject = (obj) => {
   for (const key in obj) {
     delete obj[key]
   }
 }
 
-const emptyNode = (node) => {
+const purgeNode = (node) => {
   while (node.firstChild) node.removeChild(node.firstChild)
 }
 
@@ -89,10 +89,10 @@ const showParshaPicker = () => {
       parsha.addEventListener('click', (e) => {
         const page = Number(e.target.getAttribute('data-jump-to-page'))
 
-        emptyObject(cache)
+        purgeObject(cache)
         state.iterator = IntegerIterator.new({ startingAt: page })
 
-        emptyNode(document.querySelector('[data-target-id="tikkun-book"]'))
+        purgeNode(document.querySelector('[data-target-id="tikkun-book"]'))
 
         fetchPage(state.iterator.next())
           .then(renderNext)
@@ -159,11 +159,11 @@ const debounce = (f) => {
   timeout = setTimeout(f, 100)
 }
 
-const renderPage = ({ doInsert }) => ({ key, content }) => {
+const renderPage = ({ insertStrategy: insert }) => ({ key, content }) => {
   const node = makePageNode(key)
 
   cache[key] = { node, content }
-  doInsert(document.querySelector('[data-target-id="tikkun-book"]'), node)
+  insert(document.querySelector('[data-target-id="tikkun-book"]'), node)
 
   setState({
     cache,
@@ -172,8 +172,8 @@ const renderPage = ({ doInsert }) => ({ key, content }) => {
   })
 }
 
-const renderPrevious = renderPage({ doInsert: insertBefore })
-const renderNext = renderPage({ doInsert: insertAfter })
+const renderPrevious = renderPage({ insertStrategy: insertBefore })
+const renderNext = renderPage({ insertStrategy: insertAfter })
 
 document.addEventListener('DOMContentLoaded', () => {
   InfiniteScroller

@@ -4,5 +4,6 @@ const hebrewNumeralFromInteger = require('./hebrew-numeral')
 const textFilter = require('./text-filter')
 const displayRange = require('./display-range')
 const title = require('./title')
+const physicalLocationFromRef = require('./location')
 
-export { textFilter, hebrewNumeralFromInteger, displayRange, InfiniteScroller, IntegerIterator, title }
+export { textFilter, hebrewNumeralFromInteger, displayRange, InfiniteScroller, IntegerIterator, title, physicalLocationFromRef }

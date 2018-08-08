@@ -1,4 +1,4 @@
-import { InfiniteScroller, IntegerIterator, title as getTitle } from './src'
+import { InfiniteScroller, IntegerIterator, title as getTitle, physicalLocationFromRef } from './src'
 import Page from './components/Page'
 import ParshaPicker from './components/ParshaPicker'
 import pageTitles from './build/page-titles.json'
@@ -82,20 +82,41 @@ const makePageNode = (n) => {
   return node
 }
 
+const scrollToLine = ({ node, lineIndex }) => {
+  const lines = [...node.querySelectorAll('.line')]
+
+  const line = lines[lineIndex]
+
+  const book = document.querySelector('.tikkun-book')
+
+  book.scrollTop = line.offsetTop + (line.offsetHeight / 2) - (book.offsetHeight / 2)
+}
+
+const app = {
+  jumpTo: ({ ref }) => {
+    purgeObject(cache)
+
+    const { pageNumber, lineNumber } = physicalLocationFromRef(ref)
+
+    state.iterator = IntegerIterator.new({ startingAt: pageNumber })
+
+    purgeNode(document.querySelector('[data-target-id="tikkun-book"]'))
+
+    fetchPage(state.iterator.next())
+      .then(renderNext)
+      .then((pageNode) => {
+        scrollToLine({ node: pageNode, lineIndex: lineNumber - 1 })
+      })
+  }
+}
+
 const showParshaPicker = () => {
   document.querySelector('#js-app').appendChild(htmlToElement(ParshaPicker()))
   ;[...document.querySelectorAll('[data-target-id="parsha"]')]
     .forEach((parsha) => {
       parsha.addEventListener('click', (e) => {
-        const page = Number(e.target.getAttribute('data-jump-to-page'))
-
-        purgeObject(cache)
-        state.iterator = IntegerIterator.new({ startingAt: page })
-
-        purgeNode(document.querySelector('[data-target-id="tikkun-book"]'))
-
-        fetchPage(state.iterator.next())
-          .then(renderNext)
+        const refPart = (e, part) => Number(e.target.getAttribute(`data-jump-to-${part}`))
+        app.jumpTo({ ref: { b: refPart('book'), c: refPart('chapter'), v: refPart('verse') } })
 
         toggleParshaPicker()
       })
@@ -170,6 +191,8 @@ const renderPage = ({ insertStrategy: insert }) => ({ key, content }) => {
     showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked,
     title: getTitle(pageTitles[key - 1])
   })
+
+  return node
 }
 
 const renderPrevious = renderPage({ insertStrategy: insertBefore })

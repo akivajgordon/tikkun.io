@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-/* global cy */
+/* global cy,expect */
 
 describe('app', () => {
   beforeEach(() => {
@@ -125,5 +125,24 @@ describe('app', () => {
     cy.contains('בראשית ברא אלהים את השמים ואת הארץ')
   })
 
-  it('shows a tooltip to press the "Shift" key to toggle quickly') // can't test this because cypress does not have `cy.get('...').hover` – see https://docs.cypress.io/api/commands/hover.html#
+  it('shows a tooltip to press the "Shift" key to toggle quickly') // can't test this because cypress does not have `cy.get('...').hover` – see https://docs.cypress.io/api/commands/hover.html#
+
+  it('jumps to the center of the page', () => {
+    const centerYOf = ({ y, height }) => y + (height / 2)
+
+    cy.get('.app-toolbar').contains('בראשית')
+      .click()
+
+    cy.contains('נח').click()
+
+    cy.get('[data-target-id="tikkun-book"]').then(($book) => {
+      console.log($book)
+      const bookRect = $book.get(0).getBoundingClientRect()
+
+      cy.contains('אֵ֚לֶּה תּוֹלְדֹ֣ת נֹ֔חַ נֹ֗חַ אִ֥ישׁ צַדִּ֛יק תָּמִ֥ים הָיָ֖ה בְּדֹֽרֹתָ֑יו').should(($el) => {
+        const rect = $el.get(0).getBoundingClientRect()
+        expect(Math.abs(centerYOf(bookRect) - centerYOf(rect))).to.be.at.most(20)
+      })
+    })
+  })
 })

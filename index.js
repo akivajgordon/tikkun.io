@@ -115,7 +115,7 @@ const showParshaPicker = () => {
   ;[...document.querySelectorAll('[data-target-id="parsha"]')]
     .forEach((parsha) => {
       parsha.addEventListener('click', (e) => {
-        const refPart = (e, part) => Number(e.target.getAttribute(`data-jump-to-${part}`))
+        const refPart = (part) => Number(e.target.getAttribute(`data-jump-to-${part}`))
         app.jumpTo({ ref: { b: refPart('book'), c: refPart('chapter'), v: refPart('verse') } })
 
         toggleParshaPicker()

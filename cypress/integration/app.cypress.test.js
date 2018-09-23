@@ -93,14 +93,12 @@ describe('app', () => {
     cy.get('.app-toolbar').contains('שופטים')
   })
 
-  it('displays the pasuk and aliyot markers', () => {
+  it('displays the aliyot markers', () => {
     cy.contains('א:א').should('be.visible')
-    cy.contains('ראשון').should('be.visible')
 
     cy.get('[data-test-id="annotations-toggle"]').as('toggle').click()
 
     cy.contains('א:א').should('be.hidden')
-    cy.contains('ראשון').should('be.hidden')
   })
 
   it('toggles annotations when the SHIFT key is pressed', () => {
@@ -144,5 +142,22 @@ describe('app', () => {
         expect(Math.abs(centerYOf(bookRect) - centerYOf(rect))).to.be.at.most(20)
       })
     })
+  })
+
+  it('shows the parsha name in place of the ראשון marker', () => {
+    cy.get('.app-toolbar').contains('בראשית')
+      .click()
+
+    cy.contains('וישב').click()
+
+    cy
+      .get('[data-target-id="aliyot-range"]')
+      .invoke('text')
+      .should('not.include', 'ראשון')
+
+    cy
+      .get('[data-target-id="aliyot-range"]')
+      .invoke('text')
+      .should('include', 'וישב')
   })
 })

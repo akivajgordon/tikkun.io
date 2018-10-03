@@ -13,7 +13,7 @@ const Line = ({ text, verses, aliyot, isPetucha }, annotated) => `
       </div>
     `)).join('')}
     <span class="location-indicator mod-verses" ${annotated ? '' : 'hidden'}>${displayRange.asVersesRange(verses)}</span>
-    <span class="location-indicator mod-aliyot" ${annotated ? '' : 'hidden'}>${displayRange.asAliyotRange(aliyot)}</span>
+    <span class="location-indicator mod-aliyot" ${annotated ? '' : 'hidden'} data-target-id="aliyot-range">${displayRange.asAliyotRange(aliyot, verses)}</span>
   </div>
 `
 

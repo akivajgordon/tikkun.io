@@ -145,9 +145,7 @@ const toggleParshaPicker = () => {
   }
 }
 
-const toggleAnnotations = (e) => {
-  if (e.key !== 'Shift') return
-
+const toggleAnnotations = () => {
   const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
 
   toggle.checked = !toggle.checked
@@ -227,8 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setState({ showAnnotations })
   })
 
-  document.addEventListener('keydown', toggleAnnotations)
-  document.addEventListener('keyup', toggleAnnotations)
+  document.addEventListener('keydown', whenKey('Shift', toggleAnnotations))
+  document.addEventListener('keyup', whenKey('Shift', toggleAnnotations))
 
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))

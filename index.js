@@ -198,6 +198,19 @@ const renderPage = ({ insertStrategy: insert }) => ({ key, content }) => {
 const renderPrevious = renderPage({ insertStrategy: insertBefore })
 const renderNext = renderPage({ insertStrategy: insertAfter })
 
+// const parseRef = (refString) => {
+//   console.log(refString)
+//   const [match, book, chapter, verse] = refString.match(/^(\d+)-(\d+)-(\d+)$/) || []
+//
+//   if (!match) return
+//
+//   return { b: book, c: chapter, v: verse }
+// }
+
+const whenKey = (key, callback) => e => {
+  if (e.key === key) callback()
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   InfiniteScroller
     .new({
@@ -223,10 +236,18 @@ document.addEventListener('DOMContentLoaded', () => {
     setState({ showAnnotations })
   })
 
+  // window.addEventListener('hashchange', (e) => {
+  //   console.log(e)
+  //   const ref = parseRef(window.location.hash.slice(1))
+  //
+  //   if (ref) app.jumpTo({ ref })
+  // })
+
   document.addEventListener('keydown', toggleAnnotations)
   document.addEventListener('keyup', toggleAnnotations)
 
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
+  document.addEventListener('keydown', whenKey('/', toggleParshaPicker))
 
   fetchPage(state.iterator.next())
     .then(renderNext)

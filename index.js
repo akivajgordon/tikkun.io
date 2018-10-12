@@ -112,6 +112,11 @@ const app = {
 
 const showParshaPicker = () => {
   document.querySelector('#js-app').appendChild(htmlToElement(ParshaPicker()))
+
+  document.querySelector('.parsha-search-input').addEventListener('input', (e) => {
+    console.log(e.target.value)
+  })
+
   ;[...document.querySelectorAll('[data-target-id="parsha"]')]
     .forEach((parsha) => {
       parsha.addEventListener('click', (e) => {

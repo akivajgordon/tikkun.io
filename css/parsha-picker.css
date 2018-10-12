@@ -17,11 +17,40 @@
   bottom: 0;
   background-color: white;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   overflow: auto;
   -webkit-overflow-scrolling: touch; /*https://css-tricks.com/snippets/css/momentum-scrolling-on-ios-overflow-elements/*/
   height: 100%;
   animation: fade-in 0.2s forwards;
+  padding: 2em 1em;
+}
+
+.parsha-search {
+  position: relative;
+  font-family: sans-serif;
+  border-bottom: 2px solid hsla(0, 0%, 0%, 0.25);
+}
+
+.parsha-search-input {
+  border: none;
+  direction: ltr;
+  padding: 0.1em 2em 0.1em 0.5em;
+  width: 30ch;
+  color: hsla(0, 0%, 0%, 0.7);
+}
+
+.parsha-search-input:focus {
+  outline: none;
+  border-color: hsla(0, 0%, 0%, 0.5);
+}
+
+.parsha-search-icon {
+  position: absolute;
+  right: 10px;
+  transform: rotate(-45deg);
+  font-size: 1.25em;
+  color: hsla(0, 0%, 0%, 0.7);
 }
 
 .parsha-books {

@@ -75,4 +75,14 @@ describe('app', () => {
     cy.contains('לך לך')
     cy.contains('וירא')
   })
+
+  it.only('filters parshiyot', () => {
+    cy.get('body').type('/')
+
+    cy
+      .get('[placeholder*="search" i]')
+      .type('shlch') // vayishlach, b'shalach, sh'lach
+
+    cy.contains('נח').should('not.exist')
+  })
 })

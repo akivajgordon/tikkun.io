@@ -21,6 +21,10 @@ const Book = (book) => `
 
 const ParshaPicker = () => `
   <div class="parsha-picker">
+    <div class="parsha-search">
+      <input class="parsha-search-input" placeholder="Search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <span class="parsha-search-icon">⚲</span>
+    </div>
     <ol class="parsha-books">
       ${parshiyot
         .reduce((books, parsha) => {

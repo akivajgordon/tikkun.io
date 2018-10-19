@@ -91,4 +91,13 @@ describe('app', () => {
     cy.contains(`Beshalach`)
     cy.contains(`Sh'lach`)
   })
+
+  it('appropriately shows "No results" message', () => {
+    cy.get('body').type('/')
+
+    cy.focused()
+      .type('xqqqvvvxxx7654321') // vayishlach, b'shalach, sh'lach
+
+    cy.contains(/no.*results/i)
+  })
 })

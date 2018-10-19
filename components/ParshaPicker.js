@@ -93,7 +93,11 @@ const ParshaPicker = () => `
   </div>
 `
 
-const searchResults = (query) => fuzzy(parshiyot.map(parsha => parsha.en), query)
+const searchResults = (query) => {
+  const results = fuzzy(parshiyot.map(parsha => parsha.en), query)
+
+  return results.length ? results : [{ string: 'No results', indexes: [] }]
+}
 
 const htmlToElement = (html) => {
   const template = document.createElement('template')

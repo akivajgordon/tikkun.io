@@ -1,4 +1,5 @@
 import parshiyot from '../build/parshiyot.json'
+import fuzzy from '../src/fuzzy'
 
 const Parsha = ({ ref, he }) => `<li
   class="parsha"
@@ -19,12 +20,64 @@ const Book = (book) => `
   </li>
 `
 
+/*
+<li class="search-result">
+  <p class="search-result-tag">שלח</p>
+  <p class="search-result-tag"><strong>Sh</strong>e<strong>l</strong>a<strong>ch</strong></p>
+</li>
+<li class="search-result">
+  <p class="search-result-tag">בשלח</p>
+  <p class="search-result-tag">Be<strong>sh</strong>a<strong>l</strong>a<strong>ch</strong></p>
+</li>
+<li class="search-result">
+  <p class="search-result-tag">וישלח</p>
+  <p class="search-result-tag">Vayi<strong>shl</strong>a<strong>ch</strong></p>
+</li>
+*/
+
+/*
+<li class="search-result">
+  <p class="" style="text-align: center; color: hsla(0, 0%, 0%, 0.5);">No results</p>
+</li>
+*/
+const Search = () => `
+  <div class="search">
+    <div class="search-bar">
+      <span class="search-icon">⚲</span>
+      <input class="search-input" placeholder="Search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus />
+    </div>
+    <ol class="search-results u-hidden">
+    </ol>
+  </div>
+`
+
+const decorateString = ({ string, atIndexes, withDecoration }) => {
+  let indexesIndex = 0
+  return string
+    .split('')
+    .map((char, i) => {
+      if (atIndexes[indexesIndex] !== i) return char
+
+      ++indexesIndex
+      return withDecoration(char)
+    }, '')
+    .join('')
+}
+
+const SearchResult = ({ string, indexes }) => `
+  <li class="search-result">
+    <p class="search-result-tag">${decorateString({
+      string,
+      atIndexes: indexes,
+      withDecoration: (c) => (`<strong>${c}</strong>`)
+    })}
+    </p>
+  </li>
+`
+
 const ParshaPicker = () => `
   <div class="parsha-picker">
-    <div class="parsha-search">
-      <input class="parsha-search-input" placeholder="Search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <span class="parsha-search-icon">⚲</span>
-    </div>
+    ${Search()}
     <ol class="parsha-books">
       ${parshiyot
         .reduce((books, parsha) => {
@@ -39,5 +92,40 @@ const ParshaPicker = () => `
     </ol>
   </div>
 `
+
+const searchResults = (query) => fuzzy(parshiyot.map(parsha => parsha.en), query)
+
+const htmlToElement = (html) => {
+  const template = document.createElement('template')
+  html = html.trim() // Never return a text node of whitespace as the result
+  template.innerHTML = html
+  return template.content.firstChild
+}
+
+const top = (n) => (_, i) => i < n
+
+const search = ({ jumper, query }) => {
+  const searchResultsElement = jumper.querySelector('.search-results')
+
+  if (query) {
+    searchResultsElement.classList.remove('u-hidden')
+    jumper.querySelector('.parsha-books').classList.add('u-hidden')
+
+    searchResultsElement.innerHTML = ''
+
+    searchResults(query)
+      .filter(top(5))
+      .map(SearchResult)
+      .map(htmlToElement)
+      .forEach(result => {
+        searchResultsElement.appendChild(result)
+      })
+  } else {
+    searchResultsElement.classList.add('u-hidden')
+    jumper.querySelector('.parsha-books').classList.remove('u-hidden')
+  }
+}
+
+export { search }
 
 export default ParshaPicker

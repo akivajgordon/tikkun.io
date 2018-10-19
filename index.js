@@ -1,6 +1,6 @@
 import { InfiniteScroller, IntegerIterator, title as getTitle, physicalLocationFromRef } from './src'
 import Page from './components/Page'
-import ParshaPicker from './components/ParshaPicker'
+import ParshaPicker, { search } from './components/ParshaPicker'
 import pageTitles from './build/page-titles.json'
 
 const insertBefore = (parent, child) => {
@@ -111,10 +111,11 @@ const app = {
 }
 
 const showParshaPicker = () => {
-  document.querySelector('#js-app').appendChild(htmlToElement(ParshaPicker()))
+  const jumper = htmlToElement(ParshaPicker())
+  document.querySelector('#js-app').appendChild(jumper)
 
-  document.querySelector('.parsha-search-input').addEventListener('input', (e) => {
-    console.log(e.target.value)
+  jumper.querySelector('.search-input').addEventListener('input', (e) => {
+    search({ jumper, query: e.target.value })
   })
 
   ;[...document.querySelectorAll('[data-target-id="parsha"]')]
@@ -238,4 +239,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   fetchPage(state.iterator.next())
     .then(renderNext)
+    // .then(toggleParshaPicker)
 })

@@ -26,31 +26,65 @@
   padding: 2em 1em;
 }
 
-.parsha-search {
-  position: relative;
-  font-family: sans-serif;
-  border-bottom: 2px solid hsla(0, 0%, 0%, 0.25);
-}
-
-.parsha-search-input {
-  border: none;
+.search {
   direction: ltr;
-  padding: 0.1em 2em 0.1em 0.5em;
+}
+
+.search {
+  background-color: hsla(0, 0%, 0%, 0.05);
+  display: inline-block;
+  border-radius: 4px;
+  color: hsla(0, 0%, 0%, 0.7);
+  border: 1px solid hsla(0, 0%, 0%, 0);
   width: 30ch;
-  color: hsla(0, 0%, 0%, 0.7);
 }
 
-.parsha-search-input:focus {
-  outline: none;
-  border-color: hsla(0, 0%, 0%, 0.5);
+.search:focus-within {
+  border: 1px solid hsla(0, 0%, 0%, 0.1);
 }
 
-.parsha-search-icon {
-  position: absolute;
-  right: 10px;
+.search-bar {
+  display: flex;
+  padding: 0.5em 1em;
+}
+
+.search-bar > *:not(:first-child) {
+  margin-left: 1em;
+}
+
+.search-icon {
   transform: rotate(-45deg);
-  font-size: 1.25em;
-  color: hsla(0, 0%, 0%, 0.7);
+  display: block;
+  font-size: 1.5em;
+}
+
+.search-input {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  color: inherit;
+}
+
+.search-results {
+  border-top: 1px solid hsla(0, 0%, 0%, 0.2);
+}
+
+.search-result {
+  list-style: none;
+  padding: 1em 1em;
+  cursor: pointer;
+}
+
+.search-result:hover {
+  background-color: hsla(0, 0%, 0%, 0.05);
+}
+
+.search-result:not(:last-child) {
+  border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
+}
+
+.search-result-tag:not(:last-child) {
+  margin-bottom: 1em;
 }
 
 .parsha-books {

@@ -76,13 +76,19 @@ describe('app', () => {
     cy.contains('וירא')
   })
 
-  it.only('filters parshiyot', () => {
+  it('filters parshiyot', () => {
     cy.get('body').type('/')
 
-    cy
-      .get('[placeholder*="search" i]')
+    cy.contains(/vayishlach/i).should('not.be.visible') // shouldn't start by showing search results
+
+    cy.focused()
+      .should('match', '[placeholder*="search" i]')
       .type('shlch') // vayishlach, b'shalach, sh'lach
 
-    cy.contains('נח').should('not.exist')
+    cy.contains('נח').should('not.be.visible') // hides parsha list
+
+    cy.contains('Vayishlach')
+    cy.contains(`Beshalach`)
+    cy.contains(`Sh'lach`)
   })
 })

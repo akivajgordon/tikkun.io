@@ -42,3 +42,10 @@ test('returns the match indexes', t => {
     [0, 2, 4, 5]
   ])
 })
+
+test('searches case insensitively', t => {
+  const haystack = ['Abcd', 'a_bcd']
+
+  t.deepEqual(fuzzy(haystack, 'abc').map(stringOnly), ['Abcd', 'a_bcd'])
+  t.deepEqual(fuzzy(haystack, 'ABc').map(stringOnly), ['Abcd', 'a_bcd'])
+})

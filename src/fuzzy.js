@@ -1,7 +1,7 @@
 const hasEveryCharacterInOrder = needle => item => (new RegExp(needle
   .split('')
   .join('.*')
-)).test(item)
+, 'i')).test(item)
 
 const matchIndexes = (needle, match) => {
   const needleChars = needle.split('')
@@ -11,7 +11,7 @@ const matchIndexes = (needle, match) => {
   let needleIndex = 0
 
   for (let i = 0; i < matchChars.length; i++) {
-    if (needleChars[needleIndex] === matchChars[i]) {
+    if (needleChars[needleIndex].toLowerCase() === matchChars[i].toLowerCase()) {
       indexes.push(i)
       ++needleIndex
 

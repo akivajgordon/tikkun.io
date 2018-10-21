@@ -64,14 +64,19 @@ const decorateString = ({ string, atIndexes, withDecoration }) => {
     .join('')
 }
 
-const SearchResult = ({ string, indexes }) => `
-  <li class="search-result">
-    <p class="search-result-tag">${decorateString({
-      string,
-      atIndexes: indexes,
-      withDecoration: (c) => (`<strong>${c}</strong>`)
-    })}
-    </p>
+const ParshaResult = ({ string, indexes, item }) => `
+  <p class="search-result-tag">${item.he}</p>
+  <p class="search-result-tag">${decorateString({
+    string,
+    atIndexes: indexes,
+    withDecoration: (c) => (`<strong>${c}</strong>`)
+  })}
+  </p>
+`
+
+const SearchResult = (result) => `
+  <li class="search-result" data-target-class="search-result">
+    ${result}
   </li>
 `
 
@@ -94,9 +99,9 @@ const ParshaPicker = () => `
 `
 
 const searchResults = (query) => {
-  const results = fuzzy(parshiyot.map(parsha => parsha.en), query)
+  const results = fuzzy(parshiyot, query, parsha => parsha.en)
 
-  return results.length ? results : [{ string: 'No results', indexes: [] }]
+  return results.length ? results : [{ string: 'No results', indexes: [], item: { he: '' } }]
 }
 
 const htmlToElement = (html) => {
@@ -119,6 +124,7 @@ const search = ({ jumper, query }) => {
 
     searchResults(query)
       .filter(top(5))
+      .map(ParshaResult)
       .map(SearchResult)
       .map(htmlToElement)
       .forEach(result => {

@@ -1,7 +1,7 @@
-const hasEveryCharacterInOrder = needle => item => (new RegExp(needle
+const hasEveryCharacterInOrder = (needle, getSearchTerm) => item => (new RegExp(needle
   .split('')
   .join('.*')
-, 'i')).test(item)
+, 'i')).test(getSearchTerm(item))
 
 const matchIndexes = (needle, match) => {
   const needleChars = needle.split('')
@@ -30,9 +30,9 @@ const indexScore = (needle, match) => {
     .reduce((a, b) => a + b)
 }
 
-module.exports = (haystack, needle) => haystack
-  .filter(hasEveryCharacterInOrder(needle))
-  .map(match => ({ indexes: matchIndexes(needle, match), string: match }))
+module.exports = (haystack, needle, getSearchTerm = x => x) => haystack
+  .filter(hasEveryCharacterInOrder(needle, getSearchTerm))
+  .map(match => ({ item: match, indexes: matchIndexes(needle, getSearchTerm(match)), string: getSearchTerm(match) }))
   .sort((match, other) => {
     const matchScore = indexScore(needle, match.string)
     const otherScore = indexScore(needle, other.string)

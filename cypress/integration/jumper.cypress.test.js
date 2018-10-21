@@ -92,6 +92,23 @@ describe('app', () => {
     cy.contains(`Sh'lach`)
   })
 
+  it('shows the hebrew name of the parsha for an english search', () => {
+    cy.get('body').type('/')
+
+    cy.focused()
+      .type('vyr') // vayishlach, b'shalach, sh'lach
+
+    cy.contains('נח').should('not.be.visible') // hides parsha list
+
+    cy.contains('Vayera')
+      .closest('[data-target-class="search-result"]')
+      .contains('וירא')
+
+    cy.contains(`Vayikra`)
+      .closest('[data-target-class="search-result"]')
+      .contains(`ויקרא`)
+  })
+
   it('appropriately shows "No results" message', () => {
     cy.get('body').type('/')
 

@@ -43,6 +43,21 @@ test('returns the match indexes', t => {
   ])
 })
 
+test('accepts an arbitrary item and a function for how to search it', t => {
+  const haystack = [
+    { lang: 'English', val: 'Hello' },
+    { lang: 'Spanish', val: 'Hola' },
+    { lang: 'French', val: 'Bonjour' }
+  ]
+
+  const results = fuzzy(haystack, 'en', obj => obj.lang)
+
+  t.deepEqual(results.map(r => r.item), [
+    { lang: 'English', val: 'Hello' },
+    { lang: 'French', val: 'Bonjour' }
+  ])
+})
+
 test('searches case insensitively', t => {
   const haystack = ['Abcd', 'a_bcd']
 

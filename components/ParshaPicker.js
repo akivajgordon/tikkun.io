@@ -108,7 +108,7 @@ const htmlToElement = (html) => {
 
 const top = (n) => (_, i) => i < n
 
-const search = ({ jumper, query }) => {
+const search = ({ jumper, query, jumpToRef, toggleParshaPicker }) => {
   const searchResultsElement = jumper.querySelector('.search-results')
 
   if (query) {
@@ -119,9 +119,24 @@ const search = ({ jumper, query }) => {
 
     searchResults(query)
       .filter(top(5))
-      .map(result => result.item === 'No results' ? NoResults() : ParshaResult(result))
-      .map(SearchResult)
-      .map(htmlToElement)
+      .map(result => result.item === 'No results'
+        ? { html: NoResults(), onClick: () => {} }
+        : {
+          html: ParshaResult(result),
+          onClick: () => {
+            jumpToRef(result.item)
+            toggleParshaPicker()
+          }
+        }
+      )
+      .map(({ html, onClick }) => ({ html: SearchResult(html), onClick }))
+      .map(({ html, onClick }) => {
+        const el = htmlToElement(html)
+
+        el.addEventListener('click', onClick)
+
+        return el
+      })
       .forEach(result => {
         searchResultsElement.appendChild(result)
       })

@@ -115,7 +115,7 @@ const showParshaPicker = () => {
   document.querySelector('#js-app').appendChild(jumper)
 
   jumper.querySelector('.search-input').addEventListener('input', (e) => {
-    search({ jumper, query: e.target.value })
+    search({ jumper, query: e.target.value, jumpToRef: app.jumpTo, toggleParshaPicker })
   })
 
   ;[...document.querySelectorAll('[data-target-id="parsha"]')]

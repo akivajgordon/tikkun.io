@@ -96,7 +96,7 @@ describe('app', () => {
     cy.get('body').type('/')
 
     cy.focused()
-      .type('vyr') // vayishlach, b'shalach, sh'lach
+      .type('vyr')
 
     cy.contains('נח').should('not.be.visible') // hides parsha list
 
@@ -113,8 +113,21 @@ describe('app', () => {
     cy.get('body').type('/')
 
     cy.focused()
-      .type('xqqqvvvxxx7654321') // vayishlach, b'shalach, sh'lach
+      .type('xqqqvvvxxx7654321')
 
     cy.contains(/no.*results/i)
+  })
+
+  it.only('jumps to a parsha when tapping on search result', () => {
+    cy.get('body').type('/')
+
+    cy.focused()
+      .type('noah')
+
+    cy.contains('נח')
+      .click()
+
+    cy.contains('אֵ֚לֶּה תּוֹלְדֹ֣ת נֹ֔חַ נֹ֗חַ אִ֥ישׁ צַדִּ֛יק תָּמִ֥ים הָיָ֖ה בְּדֹֽרֹתָ֑יו')
+      .should('be.visible')
   })
 })

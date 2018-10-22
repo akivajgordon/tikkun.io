@@ -20,26 +20,6 @@ const Book = (book) => `
   </li>
 `
 
-/*
-<li class="search-result">
-  <p class="search-result-tag">שלח</p>
-  <p class="search-result-tag"><strong>Sh</strong>e<strong>l</strong>a<strong>ch</strong></p>
-</li>
-<li class="search-result">
-  <p class="search-result-tag">בשלח</p>
-  <p class="search-result-tag">Be<strong>sh</strong>a<strong>l</strong>a<strong>ch</strong></p>
-</li>
-<li class="search-result">
-  <p class="search-result-tag">וישלח</p>
-  <p class="search-result-tag">Vayi<strong>shl</strong>a<strong>ch</strong></p>
-</li>
-*/
-
-/*
-<li class="search-result">
-  <p class="" style="text-align: center; color: hsla(0, 0%, 0%, 0.5);">No results</p>
-</li>
-*/
 const Search = () => `
   <div class="search">
     <div class="search-bar">
@@ -64,13 +44,25 @@ const decorateString = ({ string, atIndexes, withDecoration }) => {
     .join('')
 }
 
-const ParshaResult = ({ string, indexes, item }) => `
-  <p class="search-result-tag">${item.he}</p>
-  <p class="search-result-tag">${decorateString({
-    string,
-    atIndexes: indexes,
-    withDecoration: (c) => (`<strong>${c}</strong>`)
-  })}
+const strongify = (c) => (`<strong>${c}</strong>`)
+
+const NoResults = () => `<p class="" style="text-align: center; color: hsla(0, 0%, 0%, 0.5);">
+  No results
+</p>
+`
+
+const ParshaResult = ({ match, item }) => `
+  <p class="search-result-tag">${match.index === 0 ? decorateString({
+    string: item.he,
+    atIndexes: match.indexes,
+    withDecoration: strongify
+  }) : item.he}
+  </p>
+  <p class="search-result-tag">${match.index === 1 ? decorateString({
+    string: item.en,
+    atIndexes: match.indexes,
+    withDecoration: strongify
+  }) : item.en}
   </p>
 `
 
@@ -99,9 +91,12 @@ const ParshaPicker = () => `
 `
 
 const searchResults = (query) => {
-  const results = fuzzy(parshiyot, query, parsha => parsha.en)
+  const results = fuzzy(parshiyot, query, parsha => [parsha.he, parsha.en])
 
-  return results.length ? results : [{ string: 'No results', indexes: [], item: { he: '' } }]
+  return results.length ? results : [{
+    item: 'No results',
+    match: { index: 0, indexes: [] }
+  }]
 }
 
 const htmlToElement = (html) => {
@@ -124,7 +119,7 @@ const search = ({ jumper, query }) => {
 
     searchResults(query)
       .filter(top(5))
-      .map(ParshaResult)
+      .map(result => result.item === 'No results' ? NoResults() : ParshaResult(result))
       .map(SearchResult)
       .map(htmlToElement)
       .forEach(result => {

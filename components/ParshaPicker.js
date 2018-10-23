@@ -52,18 +52,20 @@ const NoResults = () => `<p class="" style="text-align: center; color: hsla(0, 0
 `
 
 const ParshaResult = ({ match, item }) => `
-  <p class="search-result-tag">${match.index === 0 ? decorateString({
-    string: item.he,
-    atIndexes: match.indexes,
-    withDecoration: strongify
-  }) : item.he}
-  </p>
-  <p class="search-result-tag">${match.index === 1 ? decorateString({
-    string: item.en,
-    atIndexes: match.indexes,
-    withDecoration: strongify
-  }) : item.en}
-  </p>
+  <div data-target-class="parsha-result" data-jump-to-book="${item.ref.b}" data-jump-to-chapter="${item.ref.c}" data-jump-to-verse="${item.ref.v}">
+    <p class="search-result-tag" data-target-class="result-hebrew">${match.index === 0 ? decorateString({
+      string: item.he,
+      atIndexes: match.indexes,
+      withDecoration: strongify
+    }) : item.he}
+    </p>
+    <p class="search-result-tag">${match.index === 1 ? decorateString({
+      string: item.en,
+      atIndexes: match.indexes,
+      withDecoration: strongify
+    }) : item.en}
+    </p>
+  </div>
 `
 
 const SearchResult = (result) => `
@@ -140,6 +142,8 @@ const search = ({ jumper, query, jumpToRef, toggleParshaPicker }) => {
       .forEach(result => {
         searchResultsElement.appendChild(result)
       })
+
+    searchResultsElement.firstChild.classList.add('search-result-selected')
   } else {
     searchResultsElement.classList.add('u-hidden')
     jumper.querySelector('.parsha-books').classList.remove('u-hidden')

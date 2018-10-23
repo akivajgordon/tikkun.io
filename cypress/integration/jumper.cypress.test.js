@@ -118,7 +118,7 @@ describe('app', () => {
     cy.contains(/no.*results/i)
   })
 
-  it.only('jumps to a parsha when tapping on search result', () => {
+  it('jumps to a parsha when tapping on search result', () => {
     cy.get('body').type('/')
 
     cy.focused()
@@ -129,5 +129,41 @@ describe('app', () => {
 
     cy.contains('אֵ֚לֶּה תּוֹלְדֹ֣ת נֹ֔חַ נֹ֗חַ אִ֥ישׁ צַדִּ֛יק תָּמִ֥ים הָיָ֖ה בְּדֹֽרֹתָ֑יו')
       .should('be.visible')
+  })
+
+  it('can navigate search results with keyboard', () => {
+    cy.get('body').type('/')
+
+    cy.focused()
+      .type('vy') // vayera, vayeitzei, vayishlach, etc.
+
+    cy.get('[data-target-class="search-result"]')
+      .not(':first-child')
+      .each($result => {
+        cy.wrap($result).should('not.have.class', 'search-result-selected')
+      })
+
+    cy.get('[data-target-class="search-result"]')
+      .first()
+      .should('have.class', 'search-result-selected')
+
+    cy.get('body')
+      .type('{downarrow}{downarrow}')
+
+    cy.get('[data-target-class="search-result"]')
+      .eq(2)
+      .should('have.class', 'search-result-selected')
+
+    cy.get('[data-target-class="search-result"]')
+      .first()
+      .should('not.have.class', 'search-result-selected')
+
+    cy.get('.search-result-selected [data-target-class="result-hebrew"]')
+      .then($hebrewElement => {
+        cy.focused()
+          .type('{enter}')
+
+        cy.get('.app-toolbar').contains($hebrewElement.text().trim())
+      })
   })
 })

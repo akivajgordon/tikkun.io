@@ -75,6 +75,7 @@
   cursor: pointer;
 }
 
+.search-result-selected,
 .search-result:hover {
   background-color: hsla(0, 0%, 0%, 0.05);
 }

@@ -114,15 +114,58 @@ const showParshaPicker = () => {
   const jumper = htmlToElement(ParshaPicker())
   document.querySelector('#js-app').appendChild(jumper)
 
-  jumper.querySelector('.search-input').addEventListener('input', (e) => {
+  const setSelected = (adjustSelected) => {
+    const results = [...document.querySelectorAll('.search-result')]
+
+    const selectedIndex = results.findIndex(result => result.classList.contains('search-result-selected'))
+
+    const selected = results[selectedIndex]
+
+    selected.classList.remove('search-result-selected')
+
+    const nextIndex = (adjustSelected(selectedIndex) + results.length) % results.length
+
+    results[nextIndex].classList.add('search-result-selected')
+  }
+
+  const arrowKeyListeners = [
+    whenKey('ArrowDown', () => setSelected((selected) => selected + 1)),
+    whenKey('ArrowUp', () => setSelected((selected) => selected - 1))
+  ]
+
+  const searchInput = jumper.querySelector('.search-input')
+
+  searchInput.addEventListener('input', (e) => {
     search({ jumper, query: e.target.value, jumpToRef: app.jumpTo, toggleParshaPicker })
+    arrowKeyListeners.forEach(listener => document.removeEventListener('keydown', listener))
+    arrowKeyListeners.forEach(listener => document.addEventListener('keydown', listener))
+  })
+
+  const refOf = element => {
+    const refPart = (part) => Number(element.getAttribute(`data-jump-to-${part}`))
+
+    return { b: refPart('book'), c: refPart('chapter'), v: refPart('verse') }
+  }
+
+  searchInput.addEventListener('keydown', whenKey('ArrowUp', e => e.preventDefault()))
+  searchInput.addEventListener('keydown', whenKey('ArrowDown', e => e.preventDefault()))
+  searchInput.addEventListener('keydown', whenKey('Enter', () => {
+    app.jumpTo({ ref: refOf(document.querySelector('.search-result-selected [data-target-class="parsha-result"]')) })
+    toggleParshaPicker()
+  }))
+
+  searchInput.addEventListener('focus', () => {
+    arrowKeyListeners.forEach(listener => document.addEventListener('keydown', listener))
+  })
+
+  searchInput.addEventListener('blur', () => {
+    arrowKeyListeners.forEach(listener => document.removeEventListener('keydown', listener))
   })
 
   ;[...document.querySelectorAll('[data-target-id="parsha"]')]
     .forEach((parsha) => {
       parsha.addEventListener('click', (e) => {
-        const refPart = (part) => Number(e.target.getAttribute(`data-jump-to-${part}`))
-        app.jumpTo({ ref: { b: refPart('book'), c: refPart('chapter'), v: refPart('verse') } })
+        app.jumpTo({ ref: refOf(e.target) })
 
         toggleParshaPicker()
       })
@@ -203,7 +246,7 @@ const renderPrevious = renderPage({ insertStrategy: insertBefore })
 const renderNext = renderPage({ insertStrategy: insertAfter })
 
 const whenKey = (key, callback) => e => {
-  if (e.key === key) callback()
+  if (e.key === key) callback(e)
 }
 
 document.addEventListener('DOMContentLoaded', () => {

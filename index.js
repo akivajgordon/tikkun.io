@@ -110,28 +110,32 @@ const app = {
   }
 }
 
+const setSelected = (adjustSelected) => {
+  const results = [...document.querySelectorAll('.search-result')]
+
+  const selectedIndex = results.findIndex(result => result.classList.contains('search-result-selected'))
+
+  const selected = results[selectedIndex]
+
+  selected.classList.remove('search-result-selected')
+
+  const nextIndex = (adjustSelected(selectedIndex) + results.length) % results.length
+
+  results[nextIndex].classList.add('search-result-selected')
+}
+
+const whenKey = (key, callback) => e => {
+  if (e.key === key) callback(e)
+}
+
+const arrowKeyListeners = [
+  whenKey('ArrowDown', () => setSelected((selected) => selected + 1)),
+  whenKey('ArrowUp', () => setSelected((selected) => selected - 1))
+]
+
 const showParshaPicker = () => {
   const jumper = htmlToElement(ParshaPicker())
   document.querySelector('#js-app').appendChild(jumper)
-
-  const setSelected = (adjustSelected) => {
-    const results = [...document.querySelectorAll('.search-result')]
-
-    const selectedIndex = results.findIndex(result => result.classList.contains('search-result-selected'))
-
-    const selected = results[selectedIndex]
-
-    selected.classList.remove('search-result-selected')
-
-    const nextIndex = (adjustSelected(selectedIndex) + results.length) % results.length
-
-    results[nextIndex].classList.add('search-result-selected')
-  }
-
-  const arrowKeyListeners = [
-    whenKey('ArrowDown', () => setSelected((selected) => selected + 1)),
-    whenKey('ArrowUp', () => setSelected((selected) => selected - 1))
-  ]
 
   const searchInput = jumper.querySelector('.search-input')
 
@@ -191,6 +195,7 @@ const toggleParshaPicker = () => {
     showParshaPicker()
   } else {
     document.querySelector('#js-app').removeChild(document.querySelector('.parsha-picker'))
+    arrowKeyListeners.forEach(listener => document.removeEventListener('keydown', listener))
   }
 }
 
@@ -244,10 +249,6 @@ const renderPage = ({ insertStrategy: insert }) => ({ key, content }) => {
 
 const renderPrevious = renderPage({ insertStrategy: insertBefore })
 const renderNext = renderPage({ insertStrategy: insertAfter })
-
-const whenKey = (key, callback) => e => {
-  if (e.key === key) callback(e)
-}
 
 document.addEventListener('DOMContentLoaded', () => {
   InfiniteScroller

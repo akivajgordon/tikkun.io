@@ -147,7 +147,7 @@ describe('app', () => {
       .first()
       .should('have.class', 'search-result-selected')
 
-    cy.get('body')
+    cy.focused()
       .type('{downarrow}{downarrow}')
 
     cy.get('[data-target-class="search-result"]')

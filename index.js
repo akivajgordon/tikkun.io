@@ -128,11 +128,6 @@ const whenKey = (key, callback) => e => {
   if (e.key === key) callback(e)
 }
 
-const arrowKeyListeners = [
-  whenKey('ArrowDown', () => setSelected((selected) => selected + 1)),
-  whenKey('ArrowUp', () => setSelected((selected) => selected - 1))
-]
-
 const showParshaPicker = () => {
   const jumper = htmlToElement(ParshaPicker())
   document.querySelector('#js-app').appendChild(jumper)
@@ -141,8 +136,6 @@ const showParshaPicker = () => {
 
   searchInput.addEventListener('input', (e) => {
     search({ jumper, query: e.target.value, jumpToRef: app.jumpTo, toggleParshaPicker })
-    arrowKeyListeners.forEach(listener => document.removeEventListener('keydown', listener))
-    arrowKeyListeners.forEach(listener => document.addEventListener('keydown', listener))
   })
 
   const refOf = element => {
@@ -151,20 +144,18 @@ const showParshaPicker = () => {
     return { b: refPart('book'), c: refPart('chapter'), v: refPart('verse') }
   }
 
-  searchInput.addEventListener('keydown', whenKey('ArrowUp', e => e.preventDefault()))
-  searchInput.addEventListener('keydown', whenKey('ArrowDown', e => e.preventDefault()))
   searchInput.addEventListener('keydown', whenKey('Enter', () => {
     app.jumpTo({ ref: refOf(document.querySelector('.search-result-selected [data-target-class="parsha-result"]')) })
     toggleParshaPicker()
   }))
 
-  searchInput.addEventListener('focus', () => {
-    arrowKeyListeners.forEach(listener => document.addEventListener('keydown', listener))
-  })
-
-  searchInput.addEventListener('blur', () => {
-    arrowKeyListeners.forEach(listener => document.removeEventListener('keydown', listener))
-  })
+  ;[
+    { key: 'ArrowDown', adjustment: selected => selected + 1 },
+    { key: 'ArrowUp', adjustment: selected => selected - 1 }
+  ].forEach(({ key, adjustment }) => searchInput.addEventListener('keydown', whenKey(key, e => {
+    e.preventDefault()
+    setSelected(adjustment)
+  })))
 
   ;[...document.querySelectorAll('[data-target-id="parsha"]')]
     .forEach((parsha) => {
@@ -195,7 +186,6 @@ const toggleParshaPicker = () => {
     showParshaPicker()
   } else {
     document.querySelector('#js-app').removeChild(document.querySelector('.parsha-picker'))
-    arrowKeyListeners.forEach(listener => document.removeEventListener('keydown', listener))
   }
 }
 

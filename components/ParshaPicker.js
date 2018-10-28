@@ -24,7 +24,7 @@ const Book = (book) => `
   </li>
 `
 
-const ParshaPicker = (search, searchEmitter, jumpToRef, dismiss) => {
+const ParshaPicker = (search, searchEmitter, jumpToRef) => {
   const self = htmlToElement(`
     <div class="parsha-picker">
       <div id="search"></div>
@@ -45,7 +45,6 @@ const ParshaPicker = (search, searchEmitter, jumpToRef, dismiss) => {
 
   searchEmitter.on('selection', (selected) => {
     jumpToRef(selected.querySelector('[data-target-class="parsha-result"]'))
-    dismiss()
   })
 
   searchEmitter.on('search', () => {
@@ -57,6 +56,13 @@ const ParshaPicker = (search, searchEmitter, jumpToRef, dismiss) => {
   })
 
   self.replaceChild(search, self.querySelector('#search'))
+
+  ;[...self.querySelectorAll('[data-target-id="parsha"]')]
+    .forEach((parsha) => {
+      parsha.addEventListener('click', (e) => {
+        jumpToRef(e.target)
+      })
+    })
 
   return self
 }

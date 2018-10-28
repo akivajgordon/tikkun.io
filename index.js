@@ -101,6 +101,8 @@ const app = {
       .then((pageNode) => {
         scrollToLine({ node: pageNode, lineIndex: lineNumber - 1 })
       })
+
+    toggleParshaPicker()
   }
 }
 
@@ -112,17 +114,8 @@ const refOf = element => {
 
 const showParshaPicker = () => {
   const searchEmitter = new EventEmitter()
-  const jumper = ParshaPicker(Search({ search, emitter: searchEmitter }), searchEmitter, ref => app.jumpTo({ ref: refOf(ref) }), toggleParshaPicker)
+  const jumper = ParshaPicker(Search({ search, emitter: searchEmitter }), searchEmitter, ref => app.jumpTo({ ref: refOf(ref) }))
   document.querySelector('#js-app').appendChild(jumper)
-
-  ;[...document.querySelectorAll('[data-target-id="parsha"]')]
-    .forEach((parsha) => {
-      parsha.addEventListener('click', (e) => {
-        app.jumpTo({ ref: refOf(e.target) })
-
-        toggleParshaPicker()
-      })
-    })
 }
 
 const toggleParshaPicker = () => {

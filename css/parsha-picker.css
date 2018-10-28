@@ -69,18 +69,18 @@
   border-top: 1px solid hsla(0, 0%, 0%, 0.2);
 }
 
-.search-result {
+.list-item {
   list-style: none;
   padding: 1em 1em;
   cursor: pointer;
 }
 
-.search-result-selected,
-.search-result:hover {
+.list-item[data-selected="true"],
+.list-item:hover {
   background-color: hsla(0, 0%, 0%, 0.05);
 }
 
-.search-result:not(:last-child) {
+.list-item:not(:last-child) {
   border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
 }
 

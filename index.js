@@ -1,7 +1,12 @@
+import { EventEmitter } from 'events'
 import { InfiniteScroller, IntegerIterator, title as getTitle, physicalLocationFromRef } from './src'
 import Page from './components/Page'
 import ParshaPicker, { search } from './components/ParshaPicker'
+import Search from './components/Search'
+import utils from './components/utils'
 import pageTitles from './build/page-titles.json'
+
+const { htmlToElement, whenKey, purgeNode } = utils
 
 const insertBefore = (parent, child) => {
   parent.insertAdjacentElement('afterbegin', child)
@@ -30,13 +35,6 @@ const cache = {}
 const unpackCache = (cache) => Object.keys(cache).map(key => cache[key])
 
 let isShowingParshaPicker = false
-
-const htmlToElement = (html) => {
-  const template = document.createElement('template')
-  html = html.trim() // Never return a text node of whitespace as the result
-  template.innerHTML = html
-  return template.content.firstChild
-}
 
 const state = {
   iterator
@@ -68,10 +66,6 @@ const purgeObject = (obj) => {
   for (const key in obj) {
     delete obj[key]
   }
-}
-
-const purgeNode = (node) => {
-  while (node.firstChild) node.removeChild(node.firstChild)
 }
 
 const makePageNode = (n) => {
@@ -110,52 +104,16 @@ const app = {
   }
 }
 
-const setSelected = (adjustSelected) => {
-  const results = [...document.querySelectorAll('.search-result')]
+const refOf = element => {
+  const refPart = (part) => Number(element.getAttribute(`data-jump-to-${part}`))
 
-  const selectedIndex = results.findIndex(result => result.classList.contains('search-result-selected'))
-
-  const selected = results[selectedIndex]
-
-  selected.classList.remove('search-result-selected')
-
-  const nextIndex = (adjustSelected(selectedIndex) + results.length) % results.length
-
-  results[nextIndex].classList.add('search-result-selected')
-}
-
-const whenKey = (key, callback) => e => {
-  if (e.key === key) callback(e)
+  return { b: refPart('book'), c: refPart('chapter'), v: refPart('verse') }
 }
 
 const showParshaPicker = () => {
-  const jumper = htmlToElement(ParshaPicker())
+  const searchEmitter = new EventEmitter()
+  const jumper = ParshaPicker(Search({ search, emitter: searchEmitter }), searchEmitter, ref => app.jumpTo({ ref: refOf(ref) }), toggleParshaPicker)
   document.querySelector('#js-app').appendChild(jumper)
-
-  const searchInput = jumper.querySelector('.search-input')
-
-  searchInput.addEventListener('input', (e) => {
-    search({ jumper, query: e.target.value, jumpToRef: app.jumpTo, toggleParshaPicker })
-  })
-
-  const refOf = element => {
-    const refPart = (part) => Number(element.getAttribute(`data-jump-to-${part}`))
-
-    return { b: refPart('book'), c: refPart('chapter'), v: refPart('verse') }
-  }
-
-  searchInput.addEventListener('keydown', whenKey('Enter', () => {
-    app.jumpTo({ ref: refOf(document.querySelector('.search-result-selected [data-target-class="parsha-result"]')) })
-    toggleParshaPicker()
-  }))
-
-  ;[
-    { key: 'ArrowDown', adjustment: selected => selected + 1 },
-    { key: 'ArrowUp', adjustment: selected => selected - 1 }
-  ].forEach(({ key, adjustment }) => searchInput.addEventListener('keydown', whenKey(key, e => {
-    e.preventDefault()
-    setSelected(adjustment)
-  })))
 
   ;[...document.querySelectorAll('[data-target-id="parsha"]')]
     .forEach((parsha) => {

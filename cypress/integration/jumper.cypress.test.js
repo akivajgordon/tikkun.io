@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 /* global cy,expect */
 
-describe('app', () => {
+describe('jumper', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8000')
   })
@@ -101,11 +101,11 @@ describe('app', () => {
     cy.contains('נח').should('not.be.visible') // hides parsha list
 
     cy.contains('Vayera')
-      .closest('[data-target-class="search-result"]')
+      .closest('[data-target-class="list-item"]')
       .contains('וירא')
 
     cy.contains(`Vayikra`)
-      .closest('[data-target-class="search-result"]')
+      .closest('[data-target-class="list-item"]')
       .contains(`ויקרא`)
   })
 
@@ -137,28 +137,28 @@ describe('app', () => {
     cy.focused()
       .type('vy') // vayera, vayeitzei, vayishlach, etc.
 
-    cy.get('[data-target-class="search-result"]')
+    cy.get('[data-target-class="list-item"]')
       .not(':first-child')
       .each($result => {
-        cy.wrap($result).should('not.have.class', 'search-result-selected')
+        cy.wrap($result).should('not.have.attr', 'data-selected')
       })
 
-    cy.get('[data-target-class="search-result"]')
+    cy.get('[data-target-class="list-item"]')
       .first()
-      .should('have.class', 'search-result-selected')
+      .should('have.attr', 'data-selected')
 
     cy.focused()
       .type('{downarrow}{downarrow}')
 
-    cy.get('[data-target-class="search-result"]')
+    cy.get('[data-target-class="list-item"]')
       .eq(2)
-      .should('have.class', 'search-result-selected')
+      .should('have.attr', 'data-selected')
 
-    cy.get('[data-target-class="search-result"]')
+    cy.get('[data-target-class="list-item"]')
       .first()
-      .should('not.have.class', 'search-result-selected')
+      .should('not.have.attr', 'data-selected')
 
-    cy.get('.search-result-selected [data-target-class="result-hebrew"]')
+    cy.get('[data-selected="true"] [data-target-class="result-hebrew"]')
       .then($hebrewElement => {
         cy.focused()
           .type('{enter}')

@@ -1,3 +1,5 @@
+/* global gtag */
+
 import parshiyot from '../build/parshiyot.json'
 import fuzzy from '../src/fuzzy'
 import utils from './utils'
@@ -44,11 +46,20 @@ const ParshaPicker = (search, searchEmitter, jumpToRef) => {
   `)
 
   searchEmitter.on('selection', (selected) => {
+    gtag('event', 'search_selection', {
+      'event_category': 'navigation',
+      'event_label': selected.querySelector('[data-target-class="result-hebrew"]').textContent.trim()
+    })
+
     jumpToRef(selected.querySelector('[data-target-class="parsha-result"]'))
   })
 
-  searchEmitter.on('search', () => {
+  searchEmitter.on('search', query => {
     self.querySelector('.parsha-books').classList.add('u-hidden')
+    gtag('event', 'search', {
+      'event_category': 'navigation',
+      'event_label': query
+    })
   })
 
   searchEmitter.on('clear', () => {
@@ -60,6 +71,10 @@ const ParshaPicker = (search, searchEmitter, jumpToRef) => {
   ;[...self.querySelectorAll('[data-target-id="parsha"]')]
     .forEach((parsha) => {
       parsha.addEventListener('click', (e) => {
+        gtag('event', 'browse_selection', {
+          'event_category': 'navigation',
+          'event_label': e.target.textContent.trim()
+        })
         jumpToRef(e.target)
       })
     })

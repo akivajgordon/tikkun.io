@@ -1,3 +1,5 @@
+/* global gtag */
+
 import { EventEmitter } from 'events'
 import { InfiniteScroller, IntegerIterator, title as getTitle, physicalLocationFromRef } from './src'
 import Page from './components/Page'
@@ -116,6 +118,9 @@ const showParshaPicker = () => {
   const searchEmitter = new EventEmitter()
   const jumper = ParshaPicker(Search({ search, emitter: searchEmitter }), searchEmitter, ref => app.jumpTo({ ref: refOf(ref) }))
   document.querySelector('#js-app').appendChild(jumper)
+  gtag('event', 'view', {
+    'event_category': 'navigation'
+  })
 }
 
 const toggleParshaPicker = () => {

@@ -4,7 +4,7 @@
   color: white;
   display: inline-block;
   position: absolute;
-  top: 200%;
+  top: var(--header-height);
   padding: 1em 1.5em;
   border-radius: 4px;
   font-size: 0.8em;
@@ -20,4 +20,10 @@
   transform: translate(-50%, 0) scale(1.0);
   transition: transform 0.15s;
   transition-delay: 1s;
+}
+
+@media (hover: none) {
+  [data-tooltip]::after {
+    display: none;
+  }
 }

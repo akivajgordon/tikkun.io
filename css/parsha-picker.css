@@ -17,44 +17,122 @@
   bottom: 0;
   background-color: white;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   overflow: auto;
   -webkit-overflow-scrolling: touch; /*https://css-tricks.com/snippets/css/momentum-scrolling-on-ios-overflow-elements/*/
   height: 100%;
   animation: fade-in 0.2s forwards;
+  padding: 2em 1em;
+}
+
+.search {
+  direction: ltr;
+}
+
+.search {
+  background-color: hsla(0, 0%, 0%, 0.05);
+  display: inline-block;
+  border-radius: 4px;
+  color: hsla(0, 0%, 0%, 0.7);
+  border: 1px solid hsla(0, 0%, 0%, 0);
+  width: 30ch;
+}
+
+.search:focus-within {
+  border: 1px solid hsla(0, 0%, 0%, 0.1);
+}
+
+.search-bar {
+  display: flex;
+  padding: 0.5em 1em;
+}
+
+.search-bar > *:not(:first-child) {
+  margin-left: 1em;
+}
+
+.search-icon {
+  transform: rotate(-45deg);
+  display: block;
+  font-size: 1.5em;
+}
+
+.search-input {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  color: inherit;
+}
+
+.search-results {
+  border-top: 1px solid hsla(0, 0%, 0%, 0.2);
+}
+
+.list-item {
+  list-style: none;
+  padding: 1em 1em;
+  cursor: pointer;
+}
+
+.list-item[data-selected="true"],
+.list-item:hover {
+  background-color: hsla(0, 0%, 0%, 0.05);
+}
+
+.list-item:not(:last-child) {
+  border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
+}
+
+.search-result-tag:not(:last-child) {
+  margin-bottom: 0.5em;
+}
+
+.parsha-books {
+  display: flex;
+  list-style: none;
+  margin: 2em;
+  width: 100%;
+  max-width: 960px;
+}
+
+@media screen and (max-width: 700px) {
+  .parsha-books {
+    display: block;
+  }
+}
+
+.parsha-book {
+  flex: 1 0;
+  text-align: center;
 }
 
 .parsha-list {
   list-style: none;
   margin: 0;
-  padding: 1em;
   display: inline-block;
   text-align: center;
-}
-
-@media screen and (max-width: 700px) {
-  .parsha-list {
-    width: 100%;
-  }
+  width: 100%;
 }
 
 .parsha {
-  padding: 1em 5em;
-  transition: 0.1s background-color;
+  padding: 1em;
   color: hsla(0, 0%, 0%, 0.7);
+  border-radius: 4px;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.parsha:first-child {
+  font-weight: bolder;
 }
 
 .parsha:hover {
   background-color: hsla(0, 0%, 0%, 0.1);
   color: black;
-  cursor: pointer;
-  transition: 0.1s background-color;
 }
 
 .parsha:active {
   background-color: hsla(0, 0%, 0%, 0.2);
-}
-
-.parsha:not(:last-child) {
-  border-bottom: 1px solid hsla(0, 0%, 0%, 0.25);
 }

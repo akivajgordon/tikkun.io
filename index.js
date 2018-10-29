@@ -1,7 +1,14 @@
+/* global gtag */
+
+import { EventEmitter } from 'events'
 import { InfiniteScroller, IntegerIterator, title as getTitle, physicalLocationFromRef } from './src'
 import Page from './components/Page'
-import ParshaPicker from './components/ParshaPicker'
+import ParshaPicker, { search } from './components/ParshaPicker'
+import Search from './components/Search'
+import utils from './components/utils'
 import pageTitles from './build/page-titles.json'
+
+const { htmlToElement, whenKey, purgeNode } = utils
 
 const insertBefore = (parent, child) => {
   parent.insertAdjacentElement('afterbegin', child)
@@ -30,13 +37,6 @@ const cache = {}
 const unpackCache = (cache) => Object.keys(cache).map(key => cache[key])
 
 let isShowingParshaPicker = false
-
-const htmlToElement = (html) => {
-  const template = document.createElement('template')
-  html = html.trim() // Never return a text node of whitespace as the result
-  template.innerHTML = html
-  return template.content.firstChild
-}
 
 const state = {
   iterator
@@ -68,10 +68,6 @@ const purgeObject = (obj) => {
   for (const key in obj) {
     delete obj[key]
   }
-}
-
-const purgeNode = (node) => {
-  while (node.firstChild) node.removeChild(node.firstChild)
 }
 
 const makePageNode = (n) => {
@@ -107,20 +103,24 @@ const app = {
       .then((pageNode) => {
         scrollToLine({ node: pageNode, lineIndex: lineNumber - 1 })
       })
+
+    toggleParshaPicker()
   }
 }
 
-const showParshaPicker = () => {
-  document.querySelector('#js-app').appendChild(htmlToElement(ParshaPicker()))
-  ;[...document.querySelectorAll('[data-target-id="parsha"]')]
-    .forEach((parsha) => {
-      parsha.addEventListener('click', (e) => {
-        const refPart = (part) => Number(e.target.getAttribute(`data-jump-to-${part}`))
-        app.jumpTo({ ref: { b: refPart('book'), c: refPart('chapter'), v: refPart('verse') } })
+const refOf = element => {
+  const refPart = (part) => Number(element.getAttribute(`data-jump-to-${part}`))
 
-        toggleParshaPicker()
-      })
-    })
+  return { b: refPart('book'), c: refPart('chapter'), v: refPart('verse') }
+}
+
+const showParshaPicker = () => {
+  const searchEmitter = new EventEmitter()
+  const jumper = ParshaPicker(Search({ search, emitter: searchEmitter }), searchEmitter, ref => app.jumpTo({ ref: refOf(ref) }))
+  document.querySelector('#js-app').appendChild(jumper)
+  gtag('event', 'view', {
+    'event_category': 'navigation'
+  })
 }
 
 const toggleParshaPicker = () => {
@@ -145,9 +145,7 @@ const toggleParshaPicker = () => {
   }
 }
 
-const toggleAnnotations = (e) => {
-  if (e.key !== 'Shift') return
-
+const toggleAnnotations = () => {
   const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
 
   toggle.checked = !toggle.checked
@@ -223,11 +221,13 @@ document.addEventListener('DOMContentLoaded', () => {
     setState({ showAnnotations })
   })
 
-  document.addEventListener('keydown', toggleAnnotations)
-  document.addEventListener('keyup', toggleAnnotations)
+  document.addEventListener('keydown', whenKey('Shift', toggleAnnotations))
+  document.addEventListener('keyup', whenKey('Shift', toggleAnnotations))
 
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
+  document.addEventListener('keydown', whenKey('/', toggleParshaPicker))
 
   fetchPage(state.iterator.next())
     .then(renderNext)
+    // .then(toggleParshaPicker)
 })

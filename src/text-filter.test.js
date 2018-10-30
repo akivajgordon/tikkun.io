@@ -71,3 +71,43 @@ test('unannotated text shows KRI version', t => {
     'ובבהמה ובכל הרמש הרמש על הארץ הוצא אתך'
   )
 })
+
+test(`k'tiv word that separates into two k'ri words renders both on chumash side`, t => {
+  t.is(
+    textFilter({
+      text: 'מֵרִבְבֹ֣ת קֹ֑דֶשׁ מִֽימִינ֕וֹ אשדת#[אֵ֥שׁ]#[דָּ֖ת] לָֽמוֹ׃ אַ֚ף חֹבֵ֣ב',
+      annotated: true
+    }),
+    'מֵרִבְבֹ֣ת קֹ֑דֶשׁ מִֽימִינ֕וֹ אֵ֥שׁ דָּ֖ת לָֽמוֹ׃ אַ֚ף חֹבֵ֣ב'
+  )
+})
+
+test(`keep first word of maqaf-separated phrase when the second word has k'tiv`, t => {
+  t.is(
+    textFilter({
+      text: 'וְאֶת־בנו#[בָּנָ֖יו] לֹ֣א יָדָ֑ע כִּ֤י שָֽׁמְרוּ֙ אִמְרָתֶ֔ךָ וּבְרִֽיתְךָ֖ יִנְצֹֽרוּ׃',
+      annotated: true
+    }),
+    'וְאֶת־בָּנָ֖יו לֹ֣א יָדָ֑ע כִּ֤י שָֽׁמְרוּ֙ אִמְרָתֶ֔ךָ וּבְרִֽיתְךָ֖ יִנְצֹֽרוּ׃'
+  )
+})
+
+test(`keeps kri words before nun-hafucha`, t => {
+  t.is(
+    textFilter({
+      text: 'אַלְפֵ֥י יִשְׂרָאֵֽל׃#(׆)',
+      annotated: true
+    }),
+    'אַלְפֵ֥י יִשְׂרָאֵֽל׃ ׆'
+  )
+})
+
+test(`shows nun-hafucha on torah side`, t => {
+  t.is(
+    textFilter({
+      text: 'אַלְפֵ֥י יִשְׂרָאֵֽל׃#(׆)',
+      annotated: false
+    }),
+    'אלפי ישראל ׆'
+  )
+})

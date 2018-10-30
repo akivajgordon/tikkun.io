@@ -91,3 +91,23 @@ test(`keep first word of maqaf-separated phrase when the second word has k'tiv`,
     'וְאֶת־בָּנָ֖יו לֹ֣א יָדָ֑ע כִּ֤י שָֽׁמְרוּ֙ אִמְרָתֶ֔ךָ וּבְרִֽיתְךָ֖ יִנְצֹֽרוּ׃'
   )
 })
+
+test(`keeps kri words before nun-hafucha`, t => {
+  t.is(
+    textFilter({
+      text: 'אַלְפֵ֥י יִשְׂרָאֵֽל׃#(׆)',
+      annotated: true
+    }),
+    'אַלְפֵ֥י יִשְׂרָאֵֽל׃ ׆'
+  )
+})
+
+test(`shows nun-hafucha on torah side`, t => {
+  t.is(
+    textFilter({
+      text: 'אַלְפֵ֥י יִשְׂרָאֵֽל׃#(׆)',
+      annotated: false
+    }),
+    'אלפי ישראל ׆'
+  )
+})

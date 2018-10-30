@@ -1,5 +1,8 @@
+const NUN_HAFUCHA = '׆'
+
 const ketiv = (text) => text
   .replace('#(פ)', '')
+  .replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`)
   .split(' ')
   .map((maqafSeparatedWord) => maqafSeparatedWord
     .split('־')
@@ -22,6 +25,7 @@ const ketiv = (text) => text
 const kri = (text) => text
   .replace(/־/g, ' ')
   .replace('#(פ)', '')
+  .replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`)
   .split(' ')
   .map((word) => {
     const parts = word.split('#')
@@ -29,6 +33,6 @@ const kri = (text) => text
     return parts[0]
   })
   .join(' ')
-  .replace(/[^א-ת\s]/g, '')
+  .replace(new RegExp(`[^א-ת\\s${NUN_HAFUCHA}]`, 'g'), '')
 
 module.exports = ({ text, annotated }) => annotated ? ketiv(text) : kri(text)

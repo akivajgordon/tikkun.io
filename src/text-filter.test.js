@@ -81,3 +81,13 @@ test(`k'tiv word that separates into two k'ri words renders both on chumash side
     'מֵרִבְבֹ֣ת קֹ֑דֶשׁ מִֽימִינ֕וֹ אֵ֥שׁ דָּ֖ת לָֽמוֹ׃ אַ֚ף חֹבֵ֣ב'
   )
 })
+
+test(`keep first word of maqaf-separated phrase when the second word has k'tiv`, t => {
+  t.is(
+    textFilter({
+      text: 'וְאֶת־בנו#[בָּנָ֖יו] לֹ֣א יָדָ֑ע כִּ֤י שָֽׁמְרוּ֙ אִמְרָתֶ֔ךָ וּבְרִֽיתְךָ֖ יִנְצֹֽרוּ׃',
+      annotated: true
+    }),
+    'וְאֶת־בָּנָ֖יו לֹ֣א יָדָ֑ע כִּ֤י שָֽׁמְרוּ֙ אִמְרָתֶ֔ךָ וּבְרִֽיתְךָ֖ יִנְצֹֽרוּ׃'
+  )
+})

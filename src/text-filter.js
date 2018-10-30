@@ -1,18 +1,22 @@
 const ketiv = (text) => text
   .replace('#(פ)', '')
   .split(' ')
-  .map((word) => {
-    const parts = word.split('#')
+  .map((maqafSeparatedWord) => maqafSeparatedWord
+    .split('־')
+    .map(word => {
+      const parts = word.split('#')
 
-    if (parts.length <= 1) {
-      return parts[0]
-    }
+      if (parts.length <= 1) {
+        return parts[0]
+      }
 
-    return parts
-      .slice(1)
-      .map(bracketed => bracketed.slice(1, -1))
-      .join(' ')
-  })
+      return parts
+        .slice(1)
+        .map(bracketed => bracketed.slice(1, -1))
+        .join(' ')
+    })
+    .join('־')
+  )
   .join(' ')
 
 const kri = (text) => text

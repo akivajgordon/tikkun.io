@@ -71,3 +71,13 @@ test('unannotated text shows KRI version', t => {
     'ובבהמה ובכל הרמש הרמש על הארץ הוצא אתך'
   )
 })
+
+test(`k'tiv word that separates into two k'ri words renders both on chumash side`, t => {
+  t.is(
+    textFilter({
+      text: 'מֵרִבְבֹ֣ת קֹ֑דֶשׁ מִֽימִינ֕וֹ אשדת#[אֵ֥שׁ]#[דָּ֖ת] לָֽמוֹ׃ אַ֚ף חֹבֵ֣ב',
+      annotated: true
+    }),
+    'מֵרִבְבֹ֣ת קֹ֑דֶשׁ מִֽימִינ֕וֹ אֵ֥שׁ דָּ֖ת לָֽמוֹ׃ אַ֚ף חֹבֵ֣ב'
+  )
+})

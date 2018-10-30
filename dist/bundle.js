@@ -311,7 +311,7 @@ eval("// import toc from '../build/table-of-contents.json'\nconst toc = __webpac
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const ketiv = (text) => text\n  .replace('#(פ)', '')\n  .split(' ')\n  .map((word) => {\n    const parts = word.split('#')\n\n    if (parts.length <= 1) {\n      return parts[0]\n    }\n\n    return parts[1].slice(1, -1)\n  })\n  .join(' ')\n\nconst kri = (text) => text\n  .replace(/־/g, ' ')\n  .replace('#(פ)', '')\n  .split(' ')\n  .map((word) => {\n    const parts = word.split('#')\n\n    return parts[0]\n  })\n  .join(' ')\n  .replace(/[^א-ת\\s]/g, '')\n\nmodule.exports = ({text, annotated}) => annotated ? ketiv(text) : kri(text)\n\n\n//# sourceURL=webpack:///./src/text-filter.js?");
+eval("const ketiv = (text) => text\n  .replace('#(פ)', '')\n  .split(' ')\n  .map((word) => {\n    const parts = word.split('#')\n\n    if (parts.length <= 1) {\n      return parts[0]\n    }\n\n    return parts\n      .slice(1)\n      .map(bracketed => bracketed.slice(1, -1))\n      .join(' ')\n  })\n  .join(' ')\n\nconst kri = (text) => text\n  .replace(/־/g, ' ')\n  .replace('#(פ)', '')\n  .split(' ')\n  .map((word) => {\n    const parts = word.split('#')\n\n    return parts[0]\n  })\n  .join(' ')\n  .replace(/[^א-ת\\s]/g, '')\n\nmodule.exports = ({ text, annotated }) => annotated ? ketiv(text) : kri(text)\n\n\n//# sourceURL=webpack:///./src/text-filter.js?");
 
 /***/ }),
 

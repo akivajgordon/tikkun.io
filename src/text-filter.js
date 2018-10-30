@@ -8,7 +8,10 @@ const ketiv = (text) => text
       return parts[0]
     }
 
-    return parts[1].slice(1, -1)
+    return parts
+      .slice(1)
+      .map(bracketed => bracketed.slice(1, -1))
+      .join(' ')
   })
   .join(' ')
 
@@ -24,4 +27,4 @@ const kri = (text) => text
   .join(' ')
   .replace(/[^א-ת\s]/g, '')
 
-module.exports = ({text, annotated}) => annotated ? ketiv(text) : kri(text)
+module.exports = ({ text, annotated }) => annotated ? ketiv(text) : kri(text)

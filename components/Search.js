@@ -25,7 +25,9 @@ const Search = ({ search, emitter }) => {
 
   ;[
     { key: 'ArrowDown', adjustment: selected => selected + 1 },
-    { key: 'ArrowUp', adjustment: selected => selected - 1 }
+    { key: 'ArrowUp', adjustment: selected => selected - 1 },
+    { key: { key: 'n', ctrl: true }, adjustment: selected => selected + 1 },
+    { key: { key: 'p', ctrl: true }, adjustment: selected => selected - 1 }
   ].forEach(({ key, adjustment }) => self.addEventListener('keydown', whenKey(key, e => {
     e.preventDefault()
     setSelected(list, adjustment)

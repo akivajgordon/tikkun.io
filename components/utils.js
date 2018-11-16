@@ -5,8 +5,16 @@ const htmlToElement = (html) => {
   return template.content.firstChild
 }
 
+const getKeys = (key) => {
+  if (typeof key === 'string') return { key, ctrl: false }
+
+  return key
+}
+
 const whenKey = (key, callback) => e => {
-  if (e.key === key) callback(e)
+  const { key: k, ctrl } = getKeys(key)
+
+  if (e.ctrlKey === ctrl && e.key === k) callback(e)
 }
 
 const purgeNode = (node) => {

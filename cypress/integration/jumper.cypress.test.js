@@ -148,7 +148,10 @@ describe('jumper', () => {
       .should('have.attr', 'data-selected')
 
     cy.focused()
-      .type('{downarrow}{downarrow}')
+      .type('{downarrow}{downarrow}{uparrow}')
+      .type('{ctrl}n')
+      .type('{ctrl}n')
+      .type('{ctrl}p')
 
     cy.get('[data-target-class="list-item"]')
       .eq(2)

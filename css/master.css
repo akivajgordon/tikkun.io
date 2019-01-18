@@ -22,6 +22,7 @@
 body {
   height: 100vh;
   font-family: sans-serif;
+  background-color: var(--paper-color, white);
 }
 
 ol {
@@ -54,6 +55,8 @@ ol {
      height should fill the rest of the container (in this case
      the screen), regardless of overflow */
   --header-height: 45px;
+
+  --paper-color: hsl(0, 0%, 98%);
 }
 
 .tikkun-book {

@@ -284,7 +284,9 @@
         "verse": 1
       }
     ],
-    "aliyot": [],
+    "aliyot": [
+      7
+    ],
     "isPetucha": false
   },
   {

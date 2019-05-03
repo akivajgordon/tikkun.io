@@ -98,3 +98,8 @@
   color: hsla(203, 100%, 50%, 0.75);
   max-width: 8ch;
 }
+
+.ktiv-kri::before {
+  content: '°';
+  position: absolute;
+}

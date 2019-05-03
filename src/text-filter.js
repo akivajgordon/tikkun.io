@@ -10,13 +10,14 @@ const ketiv = (text) => text
       const parts = word.split('#')
 
       if (parts.length <= 1) {
+        // i.e. there is no `#`, so just take the word
         return parts[0]
       }
 
-      return parts
+      return `{${parts
         .slice(1)
         .map(bracketed => bracketed.slice(1, -1))
-        .join(' ')
+        .join(' ')}}`
     })
     .join('־')
   )

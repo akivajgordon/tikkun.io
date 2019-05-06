@@ -1,6 +1,6 @@
 import { displayRange, textFilter } from '../src'
 
-const ktivKriAnnotation = text => text.replace('{', '').replace('}', `<span class="ktiv-kri"></span>`)
+const ktivKriAnnotation = text => text.replace(/[{]/g, `<span class="ktiv-kri">`).replace(/[}]/g, `</span>`)
 
 const petuchaClass = (isPetucha) => isPetucha ? 'mod-petucha' : ''
 const setumaClass = (column) => column.length > 1 ? 'mod-setuma' : ''

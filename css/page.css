@@ -98,3 +98,11 @@
   color: hsla(203, 100%, 50%, 0.75);
   max-width: 8ch;
 }
+
+.ktiv-kri {
+  background-color: hsla(0, 0%, 0%, 0.1);
+  padding: 0.1rem 0.1rem;
+  border: 1px solid hsla(0, 0%, 0%, 0.1);
+  border-radius: 4px;
+  position: relative;
+}

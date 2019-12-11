@@ -1,5 +1,7 @@
 import { displayRange, textFilter } from '../src'
 
+const ktivKriAnnotation = text => text.replace(/[{]/g, `<span class="ktiv-kri">`).replace(/[}]/g, `</span>`)
+
 const petuchaClass = (isPetucha) => isPetucha ? 'mod-petucha' : ''
 const setumaClass = (column) => column.length > 1 ? 'mod-setuma' : ''
 
@@ -8,7 +10,7 @@ const Line = ({ text, verses, aliyot, isPetucha }, annotated) => `
     ${text.map((column) => (`
       <div class="column">
         ${column.map((fragment) => (`
-          <span class="fragment ${setumaClass(column)}">${textFilter({ text: fragment, annotated })}</span>
+          <span class="fragment ${setumaClass(column)}">${ktivKriAnnotation(textFilter({ text: fragment, annotated }))}</span>
         `)).join('')}
       </div>
     `)).join('')}

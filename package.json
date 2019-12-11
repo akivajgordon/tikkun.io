@@ -32,12 +32,12 @@
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/register": "^7.4.0",
-    "ava": "^1.4.1",
+    "@babel/core": "^7.7.5",
+    "@babel/register": "^7.7.4",
+    "ava": "^2.4.0",
     "cypress": "^3.2.0",
-    "onchange": "^5.2.0",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "onchange": "^6.1.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }

@@ -35,7 +35,7 @@
     "@babel/core": "^7.7.5",
     "@babel/register": "^7.7.4",
     "ava": "^2.4.0",
-    "cypress": "^3.2.0",
+    "cypress": "^3.7.0",
     "onchange": "^6.1.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"

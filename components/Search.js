@@ -54,6 +54,10 @@ const Search = ({ search, emitter }) => {
     }
   })
 
+  self.focus = () => {
+    searchInput.focus()
+  }
+
   return self
 }
 

@@ -116,11 +116,15 @@ const refOf = element => {
 
 const showParshaPicker = () => {
   const searchEmitter = new EventEmitter()
-  const jumper = ParshaPicker(Search({ search, emitter: searchEmitter }), searchEmitter, ref => app.jumpTo({ ref: refOf(ref) }))
+
+  const s = Search({ search, emitter: searchEmitter })
+  const jumper = ParshaPicker(s, searchEmitter, ref => app.jumpTo({ ref: refOf(ref) }))
   document.querySelector('#js-app').appendChild(jumper)
   gtag('event', 'view', {
     'event_category': 'navigation'
   })
+
+  setTimeout(() => s.focus(), 0)
 }
 
 const toggleParshaPicker = () => {

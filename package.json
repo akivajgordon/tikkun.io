@@ -4,13 +4,16 @@
   "description": "The online tikkun you always wanted, but never had.",
   "main": "index.js",
   "ava": {
+    "files": [
+      "src/*.test.js"
+    ],
     "require": [
       "@babel/register"
     ]
   },
   "scripts": {
     "start": "python -m SimpleHTTPServer",
-    "test": "ava 'src/*.test.js'",
+    "test": "ava",
     "test:watch": "npm test -- --watch",
     "test:ui": "cypress run",
     "build:css": "cp node_modules/normalize.css/normalize.css dist/",
@@ -32,12 +35,12 @@
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.5",
-    "@babel/register": "^7.7.4",
+    "@babel/core": "^7.7.7",
+    "@babel/register": "^7.7.7",
     "ava": "^2.4.0",
-    "cypress": "^3.2.0",
+    "cypress": "^3.8.0",
     "onchange": "^6.1.0",
-    "webpack": "^4.41.2",
+    "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10"
   }
 }

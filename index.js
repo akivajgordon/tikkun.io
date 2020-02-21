@@ -18,10 +18,10 @@ const insertAfter = (parent, child) => {
   parent.insertAdjacentElement('beforeend', child)
 }
 
-const fetchPage = (n) => {
+const fetchPage = (n, scroll) => {
   if (n <= 0) return Promise.resolve({})
 
-  return window.fetch(`/build/pages/${n}.json`)
+  return window.fetch(`/build/pages/${n}${scroll === 'esther' ? '-esther' : ''}.json`)
     .then((res) => res.json())
     .then((page) => ({ key: n, content: page }))
     .catch((err) => {
@@ -39,7 +39,8 @@ const unpackCache = (cache) => Object.keys(cache).map(key => cache[key])
 let isShowingParshaPicker = false
 
 const state = {
-  iterator
+  iterator,
+  scroll: 'torah'
 }
 
 const render = ({ cache, showAnnotations, title }) => {
@@ -89,16 +90,17 @@ const scrollToLine = ({ node, lineIndex }) => {
 }
 
 const app = {
-  jumpTo: ({ ref }) => {
+  jumpTo: ({ ref, scroll }) => {
+    setState({ scroll })
     purgeObject(cache)
 
-    const { pageNumber, lineNumber } = physicalLocationFromRef(ref)
+    const { pageNumber, lineNumber } = physicalLocationFromRef({ ref, scroll })
 
     state.iterator = IntegerIterator.new({ startingAt: pageNumber })
 
     purgeNode(document.querySelector('[data-target-id="tikkun-book"]'))
 
-    fetchPage(state.iterator.next())
+    fetchPage(state.iterator.next(), scroll)
       .then(renderNext)
       .then((pageNode) => {
         scrollToLine({ node: pageNode, lineIndex: lineNumber - 1 })
@@ -118,10 +120,10 @@ const showParshaPicker = () => {
   const searchEmitter = new EventEmitter()
 
   const s = Search({ search, emitter: searchEmitter })
-  const jumper = ParshaPicker(s, searchEmitter, ref => app.jumpTo({ ref: refOf(ref) }))
+  const jumper = ParshaPicker(s, searchEmitter, ({ ref, scroll }) => app.jumpTo({ ref: refOf(ref), scroll }))
   document.querySelector('#js-app').appendChild(jumper)
   gtag('event', 'view', {
-    'event_category': 'navigation'
+    event_category: 'navigation'
   })
 
   setTimeout(() => s.focus(), 0)
@@ -173,7 +175,7 @@ const updatePageTitle = (scrollView) => {
   const firstPageInView = inViewPages[0]
 
   const n = Number(firstPageInView.getAttribute('data-page-number'))
-  setState({ title: getTitle(pageTitles[n - 1]) })
+  setState({ title: state.scroll === 'esther' ? 'אסתר' : getTitle(pageTitles[n - 1]) })
 }
 
 let timeout
@@ -191,7 +193,7 @@ const renderPage = ({ insertStrategy: insert }) => ({ key, content }) => {
   setState({
     cache,
     showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked,
-    title: getTitle(pageTitles[key - 1])
+    title: state.scroll === 'esther' ? 'אסתר' : getTitle(pageTitles[key - 1])
   })
 
   return node
@@ -205,11 +207,11 @@ document.addEventListener('DOMContentLoaded', () => {
     .new({
       container: document.querySelector('[data-target-id="tikkun-book"]'),
       fetchPreviousContent: {
-        fetch: () => fetchPage(state.iterator.previous()),
+        fetch: () => fetchPage(state.iterator.previous(), state.scroll),
         render: (container, { key, content }) => renderPrevious({ key, content })
       },
       fetchNextContent: {
-        fetch: () => fetchPage(state.iterator.next()),
+        fetch: () => fetchPage(state.iterator.next(), state.scroll),
         render: (container, { key, content }) => renderNext({ key, content })
       }
     })
@@ -231,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))
 
-  fetchPage(state.iterator.next())
+  fetchPage(state.iterator.next(), state.scroll)
     .then(renderNext)
     // .then(toggleParshaPicker)
 })

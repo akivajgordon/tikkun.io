@@ -2,8 +2,6 @@ import test from 'ava'
 
 const fuzzy = require('./fuzzy')
 
-const stringOnly = ({ string }) => string
-
 test('only matches if all characters are present in order', t => {
   const haystack = ['matches', 'tam', 'nope', 'no chance', 'walmart', 'mta', 'amazing time', 'nothing']
 

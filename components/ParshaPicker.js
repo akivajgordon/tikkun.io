@@ -64,7 +64,9 @@ const ParshaPicker = (search, searchEmitter, jumpToRef) => {
       event_label: selected.querySelector('[data-target-class="result-hebrew"]').textContent.trim()
     })
 
-    jumpToRef({ ref: selected.querySelector('[data-target-class="parsha-result"]'), scroll })
+    const result = selected.querySelector('[data-target-class="parsha-result"]')
+
+    jumpToRef({ ref: result, scroll: result.getAttribute('data-scroll') })
   })
 
   searchEmitter.on('search', query => {
@@ -95,8 +97,10 @@ const ParshaPicker = (search, searchEmitter, jumpToRef) => {
   return self
 }
 
+const searchables = [...parshiyot.map(p => ({ ...p, scroll: 'torah' })), { he: 'אסתר', en: 'Esther', ref: { b: 1, c: 1, v: 1 }, scroll: 'esther' }]
+
 const searchResults = (query) => {
-  const results = fuzzy(parshiyot, query, parsha => [parsha.he, parsha.en])
+  const results = fuzzy(searchables, query, parsha => [parsha.he, parsha.en])
 
   return results.length ? results : [{
     item: 'No results',

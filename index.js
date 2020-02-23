@@ -143,28 +143,26 @@ const toggleAnnotations = () => {
   setState({ showAnnotations: toggle.checked })
 }
 
-const isInView = (view, scrollView) => {
-  return (
-    view.offsetTop < scrollView.scrollTop + scrollView.clientHeight
-  ) && (
-    view.offsetTop + view.clientHeight > scrollView.scrollTop
-  )
+const updatePageTitle = () => {
+  const bookBoundingRect = document.querySelector('.tikkun-book').getBoundingClientRect()
+
+  const centerOfBookRelativeToViewport = {
+    x: bookBoundingRect.left + (bookBoundingRect.width / 2),
+    y: bookBoundingRect.top + (bookBoundingRect.height / 2)
+  }
+
+  const pageAtCenter = [...document.elementsFromPoint(centerOfBookRelativeToViewport.x, centerOfBookRelativeToViewport.y)]
+    .find(el => el.className.includes('tikkun-page'))
+
+  setState({ title: pageAtCenter.getAttribute('data-page-title') })
 }
 
-const updatePageTitle = (scrollView) => {
-  const pages = [...document.querySelectorAll('.tikkun-page')]
-
-  const inViewPages = pages.filter((page) => isInView(page, scrollView))
-
-  const firstPageInView = inViewPages[0]
-
-  setState({ title: firstPageInView.getAttribute('data-page-title') })
-}
-
-let timeout
-const debounce = (f) => {
-  clearTimeout(timeout)
-  timeout = setTimeout(f, 100)
+let lastCalled = Date.now()
+const throttle = f => {
+  if (Date.now() - lastCalled > 200) {
+    lastCalled = Date.now()
+    f()
+  }
 }
 
 const renderPage = ({ insertStrategy: insert }) => ({ key, content, title }) => {
@@ -244,8 +242,8 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .attach()
 
-  document.querySelector('[data-target-id="tikkun-book"]').addEventListener('scroll', (e) => {
-    debounce(() => updatePageTitle(e.target))
+  document.querySelector('[data-target-id="tikkun-book"]').addEventListener('scroll', () => {
+    throttle(() => updatePageTitle())
   })
 
   document.querySelector('[data-target-id="annotations-toggle"]').addEventListener('change', (e) => {

@@ -21,19 +21,19 @@ const InfiniteScroller = {
 
       if (hiddenAboveHeight < 0.5 * height) {
         oneAtATime(() => fetchPreviousContent.fetch())
-          .then(({ key, content }) => {
-            if (!content) return
+          .then(fetched => {
+            if (!fetched) return
 
             const belowHeight = scrollView.scrollHeight - scrollView.scrollTop
 
-            fetchPreviousContent.render(container, { key, content })
+            fetchPreviousContent.render(fetched)
 
             scrollView.scrollTop = scrollView.scrollHeight - belowHeight
           })
       } else if (hiddenBelowHeight < 0.5 * height) {
         oneAtATime(() => fetchNextContent.fetch())
-          .then(({ key, content } = {}) => {
-            if (content) fetchNextContent.render(container, { key, content })
+          .then(fetched => {
+            if (fetched) fetchNextContent.render(fetched)
           })
       }
     })

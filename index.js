@@ -18,30 +18,15 @@ const insertAfter = (parent, child) => {
   parent.insertAdjacentElement('beforeend', child)
 }
 
-const fetchPage = (n, scroll) => {
-  if (n <= 0) return Promise.resolve({})
-
-  return window.fetch(`/build/pages/${n}${scroll === 'esther' ? '-esther' : ''}.json`)
-    .then((res) => res.json())
-    .then((page) => ({ key: n, content: page }))
-    .catch((err) => {
-      console.error(err)
-      return {}
-    })
-}
-
-const iterator = IntegerIterator.new({ startingAt: 1 })
-
 const cache = {}
 
-const unpackCache = (cache) => Object.keys(cache).map(key => cache[key])
+const unpackCache = (cache) => Object.keys(cache || {}).map(key => cache[key])
 
 let isShowingParshaPicker = false
 
-const state = {
-  iterator,
-  scroll: 'torah'
-}
+let scroll
+
+const state = {}
 
 const render = ({ cache, showAnnotations, title }) => {
   unpackCache(cache)
@@ -71,10 +56,10 @@ const purgeObject = (obj) => {
   }
 }
 
-const makePageNode = (n) => {
+const makePageNode = ({ title }) => {
   const node = document.createElement('div')
   node.classList.add('tikkun-page')
-  node.setAttribute('data-page-number', n)
+  node.setAttribute('data-page-title', title)
 
   return node
 }
@@ -90,23 +75,22 @@ const scrollToLine = ({ node, lineIndex }) => {
 }
 
 const app = {
-  jumpTo: ({ ref, scroll }) => {
-    setState({ scroll })
+  jumpTo: ({ ref, scroll: _scroll }) => {
     purgeObject(cache)
 
-    const { pageNumber, lineNumber } = physicalLocationFromRef({ ref, scroll })
-
-    state.iterator = IntegerIterator.new({ startingAt: pageNumber })
+    scroll = (_scroll === 'esther' ? EstherScroll : TorahScroll).new({ startingAtRef: ref })
 
     purgeNode(document.querySelector('[data-target-id="tikkun-book"]'))
 
-    fetchPage(state.iterator.next(), scroll)
+    scroll.fetchNext()
       .then(renderNext)
       .then((pageNode) => {
-        scrollToLine({ node: pageNode, lineIndex: lineNumber - 1 })
+        scrollToLine({ node: pageNode, lineIndex: scroll.startingLineNumber - 1 })
       })
 
     toggleParshaPicker()
+
+    return Promise.resolve()
   }
 }
 
@@ -174,8 +158,7 @@ const updatePageTitle = (scrollView) => {
 
   const firstPageInView = inViewPages[0]
 
-  const n = Number(firstPageInView.getAttribute('data-page-number'))
-  setState({ title: state.scroll === 'esther' ? 'אסתר' : getTitle(pageTitles[n - 1]) })
+  setState({ title: firstPageInView.getAttribute('data-page-title') })
 }
 
 let timeout
@@ -184,8 +167,8 @@ const debounce = (f) => {
   timeout = setTimeout(f, 100)
 }
 
-const renderPage = ({ insertStrategy: insert }) => ({ key, content }) => {
-  const node = makePageNode(key)
+const renderPage = ({ insertStrategy: insert }) => ({ key, content, title }) => {
+  const node = makePageNode({ title })
 
   cache[key] = { node, content }
   insert(document.querySelector('[data-target-id="tikkun-book"]'), node)
@@ -193,7 +176,7 @@ const renderPage = ({ insertStrategy: insert }) => ({ key, content }) => {
   setState({
     cache,
     showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked,
-    title: state.scroll === 'esther' ? 'אסתר' : getTitle(pageTitles[key - 1])
+    title
   })
 
   return node
@@ -202,18 +185,62 @@ const renderPage = ({ insertStrategy: insert }) => ({ key, content }) => {
 const renderPrevious = renderPage({ insertStrategy: insertBefore })
 const renderNext = renderPage({ insertStrategy: insertAfter })
 
+const fetchPage = ({ path, title }) => window.fetch(path)
+  .then((res) => res.json())
+  .then((page) => ({ key: path, content: page, title }))
+  .catch((err) => {
+    console.error(err)
+  })
+
+const Scroll = {
+  new: ({ scroll, makePath, makeTitle, startingAtRef = { b: 1, c: 1, v: 1 } }) => {
+    const { pageNumber, lineNumber } = physicalLocationFromRef({ ref: startingAtRef, scroll })
+
+    const iterator = IntegerIterator.new({ startingAt: pageNumber })
+
+    return {
+      fetchPrevious: () => {
+        const n = iterator.previous()
+        if (n <= 0) return Promise.resolve()
+        return fetchPage({ path: makePath(n), title: makeTitle(n) })
+      },
+      fetchNext: () => {
+        const n = iterator.next()
+        return fetchPage({ path: makePath(n), title: makeTitle(n) })
+      },
+      startingLineNumber: lineNumber
+    }
+  }
+}
+
+const TorahScroll = {
+  new: ({ startingAtRef }) => {
+    return Scroll.new({
+      scroll: 'torah',
+      makePath: n => `/build/pages/${n}.json`,
+      makeTitle: n => getTitle(pageTitles[n - 1]),
+      startingAtRef
+    })
+  }
+}
+
+const EstherScroll = {
+  new: ({ startingAtRef }) => {
+    return Scroll.new({
+      scroll: 'esther',
+      makePath: n => `/build/pages/${n}-esther.json`,
+      makeTitle: n => 'אסתר',
+      startingAtRef
+    })
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   InfiniteScroller
     .new({
       container: document.querySelector('[data-target-id="tikkun-book"]'),
-      fetchPreviousContent: {
-        fetch: () => fetchPage(state.iterator.previous(), state.scroll),
-        render: (container, { key, content }) => renderPrevious({ key, content })
-      },
-      fetchNextContent: {
-        fetch: () => fetchPage(state.iterator.next(), state.scroll),
-        render: (container, { key, content }) => renderNext({ key, content })
-      }
+      fetchPreviousContent: { fetch: () => scroll.fetchPrevious(), render: renderPrevious },
+      fetchNextContent: { fetch: () => scroll.fetchNext(), render: renderNext }
     })
     .attach()
 
@@ -233,7 +260,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))
 
-  fetchPage(state.iterator.next(), state.scroll)
-    .then(renderNext)
-    // .then(toggleParshaPicker)
+  app.jumpTo({ ref: { b: 1, c: 1, v: 1 }, scroll: 'torah' })
+    .then(toggleParshaPicker)
 })

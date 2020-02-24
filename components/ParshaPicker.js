@@ -97,7 +97,15 @@ const ParshaPicker = (search, searchEmitter, jumpToRef) => {
   return self
 }
 
-const searchables = [...parshiyot.map(p => ({ ...p, scroll: 'torah' })), { he: 'אסתר', en: 'Esther', ref: { b: 1, c: 1, v: 1 }, scroll: 'esther' }]
+const searchables = [
+  ...parshiyot.map(p => ({ ...p, scroll: 'torah' })),
+  {
+    he: 'אסתר',
+    en: 'Esther',
+    ref: { b: 1, c: 1, v: 1 },
+    scroll: 'esther'
+  }
+]
 
 const searchResults = (query) => {
   const results = fuzzy(searchables, query, parsha => [parsha.he, parsha.en])

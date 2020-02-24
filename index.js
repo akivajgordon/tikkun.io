@@ -28,7 +28,11 @@ let scroll
 
 const state = {}
 
-const render = ({ cache, showAnnotations, title }) => {
+const renderTitle = ({ title }) => {
+  document.querySelector('[data-target-id="parsha-title"]').innerHTML = title
+}
+
+const render = ({ cache, showAnnotations }) => {
   unpackCache(cache)
     .forEach(({ node, content }) => {
       const el = htmlToElement(Page(content, showAnnotations))
@@ -40,8 +44,6 @@ const render = ({ cache, showAnnotations, title }) => {
         node.appendChild(el)
       }
     })
-
-  document.querySelector('[data-target-id="parsha-title"]').innerHTML = title
 }
 
 const setState = (updates) => {
@@ -154,12 +156,12 @@ const updatePageTitle = () => {
   const pageAtCenter = [...document.elementsFromPoint(centerOfBookRelativeToViewport.x, centerOfBookRelativeToViewport.y)]
     .find(el => el.className.includes('tikkun-page'))
 
-  setState({ title: pageAtCenter.getAttribute('data-page-title') })
+  renderTitle({ title: pageAtCenter.getAttribute('data-page-title') })
 }
 
 let lastCalled = Date.now()
 const throttle = f => {
-  if (Date.now() - lastCalled > 200) {
+  if (Date.now() - lastCalled > 300) {
     lastCalled = Date.now()
     f()
   }
@@ -173,9 +175,10 @@ const renderPage = ({ insertStrategy: insert }) => ({ key, content, title }) => 
 
   setState({
     cache,
-    showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked,
-    title
+    showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked
   })
+
+  renderTitle({ title })
 
   return node
 }

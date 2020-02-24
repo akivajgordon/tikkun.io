@@ -19,7 +19,7 @@
     "build:css": "cp node_modules/normalize.css/normalize.css dist/",
     "webpack": "webpack --mode development index.js -o dist/bundle.js",
     "build": "npm run build:css && npm run webpack",
-    "watch": "onchange index.js 'src/*.js' 'components/*.js' -- npm run build"
+    "watch": "onchange --initial index.js 'src/*.js' 'components/*.js' -- npm run build"
   },
   "repository": {
     "type": "git",

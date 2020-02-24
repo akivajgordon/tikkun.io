@@ -1,8 +1,8 @@
-// import toc from '../build/table-of-contents.json'
 const toc = require('../build/table-of-contents.json')
+const estherToc = require('../build/table-of-contents-esther.json')
 
-module.exports = ({ b: book, c: chapter, v: verse }) => {
-  const { p: pageNumber, l: lineNumber } = toc[book][chapter][verse]
+module.exports = ({ ref: { b: book, c: chapter, v: verse }, scroll }) => {
+  const { p: pageNumber, l: lineNumber } = (scroll === 'torah' ? toc : estherToc)[book][chapter][verse]
 
   return { pageNumber, lineNumber }
 }

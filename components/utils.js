@@ -14,7 +14,7 @@ const getKeys = (key) => {
 const whenKey = (key, callback) => e => {
   const { key: k, ctrl } = getKeys(key)
 
-  if (e.ctrlKey === ctrl && e.key === k) callback(e)
+  if (e.ctrlKey === ctrl && e.key === k && !e.repeat) callback(e)
 }
 
 const purgeNode = (node) => {

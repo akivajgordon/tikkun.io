@@ -6,5 +6,5 @@ test('only one parsha displays it as a single parsha', t => {
 })
 
 test('multiple parshiyot displays it as a hyphen separated string', t => {
-  t.is(title(['Bar', 'Baz']), 'Bar – Baz')
+  t.is(title(['Bar', 'Baz']), 'Bar – Baz')
 })

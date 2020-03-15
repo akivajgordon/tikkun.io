@@ -44,7 +44,7 @@ describe('jumper', () => {
 
     cy.contains('שֹׁפְטִ֣ים וְשֹֽׁטְרִ֗ים')
 
-    cy.get('.app-toolbar').contains('ראה – שופטים')
+    cy.get('.app-toolbar').contains(/^ראה\s–\sשופטים$/)
 
     cy.contains('בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים אֵ֥ת הַשָּׁמַ֖יִם וְאֵ֥ת הָאָֽרֶץ׃').should('not.exist')
   })

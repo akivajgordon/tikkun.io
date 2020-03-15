@@ -1,3 +1,3 @@
 module.exports = (parshiyot) => {
-  return parshiyot.join(' – ')
+  return parshiyot.join(' – ')
 }

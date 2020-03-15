@@ -5,17 +5,18 @@ const ktivKriAnnotation = text => text.replace(/[{]/g, `<span class="ktiv-kri">`
 const petuchaClass = (isPetucha) => isPetucha ? 'mod-petucha' : ''
 const setumaClass = (column) => column.length > 1 ? 'mod-setuma' : ''
 
-const Line = ({ text, verses, aliyot, isPetucha }, annotated) => `
+const Line = ({ text, verses, aliyot, isPetucha }) => `
   <div class="line ${petuchaClass(isPetucha)}">
     ${text.map((column) => (`
       <div class="column">
         ${column.map((fragment) => (`
-          <span class="fragment ${setumaClass(column)}">${ktivKriAnnotation(textFilter({ text: fragment, annotated }))}</span>
+          <span class="fragment ${setumaClass(column)} mod-annotations-on">${ktivKriAnnotation(textFilter({ text: fragment, annotated: true }))}</span>
+          <span class="fragment ${setumaClass(column)} mod-annotations-off">${ktivKriAnnotation(textFilter({ text: fragment, annotated: false }))}</span>
         `)).join('')}
       </div>
     `)).join('')}
-    <span class="location-indicator mod-verses" ${annotated ? '' : 'hidden'}>${displayRange.asVersesRange(verses)}</span>
-    <span class="location-indicator mod-aliyot" ${annotated ? '' : 'hidden'} data-target-id="aliyot-range">${displayRange.asAliyotRange(aliyot, verses)}</span>
+    <span class="location-indicator mod-verses">${displayRange.asVersesRange(verses)}</span>
+    <span class="location-indicator mod-aliyot" data-target-id="aliyot-range">${displayRange.asAliyotRange(aliyot, verses)}</span>
   </div>
 `
 

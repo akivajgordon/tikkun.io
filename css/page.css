@@ -72,6 +72,11 @@
   width: 100%;
 }
 
+.tikkun-book.mod-annotations-off .fragment.mod-annotations-on,
+.tikkun-book.mod-annotations-on .fragment.mod-annotations-off {
+  display: none;
+}
+
 .fragment.mod-setuma {
   width: auto;
 }
@@ -86,6 +91,10 @@
   position: absolute;
   font-family: sans-serif;
   font-size: 0.8em;
+}
+
+.tikkun-book.mod-annotations-off .location-indicator {
+  display: none;
 }
 
 .location-indicator.mod-verses {

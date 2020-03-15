@@ -1,10 +1,10 @@
 import Line from './Line'
 
-const Page = (lines, annotated) => `
+const Page = (lines) => `
   <table>
     ${lines.map((line) => (`
       <tr>
-        <td>${Line(line, annotated)}</td>
+        <td>${Line(line)}</td>
       </tr>
     `)).join('')}
   </table>

@@ -18,44 +18,12 @@ const insertAfter = (parent, child) => {
   parent.insertAdjacentElement('beforeend', child)
 }
 
-const cache = {}
-
-const unpackCache = (cache) => Object.keys(cache || {}).map(key => cache[key])
-
 let isShowingParshaPicker = false
 
 let scroll
 
-const state = {}
-
 const renderTitle = ({ title }) => {
   document.querySelector('[data-target-id="parsha-title"]').innerHTML = title
-}
-
-const render = ({ cache, showAnnotations }) => {
-  unpackCache(cache)
-    .forEach(({ node, content }) => {
-      const el = htmlToElement(Page(content, showAnnotations))
-
-      const firstChild = node.firstChild
-      if (firstChild) {
-        node.replaceChild(el, firstChild)
-      } else {
-        node.appendChild(el)
-      }
-    })
-}
-
-const setState = (updates) => {
-  const newState = Object.assign(state, updates)
-
-  render(newState)
-}
-
-const purgeObject = (obj) => {
-  for (const key in obj) {
-    delete obj[key]
-  }
 }
 
 const makePageNode = ({ title }) => {
@@ -78,8 +46,6 @@ const scrollToLine = ({ node, lineIndex }) => {
 
 const app = {
   jumpTo: ({ ref, scroll: _scroll }) => {
-    purgeObject(cache)
-
     scroll = (_scroll === 'esther' ? EstherScroll : TorahScroll).new({ startingAtRef: ref })
 
     purgeNode(document.querySelector('[data-target-id="tikkun-book"]'))
@@ -137,12 +103,15 @@ const toggleParshaPicker = () => {
   }
 }
 
-const toggleAnnotations = () => {
+const toggleAnnotations = (getPreviousCheckedState) => {
   const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
 
-  toggle.checked = !toggle.checked
+  toggle.checked = !getPreviousCheckedState()
 
-  setState({ showAnnotations: toggle.checked })
+  const book = document.querySelector('[data-target-id=tikkun-book]')
+
+  book.classList.toggle('mod-annotations-on', toggle.checked)
+  book.classList.toggle('mod-annotations-off', !toggle.checked)
 }
 
 const updatePageTitle = () => {
@@ -167,16 +136,19 @@ const throttle = f => {
   }
 }
 
-const renderPage = ({ insertStrategy: insert }) => ({ key, content, title }) => {
+const renderPage = ({ insertStrategy: insert }) => ({ content, title }) => {
   const node = makePageNode({ title })
 
-  cache[key] = { node, content }
   insert(document.querySelector('[data-target-id="tikkun-book"]'), node)
 
-  setState({
-    cache,
-    showAnnotations: document.querySelector('[data-target-id="annotations-toggle"]').checked
-  })
+  const el = htmlToElement(Page(content))
+
+  const firstChild = node.firstChild
+  if (firstChild) {
+    node.replaceChild(el, firstChild)
+  } else {
+    node.appendChild(el)
+  }
 
   renderTitle({ title })
 
@@ -188,7 +160,7 @@ const renderNext = renderPage({ insertStrategy: insertAfter })
 
 const fetchPage = ({ path, title }) => window.fetch(path)
   .then((res) => res.json())
-  .then((page) => ({ key: path, content: page, title }))
+  .then((page) => ({ content: page, title }))
   .catch((err) => {
     console.error(err)
   })
@@ -237,26 +209,25 @@ const EstherScroll = {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  const book = document.querySelector('[data-target-id="tikkun-book"]')
+  const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
+
   InfiniteScroller
     .new({
-      container: document.querySelector('[data-target-id="tikkun-book"]'),
+      container: book,
       fetchPreviousContent: { fetch: () => scroll.fetchPrevious(), render: renderPrevious },
       fetchNextContent: { fetch: () => scroll.fetchNext(), render: renderNext }
     })
     .attach()
 
-  document.querySelector('[data-target-id="tikkun-book"]').addEventListener('scroll', () => {
+  book.addEventListener('scroll', () => {
     throttle(() => updatePageTitle())
   })
 
-  document.querySelector('[data-target-id="annotations-toggle"]').addEventListener('change', (e) => {
-    const showAnnotations = e.target.checked
+  toggle.addEventListener('change', (e) => toggleAnnotations(() => !e.target.checked))
 
-    setState({ showAnnotations })
-  })
-
-  document.addEventListener('keydown', whenKey('Shift', toggleAnnotations))
-  document.addEventListener('keyup', whenKey('Shift', toggleAnnotations))
+  document.addEventListener('keydown', whenKey('Shift', () => toggleAnnotations(() => toggle.checked)))
+  document.addEventListener('keyup', whenKey('Shift', () => toggleAnnotations(() => toggle.checked)))
 
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))

@@ -209,22 +209,25 @@ const EstherScroll = {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  const book = document.querySelector('[data-target-id="tikkun-book"]')
+  const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
+
   InfiniteScroller
     .new({
-      container: document.querySelector('[data-target-id="tikkun-book"]'),
+      container: book,
       fetchPreviousContent: { fetch: () => scroll.fetchPrevious(), render: renderPrevious },
       fetchNextContent: { fetch: () => scroll.fetchNext(), render: renderNext }
     })
     .attach()
 
-  document.querySelector('[data-target-id="tikkun-book"]').addEventListener('scroll', () => {
+  book.addEventListener('scroll', () => {
     throttle(() => updatePageTitle())
   })
 
-  document.querySelector('[data-target-id="annotations-toggle"]').addEventListener('change', (e) => toggleAnnotations(() => !e.target.checked))
+  toggle.addEventListener('change', (e) => toggleAnnotations(() => !e.target.checked))
 
-  document.addEventListener('keydown', whenKey('Shift', () => toggleAnnotations(() => document.querySelector('[data-target-id="annotations-toggle"]').checked)))
-  document.addEventListener('keyup', whenKey('Shift', () => toggleAnnotations(() => document.querySelector('[data-target-id="annotations-toggle"]').checked)))
+  document.addEventListener('keydown', whenKey('Shift', () => toggleAnnotations(() => toggle.checked)))
+  document.addEventListener('keyup', whenKey('Shift', () => toggleAnnotations(() => toggle.checked)))
 
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))

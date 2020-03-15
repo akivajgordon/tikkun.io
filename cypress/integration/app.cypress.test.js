@@ -43,7 +43,7 @@ describe('app', () => {
 
     cy.contains('שופטים').click()
 
-    cy.get('.app-toolbar').contains('ראה – שופטים')
+    cy.get('.app-toolbar').contains(/^ראה\s–\sשופטים$/)
 
     cy.get('[data-target-id="tikkun-book"]').scrollTo(0, 3000)
 

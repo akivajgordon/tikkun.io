@@ -1,0 +1,237 @@
+[
+  {
+    "label": "ויגש",
+    "datetime": "2020-01-04",
+    "date": "Jan 4"
+  },
+  {
+    "label": "ויחי",
+    "datetime": "2020-01-11",
+    "date": "Jan 11"
+  },
+  {
+    "label": "שמות",
+    "datetime": "2020-01-18",
+    "date": "Jan 18"
+  },
+  {
+    "label": "וארא",
+    "datetime": "2020-01-25",
+    "date": "Jan 25"
+  },
+  {
+    "label": "בא",
+    "datetime": "2020-02-01",
+    "date": "Feb 1"
+  },
+  {
+    "label": "בשלח",
+    "datetime": "2020-02-08",
+    "date": "Feb 8"
+  },
+  {
+    "label": "יתרו",
+    "datetime": "2020-02-15",
+    "date": "Feb 15"
+  },
+  {
+    "label": "משפטים",
+    "datetime": "2020-02-22",
+    "date": "Feb 22"
+  },
+  {
+    "label": "תרומה",
+    "datetime": "2020-02-29",
+    "date": "Feb 29"
+  },
+  {
+    "label": "תצוה",
+    "datetime": "2020-03-07",
+    "date": "Mar 7"
+  },
+  {
+    "label": "כי תשא",
+    "datetime": "2020-03-14",
+    "date": "Mar 14"
+  },
+  {
+    "label": "ויקהל – פקודי",
+    "datetime": "2020-03-21",
+    "date": "Mar 21"
+  },
+  {
+    "label": "ויקרא",
+    "datetime": "2020-03-28",
+    "date": "Mar 28"
+  },
+  {
+    "label": "צו",
+    "datetime": "2020-04-04",
+    "date": "Apr 4"
+  },
+  {
+    "label": "שמיני",
+    "datetime": "2020-04-18",
+    "date": "Apr 18"
+  },
+  {
+    "label": "תזריע – מצורע",
+    "datetime": "2020-04-25",
+    "date": "Apr 25"
+  },
+  {
+    "label": "אחרי מות – קדושים",
+    "datetime": "2020-05-02",
+    "date": "May 2"
+  },
+  {
+    "label": "אמור",
+    "datetime": "2020-05-09",
+    "date": "May 9"
+  },
+  {
+    "label": "בהר – בחקתי",
+    "datetime": "2020-05-16",
+    "date": "May 16"
+  },
+  {
+    "label": "במדבר",
+    "datetime": "2020-05-23",
+    "date": "May 23"
+  },
+  {
+    "label": "נשא",
+    "datetime": "2020-06-06",
+    "date": "Jun 6"
+  },
+  {
+    "label": "בהעלותך",
+    "datetime": "2020-06-13",
+    "date": "Jun 13"
+  },
+  {
+    "label": "שלח",
+    "datetime": "2020-06-20",
+    "date": "Jun 20"
+  },
+  {
+    "label": "קרח",
+    "datetime": "2020-06-27",
+    "date": "Jun 27"
+  },
+  {
+    "label": "חקת – בלק",
+    "datetime": "2020-07-04",
+    "date": "Jul 4"
+  },
+  {
+    "label": "פנחס",
+    "datetime": "2020-07-11",
+    "date": "Jul 11"
+  },
+  {
+    "label": "מטות – מסעי",
+    "datetime": "2020-07-18",
+    "date": "Jul 18"
+  },
+  {
+    "label": "דברים",
+    "datetime": "2020-07-25",
+    "date": "Jul 25"
+  },
+  {
+    "label": "ואתחנן",
+    "datetime": "2020-08-01",
+    "date": "Aug 1"
+  },
+  {
+    "label": "עקב",
+    "datetime": "2020-08-08",
+    "date": "Aug 8"
+  },
+  {
+    "label": "ראה",
+    "datetime": "2020-08-15",
+    "date": "Aug 15"
+  },
+  {
+    "label": "שופטים",
+    "datetime": "2020-08-22",
+    "date": "Aug 22"
+  },
+  {
+    "label": "כי תצא",
+    "datetime": "2020-08-29",
+    "date": "Aug 29"
+  },
+  {
+    "label": "כי תבוא",
+    "datetime": "2020-09-05",
+    "date": "Sep 5"
+  },
+  {
+    "label": "נצבים – וילך",
+    "datetime": "2020-09-12",
+    "date": "Sep 12"
+  },
+  {
+    "label": "האזינו",
+    "datetime": "2020-09-26",
+    "date": "Sep 26"
+  },
+  {
+    "label": "בראשית",
+    "datetime": "2020-10-17",
+    "date": "Oct 17"
+  },
+  {
+    "label": "נח",
+    "datetime": "2020-10-24",
+    "date": "Oct 24"
+  },
+  {
+    "label": "לך לך",
+    "datetime": "2020-10-31",
+    "date": "Oct 31"
+  },
+  {
+    "label": "וירא",
+    "datetime": "2020-11-07",
+    "date": "Nov 7"
+  },
+  {
+    "label": "חיי שרה",
+    "datetime": "2020-11-14",
+    "date": "Nov 14"
+  },
+  {
+    "label": "תולדות",
+    "datetime": "2020-11-21",
+    "date": "Nov 21"
+  },
+  {
+    "label": "ויצא",
+    "datetime": "2020-11-28",
+    "date": "Nov 28"
+  },
+  {
+    "label": "וישלח",
+    "datetime": "2020-12-05",
+    "date": "Dec 5"
+  },
+  {
+    "label": "וישב",
+    "datetime": "2020-12-12",
+    "date": "Dec 12"
+  },
+  {
+    "label": "מקץ",
+    "datetime": "2020-12-19",
+    "date": "Dec 19"
+  },
+  {
+    "label": "ויגש",
+    "datetime": "2020-12-26",
+    "date": "Dec 26"
+  }
+]

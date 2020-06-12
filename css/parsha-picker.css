@@ -3,6 +3,7 @@
     opacity: 0;
     transform: scale(1.05);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -148,11 +149,33 @@
   background-color: hsla(0, 0%, 0%, 0.2);
 }
 
-
 .section.mod-alternate {
   background-color: hsla(0, 0%, 0%, 0.05);
 }
 
 .section.mod-padding {
   padding: 2em 0;
+}
+
+.coming-up-button {
+  background-color: hsla(0, 0%, 0%, 0.05);
+  padding: 0.5em 1em;
+  min-width: 12ch;
+  border-radius: 4px;
+  color: hsla(0, 0%, 0%, 0.7);
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.coming-up-button:hover {
+  background-color: hsla(0, 0%, 0%, 0.1);
+}
+
+.coming-up-button:active {
+  background-color: hsla(0, 0%, 0%, 0.2);
+}
+
+.coming-up-date {
+  color: hsla(0, 0%, 0%, 0.7);
 }

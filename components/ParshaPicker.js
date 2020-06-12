@@ -8,17 +8,18 @@ import ParshaResult, { NoResults } from './ParshaResult'
 
 const { htmlToElement } = utils
 
-const Parsha = ({ ref, he, scroll }) => `<li
-  class="parsha"
-  data-target-id="parsha"
-  data-jump-to-book="${ref.b}"
-  data-jump-to-chapter="${ref.c}"
-  data-jump-to-verse="${ref.v}"
-  data-scroll="${scroll}"
->
-  ${he}
-</li>
-`
+const Parsha = ({ ref, he, scroll }) => `
+  <li
+    class="parsha"
+    data-target-id="parsha"
+    data-jump-to-book="${ref.b}"
+    data-jump-to-chapter="${ref.c}"
+    data-jump-to-verse="${ref.v}"
+    data-scroll="${scroll}"
+  >
+    ${he}
+  </li>
+  `
 
 const Book = (book) => `
   <li class="parsha-book">
@@ -42,9 +43,9 @@ const ComingUpReading = ({ label, date, datetime }) => {
         data-jump-to-chapter="${chapter}"
         data-jump-to-verse="${verse}"
         data-scroll="torah"
-        style="background-color: hsla(0, 0%, 0%, 0.05); padding: 0.5em 1em; border-radius: 4px; color: hsla(0, 0%, 0%, 0.7); border: none; cursor: pointer;"
+        class="coming-up-button"
       >${label}</button>
-      <time style="color: hsla(0, 0%, 0%, 0.7);" datetime="${datetime}">${date}</time>
+      <time class="coming-up-date" datetime="${datetime}">${date}</time>
     </li>
   `
 }
@@ -52,7 +53,7 @@ const ComingUpReading = ({ label, date, datetime }) => {
 const ComingUp = () => `
   <section dir="ltr" id="coming-up" class="section mod-alternate mod-padding">
     <div class="stack medium">
-      <label style="display: block; text-align: center; text-transform: uppercase; font-size: 0.8em; font-weight: 700; color: hsla(0, 0%, 0%, 0.7);">Coming up</label>
+      <label style="display: block; text-align: center; text-transform: uppercase; font-size: 0.8em; font-weight: 700; color: hsla(0, 0%, 0%, 0.5);">Coming up</label>
       <ol class="cluster" style="list-style: none; display: flex; justify-content: center;">
         ${readingSchedule
           .filter(reading => new Date(reading.datetime) > new Date())
@@ -65,6 +66,33 @@ const ComingUp = () => `
   </section>
 `
 
+const Browse = () => `
+  <div class="browse">
+    <h2 class="section-heading">תורה</h2>
+    <ol class="parsha-books">
+      ${parshiyot
+        .reduce((books, parsha) => {
+          const book = parsha.ref.b
+          books[book] = books[book] || []
+          books[book].push(parsha)
+          return books
+        }, [])
+        .map(Book)
+        .join('')
+      }
+    </ol>
+
+    <h2 class="section-heading">מגילות</h2>
+    <ol class="parsha-books">
+      <li class="parsha-book">
+        <ol class="parsha-list">
+          ${Parsha({ ref: { b: 1, c: 1, v: 1 }, he: 'אסתר', scroll: 'esther' })}
+        </ol>
+      </li>
+    </ol>
+  </div>
+`
+
 const ParshaPicker = (search, searchEmitter, jumpToRef) => {
   const self = htmlToElement(`
     <div class="parsha-picker">
@@ -73,30 +101,7 @@ const ParshaPicker = (search, searchEmitter, jumpToRef) => {
           <div id="search" style="display: inline-block;"></div>
         </div>
         ${ComingUp()}
-        <div class="browse">
-          <h2 class="section-heading">תורה</h2>
-          <ol class="parsha-books">
-            ${parshiyot
-              .reduce((books, parsha) => {
-                const book = parsha.ref.b
-                books[book] = books[book] || []
-                books[book].push(parsha)
-                return books
-              }, [])
-              .map(Book)
-              .join('')
-            }
-          </ol>
-
-          <h2 class="section-heading">מגילות</h2>
-          <ol class="parsha-books">
-            <li class="parsha-book">
-              <ol class="parsha-list">
-                ${Parsha({ ref: { b: 1, c: 1, v: 1 }, he: 'אסתר', scroll: 'esther' })}
-              </ol>
-            </li>
-          </ol>
-        </div>
+        ${Browse()}
       </div>
     </div>
   `)

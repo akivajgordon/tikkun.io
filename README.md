@@ -5,7 +5,7 @@ The mission is to **make better Torah readers** by providing the tools to maximi
 
 ## Contributing
 
-**Dependencies**: Node 8+
+**Dependencies**: Node.js 10+
 
 Fork, clone, `npm install`.
 

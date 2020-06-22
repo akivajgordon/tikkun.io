@@ -3,6 +3,7 @@
     opacity: 0;
     transform: scale(1.05);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -16,14 +17,11 @@
   right: 0;
   bottom: 0;
   background-color: var(--paper-color, white);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   overflow: auto;
   -webkit-overflow-scrolling: touch; /*https://css-tricks.com/snippets/css/momentum-scrolling-on-ios-overflow-elements/*/
   height: 100%;
   animation: fade-in 0.2s forwards;
-  padding: 2em 1em;
+  padding: 2em 0;
 }
 
 .search {
@@ -89,9 +87,10 @@
 }
 
 .browse {
-  margin: 2em;
   width: 100%;
   max-width: 960px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .section-heading {
@@ -148,4 +147,35 @@
 
 .parsha:active {
   background-color: hsla(0, 0%, 0%, 0.2);
+}
+
+.section.mod-alternate {
+  background-color: hsla(0, 0%, 0%, 0.05);
+}
+
+.section.mod-padding {
+  padding: 2em 0;
+}
+
+.coming-up-button {
+  background-color: hsla(0, 0%, 0%, 0.05);
+  padding: 0.5em 1em;
+  width: 100%;
+  border-radius: 4px;
+  color: hsla(0, 0%, 0%, 0.7);
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.coming-up-button:hover {
+  background-color: hsla(0, 0%, 0%, 0.1);
+}
+
+.coming-up-button:active {
+  background-color: hsla(0, 0%, 0%, 0.2);
+}
+
+.coming-up-date {
+  color: hsla(0, 0%, 0%, 0.7);
 }

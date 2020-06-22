@@ -21,8 +21,11 @@
 
 body {
   height: 100vh;
-  font-family: sans-serif;
   background-color: var(--paper-color, white);
+}
+
+body, input {
+  font-family: -apple-system, sans-serif;
 }
 
 ol {
@@ -38,6 +41,13 @@ ol {
   display: none;
 }
 
+.centerize {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
 @keyframes fade-out {
   to {
     opacity: 0;
@@ -46,6 +56,20 @@ ol {
 
 .u-hidden.mod-animated {
   animation: fade-out 0.2s;
+}
+
+.stack.xsmall  > * + * { margin-top: 0.35em; }
+.stack.small   > * + * { margin-top: 0.5em; }
+.stack.medium  > * + * { margin-top: 1em; }
+.stack.large   > * + * { margin-top: 1.5em; }
+.stack.xlarge  > * + * { margin-top: 2em; }
+
+.cluster {
+  display: inline-flex;
+  align-items: center;
+}
+.cluster > * + * {
+  margin-left: 1em;
 }
 
 :root {

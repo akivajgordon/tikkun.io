@@ -36,7 +36,8 @@ const refFromLabel = ({ label }) => parshiyot
 const ComingUpReading = ({ label, date, datetime }) => {
   const { b: book, c: chapter, v: verse } = refFromLabel({ label })
   return `
-    <li class="stack small" style="display: flex; flex-direction: column; align-items: center;">
+  <li style="display: table-cell; width: calc(100% / 3); padding: 0 0.5em;">
+    <div class="stack small" style="display: flex; flex-direction: column; align-items: center;">
       <button
         data-target-class="coming-up-reading"
         data-jump-to-book="${book}"
@@ -46,22 +47,27 @@ const ComingUpReading = ({ label, date, datetime }) => {
         class="coming-up-button"
       >${label}</button>
       <time class="coming-up-date" datetime="${datetime}">${date}</time>
-    </li>
+    </div>
+  </li>
   `
 }
+
+const comingUpReadings = readingSchedule
+  .filter(reading => new Date(reading.datetime) > new Date())
+  .slice(0, 3)
 
 const ComingUp = () => `
   <section dir="ltr" id="coming-up" class="section mod-alternate mod-padding">
     <div class="stack medium">
       <label style="display: block; text-align: center; text-transform: uppercase; font-size: 0.8em; font-weight: 700; color: hsla(0, 0%, 0%, 0.5);">Coming up</label>
-      <ol class="cluster" style="list-style: none; display: flex; justify-content: center;">
-        ${readingSchedule
-          .filter(reading => new Date(reading.datetime) > new Date())
-          .slice(0, 3)
-          .map(({ label, date, datetime }) => ComingUpReading({ label, date, datetime }))
-          .join('')
-        }
-      </ol>
+      <div style="overflow-x: auto;">
+        <ol class="cluster" style="list-style: none; display: table; margin-left: auto; margin-right: auto; white-space: nowrap;">
+          ${comingUpReadings
+            .map(ComingUpReading)
+            .join('')
+          }
+        </ol>
+      </div>
     </div>
   </section>
 `

@@ -109,6 +109,20 @@ describe('jumper', () => {
       .contains(`ויקרא`)
   })
 
+  it('hides "Coming up" when searching', () => {
+    cy.get('body').type('/')
+
+    cy.focused()
+      .type('v')
+
+    cy.contains(/coming up/i).should('not.be.visible')
+
+    cy.focused()
+      .clear()
+
+    cy.contains(/coming up/i).should('be.visible')
+  })
+
   it('appropriately shows "No results" message', () => {
     cy.get('body').type('/')
 

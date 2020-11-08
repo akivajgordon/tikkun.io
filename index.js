@@ -1,6 +1,6 @@
 /* global gtag */
 
-import { EventEmitter } from 'events'
+import EventEmitter from './src/event-emitter'
 import { InfiniteScroller, IntegerIterator, title as getTitle, physicalLocationFromRef } from './src'
 import Page from './components/Page'
 import ParshaPicker, { search } from './components/ParshaPicker'
@@ -69,7 +69,7 @@ const refOf = element => {
 }
 
 const showParshaPicker = () => {
-  const searchEmitter = new EventEmitter()
+  const searchEmitter = EventEmitter.new()
 
   const s = Search({ search, emitter: searchEmitter })
   const jumper = ParshaPicker(s, searchEmitter, ({ ref, scroll }) => app.jumpTo({ ref: refOf(ref), scroll }))

@@ -1,6 +1,6 @@
 {
   "video": false,
-  "blacklistHosts": [
+  "blockHosts": [
     "www.googletagmanager.com"
   ]
 }

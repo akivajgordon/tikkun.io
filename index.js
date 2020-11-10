@@ -56,7 +56,7 @@ const app = {
         scrollToLine({ node: pageNode, lineIndex: scroll.startingLineNumber - 1 })
       })
 
-    toggleParshaPicker()
+    hideParshaPicker()
 
     return Promise.resolve()
   }
@@ -68,7 +68,21 @@ const refOf = element => {
   return { b: refPart('book'), c: refPart('chapter'), v: refPart('verse') }
 }
 
+const setVisibility = ({ selector, visible }) => {
+  const classList = document.querySelector(selector).classList
+
+  classList[visible ? 'remove' : 'add']('u-hidden')
+  classList[visible ? 'remove' : 'add']('mod-animated')
+}
+
 const showParshaPicker = () => {
+  ;[
+    { selector: '[data-test-id="annotations-toggle"]', visible: false },
+    { selector: '[data-target-id="repo-link"]', visible: false },
+    { selector: '[data-target-id="tikkun-book"]', visible: false }
+  ]
+    .forEach(({ selector, visible }) => setVisibility({ selector, visible }))
+
   const searchEmitter = EventEmitter.new()
 
   const s = Search({ search, emitter: searchEmitter })
@@ -81,25 +95,24 @@ const showParshaPicker = () => {
   setTimeout(() => s.focus(), 0)
 }
 
-const toggleParshaPicker = () => {
-  isShowingParshaPicker = !isShowingParshaPicker
-
+const hideParshaPicker = () => {
   ;[
-    '[data-test-id="annotations-toggle"]',
-    '[data-target-id="repo-link"]',
-    '[data-target-id="tikkun-book"]'
+    { selector: '[data-test-id="annotations-toggle"]', visible: true },
+    { selector: '[data-target-id="repo-link"]', visible: true },
+    { selector: '[data-target-id="tikkun-book"]', visible: true }
   ]
-    .map(selector => document.querySelector(selector))
-    .map(el => el.classList)
-    .forEach(classList => {
-      classList.toggle('u-hidden')
-      classList.toggle('mod-animated')
-    })
+    .forEach(({ selector, visible }) => setVisibility({ selector, visible }))
+
+  document.querySelector('.parsha-picker') && document.querySelector('#js-app').removeChild(document.querySelector('.parsha-picker'))
+}
+
+const toggleParshaPicker = () => {
+  const isShowingParshaPicker = Boolean(document.querySelector('.parsha-picker'))
 
   if (isShowingParshaPicker) {
-    showParshaPicker()
+    hideParshaPicker()
   } else {
-    document.querySelector('#js-app').removeChild(document.querySelector('.parsha-picker'))
+    showParshaPicker()
   }
 }
 
@@ -233,5 +246,5 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))
 
   app.jumpTo({ ref: { b: 1, c: 1, v: 1 }, scroll: 'torah' })
-    .then(toggleParshaPicker)
+    .then(hideParshaPicker)
 })

@@ -15,7 +15,7 @@
     "test:watch": "npm test -- --watch",
     "test:ui": "cypress run",
     "build:css": "cp node_modules/normalize.css/normalize.css dist/",
-    "build": "npm run build:css && esbuild --bundle --outfile=\"dist/bundle.js\" --sourcemap --minify index.js",
+    "build": "npm run build:css && esbuild --bundle --outfile=\"dist/bundle.js\" --sourcemap index.js",
     "watch": "onchange --initial index.js 'src/*.js' 'components/*.js' -- npm run build"
   },
   "repository": {

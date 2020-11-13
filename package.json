@@ -15,8 +15,7 @@
     "test:watch": "npm test -- --watch",
     "test:ui": "cypress run",
     "build:css": "cp node_modules/normalize.css/normalize.css dist/",
-    "webpack": "webpack --mode development index.js -o dist/bundle.js",
-    "build": "npm run build:css && npm run webpack",
+    "build": "npm run build:css && esbuild --bundle --outfile=\"dist/bundle.js\" --sourcemap index.js",
     "watch": "onchange --initial index.js 'src/*.js' 'components/*.js' -- npm run build"
   },
   "repository": {
@@ -34,12 +33,11 @@
   },
   "devDependencies": {
     "@ava/babel": "^1.0.1",
-    "@babel/core": "^7.10.2",
-    "@babel/register": "^7.10.1",
-    "ava": "^3.8.2",
-    "cypress": "^4.7.0",
-    "onchange": "^7.0.2",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "@babel/core": "^7.12.3",
+    "@babel/register": "^7.12.1",
+    "ava": "^3.13.0",
+    "cypress": "^5.5.0",
+    "esbuild": "^0.8.5",
+    "onchange": "^7.1.0"
   }
 }

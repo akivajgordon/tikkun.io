@@ -100,4 +100,17 @@ describe('app', () => {
       .invoke('text')
       .should('include', 'וישב')
   })
+
+  it('maintains scroll position based on text when rotating screen', () => {
+    cy.viewport('iphone-xr', 'portrait')
+
+    cy.get('[data-target-id="tikkun-book"]').scrollTo(0, 500, { duration: 300 })
+    cy.get('[data-target-id="tikkun-book"]').scrollTo(0, 2000, { duration: 300 })
+
+    cy.wait(1100) // the app debounces for 1 second after scrolling (for performance reasons)
+
+    cy.viewport('iphone-xr', 'landscape')
+
+    cy.contains('וַיְכֻלּ֛וּ הַשָּׁמַ֥יִם וְהָאָ֖רֶץ וְכָל־צְבָאָֽם').should('be.visible')
+  })
 })

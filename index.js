@@ -127,6 +127,37 @@ const toggleAnnotations = (getPreviousCheckedState) => {
   book.classList.toggle('mod-annotations-off', !toggle.checked)
 }
 
+const scrollState = {
+  lastScrolledPosition: 0,
+  pageAtTop: null
+}
+
+const resumeLastScrollPosition = () => {
+  if (!scrollState.pageAtTop) return
+  const book = document.querySelector('.tikkun-book')
+  const pageRect = scrollState.pageAtTop.getBoundingClientRect()
+
+  book.scrollTop = scrollState.pageAtTop.offsetTop + (scrollState.lastScrolledPosition * pageRect.height)
+}
+
+const rememberLastScrolledPosition = () => {
+  const book = document.querySelector('.tikkun-book')
+  const bookBoundingRect = book.getBoundingClientRect()
+
+  const topOfBookRelativeToViewport = {
+    x: bookBoundingRect.left + (bookBoundingRect.width / 2),
+    y: bookBoundingRect.top
+  }
+
+  const pageAtTop = [...document.elementsFromPoint(topOfBookRelativeToViewport.x, topOfBookRelativeToViewport.y)]
+    .find(el => el.className.includes('tikkun-page'))
+
+  if (!pageAtTop) return
+
+  scrollState.pageAtTop = pageAtTop
+  scrollState.lastScrolledPosition = (book.scrollTop - pageAtTop.offsetTop) / pageAtTop.clientHeight
+}
+
 const updatePageTitle = () => {
   const bookBoundingRect = document.querySelector('.tikkun-book').getBoundingClientRect()
 
@@ -137,6 +168,8 @@ const updatePageTitle = () => {
 
   const pageAtCenter = [...document.elementsFromPoint(centerOfBookRelativeToViewport.x, centerOfBookRelativeToViewport.y)]
     .find(el => el.className.includes('tikkun-page'))
+
+  if (!pageAtCenter) return
 
   renderTitle({ title: pageAtCenter.getAttribute('data-page-title') })
 }
@@ -221,6 +254,16 @@ const EstherScroll = {
   }
 }
 
+const debounce = (callback, delay) => {
+  let timeout
+  return () => {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      callback()
+    }, delay)
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const book = document.querySelector('[data-target-id="tikkun-book"]')
   const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
@@ -235,6 +278,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   book.addEventListener('scroll', () => {
     throttle(() => updatePageTitle())
+  })
+
+  book.addEventListener('scroll', debounce(() => {
+    rememberLastScrolledPosition()
+  }, 1000))
+
+  window.addEventListener('resize', () => {
+    resumeLastScrollPosition()
   })
 
   toggle.addEventListener('change', (e) => toggleAnnotations(() => !e.target.checked))

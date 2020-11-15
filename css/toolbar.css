@@ -28,21 +28,25 @@
 }
 
 .parsha-title {
-  background-color: hsla(0, 0%, 0%, 0.05);
+  background-color: var(--light-accent-color);
   padding: 0.5em 3em;
   border-radius: 4px;
-  color: hsla(0, 0%, 0%, 0.7);
+  color: var(--text-color);
   cursor: pointer;
 }
 
 .parsha-title:hover {
-  background-color: hsla(0, 0%, 0%, 0.1);
+  background-color: var(--medium-accent-color);
 }
 
 .parsha-title:active {
-  background-color: hsla(0, 0%, 0%, 0.2);
+  background-color: var(--heavy-accent-color);
 }
 
 .toolbar-github {
   vertical-align: middle; /* HACK: https://stackoverflow.com/a/27999850/2374361 */
+}
+
+[data-theme="dark"] .toolbar-github {
+  filter: invert();
 }

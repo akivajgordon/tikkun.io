@@ -59,7 +59,7 @@ const comingUpReadings = readingSchedule
 const ComingUp = () => `
   <section dir="ltr" id="coming-up" class="section mod-alternate mod-padding">
     <div class="stack medium">
-      <label style="display: block; text-align: center; text-transform: uppercase; font-size: 0.8em; font-weight: 700; color: hsla(0, 0%, 0%, 0.5);">Coming up</label>
+      <label class="section-label">Coming up</label>
       <div style="overflow-x: auto;">
         <ol class="cluster" style="list-style: none; display: table; margin-left: auto; margin-right: auto; white-space: nowrap;">
           ${comingUpReadings

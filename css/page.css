@@ -2,9 +2,8 @@
   display: flex;
   justify-content: center;
   font-family: Shlomosemistam;
-  color: hsla(0, 0%, 0%, 0.8);
+  color: var(--page-ink-color);
 }
-
 
 @media screen and (max-width: 900px) {
   .tikkun-page {
@@ -37,7 +36,7 @@
 
 .tikkun-page:not(:last-child) {
   padding-bottom: 5em;
-  border-bottom: 1px solid hsla(0, 0%, 0%, 0.2);
+  border-bottom: 1px solid var(--heavy-accent-color);
 }
 
 .line {
@@ -99,7 +98,7 @@
 
 .location-indicator.mod-verses {
   right: -6ch;
-  color: hsla(0, 0%, 0%, 0.35);
+  color: var(--verses-color);
 }
 
 .location-indicator.mod-aliyot {
@@ -109,9 +108,9 @@
 }
 
 .ktiv-kri {
-  background-color: hsla(0, 0%, 0%, 0.1);
+  background-color: var(--medium-accent-color);
   padding: 0.1rem 0.1rem;
-  border: 1px solid hsla(0, 0%, 0%, 0.1);
+  border: 1px solid var(--medium-accent-color);
   border-radius: 4px;
   position: relative;
 }

@@ -49800,7 +49800,7 @@
   </div>
 `);
   var ParshaResult_default = ParshaResult;
-  const NoResults = () => htmlToElement2(`<p class="" style="text-align: center; color: hsla(0, 0%, 0%, 0.5);">
+  const NoResults = () => htmlToElement2(`<p class="" style="text-align: center; color: var(--light-text-color);">
   No results
 </p>
 `);
@@ -49849,7 +49849,7 @@
   const ComingUp = () => `
   <section dir="ltr" id="coming-up" class="section mod-alternate mod-padding">
     <div class="stack medium">
-      <label style="display: block; text-align: center; text-transform: uppercase; font-size: 0.8em; font-weight: 700; color: hsla(0, 0%, 0%, 0.5);">Coming up</label>
+      <label class="section-label">Coming up</label>
       <div style="overflow-x: auto;">
         <ol class="cluster" style="list-style: none; display: table; margin-left: auto; margin-right: auto; white-space: nowrap;">
           ${comingUpReadings.map(ComingUpReading).join("")}
@@ -51009,6 +51009,10 @@
       }, delay);
     };
   };
+  const toggleColorScheme = () => {
+    const body = document.querySelector("body");
+    body.dataset.theme = body.dataset.theme === "dark" ? "light" : "dark";
+  };
   document.addEventListener("DOMContentLoaded", () => {
     const book = document.querySelector('[data-target-id="tikkun-book"]');
     const toggle = document.querySelector('[data-target-id="annotations-toggle"]');
@@ -51023,6 +51027,7 @@
     book.addEventListener("scroll", debounce(() => {
       rememberLastScrolledPosition();
     }, 1e3));
+    book.addEventListener("dblclick", toggleColorScheme);
     window.addEventListener("resize", () => {
       resumeLastScrollPosition();
     });

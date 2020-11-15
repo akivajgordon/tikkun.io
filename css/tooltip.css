@@ -1,7 +1,17 @@
+[data-tooltip] {
+  --tooltip-background-color: hsl(0, 0%, 20%);
+  --tooltip-text-color: white;
+}
+
+[data-theme="dark"] [data-tooltip] {
+  --tooltip-background-color: hsl(0, 0%, 80%);
+  --tooltip-text-color: black;
+}
+
 [data-tooltip]::after {
   content: attr(data-tooltip);
-  background-color: hsl(0, 0%, 20%);
-  color: white;
+  background-color: var(--tooltip-background-color);
+  color: var(--tooltip-text-color);
   display: inline-block;
   position: absolute;
   top: var(--header-height);

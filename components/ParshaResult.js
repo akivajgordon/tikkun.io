@@ -36,7 +36,7 @@ const ParshaResult = ({ match, item }) => htmlToElement(`
 
 export default ParshaResult
 
-const NoResults = () => htmlToElement(`<p class="" style="text-align: center; color: hsla(0, 0%, 0%, 0.5);">
+const NoResults = () => htmlToElement(`<p class="" style="text-align: center; color: var(--light-text-color);">
   No results
 </p>
 `)

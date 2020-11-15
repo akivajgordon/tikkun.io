@@ -81,6 +81,28 @@ ol {
   --header-height: 45px;
 
   --paper-color: hsl(0, 0%, 98%);
+  --page-ink-color: hsla(0, 0%, 0%, 0.8);
+  --annotations-toggle-active-color: black;
+  --verses-color: hsla(0, 0%, 0%, 0.35);
+  --light-accent-color: hsla(0, 0%, 0%, 0.05);
+  --medium-accent-color: hsla(0, 0%, 0%, 0.1);
+  --heavy-accent-color: hsla(0, 0%, 0%, 0.2);
+  --text-color: hsla(0, 0%, 0%, 0.7);
+  --light-text-color: hsla(0, 0%, 0%, 0.5);
+}
+
+body[data-theme="dark"] {
+  --paper-color: #222;
+  --page-ink-color: hsla(0, 0%, 100%, 0.8);
+  --annotations-toggle-active-color: hsla(0, 0%, 100%, 0.8);
+  --verses-color: hsla(0, 0%, 100%, 0.35);
+  --light-accent-color: hsla(0, 0%, 100%, 0.05);
+  --medium-accent-color: hsla(0, 0%, 100%, 0.1);
+  --heavy-accent-color: hsla(0, 0%, 100%, 0.2);
+  --text-color: hsla(0, 0%, 100%, 0.7);
+  --light-text-color: hsla(0, 0%, 100%, 0.5);
+
+  color-scheme: dark;
 }
 
 .tikkun-book {

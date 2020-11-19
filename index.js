@@ -236,7 +236,7 @@ const TorahScroll = {
   new: ({ startingAtRef }) => {
     return Scroll.new({
       scroll: 'torah',
-      makePath: n => `/build/pages/${n}.json`,
+      makePath: n => `/build/pages/torah/${n}.json`,
       makeTitle: n => getTitle(pageTitles[n - 1]),
       startingAtRef
     })
@@ -247,7 +247,7 @@ const EstherScroll = {
   new: ({ startingAtRef }) => {
     return Scroll.new({
       scroll: 'esther',
-      makePath: n => `/build/pages/${n}-esther.json`,
+      makePath: n => `/build/pages/esther/${n}.json`,
       makeTitle: n => 'אסתר',
       startingAtRef
     })

@@ -50984,7 +50984,7 @@
     new: ({startingAtRef}) => {
       return Scroll.new({
         scroll: "torah",
-        makePath: (n) => `/build/pages/${n}.json`,
+        makePath: (n) => `/build/pages/torah/${n}.json`,
         makeTitle: (n) => title(page_titles_default[n - 1]),
         startingAtRef
       });
@@ -50994,7 +50994,7 @@
     new: ({startingAtRef}) => {
       return Scroll.new({
         scroll: "esther",
-        makePath: (n) => `/build/pages/${n}-esther.json`,
+        makePath: (n) => `/build/pages/esther/${n}.json`,
         makeTitle: (n) => "\u05D0\u05E1\u05EA\u05E8",
         startingAtRef
       });

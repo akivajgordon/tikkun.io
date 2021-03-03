@@ -48491,8 +48491,9 @@
   const ktivKriAnnotation = (text) => text.replace(/[{]/g, `<span class="ktiv-kri">`).replace(/[}]/g, `</span>`);
   const petuchaClass = (isPetucha) => isPetucha ? "mod-petucha" : "";
   const setumaClass = (column) => column.length > 1 ? "mod-setuma" : "";
+  const shiraClass = (text) => text.length === 3 ? "mod-shira" : "";
   const Line = ({text, verses, aliyot, isPetucha}) => `
-  <div class="line ${petuchaClass(isPetucha)}">
+  <div class="line ${petuchaClass(isPetucha)}  ${shiraClass(text)}">
     ${text.map((column) => `
       <div class="column">
         ${column.map((fragment) => `

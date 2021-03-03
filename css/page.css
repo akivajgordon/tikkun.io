@@ -86,6 +86,16 @@
   display: inline-block;
 }
 
+.mod-shira:nth-child(1) {
+  margin-right: 0;
+}
+.mod-shira:nth-child(2) {
+  text-align: center;
+}
+.mod-shira:nth-child(3) {
+  text-align: left;
+}
+
 .location-indicator {
   position: absolute;
   font-family: sans-serif;

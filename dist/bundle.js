@@ -48493,7 +48493,7 @@
   const setumaClass = (column) => column.length > 1 ? "mod-setuma" : "";
   const shiraClass = (text) => text.length === 3 ? "mod-shira" : "";
   const Line = ({text, verses, aliyot, isPetucha}) => `
-  <div class="line ${petuchaClass(isPetucha)}  ${shiraClass(text)}">
+  <div class="line ${petuchaClass(isPetucha)} ${shiraClass(text)}">
     ${text.map((column) => `
       <div class="column">
         ${column.map((fragment) => `

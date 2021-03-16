@@ -18,8 +18,6 @@ const insertAfter = (parent, child) => {
   parent.insertAdjacentElement('beforeend', child)
 }
 
-let isShowingParshaPicker = false
-
 let scroll
 
 const renderTitle = ({ title }) => {
@@ -44,9 +42,15 @@ const scrollToLine = ({ node, lineIndex }) => {
   book.scrollTop = line.offsetTop + (line.offsetHeight / 2) - (book.offsetHeight / 2)
 }
 
+const scrollsByKey = () => ({
+  'torah': TorahScroll,
+  'esther': EstherScroll,
+  'rosh-1': Rosh1Scroll
+})
+
 const app = {
   jumpTo: ({ ref, scroll: _scroll }) => {
-    scroll = (_scroll === 'esther' ? EstherScroll : TorahScroll).new({ startingAtRef: ref })
+    scroll = scrollsByKey()[_scroll].new({ startingAtRef: ref })
 
     purgeNode(document.querySelector('[data-target-id="tikkun-book"]'))
 
@@ -187,7 +191,7 @@ const renderPage = ({ insertStrategy: insert }) => ({ content, title }) => {
 
   insert(document.querySelector('[data-target-id="tikkun-book"]'), node)
 
-  const el = htmlToElement(Page(content))
+  const el = htmlToElement(Page({ scroll: scroll.scrollName, lines: content }))
 
   const firstChild = node.firstChild
   if (firstChild) {
@@ -218,6 +222,7 @@ const Scroll = {
     const iterator = IntegerIterator.new({ startingAt: pageNumber })
 
     return {
+      scrollName: scroll,
       fetchPrevious: () => {
         const n = iterator.previous()
         if (n <= 0) return Promise.resolve()
@@ -238,6 +243,17 @@ const TorahScroll = {
       scroll: 'torah',
       makePath: n => `/build/pages/torah/${n}.json`,
       makeTitle: n => getTitle(pageTitles[n - 1]),
+      startingAtRef
+    })
+  }
+}
+
+const Rosh1Scroll = {
+  new: ({ startingAtRef }) => {
+    return Scroll.new({
+      scroll: 'rosh-1',
+      makePath: n => `/build/pages/rosh-1/${n}.json`,
+      makeTitle: n => `ראש השנה א׳`,
       startingAtRef
     })
   }

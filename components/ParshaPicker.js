@@ -88,6 +88,15 @@ const Browse = () => `
       }
     </ol>
 
+    <h2 class="section-heading">חגים</h2>
+    <ol class="parsha-books">
+      <li class="parsha-book">
+        <ol class="parsha-list">
+          ${Parsha({ ref: { b: 1, c: 21, v: 1 }, he: 'ראש השנה א׳', scroll: 'rosh-1' })}
+        </ol>
+      </li>
+    </ol>
+
     <h2 class="section-heading">מגילות</h2>
     <ol class="parsha-books">
       <li class="parsha-book">

@@ -147,664 +147,9 @@
     module.exports = ({text, annotated}) => annotated ? ketiv(text) : kri(text);
   });
 
-  // build/parshiyot.json
-  var require_parshiyot = __commonJS((exports, module) => {
-    module.exports = [
-      {
-        he: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
-        en: "Bereshit",
-        ref: {
-          b: 1,
-          c: 1,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05E0\u05D7",
-        en: "Noach",
-        ref: {
-          b: 1,
-          c: 6,
-          v: 9,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05DC\u05DA \u05DC\u05DA",
-        en: "Lech Lecha",
-        ref: {
-          b: 1,
-          c: 12,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D5\u05D9\u05E8\u05D0",
-        en: "Vayera",
-        ref: {
-          b: 1,
-          c: 18,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
-        en: "Chayei Sara",
-        ref: {
-          b: 1,
-          c: 23,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
-        en: "Toldot",
-        ref: {
-          b: 1,
-          c: 25,
-          v: 19,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D5\u05D9\u05E6\u05D0",
-        en: "Vayetzei",
-        ref: {
-          b: 1,
-          c: 28,
-          v: 10,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D5\u05D9\u05E9\u05DC\u05D7",
-        en: "Vayishlach",
-        ref: {
-          b: 1,
-          c: 32,
-          v: 4,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D5\u05D9\u05E9\u05D1",
-        en: "Vayeshev",
-        ref: {
-          b: 1,
-          c: 37,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05DE\u05E7\u05E5",
-        en: "Miketz",
-        ref: {
-          b: 1,
-          c: 41,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D5\u05D9\u05D2\u05E9",
-        en: "Vayigash",
-        ref: {
-          b: 1,
-          c: 44,
-          v: 18,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D5\u05D9\u05D7\u05D9",
-        en: "Vayechi",
-        ref: {
-          b: 1,
-          c: 47,
-          v: 28,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05E9\u05DE\u05D5\u05EA",
-        en: "Shemot",
-        ref: {
-          b: 2,
-          c: 1,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D5\u05D0\u05E8\u05D0",
-        en: "Vaera",
-        ref: {
-          b: 2,
-          c: 6,
-          v: 2,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D1\u05D0",
-        en: "Bo",
-        ref: {
-          b: 2,
-          c: 10,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D1\u05E9\u05DC\u05D7",
-        en: "Beshalach",
-        ref: {
-          b: 2,
-          c: 13,
-          v: 17,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D9\u05EA\u05E8\u05D5",
-        en: "Yitro",
-        ref: {
-          b: 2,
-          c: 18,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
-        en: "Mishpatim",
-        ref: {
-          b: 2,
-          c: 21,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05EA\u05E8\u05D5\u05DE\u05D4",
-        en: "Terumah",
-        ref: {
-          b: 2,
-          c: 25,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05EA\u05E6\u05D5\u05D4",
-        en: "Tetzaveh",
-        ref: {
-          b: 2,
-          c: 27,
-          v: 20,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05DB\u05D9 \u05EA\u05E9\u05D0",
-        en: "Ki Tisa",
-        ref: {
-          b: 2,
-          c: 30,
-          v: 11,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D5\u05D9\u05E7\u05D4\u05DC",
-        en: "Vayakhel",
-        ref: {
-          b: 2,
-          c: 35,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05E4\u05E7\u05D5\u05D3\u05D9",
-        en: "Pekudei",
-        ref: {
-          b: 2,
-          c: 38,
-          v: 21,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D5\u05D9\u05E7\u05E8\u05D0",
-        en: "Vayikra",
-        ref: {
-          b: 3,
-          c: 1,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05E6\u05D5",
-        en: "Tzav",
-        ref: {
-          b: 3,
-          c: 6,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05E9\u05DE\u05D9\u05E0\u05D9",
-        en: "Shmini",
-        ref: {
-          b: 3,
-          c: 9,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05EA\u05D6\u05E8\u05D9\u05E2",
-        en: "Tazria",
-        ref: {
-          b: 3,
-          c: 12,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05DE\u05E6\u05D5\u05E8\u05E2",
-        en: "Metzora",
-        ref: {
-          b: 3,
-          c: 14,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA",
-        en: "Achrei Mot",
-        ref: {
-          b: 3,
-          c: 16,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
-        en: "Kedoshim",
-        ref: {
-          b: 3,
-          c: 19,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D0\u05DE\u05D5\u05E8",
-        en: "Emor",
-        ref: {
-          b: 3,
-          c: 21,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D1\u05D4\u05E8",
-        en: "Behar",
-        ref: {
-          b: 3,
-          c: 25,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D1\u05D7\u05E7\u05EA\u05D9",
-        en: "Bechukotai",
-        ref: {
-          b: 3,
-          c: 26,
-          v: 3,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D1\u05DE\u05D3\u05D1\u05E8",
-        en: "Bamidbar",
-        ref: {
-          b: 4,
-          c: 1,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05E0\u05E9\u05D0",
-        en: "Nasso",
-        ref: {
-          b: 4,
-          c: 4,
-          v: 21,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA",
-        en: "Beha'alotcha",
-        ref: {
-          b: 4,
-          c: 8,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05E9\u05DC\u05D7",
-        en: "Sh'lach",
-        ref: {
-          b: 4,
-          c: 13,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05E7\u05E8\u05D7",
-        en: "Korach",
-        ref: {
-          b: 4,
-          c: 16,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D7\u05E7\u05EA",
-        en: "Chukat",
-        ref: {
-          b: 4,
-          c: 19,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D1\u05DC\u05E7",
-        en: "Balak",
-        ref: {
-          b: 4,
-          c: 22,
-          v: 2,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05E4\u05E0\u05D7\u05E1",
-        en: "Pinchas",
-        ref: {
-          b: 4,
-          c: 25,
-          v: 10,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05DE\u05D8\u05D5\u05EA",
-        en: "Matot",
-        ref: {
-          b: 4,
-          c: 30,
-          v: 2,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05DE\u05E1\u05E2\u05D9",
-        en: "Masei",
-        ref: {
-          b: 4,
-          c: 33,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D3\u05D1\u05E8\u05D9\u05DD",
-        en: "Devarim",
-        ref: {
-          b: 5,
-          c: 1,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
-        en: "Vaetchanan",
-        ref: {
-          b: 5,
-          c: 3,
-          v: 23,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05E2\u05E7\u05D1",
-        en: "Eikev",
-        ref: {
-          b: 5,
-          c: 7,
-          v: 12,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05E8\u05D0\u05D4",
-        en: "Re'eh",
-        ref: {
-          b: 5,
-          c: 11,
-          v: 26,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
-        en: "Shoftim",
-        ref: {
-          b: 5,
-          c: 16,
-          v: 18,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05DB\u05D9 \u05EA\u05E6\u05D0",
-        en: "Ki Teitzei",
-        ref: {
-          b: 5,
-          c: 21,
-          v: 10,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
-        en: "Ki Tavo",
-        ref: {
-          b: 5,
-          c: 26,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05E0\u05E6\u05D1\u05D9\u05DD",
-        en: "Nitzavim",
-        ref: {
-          b: 5,
-          c: 29,
-          v: 9,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D5\u05D9\u05DC\u05DA",
-        en: "Vayeilech",
-        ref: {
-          b: 5,
-          c: 31,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
-        en: "Ha'Azinu",
-        ref: {
-          b: 5,
-          c: 32,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      },
-      {
-        he: "\u05D5\u05D6\u05D0\u05EA \u05D4\u05D1\u05E8\u05DB\u05D4",
-        en: "Vezot Haberakhah",
-        ref: {
-          b: 5,
-          c: 33,
-          v: 1,
-          a: [
-            1
-          ]
-        }
-      }
-    ];
-  });
-
   // src/display-range.js
   var require_display_range = __commonJS((exports, module) => {
     const hebrewNumeralFromInteger2 = require_hebrew_numeral();
-    const parshiyot3 = require_parshiyot();
     var asRange = (strings) => {
       if (!strings.length) {
         return "";
@@ -824,10 +169,9 @@
       "\u05E9\u05D1\u05D9\u05E2\u05D9",
       "\u05DE\u05E4\u05D8\u05D9\u05E8"
     ];
-    const parshaName = (verses) => parshiyot3.find(({ref}) => verses.some(({book: b, chapter: c, verse: v}) => ref.b === b && ref.c === c && ref.v === v)).he;
-    const aliyotNames = (aliyot, verses) => aliyot.filter((aliyah) => aliyah > 0 && aliyah <= aliyotStrings.length).map((aliyah) => aliyotStrings[aliyah - 1]).map((aliyah) => {
+    const aliyotNames = (aliyot, getParshaName2) => aliyot.filter((aliyah) => aliyah > 0 && aliyah <= aliyotStrings.length).map((aliyah) => aliyotStrings[aliyah - 1]).map((aliyah) => {
       if (aliyah === "\u05E8\u05D0\u05E9\u05D5\u05DF") {
-        return parshaName(verses);
+        return getParshaName2();
       }
       return aliyah;
     });
@@ -839,11 +183,11 @@
       components.push(verse.verse);
       return components.map((num) => hebrewNumeralFromInteger2(num)).join(":");
     }));
-    const asAliyotRange = (aliyot, verses) => {
+    const asAliyotRange = (aliyot, getParshaName2) => {
       if (!aliyot.length) {
         return "";
       }
-      const aliyotByName = aliyotNames(aliyot, verses);
+      const aliyotByName = aliyotNames(aliyot, getParshaName2);
       return aliyotByName[0] + (aliyotByName[1] ? ` [${aliyotByName[1]}]` : "");
     };
     module.exports = {asVersesRange, asAliyotRange};
@@ -851,8 +195,8 @@
 
   // src/title.js
   var require_title = __commonJS((exports, module) => {
-    module.exports = (parshiyot3) => {
-      return parshiyot3.join(" \u2013 ");
+    module.exports = (parshiyot4) => {
+      return parshiyot4.join(" \u2013 ");
     };
   });
 
@@ -48404,13 +47748,1003 @@
     };
   });
 
+  // build/table-of-contents-rosh-1.json
+  var require_table_of_contents_rosh_1 = __commonJS((exports, module) => {
+    module.exports = {
+      "1": {
+        "19": {
+          "36": {
+            p: 1,
+            l: 1
+          },
+          "37": {
+            p: 1,
+            l: 2
+          },
+          "38": {
+            p: 1,
+            l: 3
+          }
+        },
+        "20": {
+          "1": {
+            p: 1,
+            l: 5
+          },
+          "2": {
+            p: 1,
+            l: 7
+          },
+          "3": {
+            p: 1,
+            l: 8
+          },
+          "4": {
+            p: 1,
+            l: 10
+          },
+          "5": {
+            p: 1,
+            l: 12
+          },
+          "6": {
+            p: 1,
+            l: 13
+          },
+          "7": {
+            p: 1,
+            l: 16
+          },
+          "8": {
+            p: 1,
+            l: 18
+          },
+          "9": {
+            p: 1,
+            l: 20
+          },
+          "10": {
+            p: 1,
+            l: 23
+          },
+          "11": {
+            p: 1,
+            l: 25
+          },
+          "12": {
+            p: 1,
+            l: 26
+          },
+          "13": {
+            p: 1,
+            l: 27
+          },
+          "14": {
+            p: 1,
+            l: 30
+          },
+          "15": {
+            p: 1,
+            l: 32
+          },
+          "16": {
+            p: 1,
+            l: 33
+          },
+          "17": {
+            p: 1,
+            l: 35
+          },
+          "18": {
+            p: 1,
+            l: 36
+          }
+        },
+        "21": {
+          "1": {
+            p: 1,
+            l: 38
+          },
+          "2": {
+            p: 1,
+            l: 40
+          },
+          "3": {
+            p: 1,
+            l: 41
+          },
+          "4": {
+            p: 2,
+            l: 1
+          },
+          "5": {
+            p: 2,
+            l: 2
+          },
+          "6": {
+            p: 2,
+            l: 3
+          },
+          "7": {
+            p: 2,
+            l: 4
+          },
+          "8": {
+            p: 2,
+            l: 5
+          },
+          "9": {
+            p: 2,
+            l: 7
+          },
+          "10": {
+            p: 2,
+            l: 8
+          },
+          "11": {
+            p: 2,
+            l: 10
+          },
+          "12": {
+            p: 2,
+            l: 11
+          },
+          "13": {
+            p: 2,
+            l: 14
+          },
+          "14": {
+            p: 2,
+            l: 15
+          },
+          "15": {
+            p: 2,
+            l: 17
+          },
+          "16": {
+            p: 2,
+            l: 18
+          },
+          "17": {
+            p: 2,
+            l: 21
+          },
+          "18": {
+            p: 2,
+            l: 24
+          },
+          "19": {
+            p: 2,
+            l: 25
+          },
+          "20": {
+            p: 2,
+            l: 27
+          },
+          "21": {
+            p: 2,
+            l: 28
+          },
+          "22": {
+            p: 2,
+            l: 30
+          },
+          "23": {
+            p: 2,
+            l: 32
+          },
+          "24": {
+            p: 2,
+            l: 34
+          },
+          "25": {
+            p: 2,
+            l: 35
+          },
+          "26": {
+            p: 2,
+            l: 36
+          },
+          "27": {
+            p: 2,
+            l: 39
+          },
+          "28": {
+            p: 2,
+            l: 40
+          },
+          "29": {
+            p: 2,
+            l: 41
+          },
+          "30": {
+            p: 3,
+            l: 1
+          },
+          "31": {
+            p: 3,
+            l: 2
+          },
+          "32": {
+            p: 3,
+            l: 4
+          },
+          "33": {
+            p: 3,
+            l: 5
+          },
+          "34": {
+            p: 3,
+            l: 6
+          }
+        },
+        "22": {
+          "1": {
+            p: 3,
+            l: 8
+          },
+          "2": {
+            p: 3,
+            l: 9
+          },
+          "3": {
+            p: 3,
+            l: 12
+          },
+          "4": {
+            p: 3,
+            l: 15
+          },
+          "5": {
+            p: 3,
+            l: 16
+          },
+          "6": {
+            p: 3,
+            l: 18
+          },
+          "7": {
+            p: 3,
+            l: 20
+          },
+          "8": {
+            p: 3,
+            l: 22
+          },
+          "9": {
+            p: 3,
+            l: 24
+          },
+          "10": {
+            p: 3,
+            l: 27
+          },
+          "11": {
+            p: 3,
+            l: 28
+          },
+          "12": {
+            p: 3,
+            l: 29
+          },
+          "13": {
+            p: 3,
+            l: 32
+          },
+          "14": {
+            p: 3,
+            l: 34
+          },
+          "15": {
+            p: 3,
+            l: 36
+          },
+          "16": {
+            p: 3,
+            l: 37
+          },
+          "17": {
+            p: 3,
+            l: 38
+          },
+          "18": {
+            p: 3,
+            l: 41
+          },
+          "19": {
+            p: 3,
+            l: 42
+          }
+        }
+      }
+    };
+  });
+
   // src/location.js
   var require_location = __commonJS((exports, module) => {
     const toc = require_table_of_contents();
     const estherToc = require_table_of_contents_esther();
+    const rosh1Toc = require_table_of_contents_rosh_1();
+    const tocFromScroll = {
+      torah: toc,
+      esther: estherToc,
+      "rosh-1": rosh1Toc
+    };
     module.exports = ({ref: {b: book, c: chapter, v: verse}, scroll: scroll2}) => {
-      const {p: pageNumber, l: lineNumber} = (scroll2 === "torah" ? toc : estherToc)[book][chapter][verse];
+      const {p: pageNumber, l: lineNumber} = tocFromScroll[scroll2][book][chapter][verse];
       return {pageNumber, lineNumber};
+    };
+  });
+
+  // build/parshiyot.json
+  var require_parshiyot = __commonJS((exports, module) => {
+    module.exports = [
+      {
+        he: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
+        en: "Bereshit",
+        ref: {
+          b: 1,
+          c: 1,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05E0\u05D7",
+        en: "Noach",
+        ref: {
+          b: 1,
+          c: 6,
+          v: 9,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05DC\u05DA \u05DC\u05DA",
+        en: "Lech Lecha",
+        ref: {
+          b: 1,
+          c: 12,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D5\u05D9\u05E8\u05D0",
+        en: "Vayera",
+        ref: {
+          b: 1,
+          c: 18,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
+        en: "Chayei Sara",
+        ref: {
+          b: 1,
+          c: 23,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
+        en: "Toldot",
+        ref: {
+          b: 1,
+          c: 25,
+          v: 19,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D5\u05D9\u05E6\u05D0",
+        en: "Vayetzei",
+        ref: {
+          b: 1,
+          c: 28,
+          v: 10,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D5\u05D9\u05E9\u05DC\u05D7",
+        en: "Vayishlach",
+        ref: {
+          b: 1,
+          c: 32,
+          v: 4,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D5\u05D9\u05E9\u05D1",
+        en: "Vayeshev",
+        ref: {
+          b: 1,
+          c: 37,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05DE\u05E7\u05E5",
+        en: "Miketz",
+        ref: {
+          b: 1,
+          c: 41,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D5\u05D9\u05D2\u05E9",
+        en: "Vayigash",
+        ref: {
+          b: 1,
+          c: 44,
+          v: 18,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D5\u05D9\u05D7\u05D9",
+        en: "Vayechi",
+        ref: {
+          b: 1,
+          c: 47,
+          v: 28,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05E9\u05DE\u05D5\u05EA",
+        en: "Shemot",
+        ref: {
+          b: 2,
+          c: 1,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D5\u05D0\u05E8\u05D0",
+        en: "Vaera",
+        ref: {
+          b: 2,
+          c: 6,
+          v: 2,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D1\u05D0",
+        en: "Bo",
+        ref: {
+          b: 2,
+          c: 10,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D1\u05E9\u05DC\u05D7",
+        en: "Beshalach",
+        ref: {
+          b: 2,
+          c: 13,
+          v: 17,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D9\u05EA\u05E8\u05D5",
+        en: "Yitro",
+        ref: {
+          b: 2,
+          c: 18,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
+        en: "Mishpatim",
+        ref: {
+          b: 2,
+          c: 21,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05EA\u05E8\u05D5\u05DE\u05D4",
+        en: "Terumah",
+        ref: {
+          b: 2,
+          c: 25,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05EA\u05E6\u05D5\u05D4",
+        en: "Tetzaveh",
+        ref: {
+          b: 2,
+          c: 27,
+          v: 20,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05DB\u05D9 \u05EA\u05E9\u05D0",
+        en: "Ki Tisa",
+        ref: {
+          b: 2,
+          c: 30,
+          v: 11,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D5\u05D9\u05E7\u05D4\u05DC",
+        en: "Vayakhel",
+        ref: {
+          b: 2,
+          c: 35,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05E4\u05E7\u05D5\u05D3\u05D9",
+        en: "Pekudei",
+        ref: {
+          b: 2,
+          c: 38,
+          v: 21,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D5\u05D9\u05E7\u05E8\u05D0",
+        en: "Vayikra",
+        ref: {
+          b: 3,
+          c: 1,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05E6\u05D5",
+        en: "Tzav",
+        ref: {
+          b: 3,
+          c: 6,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05E9\u05DE\u05D9\u05E0\u05D9",
+        en: "Shmini",
+        ref: {
+          b: 3,
+          c: 9,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05EA\u05D6\u05E8\u05D9\u05E2",
+        en: "Tazria",
+        ref: {
+          b: 3,
+          c: 12,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05DE\u05E6\u05D5\u05E8\u05E2",
+        en: "Metzora",
+        ref: {
+          b: 3,
+          c: 14,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA",
+        en: "Achrei Mot",
+        ref: {
+          b: 3,
+          c: 16,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
+        en: "Kedoshim",
+        ref: {
+          b: 3,
+          c: 19,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D0\u05DE\u05D5\u05E8",
+        en: "Emor",
+        ref: {
+          b: 3,
+          c: 21,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D1\u05D4\u05E8",
+        en: "Behar",
+        ref: {
+          b: 3,
+          c: 25,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D1\u05D7\u05E7\u05EA\u05D9",
+        en: "Bechukotai",
+        ref: {
+          b: 3,
+          c: 26,
+          v: 3,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D1\u05DE\u05D3\u05D1\u05E8",
+        en: "Bamidbar",
+        ref: {
+          b: 4,
+          c: 1,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05E0\u05E9\u05D0",
+        en: "Nasso",
+        ref: {
+          b: 4,
+          c: 4,
+          v: 21,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA",
+        en: "Beha'alotcha",
+        ref: {
+          b: 4,
+          c: 8,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05E9\u05DC\u05D7",
+        en: "Sh'lach",
+        ref: {
+          b: 4,
+          c: 13,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05E7\u05E8\u05D7",
+        en: "Korach",
+        ref: {
+          b: 4,
+          c: 16,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D7\u05E7\u05EA",
+        en: "Chukat",
+        ref: {
+          b: 4,
+          c: 19,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D1\u05DC\u05E7",
+        en: "Balak",
+        ref: {
+          b: 4,
+          c: 22,
+          v: 2,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05E4\u05E0\u05D7\u05E1",
+        en: "Pinchas",
+        ref: {
+          b: 4,
+          c: 25,
+          v: 10,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05DE\u05D8\u05D5\u05EA",
+        en: "Matot",
+        ref: {
+          b: 4,
+          c: 30,
+          v: 2,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05DE\u05E1\u05E2\u05D9",
+        en: "Masei",
+        ref: {
+          b: 4,
+          c: 33,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D3\u05D1\u05E8\u05D9\u05DD",
+        en: "Devarim",
+        ref: {
+          b: 5,
+          c: 1,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
+        en: "Vaetchanan",
+        ref: {
+          b: 5,
+          c: 3,
+          v: 23,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05E2\u05E7\u05D1",
+        en: "Eikev",
+        ref: {
+          b: 5,
+          c: 7,
+          v: 12,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05E8\u05D0\u05D4",
+        en: "Re'eh",
+        ref: {
+          b: 5,
+          c: 11,
+          v: 26,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
+        en: "Shoftim",
+        ref: {
+          b: 5,
+          c: 16,
+          v: 18,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05DB\u05D9 \u05EA\u05E6\u05D0",
+        en: "Ki Teitzei",
+        ref: {
+          b: 5,
+          c: 21,
+          v: 10,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
+        en: "Ki Tavo",
+        ref: {
+          b: 5,
+          c: 26,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05E0\u05E6\u05D1\u05D9\u05DD",
+        en: "Nitzavim",
+        ref: {
+          b: 5,
+          c: 29,
+          v: 9,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D5\u05D9\u05DC\u05DA",
+        en: "Vayeilech",
+        ref: {
+          b: 5,
+          c: 31,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
+        en: "Ha'Azinu",
+        ref: {
+          b: 5,
+          c: 32,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      },
+      {
+        he: "\u05D5\u05D6\u05D0\u05EA \u05D4\u05D1\u05E8\u05DB\u05D4",
+        en: "Vezot Haberakhah",
+        ref: {
+          b: 5,
+          c: 33,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      }
+    ];
+  });
+
+  // build/holydays.json
+  var require_holydays = __commonJS((exports, module) => {
+    module.exports = {
+      "rosh-1": {
+        en: "Rosh HaShanah (Day 1)",
+        he: "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D0\u05F3",
+        ref: {
+          b: 1,
+          c: 21,
+          v: 1,
+          a: [
+            1
+          ]
+        }
+      }
     };
   });
 
@@ -48488,10 +48822,18 @@
   const physicalLocationFromRef = require_location();
 
   // components/Line.js
+  const parshiyot = require_parshiyot();
+  const holydays = require_holydays();
   const ktivKriAnnotation = (text) => text.replace(/[{]/g, `<span class="ktiv-kri">`).replace(/[}]/g, `</span>`);
   const petuchaClass = (isPetucha) => isPetucha ? "mod-petucha" : "";
   const setumaClass = (column) => column.length > 1 ? "mod-setuma" : "";
-  const Line = ({text, verses, aliyot, isPetucha}) => `
+  const aliyahFinderByScroll = {
+    torah: parshiyot,
+    "rosh-1": [holydays["rosh-1"]]
+  };
+  const parshaName = (verses, __scroll) => aliyahFinderByScroll[__scroll].find(({ref}) => verses.some(({book: b, chapter: c, verse: v}) => ref.b === b && ref.c === c && ref.v === v)).he;
+  const getParshaName = (verses, __scroll) => () => parshaName(verses, __scroll);
+  const Line = ({scroll: __scroll, text, verses, aliyot, isPetucha}) => `
   <div class="line ${petuchaClass(isPetucha)}">
     ${text.map((column) => `
       <div class="column">
@@ -48502,17 +48844,17 @@
       </div>
     `).join("")}
     <span class="location-indicator mod-verses">${displayRange.asVersesRange(verses)}</span>
-    <span class="location-indicator mod-aliyot" data-target-id="aliyot-range">${displayRange.asAliyotRange(aliyot, verses)}</span>
+    <span class="location-indicator mod-aliyot" data-target-id="aliyot-range">${displayRange.asAliyotRange(aliyot, getParshaName(verses, __scroll))}</span>
   </div>
 `;
   var Line_default = Line;
 
   // components/Page.js
-  const Page = (lines) => `
+  const Page = ({scroll: _scroll, lines}) => `
   <table>
     ${lines.map((line) => `
       <tr>
-        <td>${Line_default(line)}</td>
+        <td>${Line_default({scroll: _scroll, ...line})}</td>
       </tr>
     `).join("")}
   </table>
@@ -48520,7 +48862,7 @@
   var Page_default = Page;
 
   // components/ParshaPicker.js
-  const parshiyot = __toModule(require_parshiyot());
+  const parshiyot2 = __toModule(require_parshiyot());
 
   // build/schedule.json
   var schedule_default = [
@@ -49826,7 +50168,7 @@
     </ol>
   </li>
 `;
-  const refFromLabel = ({label}) => parshiyot.default.find(({he}) => label.startsWith(he)).ref;
+  const refFromLabel = ({label}) => parshiyot2.default.find(({he}) => label.startsWith(he)).ref;
   const ComingUpReading = ({label, date, datetime}) => {
     const {b: book, c: chapter, v: verse} = refFromLabel({label});
     return `
@@ -49862,12 +50204,21 @@
   <div class="browse">
     <h2 class="section-heading">\u05EA\u05D5\u05E8\u05D4</h2>
     <ol class="parsha-books">
-      ${parshiyot.default.reduce((books, parsha) => {
+      ${parshiyot2.default.reduce((books, parsha) => {
     const book = parsha.ref.b;
     books[book] = books[book] || [];
     books[book].push(parsha);
     return books;
   }, []).map(Book).join("")}
+    </ol>
+
+    <h2 class="section-heading">\u05D7\u05D2\u05D9\u05DD</h2>
+    <ol class="parsha-books">
+      <li class="parsha-book">
+        <ol class="parsha-list">
+          ${Parsha({ref: {b: 1, c: 21, v: 1}, he: "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D0\u05F3", scroll: "rosh-1"})}
+        </ol>
+      </li>
     </ol>
 
     <h2 class="section-heading">\u05DE\u05D2\u05D9\u05DC\u05D5\u05EA</h2>
@@ -49934,7 +50285,7 @@
     return self;
   };
   const searchables = [
-    ...parshiyot.default.map((p) => ({...p, scroll: "torah"})),
+    ...parshiyot2.default.map((p) => ({...p, scroll: "torah"})),
     {
       he: "\u05D0\u05E1\u05EA\u05E8",
       en: "Esther",
@@ -50841,9 +51192,14 @@
     const book = document.querySelector(".tikkun-book");
     book.scrollTop = line.offsetTop + line.offsetHeight / 2 - book.offsetHeight / 2;
   };
+  const scrollsByKey = () => ({
+    torah: TorahScroll,
+    esther: EstherScroll,
+    "rosh-1": Rosh1Scroll
+  });
   const app = {
     jumpTo: ({ref, scroll: _scroll}) => {
-      scroll = (_scroll === "esther" ? EstherScroll : TorahScroll).new({startingAtRef: ref});
+      scroll = scrollsByKey()[_scroll].new({startingAtRef: ref});
       purgeNode3(document.querySelector('[data-target-id="tikkun-book"]'));
       scroll.fetchNext().then(renderNext).then((pageNode) => {
         scrollToLine({node: pageNode, lineIndex: scroll.startingLineNumber - 1});
@@ -50946,7 +51302,7 @@
   const renderPage = ({insertStrategy: insert}) => ({content, title: title2}) => {
     const node = makePageNode({title: title2});
     insert(document.querySelector('[data-target-id="tikkun-book"]'), node);
-    const el = htmlToElement5(Page_default(content));
+    const el = htmlToElement5(Page_default({scroll: scroll.scrollName, lines: content}));
     const firstChild = node.firstChild;
     if (firstChild) {
       node.replaceChild(el, firstChild);
@@ -50966,6 +51322,7 @@
       const {pageNumber, lineNumber} = physicalLocationFromRef({ref: startingAtRef, scroll: scroll2});
       const iterator = integer_iterator.default.new({startingAt: pageNumber});
       return {
+        scrollName: scroll2,
         fetchPrevious: () => {
           const n = iterator.previous();
           if (n <= 0)
@@ -50986,6 +51343,16 @@
         scroll: "torah",
         makePath: (n) => `/build/pages/torah/${n}.json`,
         makeTitle: (n) => title(page_titles_default[n - 1]),
+        startingAtRef
+      });
+    }
+  };
+  const Rosh1Scroll = {
+    new: ({startingAtRef}) => {
+      return Scroll.new({
+        scroll: "rosh-1",
+        makePath: (n) => `/build/pages/rosh-1/${n}.json`,
+        makeTitle: (n) => `\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D0\u05F3`,
         startingAtRef
       });
     }

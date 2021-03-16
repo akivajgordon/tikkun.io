@@ -1,5 +1,4 @@
 const hebrewNumeralFromInteger = require('./hebrew-numeral')
-const parshiyot = require('../build/parshiyot.json')
 
 var asRange = (strings) => {
   if (!strings.length) {
@@ -24,18 +23,12 @@ const aliyotStrings = [
   'מפטיר'
 ]
 
-const parshaName = (verses) => parshiyot
-  .find(({ ref }) => verses
-    .some(({ book: b, chapter: c, verse: v }) => ref.b === b && ref.c === c && ref.v === v
-    )
-  ).he
-
-const aliyotNames = (aliyot, verses) => aliyot
+const aliyotNames = (aliyot, getParshaName) => aliyot
   .filter((aliyah) => aliyah > 0 && aliyah <= aliyotStrings.length)
   .map((aliyah) => aliyotStrings[aliyah - 1])
   .map(aliyah => {
     if (aliyah === 'ראשון') {
-      return parshaName(verses)
+      return getParshaName()
     }
 
     return aliyah
@@ -55,12 +48,12 @@ const asVersesRange = (verses) => asRange(verses.map((verse) => {
     .join(':')
 }))
 
-const asAliyotRange = (aliyot, verses) => {
+const asAliyotRange = (aliyot, getParshaName) => {
   if (!aliyot.length) {
     return ''
   }
 
-  const aliyotByName = aliyotNames(aliyot, verses)
+  const aliyotByName = aliyotNames(aliyot, getParshaName)
 
   return aliyotByName[0] + (aliyotByName[1] ? ` [${aliyotByName[1]}]` : '')
 }

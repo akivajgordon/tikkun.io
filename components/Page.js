@@ -1,10 +1,10 @@
 import Line from './Line'
 
-const Page = (lines) => `
+const Page = ({ scroll: _scroll, lines }) => `
   <table>
     ${lines.map((line) => (`
       <tr>
-        <td>${Line(line)}</td>
+        <td>${Line({ scroll: _scroll, ...line })}</td>
       </tr>
     `)).join('')}
   </table>

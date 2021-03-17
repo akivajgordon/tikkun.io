@@ -23,16 +23,16 @@ const aliyotStrings = [
   'מפטיר'
 ]
 
-const aliyotNames = (aliyot, getParshaName) => aliyot
-  .filter((aliyah) => aliyah > 0 && aliyah <= aliyotStrings.length)
-  .map((aliyah) => aliyotStrings[aliyah - 1])
-  .map(aliyah => {
-    if (aliyah === 'ראשון') {
-      return getParshaName()
-    }
+const aliyahName = ({ aliyah, getParshaName }) => {
+  if (aliyah < 1 || aliyah > aliyotStrings.length) return null
 
-    return aliyah
-  })
+  if (aliyah === 1) return getParshaName()
+
+  return aliyotStrings[aliyah - 1]
+}
+
+const aliyotNames = (aliyot, getParshaName) => aliyot
+  .map((aliyah) => aliyahName({ aliyah, getParshaName }))
 
 const asVersesRange = (verses) => asRange(verses.map((verse) => {
   const components = []
@@ -58,4 +58,4 @@ const asAliyotRange = (aliyot, getParshaName) => {
   return aliyotByName[0] + (aliyotByName[1] ? ` [${aliyotByName[1]}]` : '')
 }
 
-module.exports = { asVersesRange, asAliyotRange }
+module.exports = { asVersesRange, asAliyotRange, aliyotStrings, aliyotNames, aliyahName }

@@ -29,7 +29,10 @@
       }
     ],
     "aliyot": [
-      2
+      {
+        "standard": 2,
+        "special": 2
+      }
     ],
     "isPetucha": false
   },
@@ -105,8 +108,9 @@
       }
     ],
     "aliyot": [
-      0,
-      3
+      {
+        "special": 3
+      }
     ],
     "isPetucha": false
   },
@@ -202,8 +206,10 @@
       }
     ],
     "aliyot": [
-      3,
-      4
+      {
+        "standard": 3,
+        "special": 4
+      }
     ],
     "isPetucha": false
   },
@@ -335,8 +341,9 @@
       }
     ],
     "aliyot": [
-      0,
-      5
+      {
+        "special": 5
+      }
     ],
     "isPetucha": false
   },
@@ -422,8 +429,10 @@
       }
     ],
     "aliyot": [
-      4,
-      6
+      {
+        "standard": 4,
+        "special": 6
+      }
     ],
     "isPetucha": false
   },
@@ -561,8 +570,10 @@
       }
     ],
     "aliyot": [
-      5,
-      7
+      {
+        "standard": 5,
+        "special": 7
+      }
     ],
     "isPetucha": false
   },

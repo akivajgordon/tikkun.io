@@ -277,7 +277,9 @@
       }
     ],
     "aliyot": [
-      2
+      {
+        "standard": 2
+      }
     ],
     "isPetucha": false
   },
@@ -471,8 +473,10 @@
       }
     ],
     "aliyot": [
-      3,
-      2
+      {
+        "standard": 3,
+        "double": 2
+      }
     ],
     "isPetucha": false
   },

@@ -118,7 +118,9 @@
       }
     ],
     "aliyot": [
-      7
+      {
+        "standard": 7
+      }
     ],
     "isPetucha": false
   },

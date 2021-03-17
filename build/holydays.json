@@ -6,9 +6,23 @@
       "b": 1,
       "c": 21,
       "v": 1,
-      "a": [
-        1
-      ]
+      "a": {
+        "standard": 1,
+        "special": 1
+      }
+    }
+  },
+  "rosh-2": {
+    "en": "Rosh HaShanah (Day 2)",
+    "he": "ראש השנה ב׳",
+    "ref": {
+      "b": 1,
+      "c": 22,
+      "v": 1,
+      "a": {
+        "standard": 1,
+        "special": 1
+      }
     }
   }
 }

@@ -48062,15 +48062,227 @@
     };
   });
 
+  // build/table-of-contents-rosh-2.json
+  var require_table_of_contents_rosh_2 = __commonJS((exports, module) => {
+    module.exports = {
+      "1": {
+        "21": {
+          "30": {
+            p: 1,
+            l: 1
+          },
+          "31": {
+            p: 1,
+            l: 2
+          },
+          "32": {
+            p: 1,
+            l: 4
+          },
+          "33": {
+            p: 1,
+            l: 5
+          },
+          "34": {
+            p: 1,
+            l: 6
+          }
+        },
+        "22": {
+          "1": {
+            p: 1,
+            l: 8
+          },
+          "2": {
+            p: 1,
+            l: 9
+          },
+          "3": {
+            p: 1,
+            l: 12
+          },
+          "4": {
+            p: 1,
+            l: 15
+          },
+          "5": {
+            p: 1,
+            l: 16
+          },
+          "6": {
+            p: 1,
+            l: 18
+          },
+          "7": {
+            p: 1,
+            l: 20
+          },
+          "8": {
+            p: 1,
+            l: 22
+          },
+          "9": {
+            p: 1,
+            l: 24
+          },
+          "10": {
+            p: 1,
+            l: 27
+          },
+          "11": {
+            p: 1,
+            l: 28
+          },
+          "12": {
+            p: 1,
+            l: 29
+          },
+          "13": {
+            p: 1,
+            l: 32
+          },
+          "14": {
+            p: 1,
+            l: 34
+          },
+          "15": {
+            p: 1,
+            l: 36
+          },
+          "16": {
+            p: 1,
+            l: 37
+          },
+          "17": {
+            p: 1,
+            l: 38
+          },
+          "18": {
+            p: 1,
+            l: 41
+          },
+          "19": {
+            p: 1,
+            l: 42
+          },
+          "20": {
+            p: 2,
+            l: 3
+          },
+          "21": {
+            p: 2,
+            l: 4
+          },
+          "22": {
+            p: 2,
+            l: 6
+          },
+          "23": {
+            p: 2,
+            l: 7
+          },
+          "24": {
+            p: 2,
+            l: 8
+          }
+        },
+        "23": {
+          "1": {
+            p: 2,
+            l: 11
+          },
+          "2": {
+            p: 2,
+            l: 12
+          },
+          "3": {
+            p: 2,
+            l: 14
+          },
+          "4": {
+            p: 2,
+            l: 15
+          },
+          "5": {
+            p: 2,
+            l: 16
+          },
+          "6": {
+            p: 2,
+            l: 17
+          },
+          "7": {
+            p: 2,
+            l: 19
+          },
+          "8": {
+            p: 2,
+            l: 20
+          },
+          "9": {
+            p: 2,
+            l: 22
+          },
+          "10": {
+            p: 2,
+            l: 24
+          },
+          "11": {
+            p: 2,
+            l: 26
+          },
+          "12": {
+            p: 2,
+            l: 28
+          },
+          "13": {
+            p: 2,
+            l: 29
+          },
+          "14": {
+            p: 2,
+            l: 32
+          },
+          "15": {
+            p: 2,
+            l: 32
+          },
+          "16": {
+            p: 2,
+            l: 34
+          },
+          "17": {
+            p: 2,
+            l: 36
+          },
+          "18": {
+            p: 2,
+            l: 39
+          },
+          "19": {
+            p: 2,
+            l: 40
+          },
+          "20": {
+            p: 2,
+            l: 42
+          }
+        }
+      }
+    };
+  });
+
   // src/location.js
   var require_location = __commonJS((exports, module) => {
     const toc = require_table_of_contents();
     const estherToc = require_table_of_contents_esther();
     const rosh1Toc = require_table_of_contents_rosh_1();
+    const rosh2Toc = require_table_of_contents_rosh_2();
     const tocFromScroll = {
       torah: toc,
       esther: estherToc,
-      "rosh-1": rosh1Toc
+      "rosh-1": rosh1Toc,
+      "rosh-2": rosh2Toc
     };
     module.exports = ({ref: {b: book, c: chapter, v: verse}, scroll: scroll2}) => {
       const {p: pageNumber, l: lineNumber} = tocFromScroll[scroll2][book][chapter][verse];
@@ -51492,7 +51704,8 @@
   const setumaClass = (column) => column.length > 1 ? "mod-setuma" : "";
   const aliyahFinderByScroll = {
     torah: parshiyot,
-    "rosh-1": [holydays["rosh-1"]]
+    "rosh-1": [holydays["rosh-1"]],
+    "rosh-2": [holydays["rosh-2"]]
   };
   const aliyotByRefByScroll = aliyotJSON;
   const getParshaName = (verses, __scroll) => () => parshaName(verses, __scroll);
@@ -52894,6 +53107,7 @@
       <li class="parsha-book">
         <ol class="parsha-list">
           ${Parsha({ref: {b: 1, c: 21, v: 1}, he: "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D0\u05F3", scroll: "rosh-1"})}
+          ${Parsha({ref: {b: 1, c: 22, v: 1}, he: "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D1\u05F3", scroll: "rosh-2"})}
         </ol>
       </li>
     </ol>
@@ -52968,6 +53182,18 @@
       en: "Esther",
       ref: {b: 1, c: 1, v: 1},
       scroll: "esther"
+    },
+    {
+      he: "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D0\u05F3",
+      en: "Rosh HaShanah (Day 1)",
+      ref: {b: 1, c: 21, v: 1},
+      scroll: "rosh-1"
+    },
+    {
+      he: "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D1\u05F3",
+      en: "Rosh HaShanah (Day 2)",
+      ref: {b: 1, c: 22, v: 1},
+      scroll: "rosh-2"
     }
   ];
   const searchResults = (query) => {
@@ -53872,7 +54098,8 @@
   const scrollsByKey = () => ({
     torah: TorahScroll,
     esther: EstherScroll,
-    "rosh-1": Rosh1Scroll
+    "rosh-1": Rosh1Scroll,
+    "rosh-2": Rosh2Scroll
   });
   const app = {
     jumpTo: ({ref, scroll: _scroll}) => {
@@ -54030,6 +54257,16 @@
         scroll: "rosh-1",
         makePath: (n) => `/build/pages/rosh-1/${n}.json`,
         makeTitle: (n) => `\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D0\u05F3`,
+        startingAtRef
+      });
+    }
+  };
+  const Rosh2Scroll = {
+    new: ({startingAtRef}) => {
+      return Scroll.new({
+        scroll: "rosh-2",
+        makePath: (n) => `/build/pages/rosh-2/${n}.json`,
+        makeTitle: (n) => `\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D1\u05F3`,
         startingAtRef
       });
     }

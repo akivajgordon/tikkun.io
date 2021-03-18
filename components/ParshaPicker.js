@@ -93,6 +93,7 @@ const Browse = () => `
       <li class="parsha-book">
         <ol class="parsha-list">
           ${Parsha({ ref: { b: 1, c: 21, v: 1 }, he: 'ראש השנה א׳', scroll: 'rosh-1' })}
+          ${Parsha({ ref: { b: 1, c: 22, v: 1 }, he: 'ראש השנה ב׳', scroll: 'rosh-2' })}
         </ol>
       </li>
     </ol>
@@ -181,6 +182,18 @@ const searchables = [
     en: 'Esther',
     ref: { b: 1, c: 1, v: 1 },
     scroll: 'esther'
+  },
+  {
+    he: 'ראש השנה א׳',
+    en: 'Rosh HaShanah (Day 1)',
+    ref: { b: 1, c: 21, v: 1 },
+    scroll: 'rosh-1'
+  },
+  {
+    he: 'ראש השנה ב׳',
+    en: 'Rosh HaShanah (Day 2)',
+    ref: { b: 1, c: 22, v: 1 },
+    scroll: 'rosh-2'
   }
 ]
 

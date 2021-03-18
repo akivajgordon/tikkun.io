@@ -45,7 +45,8 @@ const scrollToLine = ({ node, lineIndex }) => {
 const scrollsByKey = () => ({
   'torah': TorahScroll,
   'esther': EstherScroll,
-  'rosh-1': Rosh1Scroll
+  'rosh-1': Rosh1Scroll,
+  'rosh-2': Rosh2Scroll
 })
 
 const app = {
@@ -254,6 +255,17 @@ const Rosh1Scroll = {
       scroll: 'rosh-1',
       makePath: n => `/build/pages/rosh-1/${n}.json`,
       makeTitle: n => `ראש השנה א׳`,
+      startingAtRef
+    })
+  }
+}
+
+const Rosh2Scroll = {
+  new: ({ startingAtRef }) => {
+    return Scroll.new({
+      scroll: 'rosh-2',
+      makePath: n => `/build/pages/rosh-2/${n}.json`,
+      makeTitle: n => `ראש השנה ב׳`,
       startingAtRef
     })
   }

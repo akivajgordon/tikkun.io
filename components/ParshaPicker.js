@@ -2,11 +2,19 @@
 
 import parshiyot from '../build/parshiyot.json'
 import readingSchedule from '../build/schedule.json'
+import holydays from '../build/holydays.json'
 import fuzzy from '../src/fuzzy'
 import utils from './utils'
 import ParshaResult, { NoResults } from './ParshaResult'
 
 const { htmlToElement } = utils
+
+const holydaysLayout = [
+  ['rosh-1', 'rosh-2', 'yom-kippur', 'taanit-tzibur', 'tisha-bav', 'shavuot-1', 'shavuot-2'],
+  ['sukkot-1', 'sukkot-2', 'sukkot-3', 'sukkot-4', 'sukkot-5', 'sukkot-6', 'sukkot-7', 'sukkot-shabbat-chol-hamoed', 'shmini-atzeret', 'simchat-torah'],
+  ['pesach-1', 'pesach-2', 'pesach-3', 'pesach-4', 'pesach-5', 'pesach-6', 'pesach-shabbat-chol-hamoed', 'pesach-7', 'pesach-8'],
+  ['purim', 'chanukah-1', 'chanukah-2', 'chanukah-3', 'chanukah-4', 'chanukah-5', 'chanukah-7', 'chanukah-8']
+]
 
 const Parsha = ({ ref, he, scroll }) => `
   <li
@@ -75,7 +83,7 @@ const ComingUp = () => `
 const Browse = () => `
   <div class="browse">
     <h2 class="section-heading">תורה</h2>
-    <ol class="parsha-books">
+    <ol class="parsha-books mod-emphasize-first-in-group">
       ${parshiyot
         .reduce((books, parsha) => {
           const book = parsha.ref.b
@@ -86,6 +94,25 @@ const Browse = () => `
         .map(Book)
         .join('')
       }
+    </ol>
+
+    <h2 class="section-heading">חגים</h2>
+    <ol class="parsha-books">
+      ${holydaysLayout.map(col => `
+        <li class="parsha-book">
+          <ol class="parsha-list">
+            ${col.map(holydayKey => {
+              const holyday = holydays[holydayKey]
+
+              const { ref, he } = holyday
+
+              const { b, c, v } = ref
+
+              return Parsha({ ref: { b, c, v }, he, scroll: holydayKey })
+            }).join('\n')}
+          </ol>
+        </li>
+      `).join('\n')}
     </ol>
 
     <h2 class="section-heading">מגילות</h2>
@@ -172,7 +199,21 @@ const searchables = [
     en: 'Esther',
     ref: { b: 1, c: 1, v: 1 },
     scroll: 'esther'
-  }
+  },
+  ...Object.keys(holydays).map(holydayKey => {
+    const holyday = holydays[holydayKey]
+
+    const { he, en, ref } = holyday
+
+    const { b, c, v } = ref
+
+    return {
+      scroll: holydayKey,
+      en,
+      he,
+      ref: { b, c, v }
+    }
+  })
 ]
 
 const searchResults = (query) => {

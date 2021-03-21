@@ -7,6 +7,7 @@ import ParshaPicker, { search } from './components/ParshaPicker'
 import Search from './components/Search'
 import utils from './components/utils'
 import pageTitles from './build/page-titles.json'
+import holydays from './build/holydays.json'
 
 const { htmlToElement, whenKey, purgeNode } = utils
 
@@ -17,8 +18,6 @@ const insertBefore = (parent, child) => {
 const insertAfter = (parent, child) => {
   parent.insertAdjacentElement('beforeend', child)
 }
-
-let isShowingParshaPicker = false
 
 let scroll
 
@@ -44,9 +43,71 @@ const scrollToLine = ({ node, lineIndex }) => {
   book.scrollTop = line.offsetTop + (line.offsetHeight / 2) - (book.offsetHeight / 2)
 }
 
+const scrollsByKey = () => ({
+  'torah': TorahScroll,
+  'esther': EstherScroll,
+  ...Object.keys(holydays).reduce((result, holydayKey) => {
+    const HolydayScroll = {
+      new: ({ startingAtRef }) => {
+        return Scroll.new({
+          scroll: holydayKey,
+          makePath: n => `/build/pages/${holydayKey}/${n}.json`,
+          makeTitle: n => holydays[holydayKey].he,
+          startingAtRef
+        })
+      }
+    }
+    return { ...result, [holydayKey]: HolydayScroll }
+  }, {})
+})
+
+const Scroll = {
+  new: ({ scroll, makePath, makeTitle, startingAtRef = { b: 1, c: 1, v: 1 } }) => {
+    const { pageNumber, lineNumber } = physicalLocationFromRef({ ref: startingAtRef, scroll })
+
+    const iterator = IntegerIterator.new({ startingAt: pageNumber })
+
+    return {
+      scrollName: scroll,
+      fetchPrevious: () => {
+        const n = iterator.previous()
+        if (n <= 0) return Promise.resolve()
+        return fetchPage({ path: makePath(n), title: makeTitle(n) })
+      },
+      fetchNext: () => {
+        const n = iterator.next()
+        return fetchPage({ path: makePath(n), title: makeTitle(n) })
+      },
+      startingLineNumber: lineNumber
+    }
+  }
+}
+
+const TorahScroll = {
+  new: ({ startingAtRef }) => {
+    return Scroll.new({
+      scroll: 'torah',
+      makePath: n => `/build/pages/torah/${n}.json`,
+      makeTitle: n => getTitle(pageTitles[n - 1]),
+      startingAtRef
+    })
+  }
+}
+
+const EstherScroll = {
+  new: ({ startingAtRef }) => {
+    return Scroll.new({
+      scroll: 'esther',
+      makePath: n => `/build/pages/esther/${n}.json`,
+      makeTitle: n => 'אסתר',
+      startingAtRef
+    })
+  }
+}
+
 const app = {
   jumpTo: ({ ref, scroll: _scroll }) => {
-    scroll = (_scroll === 'esther' ? EstherScroll : TorahScroll).new({ startingAtRef: ref })
+    scroll = scrollsByKey()[_scroll].new({ startingAtRef: ref })
 
     purgeNode(document.querySelector('[data-target-id="tikkun-book"]'))
 
@@ -187,7 +248,7 @@ const renderPage = ({ insertStrategy: insert }) => ({ content, title }) => {
 
   insert(document.querySelector('[data-target-id="tikkun-book"]'), node)
 
-  const el = htmlToElement(Page(content))
+  const el = htmlToElement(Page({ scroll: scroll.scrollName, lines: content }))
 
   const firstChild = node.firstChild
   if (firstChild) {
@@ -210,49 +271,6 @@ const fetchPage = ({ path, title }) => window.fetch(path)
   .catch((err) => {
     console.error(err)
   })
-
-const Scroll = {
-  new: ({ scroll, makePath, makeTitle, startingAtRef = { b: 1, c: 1, v: 1 } }) => {
-    const { pageNumber, lineNumber } = physicalLocationFromRef({ ref: startingAtRef, scroll })
-
-    const iterator = IntegerIterator.new({ startingAt: pageNumber })
-
-    return {
-      fetchPrevious: () => {
-        const n = iterator.previous()
-        if (n <= 0) return Promise.resolve()
-        return fetchPage({ path: makePath(n), title: makeTitle(n) })
-      },
-      fetchNext: () => {
-        const n = iterator.next()
-        return fetchPage({ path: makePath(n), title: makeTitle(n) })
-      },
-      startingLineNumber: lineNumber
-    }
-  }
-}
-
-const TorahScroll = {
-  new: ({ startingAtRef }) => {
-    return Scroll.new({
-      scroll: 'torah',
-      makePath: n => `/build/pages/${n}.json`,
-      makeTitle: n => getTitle(pageTitles[n - 1]),
-      startingAtRef
-    })
-  }
-}
-
-const EstherScroll = {
-  new: ({ startingAtRef }) => {
-    return Scroll.new({
-      scroll: 'esther',
-      makePath: n => `/build/pages/${n}-esther.json`,
-      makeTitle: n => 'אסתר',
-      startingAtRef
-    })
-  }
-}
 
 const debounce = (callback, delay) => {
   let timeout

@@ -1,0 +1,410 @@
+{
+  "rosh-1": {
+    "en": "Rosh HaShanah (Day 1)",
+    "he": "ראש השנה א׳",
+    "ref": {
+      "b": 1,
+      "c": 21,
+      "v": 1,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "rosh-2": {
+    "en": "Rosh HaShanah (Day 2)",
+    "he": "ראש השנה ב׳",
+    "ref": {
+      "b": 1,
+      "c": 22,
+      "v": 1,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "yom-kippur": {
+    "en": "Yom Kippur",
+    "he": "יום כיפור",
+    "ref": {
+      "b": 3,
+      "c": 16,
+      "v": 1,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "sukkot-1": {
+    "en": "Sukkot (Day 1)",
+    "he": "סוכות א׳",
+    "ref": {
+      "b": 3,
+      "c": 22,
+      "v": 26,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "sukkot-2": {
+    "en": "Sukkot (Day 2)",
+    "he": "סוכות ב׳",
+    "ref": {
+      "b": 3,
+      "c": 22,
+      "v": 26,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "sukkot-3": {
+    "en": "Sukkot (Day 3)",
+    "he": "סוכות ג׳",
+    "ref": {
+      "b": 4,
+      "c": 29,
+      "v": 17,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "sukkot-4": {
+    "en": "Sukkot (Day 4)",
+    "he": "סוכות ד׳",
+    "ref": {
+      "b": 4,
+      "c": 29,
+      "v": 20,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "sukkot-5": {
+    "en": "Sukkot (Day 5)",
+    "he": "סוכות ה׳",
+    "ref": {
+      "b": 4,
+      "c": 29,
+      "v": 23,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "sukkot-6": {
+    "en": "Sukkot (Day 6)",
+    "he": "סוכות ו׳",
+    "ref": {
+      "b": 4,
+      "c": 29,
+      "v": 26,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "sukkot-7": {
+    "en": "Sukkot (Day 7 – Hoshana Raba)",
+    "he": "סוכות ז׳ (הושענא רבה)",
+    "ref": {
+      "b": 4,
+      "c": 29,
+      "v": 26,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "sukkot-shabbat-chol-hamoed": {
+    "en": "Sukkot (Shabbat Chol HaMoed)",
+    "he": "סוכות - שבת חול המועד",
+    "ref": {
+      "b": 2,
+      "c": 33,
+      "v": 12,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "shmini-atzeret": {
+    "en": "Shmini Atzeret",
+    "he": "שמיני עצרת",
+    "ref": {
+      "b": 5,
+      "c": 14,
+      "v": 22,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "simchat-torah": {
+    "en": "Simchat Torah",
+    "he": "שמחת תורה",
+    "ref": {
+      "b": 5,
+      "c": 33,
+      "v": 1,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "chanukah-1": {
+    "en": "Chanukah (Day 1)",
+    "he": "חנוכה א׳",
+    "ref": {
+      "b": 4,
+      "c": 7,
+      "v": 1,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "chanukah-2": {
+    "en": "Chanukah (Day 2)",
+    "he": "חנוכה ב׳",
+    "ref": {
+      "b": 4,
+      "c": 7,
+      "v": 18,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "chanukah-3": {
+    "en": "Chanukah (Day 3)",
+    "he": "חנוכה ג׳",
+    "ref": {
+      "b": 4,
+      "c": 7,
+      "v": 24,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "chanukah-4": {
+    "en": "Chanukah (Day 4)",
+    "he": "חנוכה ד׳",
+    "ref": {
+      "b": 4,
+      "c": 7,
+      "v": 30,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "chanukah-5": {
+    "en": "Chanukah (Day 5)",
+    "he": "חנוכה ה׳",
+    "ref": {
+      "b": 4,
+      "c": 7,
+      "v": 36,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "chanukah-7": {
+    "en": "Chanukah (Day 7)",
+    "he": "חנוכה ז׳",
+    "ref": {
+      "b": 4,
+      "c": 7,
+      "v": 48,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "chanukah-8": {
+    "en": "Chanukah (Day 8)",
+    "he": "חנוכה ח׳",
+    "ref": {
+      "b": 4,
+      "c": 7,
+      "v": 54,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "purim": {
+    "en": "Purim",
+    "he": "פורים",
+    "ref": {
+      "b": 2,
+      "c": 17,
+      "v": 8,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "taanit-tzibur": {
+    "en": "Ta'anit Tzibur (Public Fast Day)",
+    "he": "תענית ציבור",
+    "ref": {
+      "b": 2,
+      "c": 32,
+      "v": 11,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "pesach-1": {
+    "en": "Pesach (Day 1)",
+    "he": "פסח א׳",
+    "ref": {
+      "b": 2,
+      "c": 12,
+      "v": 21,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "pesach-2": {
+    "en": "Pesach (Day 2)",
+    "he": "פסח ב׳",
+    "ref": {
+      "b": 3,
+      "c": 22,
+      "v": 26,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "pesach-3": {
+    "en": "Pesach (Day 3)",
+    "he": "פסח ג׳",
+    "ref": {
+      "b": 2,
+      "c": 13,
+      "v": 1,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "pesach-4": {
+    "en": "Pesach (Day 4)",
+    "he": "פסח ד׳",
+    "ref": {
+      "b": 2,
+      "c": 22,
+      "v": 24,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "pesach-5": {
+    "en": "Pesach (Day 5)",
+    "he": "פסח ה׳",
+    "ref": {
+      "b": 2,
+      "c": 34,
+      "v": 1,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "pesach-6": {
+    "en": "Pesach (Day 6)",
+    "he": "פסח ו׳",
+    "ref": {
+      "b": 4,
+      "c": 9,
+      "v": 1,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "pesach-shabbat-chol-hamoed": {
+    "en": "Pesach (Shabbat Chol HaMoed)",
+    "he": "פסח - שבת חול המועד",
+    "ref": {
+      "b": 2,
+      "c": 33,
+      "v": 12,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "pesach-7": {
+    "en": "Pesach (Day 7)",
+    "he": "פסח ז׳",
+    "ref": {
+      "b": 2,
+      "c": 13,
+      "v": 17,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "pesach-8": {
+    "en": "Pesach (Day 8)",
+    "he": "פסח ח׳",
+    "ref": {
+      "b": 5,
+      "c": 14,
+      "v": 22,
+      "a": {
+        "special": 1
+      }
+    }
+  },
+  "shavuot-1": {
+    "en": "Shavuot (Day 1)",
+    "he": "שבועות א׳",
+    "ref": {
+      "b": 2,
+      "c": 19,
+      "v": 1,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
+  "shavuot-2": {
+    "en": "Shavuot (Day 2)",
+    "he": "שבועות ב׳",
+    "ref": {
+      "b": 5,
+      "c": 14,
+      "v": 22,
+      "a": {
+        "special": 1
+      }
+    }
+  },
+  "tisha-bav": {
+    "en": "Tish'a B'Av",
+    "he": "תשעה באב",
+    "ref": {
+      "b": 5,
+      "c": 4,
+      "v": 25,
+      "a": {
+        "standard": 1
+      }
+    }
+  }
+}

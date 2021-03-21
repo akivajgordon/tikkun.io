@@ -2567,14 +2567,12 @@
         "1": {
           "standard": [
             1
-          ],
-          "special": 1
+          ]
         },
         "5": {
           "standard": [
             2
-          ],
-          "special": 2
+          ]
         },
         "9": {
           "special": 3
@@ -2609,32 +2607,958 @@
         "1": {
           "standard": [
             1
+          ]
+        },
+        "4": {
+          "standard": [
+            2
+          ]
+        },
+        "9": {
+          "standard": [
+            3
+          ]
+        },
+        "15": {
+          "standard": [
+            4
+          ]
+        },
+        "20": {
+          "standard": [
+            5
+          ]
+        }
+      }
+    }
+  },
+  "yom-kippur": {
+    "3": {
+      "16": {
+        "1": {
+          "standard": [
+            1
+          ]
+        },
+        "4": {
+          "special": 2
+        },
+        "7": {
+          "standard": [
+            2
           ],
-          "special": 1
+          "special": 3
+        },
+        "12": {
+          "standard": [
+            3
+          ],
+          "special": 4
+        },
+        "18": {
+          "standard": [
+            4
+          ],
+          "special": 5
+        },
+        "25": {
+          "standard": [
+            5
+          ],
+          "special": 6
+        },
+        "31": {
+          "standard": [
+            6
+          ],
+          "special": 7
+        }
+      }
+    }
+  },
+  "sukkot-1": {
+    "3": {
+      "22": {
+        "26": {
+          "standard": [
+            1
+          ]
+        }
+      },
+      "23": {
+        "1": {
+          "special": 2
         },
         "4": {
           "standard": [
             2
           ],
-          "special": 2
+          "special": 3
         },
         "9": {
           "standard": [
             3
           ],
+          "special": 4
+        },
+        "15": {
+          "standard": [
+            3
+          ],
+          "special": 5
+        },
+        "23": {
+          "standard": [
+            4
+          ],
+          "special": 6
+        },
+        "33": {
+          "standard": [
+            5
+          ],
+          "special": 7
+        }
+      }
+    }
+  },
+  "sukkot-2": {
+    "3": {
+      "22": {
+        "26": {
+          "standard": [
+            1
+          ]
+        }
+      },
+      "23": {
+        "4": {
+          "standard": [
+            2
+          ]
+        },
+        "15": {
+          "standard": [
+            3
+          ]
+        },
+        "23": {
+          "standard": [
+            4
+          ]
+        },
+        "33": {
+          "standard": [
+            5
+          ]
+        }
+      }
+    }
+  },
+  "sukkot-3": {
+    "4": {
+      "29": {
+        "17": {
+          "standard": [
+            1
+          ]
+        },
+        "20": {
+          "standard": [
+            2
+          ]
+        },
+        "23": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "sukkot-4": {
+    "4": {
+      "29": {
+        "20": {
+          "standard": [
+            1
+          ]
+        },
+        "23": {
+          "standard": [
+            2
+          ]
+        },
+        "26": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "sukkot-5": {
+    "4": {
+      "29": {
+        "23": {
+          "standard": [
+            1
+          ]
+        },
+        "26": {
+          "standard": [
+            2
+          ]
+        },
+        "29": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "sukkot-6": {
+    "4": {
+      "29": {
+        "26": {
+          "standard": [
+            1
+          ]
+        },
+        "29": {
+          "standard": [
+            2
+          ]
+        },
+        "32": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "sukkot-7": {
+    "4": {
+      "29": {
+        "26": {
+          "standard": [
+            1
+          ]
+        },
+        "29": {
+          "standard": [
+            2
+          ]
+        },
+        "32": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "sukkot-shabbat-chol-hamoed": {
+    "2": {
+      "33": {
+        "12": {
+          "standard": [
+            1
+          ]
+        },
+        "17": {
+          "standard": [
+            2
+          ]
+        },
+        "20": {
+          "standard": [
+            3
+          ]
+        }
+      },
+      "34": {
+        "1": {
+          "standard": [
+            4
+          ]
+        },
+        "4": {
+          "standard": [
+            5
+          ]
+        },
+        "11": {
+          "standard": [
+            6
+          ]
+        },
+        "18": {
+          "standard": [
+            7
+          ]
+        }
+      }
+    }
+  },
+  "shmini-atzeret": {
+    "5": {
+      "14": {
+        "22": {
+          "standard": [
+            1
+          ]
+        }
+      },
+      "15": {
+        "1": {
+          "standard": [
+            2
+          ]
+        },
+        "19": {
+          "standard": [
+            3
+          ]
+        }
+      },
+      "16": {
+        "1": {
+          "special": 4
+        },
+        "4": {
+          "standard": [
+            4
+          ],
+          "special": 5
+        },
+        "9": {
+          "standard": [
+            5
+          ],
+          "special": 6
+        },
+        "13": {
+          "special": 7
+        }
+      }
+    }
+  },
+  "simchat-torah": {
+    "5": {
+      "33": {
+        "1": {
+          "standard": [
+            1
+          ]
+        },
+        "8": {
+          "standard": [
+            2
+          ]
+        },
+        "13": {
+          "standard": [
+            3
+          ]
+        },
+        "18": {
+          "standard": [
+            4
+          ]
+        },
+        "22": {
+          "standard": [
+            5
+          ]
+        },
+        "27": {
+          "standard": [
+            6
+          ]
+        }
+      }
+    }
+  },
+  "chanukah-1": {
+    "4": {
+      "7": {
+        "1": {
+          "standard": [
+            1
+          ]
+        },
+        "12": {
+          "standard": [
+            2
+          ]
+        },
+        "15": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "chanukah-2": {
+    "4": {
+      "7": {
+        "18": {
+          "standard": [
+            1
+          ]
+        },
+        "21": {
+          "standard": [
+            2
+          ]
+        },
+        "24": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "chanukah-3": {
+    "4": {
+      "7": {
+        "24": {
+          "standard": [
+            1
+          ]
+        },
+        "27": {
+          "standard": [
+            2
+          ]
+        },
+        "30": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "chanukah-4": {
+    "4": {
+      "7": {
+        "30": {
+          "standard": [
+            1
+          ]
+        },
+        "33": {
+          "standard": [
+            2
+          ]
+        },
+        "36": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "chanukah-5": {
+    "4": {
+      "7": {
+        "36": {
+          "standard": [
+            1
+          ]
+        },
+        "39": {
+          "standard": [
+            2
+          ]
+        },
+        "42": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "chanukah-7": {
+    "4": {
+      "7": {
+        "48": {
+          "standard": [
+            1
+          ]
+        },
+        "51": {
+          "standard": [
+            2
+          ]
+        },
+        "54": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "chanukah-8": {
+    "4": {
+      "7": {
+        "54": {
+          "standard": [
+            1
+          ]
+        },
+        "57": {
+          "standard": [
+            2
+          ]
+        },
+        "60": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "purim": {
+    "2": {
+      "17": {
+        "8": {
+          "standard": [
+            1
+          ]
+        },
+        "11": {
+          "standard": [
+            2
+          ]
+        },
+        "14": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "taanit-tzibur": {
+    "2": {
+      "32": {
+        "11": {
+          "standard": [
+            1
+          ]
+        }
+      },
+      "34": {
+        "1": {
+          "standard": [
+            2
+          ]
+        },
+        "4": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "pesach-1": {
+    "2": {
+      "12": {
+        "21": {
+          "standard": [
+            1
+          ]
+        },
+        "25": {
+          "standard": [
+            2
+          ]
+        },
+        "29": {
+          "standard": [
+            3
+          ]
+        },
+        "33": {
+          "special": 4
+        },
+        "37": {
+          "standard": [
+            4
+          ],
+          "special": 5
+        },
+        "43": {
+          "standard": [
+            5
+          ],
+          "special": 6
+        },
+        "48": {
+          "special": 7
+        }
+      }
+    }
+  },
+  "pesach-2": {
+    "3": {
+      "22": {
+        "26": {
+          "standard": [
+            1
+          ]
+        }
+      },
+      "23": {
+        "4": {
+          "standard": [
+            2
+          ]
+        },
+        "15": {
+          "standard": [
+            3
+          ]
+        },
+        "23": {
+          "standard": [
+            4
+          ]
+        },
+        "33": {
+          "standard": [
+            5
+          ]
+        }
+      }
+    }
+  },
+  "pesach-3": {
+    "2": {
+      "13": {
+        "1": {
+          "standard": [
+            1
+          ]
+        },
+        "5": {
+          "standard": [
+            2
+          ]
+        },
+        "11": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "pesach-4": {
+    "2": {
+      "22": {
+        "24": {
+          "standard": [
+            1
+          ]
+        },
+        "27": {
+          "standard": [
+            2
+          ]
+        }
+      },
+      "23": {
+        "6": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "pesach-5": {
+    "2": {
+      "34": {
+        "1": {
+          "standard": [
+            1
+          ]
+        },
+        "11": {
+          "standard": [
+            2
+          ]
+        },
+        "18": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "pesach-6": {
+    "4": {
+      "9": {
+        "1": {
+          "standard": [
+            1
+          ]
+        },
+        "6": {
+          "standard": [
+            2
+          ]
+        },
+        "9": {
+          "standard": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "pesach-shabbat-chol-hamoed": {
+    "2": {
+      "33": {
+        "12": {
+          "standard": [
+            1
+          ]
+        },
+        "17": {
+          "standard": [
+            2
+          ]
+        },
+        "20": {
+          "standard": [
+            3
+          ]
+        }
+      },
+      "34": {
+        "1": {
+          "standard": [
+            4
+          ]
+        },
+        "4": {
+          "standard": [
+            5
+          ]
+        },
+        "11": {
+          "standard": [
+            6
+          ]
+        },
+        "18": {
+          "standard": [
+            7
+          ]
+        }
+      }
+    }
+  },
+  "pesach-7": {
+    "2": {
+      "13": {
+        "17": {
+          "standard": [
+            1
+          ]
+        },
+        "20": {
+          "special": 2
+        }
+      },
+      "14": {
+        "1": {
+          "standard": [
+            2
+          ],
           "special": 3
+        },
+        "5": {
+          "special": 4
+        },
+        "9": {
+          "standard": [
+            3
+          ],
+          "special": 5
         },
         "15": {
           "standard": [
             4
           ],
-          "special": 4
+          "special": 6
         },
-        "20": {
+        "26": {
           "standard": [
             5
           ],
+          "special": 7
+        }
+      }
+    }
+  },
+  "pesach-8": {
+    "5": {
+      "14": {
+        "22": {
+          "special": 1
+        }
+      },
+      "15": {
+        "1": {
+          "special": 2
+        },
+        "19": {
+          "standard": [
+            1
+          ],
+          "special": 3
+        }
+      },
+      "16": {
+        "1": {
+          "standard": [
+            2
+          ],
+          "special": 4
+        },
+        "4": {
+          "standard": [
+            3
+          ],
           "special": 5
+        },
+        "9": {
+          "standard": [
+            4
+          ],
+          "special": 6
+        },
+        "13": {
+          "standard": [
+            5
+          ],
+          "special": 7
+        }
+      }
+    }
+  },
+  "shavuot-1": {
+    "2": {
+      "19": {
+        "1": {
+          "standard": [
+            1
+          ]
+        },
+        "7": {
+          "standard": [
+            2
+          ]
+        },
+        "14": {
+          "standard": [
+            3
+          ]
+        },
+        "20": {
+          "standard": [
+            4
+          ]
+        }
+      },
+      "20": {
+        "15": {
+          "standard": [
+            5
+          ]
+        }
+      }
+    }
+  },
+  "shavuot-2": {
+    "5": {
+      "14": {
+        "22": {
+          "special": 1
+        }
+      },
+      "15": {
+        "1": {
+          "special": 2
+        },
+        "19": {
+          "standard": [
+            1
+          ],
+          "special": 3
+        }
+      },
+      "16": {
+        "1": {
+          "standard": [
+            2
+          ],
+          "special": 4
+        },
+        "4": {
+          "standard": [
+            3
+          ],
+          "special": 5
+        },
+        "9": {
+          "standard": [
+            4
+          ],
+          "special": 6
+        },
+        "13": {
+          "standard": [
+            5
+          ],
+          "special": 7
+        }
+      }
+    }
+  },
+  "tisha-bav": {
+    "5": {
+      "4": {
+        "25": {
+          "standard": [
+            1
+          ]
+        },
+        "30": {
+          "standard": [
+            2
+          ]
+        },
+        "36": {
+          "standard": [
+            3
+          ]
         }
       }
     }

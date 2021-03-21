@@ -86,6 +86,10 @@
   margin-bottom: 0.5em;
 }
 
+.search-result-tag.mod-hebrew {
+  direction: rtl;
+}
+
 .browse {
   width: 100%;
   max-width: 960px;
@@ -137,7 +141,7 @@
   width: 100%;
 }
 
-.parsha:first-child {
+.parsha-books.mod-emphasize-first-in-group .parsha:first-child {
   font-weight: bolder;
 }
 

@@ -10,8 +10,9 @@ const setumaClass = (column) => column.length > 1 ? 'mod-setuma' : ''
 
 const aliyahFinderByScroll = {
   torah: parshiyot,
-  'rosh-1': [holydays['rosh-1']],
-  'rosh-2': [holydays['rosh-2']]
+  ...Object.keys(holydays).reduce((result, holydayKey) => {
+    return { ...result, [holydayKey]: [holydays[holydayKey]] }
+  }, {})
 }
 
 const aliyotByRefByScroll = aliyotJSON

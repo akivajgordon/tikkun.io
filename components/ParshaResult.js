@@ -19,7 +19,7 @@ const strongify = (c) => (`<strong>${c}</strong>`)
 
 const ParshaResult = ({ match, item }) => htmlToElement(`
   <div data-target-class="parsha-result" data-jump-to-book="${item.ref.b}" data-jump-to-chapter="${item.ref.c}" data-jump-to-verse="${item.ref.v}" data-scroll="${item.scroll}">
-    <p class="search-result-tag" data-target-class="result-hebrew">${match.index === 0 ? decorateString({
+    <p class="search-result-tag mod-hebrew" data-target-class="result-hebrew">${match.index === 0 ? decorateString({
       string: item.he,
       atIndexes: match.indexes,
       withDecoration: strongify

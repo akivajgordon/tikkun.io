@@ -47,6 +47,8 @@
   vertical-align: middle; /* HACK: https://stackoverflow.com/a/27999850/2374361 */
 }
 
-[data-theme="dark"] .toolbar-github {
-  filter: invert();
+@media (prefers-color-scheme: dark) {
+  .toolbar-github {
+    filter: invert();
+  }
 }

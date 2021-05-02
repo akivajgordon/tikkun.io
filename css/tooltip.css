@@ -3,9 +3,11 @@
   --tooltip-text-color: white;
 }
 
-[data-theme="dark"] [data-tooltip] {
-  --tooltip-background-color: hsl(0, 0%, 80%);
-  --tooltip-text-color: black;
+@media (prefers-color-scheme: dark) {
+  [data-tooltip] {
+    --tooltip-background-color: hsl(0, 0%, 80%);
+    --tooltip-text-color: black;
+  }
 }
 
 [data-tooltip]::after {

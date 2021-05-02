@@ -20,9 +20,9 @@ const aliyotByRefByScroll = aliyotJSON
 
 const getParshaName = (verses, __scroll) => () => parshaName(verses, __scroll)
 
-const aliyotDisplay = ({ verses, scroll }) => {
+const aliyotDisplay = ({ verses, scroll: __scroll }) => {
   const found = verses.map(({ book, chapter, verse }) => {
-    return aliyotByRefByScroll[scroll]?.[book]?.[chapter]?.[verse]
+    return aliyotByRefByScroll[__scroll]?.[book]?.[chapter]?.[verse]
   }).filter(Boolean)
 
   if (!found.length) return ''
@@ -30,17 +30,21 @@ const aliyotDisplay = ({ verses, scroll }) => {
   const { standard, double, special } = found[0]
 
   return [
-    ...standard ? [standard.map(n => displayRange.aliyahName({ aliyah: n, getParshaName: getParshaName(verses, scroll ) })).join(', ')] : [],
-    ...double ? [`[${displayRange.aliyahName({ aliyah: double, getParshaName: getParshaName(verses, scroll ) })}]`] : [],
-    ...special ? [`(${displayRange.aliyahName({ aliyah: special, getParshaName: getParshaName(verses, scroll)})})`] : []
+    ...standard ? [standard.map(n => displayRange.aliyahName({ aliyah: n, getParshaName: getParshaName(verses, __scroll ) })).join(', ')] : [],
+    ...double ? [`[${displayRange.aliyahName({ aliyah: double, getParshaName: getParshaName(verses, __scroll ) })}]`] : [],
+    ...special ? [`(${displayRange.aliyahName({ aliyah: special, getParshaName: getParshaName(verses, __scroll)})})`] : []
   ].join(' ')
 }
 
-const parshaName = (verses, __scroll) => aliyahFinderByScroll[__scroll]
+const parshaName = (verses, __scroll) => {
+  const found = aliyahFinderByScroll[__scroll]
   .find(({ ref }) => verses
     .some(({ book: b, chapter: c, verse: v }) => ref.b === b && ref.c === c && ref.v === v
     )
-  ).he
+  )
+
+  return (found || { he: 'ראשון' }).he
+}
 
 const Line = ({ scroll: __scroll, text, verses, aliyot, isPetucha }) => `
   <div class="line ${petuchaClass(isPetucha)}">

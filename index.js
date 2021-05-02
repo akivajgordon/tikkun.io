@@ -282,12 +282,6 @@ const debounce = (callback, delay) => {
   }
 }
 
-const toggleColorScheme = () => {
-  const body = document.querySelector('body')
-
-  body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark'
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   const book = document.querySelector('[data-target-id="tikkun-book"]')
   const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
@@ -307,8 +301,6 @@ document.addEventListener('DOMContentLoaded', () => {
   book.addEventListener('scroll', debounce(() => {
     rememberLastScrolledPosition()
   }, 1000))
-
-  book.addEventListener('dblclick', toggleColorScheme)
 
   window.addEventListener('resize', () => {
     resumeLastScrollPosition()

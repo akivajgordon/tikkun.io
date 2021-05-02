@@ -82,7 +82,7 @@ const ComingUp = () => `
 
 const Browse = () => `
   <div class="browse">
-    <h2 class="section-heading">תורה</h2>
+    <h2 class="section-heading">פרשת השבוע</h2>
     <ol class="parsha-books mod-emphasize-first-in-group">
       ${parshiyot
         .reduce((books, parsha) => {

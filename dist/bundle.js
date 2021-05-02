@@ -59958,20 +59958,23 @@
   };
   const aliyotByRefByScroll = aliyotJSON;
   const getParshaName = (verses, __scroll) => () => parshaName(verses, __scroll);
-  const aliyotDisplay = ({verses, scroll: scroll2}) => {
+  const aliyotDisplay = ({verses, scroll: __scroll}) => {
     const found = verses.map(({book, chapter, verse}) => {
-      return aliyotByRefByScroll[scroll2]?.[book]?.[chapter]?.[verse];
+      return aliyotByRefByScroll[__scroll]?.[book]?.[chapter]?.[verse];
     }).filter(Boolean);
     if (!found.length)
       return "";
     const {standard, double, special} = found[0];
     return [
-      ...standard ? [standard.map((n) => displayRange.aliyahName({aliyah: n, getParshaName: getParshaName(verses, scroll2)})).join(", ")] : [],
-      ...double ? [`[${displayRange.aliyahName({aliyah: double, getParshaName: getParshaName(verses, scroll2)})}]`] : [],
-      ...special ? [`(${displayRange.aliyahName({aliyah: special, getParshaName: getParshaName(verses, scroll2)})})`] : []
+      ...standard ? [standard.map((n) => displayRange.aliyahName({aliyah: n, getParshaName: getParshaName(verses, __scroll)})).join(", ")] : [],
+      ...double ? [`[${displayRange.aliyahName({aliyah: double, getParshaName: getParshaName(verses, __scroll)})}]`] : [],
+      ...special ? [`(${displayRange.aliyahName({aliyah: special, getParshaName: getParshaName(verses, __scroll)})})`] : []
     ].join(" ");
   };
-  const parshaName = (verses, __scroll) => aliyahFinderByScroll[__scroll].find(({ref}) => verses.some(({book: b, chapter: c, verse: v}) => ref.b === b && ref.c === c && ref.v === v)).he;
+  const parshaName = (verses, __scroll) => {
+    const found = aliyahFinderByScroll[__scroll].find(({ref}) => verses.some(({book: b, chapter: c, verse: v}) => ref.b === b && ref.c === c && ref.v === v));
+    return (found || {he: "\u05E8\u05D0\u05E9\u05D5\u05DF"}).he;
+  };
   const Line = ({scroll: __scroll, text, verses, aliyot, isPetucha}) => `
   <div class="line ${petuchaClass(isPetucha)}">
     ${text.map((column) => `
@@ -61348,7 +61351,7 @@
 `;
   const Browse = () => `
   <div class="browse">
-    <h2 class="section-heading">\u05EA\u05D5\u05E8\u05D4</h2>
+    <h2 class="section-heading">\u05E4\u05E8\u05E9\u05EA \u05D4\u05E9\u05D1\u05D5\u05E2</h2>
     <ol class="parsha-books mod-emphasize-first-in-group">
       ${parshiyot2.default.reduce((books, parsha) => {
     const book = parsha.ref.b;
@@ -62543,10 +62546,6 @@
       }, delay);
     };
   };
-  const toggleColorScheme = () => {
-    const body = document.querySelector("body");
-    body.dataset.theme = body.dataset.theme === "dark" ? "light" : "dark";
-  };
   document.addEventListener("DOMContentLoaded", () => {
     const book = document.querySelector('[data-target-id="tikkun-book"]');
     const toggle = document.querySelector('[data-target-id="annotations-toggle"]');
@@ -62561,7 +62560,6 @@
     book.addEventListener("scroll", debounce(() => {
       rememberLastScrolledPosition();
     }, 1e3));
-    book.addEventListener("dblclick", toggleColorScheme);
     window.addEventListener("resize", () => {
       resumeLastScrollPosition();
     });

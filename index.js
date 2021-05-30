@@ -1,7 +1,7 @@
 /* global gtag */
 
 import EventEmitter from './src/event-emitter'
-import { InfiniteScroller, IntegerIterator, title as getTitle, physicalLocationFromRef, refFromQueryParams } from './src'
+import { InfiniteScroller, IntegerIterator, title as getTitle, physicalLocationFromRef, urlToRef } from './src'
 import Page from './components/Page'
 import ParshaPicker, { search } from './components/ParshaPicker'
 import Search from './components/Search'
@@ -314,9 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))
 
-  const windowLocationUrl = new URL(window.location.href)
-  const searchParam = (k) => windowLocationUrl.searchParams.get(k)
-  const startingRef = refFromQueryParams({ book: searchParam('book'), chapter: searchParam('chapter'), verse: searchParam('verse') })
+  const startingRef = urlToRef(new URL(window.location.href))
   app.jumpTo({ ref: startingRef, scroll: 'torah' })
     .then(hideParshaPicker)
 })

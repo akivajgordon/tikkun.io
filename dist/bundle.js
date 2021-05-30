@@ -55222,8 +55222,11 @@
         const {p: pageNumber, l: lineNumber} = tocFromScroll[scroll2][book][chapter][verse];
         return {pageNumber, lineNumber};
       },
-      refFromQueryParams: ({scroll: scroll2, book, chapter, verse}) => {
-        const ref = {b: 1, c: 1, v: 1};
+      defaultRef: () => {
+        return {b: 1, c: 1, v: 1};
+      },
+      resolveToValidRef: ({scroll: scroll2, book, chapter, verse}) => {
+        const ref = module.exports.defaultRef();
         if (scroll2 && scroll2 != "torah") {
           return ref;
         }
@@ -55236,6 +55239,31 @@
         ref.v = convertToValidInt(verse, toc2[ref.b][ref.c]);
         return ref;
       }
+    };
+  });
+
+  // src/url-to-ref.js
+  var require_url_to_ref = __commonJS((exports, module) => {
+    var {defaultRef, resolveToValidRef} = require_location();
+    module.exports = (url) => {
+      if (url instanceof URL) {
+        const hashParts = url.hash.split("/").slice(1);
+        if (hashParts.length > 0) {
+          if (hashParts[0] == "r" && hashParts[1].length > 0) {
+            const locationRegex = /(\d+)\-(\d+)-(\d+)/;
+            const locationMatch = hashParts[1].match(locationRegex);
+            if (locationMatch) {
+              return resolveToValidRef({
+                scroll: "torah",
+                book: locationMatch[1],
+                chapter: locationMatch[2],
+                verse: locationMatch[3]
+              });
+            }
+          }
+        }
+      }
+      return defaultRef();
     };
   });
 
@@ -59948,7 +59976,8 @@
   var textFilter = require_text_filter();
   var displayRange = require_display_range();
   var title = require_title();
-  var {physicalLocationFromRef, refFromQueryParams} = require_location();
+  var {physicalLocationFromRef} = require_location();
+  var urlToRef = require_url_to_ref();
 
   // components/Line.js
   var parshiyot = require_parshiyot();
@@ -62575,9 +62604,7 @@
     document.addEventListener("keyup", whenKey3("Shift", () => toggleAnnotations(() => toggle.checked)));
     document.querySelector('[data-target-id="parsha-title"]').addEventListener("click", toggleParshaPicker);
     document.addEventListener("keydown", whenKey3("/", toggleParshaPicker));
-    const windowLocationUrl = new URL(window.location.href);
-    const searchParam = (k) => windowLocationUrl.searchParams.get(k);
-    const startingRef = refFromQueryParams({book: searchParam("book"), chapter: searchParam("chapter"), verse: searchParam("verse")});
+    const startingRef = urlToRef(new URL(window.location.href));
     app.jumpTo({ref: startingRef, scroll: "torah"}).then(hideParshaPicker);
   });
 })();

@@ -14,8 +14,10 @@ module.exports = {
     return { pageNumber, lineNumber }
   },
 
-  refFromQueryParams: ({scroll, book, chapter, verse}) => {
-    const ref = { b: 1, c: 1, v: 1 }
+  defaultRef: () => { return { b: 1, c: 1, v: 1 } },
+
+  resolveToValidRef: ({scroll, book, chapter, verse}) => {
+    const ref = module.exports.defaultRef()
     if (scroll && (scroll != 'torah')) {
       return ref
     }

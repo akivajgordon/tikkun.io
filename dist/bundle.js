@@ -61465,11 +61465,11 @@
         jumpToRef({ref: e.target, scroll: e.target.getAttribute("data-scroll")});
       });
     });
-    [...self.querySelectorAll('[data-target-class="coming-up-reading"]')].forEach((comingUpReading) => {
+    [...self.querySelectorAll('[data-target-class="coming-up-reading"]')].forEach((comingUpReading, index) => {
       comingUpReading.addEventListener("click", (e) => {
         gtag("event", "coming_up_selection", {
           event_category: "navigation",
-          event_label: e.target.textContent.trim()
+          event_label: ["due up", "on deck", "in the hole"][index]
         });
         jumpToRef({ref: e.target, scroll: e.target.getAttribute("data-scroll")});
       });

@@ -59984,23 +59984,6 @@
     }
   });
 
-  // src/event-emitter.js
-  var event_emitter_default = {
-    new: () => {
-      const listeners = [];
-      return {
-        emit: (evt, payload) => {
-          listeners.filter((listener) => listener.evt === evt).forEach((listener) => {
-            listener.callback(payload);
-          });
-        },
-        on: (evt, callback) => {
-          listeners.push({ evt, callback });
-        }
-      };
-    }
-  };
-
   // src/index.js
   var import_infinite_scroller = __toModule(require_infinite_scroller());
   var import_integer_iterator = __toModule(require_integer_iterator());
@@ -61358,8 +61341,100 @@
 </p>
 `);
 
-  // components/ParshaPicker.js
+  // components/SelectList.js
   var { htmlToElement: htmlToElement3 } = utils_default;
+  var setSelected = (list, adjustSelected) => {
+    const items = [...list.querySelectorAll('[data-target-class="list-item"]')];
+    const selectedIndex = Math.max(items.findIndex((item) => item.getAttribute("data-selected") === "true"), 0);
+    const selected = items[selectedIndex];
+    selected.removeAttribute("data-selected");
+    const nextIndex = (adjustSelected(selectedIndex) + items.length) % items.length;
+    items[nextIndex].setAttribute("data-selected", "true");
+  };
+  var getSelected = (list) => list.querySelector('[data-target-class="list-item"][data-selected="true"]');
+  var SelectList = (items, el, onSelect) => {
+    const list = htmlToElement3(`
+    <ol class="list"></ol>
+  `);
+    items.forEach((item) => {
+      const listItem = htmlToElement3('<li class="list-item" data-target-class="list-item"></li>');
+      listItem.appendChild(item);
+      listItem.addEventListener("click", () => {
+        onSelect(listItem);
+      });
+      list.appendChild(listItem);
+    });
+    list.querySelector('[data-target-class="list-item"]').setAttribute("data-selected", "true");
+    return list;
+  };
+  var SelectList_default = SelectList;
+
+  // components/Search.js
+  var { htmlToElement: html, whenKey: whenKey2, purgeNode: purgeNode2 } = utils_default;
+  var Search = ({ search: search2, emitter }) => {
+    let list;
+    const self = html(`
+    <div class="search">
+      <div class="search-bar">
+        <span class="search-icon">\u26B2</span>
+        <input class="search-input" placeholder="Search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus />
+      </div>
+      <div class="search-results u-hidden">
+      </div>
+    </div>
+  `);
+    self.addEventListener("keydown", whenKey2("Enter", () => {
+      emitter.emit("selection", getSelected(list));
+    }));
+    const onSelect = (item) => emitter.emit("selection", item);
+    [
+      { key: "ArrowDown", adjustment: (selected) => selected + 1 },
+      { key: "ArrowUp", adjustment: (selected) => selected - 1 },
+      { key: { key: "n", ctrl: true }, adjustment: (selected) => selected + 1 },
+      { key: { key: "p", ctrl: true }, adjustment: (selected) => selected - 1 }
+    ].forEach(({ key, adjustment }) => self.addEventListener("keydown", whenKey2(key, (e) => {
+      e.preventDefault();
+      setSelected(list, adjustment);
+    })));
+    const searchInput = self.querySelector(".search-input");
+    const searchResults2 = self.querySelector(".search-results");
+    searchInput.addEventListener("input", (e) => {
+      const query = e.target.value;
+      purgeNode2(searchResults2);
+      if (query) {
+        emitter.emit("search", query);
+        const results = search2(query);
+        list = SelectList_default(results, searchInput, onSelect);
+        searchResults2.appendChild(list);
+        searchResults2.classList.remove("u-hidden");
+      } else {
+        emitter.emit("clear");
+        searchResults2.classList.add("u-hidden");
+      }
+    });
+    return self;
+  };
+  var Search_default = Search;
+
+  // src/event-emitter.js
+  var event_emitter_default = {
+    new: () => {
+      const listeners = [];
+      return {
+        emit: (evt, payload) => {
+          listeners.filter((listener) => listener.evt === evt).forEach((listener) => {
+            listener.callback(payload);
+          });
+        },
+        on: (evt, callback) => {
+          listeners.push({ evt, callback });
+        }
+      };
+    }
+  };
+
+  // components/ParshaPicker.js
+  var { htmlToElement: htmlToElement4 } = utils_default;
   var holydaysLayout = [
     ["rosh-1", "rosh-2", "yom-kippur", "taanit-tzibur", "tisha-bav", "shavuot-1", "shavuot-2"],
     ["sukkot-1", "sukkot-2", "sukkot-3", "sukkot-4", "sukkot-5", "sukkot-6", "sukkot-7", "sukkot-shabbat-chol-hamoed", "shmini-atzeret", "simchat-torah"],
@@ -61455,8 +61530,39 @@
     </ol>
   </div>
 `;
-  var ParshaPicker = (search2, searchEmitter, jumpToRef) => {
-    const self = htmlToElement3(`
+  var searchables = [
+    ...import_parshiyot.default.map((p) => ({ ...p, scroll: "torah" })),
+    {
+      he: "\u05D0\u05E1\u05EA\u05E8",
+      en: "Esther",
+      ref: { b: 1, c: 1, v: 1 },
+      scroll: "esther"
+    },
+    ...Object.keys(import_holydays.default).map((holydayKey) => {
+      const holyday = import_holydays.default[holydayKey];
+      const { he, en, ref } = holyday;
+      const { b, c, v } = ref;
+      return {
+        scroll: holydayKey,
+        en,
+        he,
+        ref: { b, c, v }
+      };
+    })
+  ];
+  var searchResults = (query) => {
+    const results = (0, import_fuzzy.default)(searchables, query, (parsha) => [parsha.he, parsha.en]);
+    return results.length ? results : [{
+      item: "No results",
+      match: { index: 0, indexes: [] }
+    }];
+  };
+  var top = (n) => (_, i) => i < n;
+  var search = (query) => searchResults(query).filter(top(5)).map((result) => result.item === "No results" ? NoResults() : ParshaResult_default(result));
+  var ParshaPicker = (jumpToRef) => {
+    const searchEmitter = event_emitter_default.new();
+    const s = Search_default({ search, emitter: searchEmitter });
+    const self = htmlToElement4(`
     <div class="parsha-picker">
       <div class="stack xlarge">
         <div class="centerize">
@@ -61487,7 +61593,7 @@
       self.querySelector(".browse").classList.remove("u-hidden");
       self.querySelector("#coming-up").classList.remove("u-hidden");
     });
-    self.querySelector("#search").parentNode.replaceChild(search2, self.querySelector("#search"));
+    self.querySelector("#search").parentNode.replaceChild(s, self.querySelector("#search"));
     [...self.querySelectorAll('[data-target-id="parsha"]')].forEach((parsha) => {
       parsha.addEventListener("click", (e) => {
         gtag("event", "browse_selection", {
@@ -61508,114 +61614,7 @@
     });
     return self;
   };
-  var searchables = [
-    ...import_parshiyot.default.map((p) => ({ ...p, scroll: "torah" })),
-    {
-      he: "\u05D0\u05E1\u05EA\u05E8",
-      en: "Esther",
-      ref: { b: 1, c: 1, v: 1 },
-      scroll: "esther"
-    },
-    ...Object.keys(import_holydays.default).map((holydayKey) => {
-      const holyday = import_holydays.default[holydayKey];
-      const { he, en, ref } = holyday;
-      const { b, c, v } = ref;
-      return {
-        scroll: holydayKey,
-        en,
-        he,
-        ref: { b, c, v }
-      };
-    })
-  ];
-  var searchResults = (query) => {
-    const results = (0, import_fuzzy.default)(searchables, query, (parsha) => [parsha.he, parsha.en]);
-    return results.length ? results : [{
-      item: "No results",
-      match: { index: 0, indexes: [] }
-    }];
-  };
-  var top = (n) => (_, i) => i < n;
-  var search = (query) => searchResults(query).filter(top(5)).map((result) => result.item === "No results" ? NoResults() : ParshaResult_default(result));
   var ParshaPicker_default = ParshaPicker;
-
-  // components/SelectList.js
-  var { htmlToElement: htmlToElement4 } = utils_default;
-  var setSelected = (list, adjustSelected) => {
-    const items = [...list.querySelectorAll('[data-target-class="list-item"]')];
-    const selectedIndex = Math.max(items.findIndex((item) => item.getAttribute("data-selected") === "true"), 0);
-    const selected = items[selectedIndex];
-    selected.removeAttribute("data-selected");
-    const nextIndex = (adjustSelected(selectedIndex) + items.length) % items.length;
-    items[nextIndex].setAttribute("data-selected", "true");
-  };
-  var getSelected = (list) => list.querySelector('[data-target-class="list-item"][data-selected="true"]');
-  var SelectList = (items, el, onSelect) => {
-    const list = htmlToElement4(`
-    <ol class="list"></ol>
-  `);
-    items.forEach((item) => {
-      const listItem = htmlToElement4('<li class="list-item" data-target-class="list-item"></li>');
-      listItem.appendChild(item);
-      listItem.addEventListener("click", () => {
-        onSelect(listItem);
-      });
-      list.appendChild(listItem);
-    });
-    list.querySelector('[data-target-class="list-item"]').setAttribute("data-selected", "true");
-    return list;
-  };
-  var SelectList_default = SelectList;
-
-  // components/Search.js
-  var { htmlToElement: html, whenKey: whenKey2, purgeNode: purgeNode2 } = utils_default;
-  var Search = ({ search: search2, emitter }) => {
-    let list;
-    const self = html(`
-    <div class="search">
-      <div class="search-bar">
-        <span class="search-icon">\u26B2</span>
-        <input class="search-input" placeholder="Search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus />
-      </div>
-      <div class="search-results u-hidden">
-      </div>
-    </div>
-  `);
-    self.addEventListener("keydown", whenKey2("Enter", () => {
-      emitter.emit("selection", getSelected(list));
-    }));
-    const onSelect = (item) => emitter.emit("selection", item);
-    [
-      { key: "ArrowDown", adjustment: (selected) => selected + 1 },
-      { key: "ArrowUp", adjustment: (selected) => selected - 1 },
-      { key: { key: "n", ctrl: true }, adjustment: (selected) => selected + 1 },
-      { key: { key: "p", ctrl: true }, adjustment: (selected) => selected - 1 }
-    ].forEach(({ key, adjustment }) => self.addEventListener("keydown", whenKey2(key, (e) => {
-      e.preventDefault();
-      setSelected(list, adjustment);
-    })));
-    const searchInput = self.querySelector(".search-input");
-    const searchResults2 = self.querySelector(".search-results");
-    searchInput.addEventListener("input", (e) => {
-      const query = e.target.value;
-      purgeNode2(searchResults2);
-      if (query) {
-        emitter.emit("search", query);
-        const results = search2(query);
-        list = SelectList_default(results, searchInput, onSelect);
-        searchResults2.appendChild(list);
-        searchResults2.classList.remove("u-hidden");
-      } else {
-        emitter.emit("clear");
-        searchResults2.classList.add("u-hidden");
-      }
-    });
-    self.focus = () => {
-      searchInput.focus();
-    };
-    return self;
-  };
-  var Search_default = Search;
 
   // build/page-titles.json
   var page_titles_default = [
@@ -62512,14 +62511,11 @@
       { selector: '[data-target-id="repo-link"]', visible: false },
       { selector: '[data-target-id="tikkun-book"]', visible: false }
     ].forEach(({ selector, visible }) => setVisibility({ selector, visible }));
-    const searchEmitter = event_emitter_default.new();
-    const s = Search_default({ search, emitter: searchEmitter });
-    const jumper = ParshaPicker_default(s, searchEmitter, ({ ref, scroll: scroll2 }) => app.jumpTo({ ref: refOf(ref), scroll: scroll2 }));
+    const jumper = ParshaPicker_default(({ ref, scroll: scroll2 }) => app.jumpTo({ ref: refOf(ref), scroll: scroll2 }));
     document.querySelector("#js-app").appendChild(jumper);
     gtag("event", "view", {
       event_category: "navigation"
     });
-    setTimeout(() => s.focus(), 0);
   };
   var hideParshaPicker = () => {
     ;

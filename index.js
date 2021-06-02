@@ -1,10 +1,8 @@
 /* global gtag */
 
-import EventEmitter from './src/event-emitter'
 import { InfiniteScroller, IntegerIterator, title as getTitle, physicalLocationFromRef, urlToRef } from './src'
 import Page from './components/Page'
-import ParshaPicker, { search } from './components/ParshaPicker'
-import Search from './components/Search'
+import ParshaPicker from './components/ParshaPicker'
 import utils from './components/utils'
 import pageTitles from './build/page-titles.json'
 import holydays from './build/holydays.json'
@@ -144,16 +142,13 @@ const showParshaPicker = () => {
   ]
     .forEach(({ selector, visible }) => setVisibility({ selector, visible }))
 
-  const searchEmitter = EventEmitter.new()
+  const jumper = ParshaPicker(({ ref, scroll }) => app.jumpTo({ ref: refOf(ref), scroll }))
 
-  const s = Search({ search, emitter: searchEmitter })
-  const jumper = ParshaPicker(s, searchEmitter, ({ ref, scroll }) => app.jumpTo({ ref: refOf(ref), scroll }))
   document.querySelector('#js-app').appendChild(jumper)
+
   gtag('event', 'view', {
     event_category: 'navigation'
   })
-
-  setTimeout(() => s.focus(), 0)
 }
 
 const hideParshaPicker = () => {

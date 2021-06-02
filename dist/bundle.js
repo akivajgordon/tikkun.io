@@ -6,16 +6,9 @@
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
   var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
-  var __commonJS = (callback, module) => () => {
-    if (!module) {
-      module = {exports: {}};
-      callback(module.exports, module);
-    }
-    return module.exports;
-  };
-  var __exportStar = (target, module, desc) => {
-    __markAsModule(target);
-    if (typeof module === "object" || typeof module === "function") {
+  var __commonJS = (cb, mod) => () => (mod || cb((mod = {exports: {}}).exports, mod), mod.exports);
+  var __reExport = (target, module, desc) => {
+    if (module && typeof module === "object" || typeof module === "function") {
       for (let key of __getOwnPropNames(module))
         if (!__hasOwnProp.call(target, key) && key !== "default")
           __defProp(target, key, {get: () => module[key], enumerable: !(desc = __getOwnPropDesc(module, key)) || desc.enumerable});
@@ -23,15 +16,13 @@
     return target;
   };
   var __toModule = (module) => {
-    if (module && module.__esModule)
-      return module;
-    return __exportStar(__defProp(__create(__getProtoOf(module)), "default", {value: module, enumerable: true}), module);
+    return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? {get: () => module.default, enumerable: true} : {value: module, enumerable: true})), module);
   };
 
   // src/infinite-scroller.js
   var require_infinite_scroller = __commonJS((exports, module) => {
-    let alreadyInFlight = false;
-    const oneAtATime = (promise) => {
+    var alreadyInFlight = false;
+    var oneAtATime = (promise) => {
       if (alreadyInFlight)
         return Promise.resolve();
       alreadyInFlight = true;
@@ -40,7 +31,7 @@
         return val;
       });
     };
-    const InfiniteScroller2 = {
+    var InfiniteScroller2 = {
       new: ({container, fetchPreviousContent, fetchNextContent}) => ({
         attach: () => container.addEventListener("scroll", (e) => {
           const scrollView = e.target;
@@ -89,7 +80,7 @@
 
   // src/hebrew-numeral.js
   var require_hebrew_numeral = __commonJS((exports, module) => {
-    const letters = [
+    var letters = [
       {glyph: "\u05D0", value: 1},
       {glyph: "\u05D1", value: 2},
       {glyph: "\u05D2", value: 3},
@@ -113,7 +104,7 @@
       {glyph: "\u05E9", value: 300},
       {glyph: "\u05EA", value: 400}
     ].reverse();
-    const hebrewNumeral = (n) => {
+    var hebrewNumeral = (n) => {
       if (n <= 0)
         return "";
       if (n === 15)
@@ -132,15 +123,15 @@
 
   // src/text-filter.js
   var require_text_filter = __commonJS((exports, module) => {
-    const NUN_HAFUCHA = "\u05C6";
-    const ketiv = (text) => text.replace("#(\u05E4)", "").replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`).split(" ").map((maqafSeparatedWord) => maqafSeparatedWord.split("\u05BE").map((word) => {
+    var NUN_HAFUCHA = "\u05C6";
+    var ketiv = (text) => text.replace("#(\u05E4)", "").replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`).split(" ").map((maqafSeparatedWord) => maqafSeparatedWord.split("\u05BE").map((word) => {
       const parts = word.split("#");
       if (parts.length <= 1) {
         return parts[0];
       }
       return `{${parts.slice(1).map((bracketed) => bracketed.slice(1, -1)).join(" ")}}`;
     }).join("\u05BE")).join(" ");
-    const kri = (text) => text.replace(/־/g, " ").replace("#(\u05E4)", "").replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`).split(" ").map((word) => {
+    var kri = (text) => text.replace(/־/g, " ").replace("#(\u05E4)", "").replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`).split(" ").map((word) => {
       const parts = word.split("#");
       return parts[0];
     }).join(" ").replace(new RegExp(`[^\u05D0-\u05EA\\s${NUN_HAFUCHA}]`, "g"), "");
@@ -149,7 +140,7 @@
 
   // src/display-range.js
   var require_display_range = __commonJS((exports, module) => {
-    const hebrewNumeralFromInteger2 = require_hebrew_numeral();
+    var hebrewNumeralFromInteger2 = require_hebrew_numeral();
     var asRange = (strings) => {
       if (!strings.length) {
         return "";
@@ -159,7 +150,7 @@
       }
       return [strings[0], strings[strings.length - 1]].join("-");
     };
-    const aliyotStrings = [
+    var aliyotStrings = [
       "\u05E8\u05D0\u05E9\u05D5\u05DF",
       "\u05E9\u05E0\u05D9",
       "\u05E9\u05DC\u05D9\u05E9\u05D9",
@@ -169,15 +160,15 @@
       "\u05E9\u05D1\u05D9\u05E2\u05D9",
       "\u05DE\u05E4\u05D8\u05D9\u05E8"
     ];
-    const aliyahName = ({aliyah, getParshaName: getParshaName2}) => {
+    var aliyahName = ({aliyah, getParshaName: getParshaName2}) => {
       if (aliyah < 1 || aliyah > aliyotStrings.length)
         return null;
       if (aliyah === 1)
         return getParshaName2();
       return aliyotStrings[aliyah - 1];
     };
-    const aliyotNames = (aliyot, getParshaName2) => aliyot.map((aliyah) => aliyahName({aliyah, getParshaName: getParshaName2}));
-    const asVersesRange = (verses) => asRange(verses.map((verse) => {
+    var aliyotNames = (aliyot, getParshaName2) => aliyot.map((aliyah) => aliyahName({aliyah, getParshaName: getParshaName2}));
+    var asVersesRange = (verses) => asRange(verses.map((verse) => {
       const components = [];
       if (verse.verse === 1) {
         components.push(verse.chapter);
@@ -185,7 +176,7 @@
       components.push(verse.verse);
       return components.map((num) => hebrewNumeralFromInteger2(num)).join(":");
     }));
-    const asAliyotRange = (aliyot, getParshaName2) => {
+    var asAliyotRange = (aliyot, getParshaName2) => {
       if (!aliyot.length) {
         return "";
       }
@@ -197,8 +188,8 @@
 
   // src/title.js
   var require_title = __commonJS((exports, module) => {
-    module.exports = (parshiyot4) => {
-      return parshiyot4.join(" \u2013 ");
+    module.exports = (parshiyot3) => {
+      return parshiyot3.join(" \u2013 ");
     };
   });
 
@@ -55218,17 +55209,61 @@
 
   // src/location.js
   var require_location = __commonJS((exports, module) => {
-    const toc = require_table_of_contents();
-    const estherToc = require_table_of_contents_esther();
-    const holydaysToc = require_table_of_contents_holydays();
-    const tocFromScroll = {
+    var toc = require_table_of_contents();
+    var estherToc = require_table_of_contents_esther();
+    var holydaysToc = require_table_of_contents_holydays();
+    var tocFromScroll = {
       torah: toc,
       esther: estherToc,
       ...holydaysToc
     };
-    module.exports = ({ref: {b: book, c: chapter, v: verse}, scroll: scroll2}) => {
-      const {p: pageNumber, l: lineNumber} = tocFromScroll[scroll2][book][chapter][verse];
-      return {pageNumber, lineNumber};
+    module.exports = {
+      physicalLocationFromRef: ({ref: {b: book, c: chapter, v: verse}, scroll: scroll2}) => {
+        const {p: pageNumber, l: lineNumber} = tocFromScroll[scroll2][book][chapter][verse];
+        return {pageNumber, lineNumber};
+      },
+      defaultRef: () => {
+        return {b: 1, c: 1, v: 1};
+      },
+      resolveToValidRef: ({scroll: scroll2, book, chapter, verse}) => {
+        const ref = module.exports.defaultRef();
+        if (scroll2 && scroll2 != "torah") {
+          return ref;
+        }
+        const toc2 = tocFromScroll.torah;
+        const convertToValidInt = (val, validValues) => {
+          return val && val in validValues ? parseInt(val) : 1;
+        };
+        ref.b = convertToValidInt(book, toc2);
+        ref.c = convertToValidInt(chapter, toc2[ref.b]);
+        ref.v = convertToValidInt(verse, toc2[ref.b][ref.c]);
+        return ref;
+      }
+    };
+  });
+
+  // src/url-to-ref.js
+  var require_url_to_ref = __commonJS((exports, module) => {
+    var {defaultRef, resolveToValidRef} = require_location();
+    module.exports = (url) => {
+      if (url instanceof URL) {
+        const hashParts = url.hash.split("/").slice(1);
+        if (hashParts.length > 0) {
+          if (hashParts[0] == "r" && hashParts[1].length > 0) {
+            const locationRegex = /(\d+)\-(\d+)-(\d+)/;
+            const locationMatch = hashParts[1].match(locationRegex);
+            if (locationMatch) {
+              return resolveToValidRef({
+                scroll: "torah",
+                book: locationMatch[1],
+                chapter: locationMatch[2],
+                verse: locationMatch[3]
+              });
+            }
+          }
+        }
+      }
+      return defaultRef();
     };
   });
 
@@ -59872,8 +59907,8 @@
 
   // src/fuzzy.js
   var require_fuzzy = __commonJS((exports, module) => {
-    const hasEveryCharacterInOrder = (needle) => (item) => new RegExp(needle.split("").join(".*"), "i").test(item);
-    const matchIndexes = (needle, match) => {
+    var hasEveryCharacterInOrder = (needle) => (item) => new RegExp(needle.split("").join(".*"), "i").test(item);
+    var matchIndexes = (needle, match) => {
       const needleChars = needle.split("");
       const matchChars = match.split("");
       const indexes = [];
@@ -59888,11 +59923,11 @@
       }
       return indexes;
     };
-    const indexScore = (needle, match) => {
+    var indexScore = (needle, match) => {
       const indexes = matchIndexes(needle, match);
       return indexes.map((index) => index - indexes[0]).reduce((a, b) => a + b, 0);
     };
-    const bestMatch = (needle, getSearchTerms) => (candidate) => {
+    var bestMatch = (needle, getSearchTerms) => (candidate) => {
       const {minScore, index} = getSearchTerms(candidate).map((term) => hasEveryCharacterInOrder(needle)(term) ? indexScore(needle, term) : Infinity).reduce(({minScore: minScore2, index: index2}, score, i) => {
         if (score < minScore2)
           return {minScore: score, index: i};
@@ -59935,30 +59970,31 @@
   };
 
   // src/index.js
-  const infinite_scroller = __toModule(require_infinite_scroller());
-  const integer_iterator = __toModule(require_integer_iterator());
-  const hebrewNumeralFromInteger = require_hebrew_numeral();
-  const textFilter = require_text_filter();
-  const displayRange = require_display_range();
-  const title = require_title();
-  const physicalLocationFromRef = require_location();
+  var import_infinite_scroller = __toModule(require_infinite_scroller());
+  var import_integer_iterator = __toModule(require_integer_iterator());
+  var hebrewNumeralFromInteger = require_hebrew_numeral();
+  var textFilter = require_text_filter();
+  var displayRange = require_display_range();
+  var title = require_title();
+  var {physicalLocationFromRef} = require_location();
+  var urlToRef = require_url_to_ref();
 
   // components/Line.js
-  const parshiyot = require_parshiyot();
-  const holydays = require_holydays();
-  const aliyotJSON = require_aliyot();
-  const ktivKriAnnotation = (text) => text.replace(/[{]/g, `<span class="ktiv-kri">`).replace(/[}]/g, `</span>`);
-  const petuchaClass = (isPetucha) => isPetucha ? "mod-petucha" : "";
-  const setumaClass = (column) => column.length > 1 ? "mod-setuma" : "";
-  const aliyahFinderByScroll = {
+  var parshiyot = require_parshiyot();
+  var holydays = require_holydays();
+  var aliyotJSON = require_aliyot();
+  var ktivKriAnnotation = (text) => text.replace(/[{]/g, `<span class="ktiv-kri">`).replace(/[}]/g, `</span>`);
+  var petuchaClass = (isPetucha) => isPetucha ? "mod-petucha" : "";
+  var setumaClass = (column) => column.length > 1 ? "mod-setuma" : "";
+  var aliyahFinderByScroll = {
     torah: parshiyot,
     ...Object.keys(holydays).reduce((result, holydayKey) => {
       return {...result, [holydayKey]: [holydays[holydayKey]]};
     }, {})
   };
-  const aliyotByRefByScroll = aliyotJSON;
-  const getParshaName = (verses, __scroll) => () => parshaName(verses, __scroll);
-  const aliyotDisplay = ({verses, scroll: __scroll}) => {
+  var aliyotByRefByScroll = aliyotJSON;
+  var getParshaName = (verses, __scroll) => () => parshaName(verses, __scroll);
+  var aliyotDisplay = ({verses, scroll: __scroll}) => {
     const found = verses.map(({book, chapter, verse}) => {
       return aliyotByRefByScroll[__scroll]?.[book]?.[chapter]?.[verse];
     }).filter(Boolean);
@@ -59971,11 +60007,11 @@
       ...special ? [`(${displayRange.aliyahName({aliyah: special, getParshaName: getParshaName(verses, __scroll)})})`] : []
     ].join(" ");
   };
-  const parshaName = (verses, __scroll) => {
+  var parshaName = (verses, __scroll) => {
     const found = aliyahFinderByScroll[__scroll].find(({ref}) => verses.some(({book: b, chapter: c, verse: v}) => ref.b === b && ref.c === c && ref.v === v));
     return (found || {he: "\u05E8\u05D0\u05E9\u05D5\u05DF"}).he;
   };
-  const Line = ({scroll: __scroll, text, verses, aliyot, isPetucha}) => `
+  var Line = ({scroll: __scroll, text, verses, aliyot, isPetucha}) => `
   <div class="line ${petuchaClass(isPetucha)}">
     ${text.map((column) => `
       <div class="column">
@@ -59992,7 +60028,7 @@
   var Line_default = Line;
 
   // components/Page.js
-  const Page = ({scroll: _scroll, lines}) => `
+  var Page = ({scroll: _scroll, lines}) => `
   <table>
     ${lines.map((line) => `
       <tr>
@@ -60004,7 +60040,7 @@
   var Page_default = Page;
 
   // components/ParshaPicker.js
-  const parshiyot2 = __toModule(require_parshiyot());
+  var import_parshiyot = __toModule(require_parshiyot());
 
   // build/schedule.json
   var schedule_default = [
@@ -61226,27 +61262,27 @@
   ];
 
   // components/ParshaPicker.js
-  const holydays2 = __toModule(require_holydays());
-  const fuzzy = __toModule(require_fuzzy());
+  var import_holydays = __toModule(require_holydays());
+  var import_fuzzy = __toModule(require_fuzzy());
 
   // components/utils.js
-  const htmlToElement = (html2) => {
+  var htmlToElement = (html2) => {
     const template = document.createElement("template");
     html2 = html2.trim();
     template.innerHTML = html2;
     return template.content.firstChild;
   };
-  const getKeys = (key) => {
+  var getKeys = (key) => {
     if (typeof key === "string")
       return {key, ctrl: false};
     return key;
   };
-  const whenKey = (key, callback) => (e) => {
+  var whenKey = (key, callback) => (e) => {
     const {key: k, ctrl} = getKeys(key);
     if (e.ctrlKey === ctrl && e.key === k && !e.repeat)
       callback(e);
   };
-  const purgeNode = (node) => {
+  var purgeNode = (node) => {
     while (node.firstChild)
       node.removeChild(node.firstChild);
   };
@@ -61257,8 +61293,8 @@
   };
 
   // components/ParshaResult.js
-  const {htmlToElement: htmlToElement2} = utils_default;
-  const decorateString = ({string, atIndexes, withDecoration}) => {
+  var {htmlToElement: htmlToElement2} = utils_default;
+  var decorateString = ({string, atIndexes, withDecoration}) => {
     let indexesIndex = 0;
     return string.split("").map((char, i) => {
       if (atIndexes[indexesIndex] !== i)
@@ -61267,8 +61303,8 @@
       return withDecoration(char);
     }, "").join("");
   };
-  const strongify = (c) => `<strong>${c}</strong>`;
-  const ParshaResult = ({match, item}) => htmlToElement2(`
+  var strongify = (c) => `<strong>${c}</strong>`;
+  var ParshaResult = ({match, item}) => htmlToElement2(`
   <div data-target-class="parsha-result" data-jump-to-book="${item.ref.b}" data-jump-to-chapter="${item.ref.c}" data-jump-to-verse="${item.ref.v}" data-scroll="${item.scroll}">
     <p class="search-result-tag mod-hebrew" data-target-class="result-hebrew">${match.index === 0 ? decorateString({
     string: item.he,
@@ -61285,20 +61321,20 @@
   </div>
 `);
   var ParshaResult_default = ParshaResult;
-  const NoResults = () => htmlToElement2(`<p class="" style="text-align: center; color: var(--light-text-color);">
+  var NoResults = () => htmlToElement2(`<p class="" style="text-align: center; color: var(--light-text-color);">
   No results
 </p>
 `);
 
   // components/ParshaPicker.js
-  const {htmlToElement: htmlToElement3} = utils_default;
-  const holydaysLayout = [
+  var {htmlToElement: htmlToElement3} = utils_default;
+  var holydaysLayout = [
     ["rosh-1", "rosh-2", "yom-kippur", "taanit-tzibur", "tisha-bav", "shavuot-1", "shavuot-2"],
     ["sukkot-1", "sukkot-2", "sukkot-3", "sukkot-4", "sukkot-5", "sukkot-6", "sukkot-7", "sukkot-shabbat-chol-hamoed", "shmini-atzeret", "simchat-torah"],
     ["pesach-1", "pesach-2", "pesach-3", "pesach-4", "pesach-5", "pesach-6", "pesach-shabbat-chol-hamoed", "pesach-7", "pesach-8"],
     ["purim", "chanukah-1", "chanukah-2", "chanukah-3", "chanukah-4", "chanukah-5", "chanukah-7", "chanukah-8"]
   ];
-  const Parsha = ({ref, he, scroll: scroll2}) => `
+  var Parsha = ({ref, he, scroll: scroll2}) => `
   <li
     class="parsha"
     data-target-id="parsha"
@@ -61310,15 +61346,15 @@
     ${he}
   </li>
   `;
-  const Book = (book) => `
+  var Book = (book) => `
   <li class="parsha-book">
     <ol class="parsha-list">
       ${book.map((b) => Parsha({...b, scroll: "torah"})).join("")}
     </ol>
   </li>
 `;
-  const refFromLabel = ({label}) => parshiyot2.default.find(({he}) => label.startsWith(he)).ref;
-  const ComingUpReading = ({label, date, datetime}) => {
+  var refFromLabel = ({label}) => import_parshiyot.default.find(({he}) => label.startsWith(he)).ref;
+  var ComingUpReading = ({label, date, datetime}) => {
     const {b: book, c: chapter, v: verse} = refFromLabel({label});
     return `
   <li style="display: table-cell; width: calc(100% / 3); padding: 0 0.5em;">
@@ -61336,8 +61372,8 @@
   </li>
   `;
   };
-  const comingUpReadings = schedule_default.filter((reading) => new Date(reading.datetime) > new Date()).slice(0, 3);
-  const ComingUp = () => `
+  var comingUpReadings = schedule_default.filter((reading) => new Date(reading.datetime) > new Date()).slice(0, 3);
+  var ComingUp = () => `
   <section dir="ltr" id="coming-up" class="section mod-alternate mod-padding">
     <div class="stack medium">
       <label class="section-label">Coming up</label>
@@ -61349,11 +61385,11 @@
     </div>
   </section>
 `;
-  const Browse = () => `
+  var Browse = () => `
   <div class="browse">
     <h2 class="section-heading">\u05E4\u05E8\u05E9\u05EA \u05D4\u05E9\u05D1\u05D5\u05E2</h2>
     <ol class="parsha-books mod-emphasize-first-in-group">
-      ${parshiyot2.default.reduce((books, parsha) => {
+      ${import_parshiyot.default.reduce((books, parsha) => {
     const book = parsha.ref.b;
     books[book] = books[book] || [];
     books[book].push(parsha);
@@ -61367,7 +61403,7 @@
         <li class="parsha-book">
           <ol class="parsha-list">
             ${col.map((holydayKey) => {
-    const holyday = holydays2.default[holydayKey];
+    const holyday = import_holydays.default[holydayKey];
     const {ref, he} = holyday;
     const {b, c, v} = ref;
     return Parsha({ref: {b, c, v}, he, scroll: holydayKey});
@@ -61387,7 +61423,7 @@
     </ol>
   </div>
 `;
-  const ParshaPicker = (search2, searchEmitter, jumpToRef) => {
+  var ParshaPicker = (search2, searchEmitter, jumpToRef) => {
     const self = htmlToElement3(`
     <div class="parsha-picker">
       <div class="stack xlarge">
@@ -61440,16 +61476,16 @@
     });
     return self;
   };
-  const searchables = [
-    ...parshiyot2.default.map((p) => ({...p, scroll: "torah"})),
+  var searchables = [
+    ...import_parshiyot.default.map((p) => ({...p, scroll: "torah"})),
     {
       he: "\u05D0\u05E1\u05EA\u05E8",
       en: "Esther",
       ref: {b: 1, c: 1, v: 1},
       scroll: "esther"
     },
-    ...Object.keys(holydays2.default).map((holydayKey) => {
-      const holyday = holydays2.default[holydayKey];
+    ...Object.keys(import_holydays.default).map((holydayKey) => {
+      const holyday = import_holydays.default[holydayKey];
       const {he, en, ref} = holyday;
       const {b, c, v} = ref;
       return {
@@ -61460,20 +61496,20 @@
       };
     })
   ];
-  const searchResults = (query) => {
-    const results = fuzzy.default(searchables, query, (parsha) => [parsha.he, parsha.en]);
+  var searchResults = (query) => {
+    const results = (0, import_fuzzy.default)(searchables, query, (parsha) => [parsha.he, parsha.en]);
     return results.length ? results : [{
       item: "No results",
       match: {index: 0, indexes: []}
     }];
   };
-  const top = (n) => (_, i) => i < n;
-  const search = (query) => searchResults(query).filter(top(5)).map((result) => result.item === "No results" ? NoResults() : ParshaResult_default(result));
+  var top = (n) => (_, i) => i < n;
+  var search = (query) => searchResults(query).filter(top(5)).map((result) => result.item === "No results" ? NoResults() : ParshaResult_default(result));
   var ParshaPicker_default = ParshaPicker;
 
   // components/SelectList.js
-  const {htmlToElement: htmlToElement4} = utils_default;
-  const setSelected = (list, adjustSelected) => {
+  var {htmlToElement: htmlToElement4} = utils_default;
+  var setSelected = (list, adjustSelected) => {
     const items = [...list.querySelectorAll('[data-target-class="list-item"]')];
     const selectedIndex = Math.max(items.findIndex((item) => item.getAttribute("data-selected") === "true"), 0);
     const selected = items[selectedIndex];
@@ -61481,8 +61517,8 @@
     const nextIndex = (adjustSelected(selectedIndex) + items.length) % items.length;
     items[nextIndex].setAttribute("data-selected", "true");
   };
-  const getSelected = (list) => list.querySelector('[data-target-class="list-item"][data-selected="true"]');
-  const SelectList = (items, el, onSelect) => {
+  var getSelected = (list) => list.querySelector('[data-target-class="list-item"][data-selected="true"]');
+  var SelectList = (items, el, onSelect) => {
     const list = htmlToElement4(`
     <ol class="list"></ol>
   `);
@@ -61500,8 +61536,8 @@
   var SelectList_default = SelectList;
 
   // components/Search.js
-  const {htmlToElement: html, whenKey: whenKey2, purgeNode: purgeNode2} = utils_default;
-  const Search = ({search: search2, emitter}) => {
+  var {htmlToElement: html, whenKey: whenKey2, purgeNode: purgeNode2} = utils_default;
+  var Search = ({search: search2, emitter}) => {
     let list;
     const self = html(`
     <div class="search">
@@ -62336,40 +62372,40 @@
   ];
 
   // index.js
-  const holydays4 = __toModule(require_holydays());
-  const {htmlToElement: htmlToElement5, whenKey: whenKey3, purgeNode: purgeNode3} = utils_default;
-  const insertBefore = (parent, child) => {
+  var import_holydays2 = __toModule(require_holydays());
+  var {htmlToElement: htmlToElement5, whenKey: whenKey3, purgeNode: purgeNode3} = utils_default;
+  var insertBefore = (parent, child) => {
     parent.insertAdjacentElement("afterbegin", child);
   };
-  const insertAfter = (parent, child) => {
+  var insertAfter = (parent, child) => {
     parent.insertAdjacentElement("beforeend", child);
   };
-  let scroll;
-  const renderTitle = ({title: title2}) => {
+  var scroll;
+  var renderTitle = ({title: title2}) => {
     document.querySelector('[data-target-id="parsha-title"]').innerHTML = title2;
   };
-  const makePageNode = ({title: title2}) => {
+  var makePageNode = ({title: title2}) => {
     const node = document.createElement("div");
     node.classList.add("tikkun-page");
     node.setAttribute("data-page-title", title2);
     return node;
   };
-  const scrollToLine = ({node, lineIndex}) => {
+  var scrollToLine = ({node, lineIndex}) => {
     const lines = [...node.querySelectorAll(".line")];
     const line = lines[lineIndex];
     const book = document.querySelector(".tikkun-book");
     book.scrollTop = line.offsetTop + line.offsetHeight / 2 - book.offsetHeight / 2;
   };
-  const scrollsByKey = () => ({
+  var scrollsByKey = () => ({
     torah: TorahScroll,
     esther: EstherScroll,
-    ...Object.keys(holydays4.default).reduce((result, holydayKey) => {
+    ...Object.keys(import_holydays2.default).reduce((result, holydayKey) => {
       const HolydayScroll = {
         new: ({startingAtRef}) => {
           return Scroll.new({
             scroll: holydayKey,
             makePath: (n) => `/build/pages/${holydayKey}/${n}.json`,
-            makeTitle: (n) => holydays4.default[holydayKey].he,
+            makeTitle: (n) => import_holydays2.default[holydayKey].he,
             startingAtRef
           });
         }
@@ -62377,10 +62413,10 @@
       return {...result, [holydayKey]: HolydayScroll};
     }, {})
   });
-  const Scroll = {
+  var Scroll = {
     new: ({scroll: scroll2, makePath, makeTitle, startingAtRef = {b: 1, c: 1, v: 1}}) => {
       const {pageNumber, lineNumber} = physicalLocationFromRef({ref: startingAtRef, scroll: scroll2});
-      const iterator = integer_iterator.default.new({startingAt: pageNumber});
+      const iterator = import_integer_iterator.default.new({startingAt: pageNumber});
       return {
         scrollName: scroll2,
         fetchPrevious: () => {
@@ -62397,7 +62433,7 @@
       };
     }
   };
-  const TorahScroll = {
+  var TorahScroll = {
     new: ({startingAtRef}) => {
       return Scroll.new({
         scroll: "torah",
@@ -62407,7 +62443,7 @@
       });
     }
   };
-  const EstherScroll = {
+  var EstherScroll = {
     new: ({startingAtRef}) => {
       return Scroll.new({
         scroll: "esther",
@@ -62417,7 +62453,7 @@
       });
     }
   };
-  const app = {
+  var app = {
     jumpTo: ({ref, scroll: _scroll}) => {
       scroll = scrollsByKey()[_scroll].new({startingAtRef: ref});
       purgeNode3(document.querySelector('[data-target-id="tikkun-book"]'));
@@ -62428,16 +62464,16 @@
       return Promise.resolve();
     }
   };
-  const refOf = (element) => {
+  var refOf = (element) => {
     const refPart = (part) => Number(element.getAttribute(`data-jump-to-${part}`));
     return {b: refPart("book"), c: refPart("chapter"), v: refPart("verse")};
   };
-  const setVisibility = ({selector, visible}) => {
+  var setVisibility = ({selector, visible}) => {
     const classList = document.querySelector(selector).classList;
     classList[visible ? "remove" : "add"]("u-hidden");
     classList[visible ? "remove" : "add"]("mod-animated");
   };
-  const showParshaPicker = () => {
+  var showParshaPicker = () => {
     ;
     [
       {selector: '[data-test-id="annotations-toggle"]', visible: false},
@@ -62453,7 +62489,7 @@
     });
     setTimeout(() => s.focus(), 0);
   };
-  const hideParshaPicker = () => {
+  var hideParshaPicker = () => {
     ;
     [
       {selector: '[data-test-id="annotations-toggle"]', visible: true},
@@ -62462,7 +62498,7 @@
     ].forEach(({selector, visible}) => setVisibility({selector, visible}));
     document.querySelector(".parsha-picker") && document.querySelector("#js-app").removeChild(document.querySelector(".parsha-picker"));
   };
-  const toggleParshaPicker = () => {
+  var toggleParshaPicker = () => {
     const isShowingParshaPicker = Boolean(document.querySelector(".parsha-picker"));
     if (isShowingParshaPicker) {
       hideParshaPicker();
@@ -62470,25 +62506,25 @@
       showParshaPicker();
     }
   };
-  const toggleAnnotations = (getPreviousCheckedState) => {
+  var toggleAnnotations = (getPreviousCheckedState) => {
     const toggle = document.querySelector('[data-target-id="annotations-toggle"]');
     toggle.checked = !getPreviousCheckedState();
     const book = document.querySelector("[data-target-id=tikkun-book]");
     book.classList.toggle("mod-annotations-on", toggle.checked);
     book.classList.toggle("mod-annotations-off", !toggle.checked);
   };
-  const scrollState = {
+  var scrollState = {
     lastScrolledPosition: 0,
     pageAtTop: null
   };
-  const resumeLastScrollPosition = () => {
+  var resumeLastScrollPosition = () => {
     if (!scrollState.pageAtTop)
       return;
     const book = document.querySelector(".tikkun-book");
     const pageRect = scrollState.pageAtTop.getBoundingClientRect();
     book.scrollTop = scrollState.pageAtTop.offsetTop + scrollState.lastScrolledPosition * pageRect.height;
   };
-  const rememberLastScrolledPosition = () => {
+  var rememberLastScrolledPosition = () => {
     const book = document.querySelector(".tikkun-book");
     const bookBoundingRect = book.getBoundingClientRect();
     const topOfBookRelativeToViewport = {
@@ -62501,7 +62537,7 @@
     scrollState.pageAtTop = pageAtTop;
     scrollState.lastScrolledPosition = (book.scrollTop - pageAtTop.offsetTop) / pageAtTop.clientHeight;
   };
-  const updatePageTitle = () => {
+  var updatePageTitle = () => {
     const bookBoundingRect = document.querySelector(".tikkun-book").getBoundingClientRect();
     const centerOfBookRelativeToViewport = {
       x: bookBoundingRect.left + bookBoundingRect.width / 2,
@@ -62512,14 +62548,14 @@
       return;
     renderTitle({title: pageAtCenter.getAttribute("data-page-title")});
   };
-  let lastCalled = Date.now();
-  const throttle = (f) => {
+  var lastCalled = Date.now();
+  var throttle = (f) => {
     if (Date.now() - lastCalled > 300) {
       lastCalled = Date.now();
       f();
     }
   };
-  const renderPage = ({insertStrategy: insert}) => ({content, title: title2}) => {
+  var renderPage = ({insertStrategy: insert}) => ({content, title: title2}) => {
     const node = makePageNode({title: title2});
     insert(document.querySelector('[data-target-id="tikkun-book"]'), node);
     const el = htmlToElement5(Page_default({scroll: scroll.scrollName, lines: content}));
@@ -62532,12 +62568,12 @@
     renderTitle({title: title2});
     return node;
   };
-  const renderPrevious = renderPage({insertStrategy: insertBefore});
-  const renderNext = renderPage({insertStrategy: insertAfter});
-  const fetchPage = ({path, title: title2}) => window.fetch(path).then((res) => res.json()).then((page) => ({content: page, title: title2})).catch((err) => {
+  var renderPrevious = renderPage({insertStrategy: insertBefore});
+  var renderNext = renderPage({insertStrategy: insertAfter});
+  var fetchPage = ({path, title: title2}) => window.fetch(path).then((res) => res.json()).then((page) => ({content: page, title: title2})).catch((err) => {
     console.error(err);
   });
-  const debounce = (callback, delay) => {
+  var debounce = (callback, delay) => {
     let timeout;
     return () => {
       clearTimeout(timeout);
@@ -62549,7 +62585,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     const book = document.querySelector('[data-target-id="tikkun-book"]');
     const toggle = document.querySelector('[data-target-id="annotations-toggle"]');
-    infinite_scroller.default.new({
+    import_infinite_scroller.default.new({
       container: book,
       fetchPreviousContent: {fetch: () => scroll.fetchPrevious(), render: renderPrevious},
       fetchNextContent: {fetch: () => scroll.fetchNext(), render: renderNext}
@@ -62568,7 +62604,8 @@
     document.addEventListener("keyup", whenKey3("Shift", () => toggleAnnotations(() => toggle.checked)));
     document.querySelector('[data-target-id="parsha-title"]').addEventListener("click", toggleParshaPicker);
     document.addEventListener("keydown", whenKey3("/", toggleParshaPicker));
-    app.jumpTo({ref: {b: 1, c: 1, v: 1}, scroll: "torah"}).then(hideParshaPicker);
+    const startingRef = urlToRef(new URL(window.location.href));
+    app.jumpTo({ref: startingRef, scroll: "torah"}).then(hideParshaPicker);
   });
 })();
 //# sourceMappingURL=bundle.js.map

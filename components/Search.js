@@ -10,7 +10,7 @@ const Search = ({ search, emitter }) => {
     <div class="search">
       <div class="search-bar">
         <span class="search-icon">⚲</span>
-        <input class="search-input" placeholder="Search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus />
+        <input class="search-input" placeholder="Search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
       </div>
       <div class="search-results u-hidden">
       </div>
@@ -54,7 +54,7 @@ const Search = ({ search, emitter }) => {
     }
   })
 
-  return self
+  return { node: self, focus: () => { searchInput.focus() } }
 }
 
 export default Search

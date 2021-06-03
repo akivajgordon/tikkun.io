@@ -61377,7 +61377,7 @@
     <div class="search">
       <div class="search-bar">
         <span class="search-icon">\u26B2</span>
-        <input class="search-input" placeholder="Search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus />
+        <input class="search-input" placeholder="Search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
       </div>
       <div class="search-results u-hidden">
       </div>
@@ -61412,7 +61412,9 @@
         searchResults2.classList.add("u-hidden");
       }
     });
-    return self;
+    return { node: self, focus: () => {
+      searchInput.focus();
+    } };
   };
   var Search_default = Search;
 
@@ -61593,7 +61595,7 @@
       self.querySelector(".browse").classList.remove("u-hidden");
       self.querySelector("#coming-up").classList.remove("u-hidden");
     });
-    self.querySelector("#search").parentNode.replaceChild(s, self.querySelector("#search"));
+    self.querySelector("#search").parentNode.replaceChild(s.node, self.querySelector("#search"));
     [...self.querySelectorAll('[data-target-id="parsha"]')].forEach((parsha) => {
       parsha.addEventListener("click", (e) => {
         gtag("event", "browse_selection", {
@@ -61612,7 +61614,9 @@
         jumpToRef({ ref: e.target, scroll: e.target.getAttribute("data-scroll") });
       });
     });
-    return self;
+    return { node: self, onMount: () => {
+      setTimeout(() => s.focus(), 0);
+    } };
   };
   var ParshaPicker_default = ParshaPicker;
 
@@ -62512,10 +62516,11 @@
       { selector: '[data-target-id="tikkun-book"]', visible: false }
     ].forEach(({ selector, visible }) => setVisibility({ selector, visible }));
     const jumper = ParshaPicker_default(({ ref, scroll: scroll2 }) => app.jumpTo({ ref: refOf(ref), scroll: scroll2 }));
-    document.querySelector("#js-app").appendChild(jumper);
+    document.querySelector("#js-app").appendChild(jumper.node);
     gtag("event", "view", {
       event_category: "navigation"
     });
+    jumper.onMount();
   };
   var hideParshaPicker = () => {
     ;

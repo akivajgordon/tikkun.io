@@ -144,11 +144,13 @@ const showParshaPicker = () => {
 
   const jumper = ParshaPicker(({ ref, scroll }) => app.jumpTo({ ref: refOf(ref), scroll }))
 
-  document.querySelector('#js-app').appendChild(jumper)
+  document.querySelector('#js-app').appendChild(jumper.node)
 
   gtag('event', 'view', {
     event_category: 'navigation'
   })
+
+  jumper.onMount()
 }
 
 const hideParshaPicker = () => {

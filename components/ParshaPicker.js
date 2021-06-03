@@ -211,7 +211,7 @@ const ParshaPicker = (jumpToRef) => {
     self.querySelector('#coming-up').classList.remove('u-hidden')
   })
 
-  self.querySelector('#search').parentNode.replaceChild(s, self.querySelector('#search'))
+  self.querySelector('#search').parentNode.replaceChild(s.node, self.querySelector('#search'))
 
   ;[...self.querySelectorAll('[data-target-id="parsha"]')]
     .forEach((parsha) => {
@@ -236,7 +236,7 @@ const ParshaPicker = (jumpToRef) => {
       })
     })
 
-  return self
+  return { node: self, onMount: () => { setTimeout(() => s.focus(), 0) } }
 }
 
 export default ParshaPicker

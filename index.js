@@ -104,8 +104,8 @@ const EstherScroll = {
 }
 
 const app = {
-  jumpTo: ({ ref, scroll: _scroll }) => {
-    scroll = scrollsByKey()[_scroll].new({ startingAtRef: ref })
+  jumpTo: ({ ref }) => {
+    scroll = scrollsByKey()[ref.scroll].new({ startingAtRef: ref })
 
     purgeNode(document.querySelector('[data-target-id="tikkun-book"]'))
 
@@ -123,8 +123,9 @@ const app = {
 
 const refOf = element => {
   const refPart = (part) => Number(element.getAttribute(`data-jump-to-${part}`))
+  const scroll = element.getAttribute(`data-jump-to-scroll`)
 
-  return { b: refPart('book'), c: refPart('chapter'), v: refPart('verse') }
+  return { scroll, b: refPart('book'), c: refPart('chapter'), v: refPart('verse') }
 }
 
 const setVisibility = ({ selector, visible }) => {
@@ -142,7 +143,7 @@ const showParshaPicker = () => {
   ]
     .forEach(({ selector, visible }) => setVisibility({ selector, visible }))
 
-  const jumper = ParshaPicker(({ ref, scroll }) => app.jumpTo({ ref: refOf(ref), scroll }))
+  const jumper = ParshaPicker(({ ref }) => app.jumpTo({ ref: refOf(ref) }))
 
   document.querySelector('#js-app').appendChild(jumper.node)
 
@@ -312,6 +313,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))
 
   const startingRef = urlToRef(new URL(window.location.href))
-  app.jumpTo({ ref: startingRef, scroll: 'torah' })
+  app.jumpTo({ ref: startingRef })
     .then(hideParshaPicker)
 })

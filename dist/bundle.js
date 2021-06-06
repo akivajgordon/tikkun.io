@@ -55238,27 +55238,31 @@
         esther: estherToc,
         ...holydaysToc
       };
+      var defaultRef = () => {
+        return { scroll: "torah", b: 1, c: 1, v: 1 };
+      };
+      var convertToValidInt = (val, validValues) => {
+        return val && val in validValues ? parseInt(val) : 1;
+      };
       module.exports = {
         physicalLocationFromRef: ({ ref: { b: book, c: chapter, v: verse }, scroll: scroll2 }) => {
           const { p: pageNumber, l: lineNumber } = tocFromScroll[scroll2][book][chapter][verse];
           return { pageNumber, lineNumber };
         },
-        defaultRef: () => {
-          return { b: 1, c: 1, v: 1 };
-        },
-        resolveToValidRef: ({ scroll: scroll2, book, chapter, verse }) => {
-          const ref = module.exports.defaultRef();
-          if (scroll2 && scroll2 != "torah") {
+        defaultRef,
+        resolveToValidRef: ({ scroll: scroll2 = "torah", book, chapter, verse }) => {
+          const ref = defaultRef();
+          if (scroll2 !== "torah") {
             return ref;
           }
           const toc2 = tocFromScroll.torah;
-          const convertToValidInt = (val, validValues) => {
-            return val && val in validValues ? parseInt(val) : 1;
-          };
           ref.b = convertToValidInt(book, toc2);
           ref.c = convertToValidInt(chapter, toc2[ref.b]);
           ref.v = convertToValidInt(verse, toc2[ref.b][ref.c]);
-          return ref;
+          return {
+            scroll: scroll2,
+            ...ref
+          };
         }
       };
     }
@@ -61320,7 +61324,7 @@
   };
   var strongify = (c) => `<strong>${c}</strong>`;
   var ParshaResult = ({ match, item }) => htmlToElement2(`
-  <div data-target-class="parsha-result" data-jump-to-book="${item.ref.b}" data-jump-to-chapter="${item.ref.c}" data-jump-to-verse="${item.ref.v}" data-scroll="${item.scroll}">
+  <div data-target-class="parsha-result" data-jump-to-book="${item.ref.b}" data-jump-to-chapter="${item.ref.c}" data-jump-to-verse="${item.ref.v}" data-jump-to-scroll="${item.scroll}">
     <p class="search-result-tag mod-hebrew" data-target-class="result-hebrew">${match.index === 0 ? decorateString({
     string: item.he,
     atIndexes: match.indexes,
@@ -61450,7 +61454,7 @@
     data-jump-to-book="${ref.b}"
     data-jump-to-chapter="${ref.c}"
     data-jump-to-verse="${ref.v}"
-    data-scroll="${scroll2}"
+    data-jump-to-scroll="${scroll2}"
   >
     ${he}
   </li>
@@ -61473,7 +61477,7 @@
         data-jump-to-book="${book}"
         data-jump-to-chapter="${chapter}"
         data-jump-to-verse="${verse}"
-        data-scroll="torah"
+        data-jump-to-scroll="torah"
         class="coming-up-button"
       >${label}</button>
       <time class="coming-up-date" datetime="${datetime}">${date}</time>
@@ -61581,7 +61585,7 @@
         event_label: selected.querySelector('[data-target-class="result-hebrew"]').textContent.trim()
       });
       const result = selected.querySelector('[data-target-class="parsha-result"]');
-      jumpToRef({ ref: result, scroll: result.getAttribute("data-scroll") });
+      jumpToRef({ ref: result });
     });
     searchEmitter.on("search", (query) => {
       self.querySelector(".browse").classList.add("u-hidden");
@@ -61602,7 +61606,7 @@
           event_category: "navigation",
           event_label: e.target.textContent.trim()
         });
-        jumpToRef({ ref: e.target, scroll: e.target.getAttribute("data-scroll") });
+        jumpToRef({ ref: e.target });
       });
     });
     [...self.querySelectorAll('[data-target-class="coming-up-reading"]')].forEach((comingUpReading, index) => {
@@ -61611,7 +61615,7 @@
           event_category: "navigation",
           event_label: ["due up", "on deck", "in the hole"][index]
         });
-        jumpToRef({ ref: e.target, scroll: e.target.getAttribute("data-scroll") });
+        jumpToRef({ ref: e.target });
       });
     });
     return { node: self, onMount: () => {
@@ -62489,8 +62493,8 @@
     }
   };
   var app = {
-    jumpTo: ({ ref, scroll: _scroll }) => {
-      scroll = scrollsByKey()[_scroll].new({ startingAtRef: ref });
+    jumpTo: ({ ref }) => {
+      scroll = scrollsByKey()[ref.scroll].new({ startingAtRef: ref });
       purgeNode3(document.querySelector('[data-target-id="tikkun-book"]'));
       scroll.fetchNext().then(renderNext).then((pageNode) => {
         scrollToLine({ node: pageNode, lineIndex: scroll.startingLineNumber - 1 });
@@ -62501,7 +62505,8 @@
   };
   var refOf = (element) => {
     const refPart = (part) => Number(element.getAttribute(`data-jump-to-${part}`));
-    return { b: refPart("book"), c: refPart("chapter"), v: refPart("verse") };
+    const scroll2 = element.getAttribute(`data-jump-to-scroll`);
+    return { scroll: scroll2, b: refPart("book"), c: refPart("chapter"), v: refPart("verse") };
   };
   var setVisibility = ({ selector, visible }) => {
     const classList = document.querySelector(selector).classList;
@@ -62515,7 +62520,7 @@
       { selector: '[data-target-id="repo-link"]', visible: false },
       { selector: '[data-target-id="tikkun-book"]', visible: false }
     ].forEach(({ selector, visible }) => setVisibility({ selector, visible }));
-    const jumper = ParshaPicker_default(({ ref, scroll: scroll2 }) => app.jumpTo({ ref: refOf(ref), scroll: scroll2 }));
+    const jumper = ParshaPicker_default(({ ref }) => app.jumpTo({ ref: refOf(ref) }));
     document.querySelector("#js-app").appendChild(jumper.node);
     gtag("event", "view", {
       event_category: "navigation"
@@ -62638,7 +62643,7 @@
     document.querySelector('[data-target-id="parsha-title"]').addEventListener("click", toggleParshaPicker);
     document.addEventListener("keydown", whenKey3("/", toggleParshaPicker));
     const startingRef = urlToRef(new URL(window.location.href));
-    app.jumpTo({ ref: startingRef, scroll: "torah" }).then(hideParshaPicker);
+    app.jumpTo({ ref: startingRef }).then(hideParshaPicker);
   });
 })();
 //# sourceMappingURL=bundle.js.map

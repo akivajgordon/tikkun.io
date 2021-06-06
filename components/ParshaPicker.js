@@ -25,7 +25,7 @@ const Parsha = ({ ref, he, scroll }) => `
     data-jump-to-book="${ref.b}"
     data-jump-to-chapter="${ref.c}"
     data-jump-to-verse="${ref.v}"
-    data-scroll="${scroll}"
+    data-jump-to-scroll="${scroll}"
   >
     ${he}
   </li>
@@ -53,7 +53,7 @@ const ComingUpReading = ({ label, date, datetime }) => {
         data-jump-to-book="${book}"
         data-jump-to-chapter="${chapter}"
         data-jump-to-verse="${verse}"
-        data-scroll="torah"
+        data-jump-to-scroll="torah"
         class="coming-up-button"
       >${label}</button>
       <time class="coming-up-date" datetime="${datetime}">${date}</time>
@@ -194,7 +194,7 @@ const ParshaPicker = (jumpToRef) => {
 
     const result = selected.querySelector('[data-target-class="parsha-result"]')
 
-    jumpToRef({ ref: result, scroll: result.getAttribute('data-scroll') })
+    jumpToRef({ ref: result })
   })
 
   searchEmitter.on('search', query => {
@@ -220,7 +220,7 @@ const ParshaPicker = (jumpToRef) => {
           event_category: 'navigation',
           event_label: e.target.textContent.trim()
         })
-        jumpToRef({ ref: e.target, scroll: e.target.getAttribute('data-scroll') })
+        jumpToRef({ ref: e.target })
       })
     })
 
@@ -232,7 +232,7 @@ const ParshaPicker = (jumpToRef) => {
           event_label: ['due up', 'on deck', 'in the hole'][index]
         })
 
-        jumpToRef({ ref: e.target, scroll: e.target.getAttribute('data-scroll') })
+        jumpToRef({ ref: e.target })
       })
     })
 

@@ -1,7 +1,7 @@
 import test from 'ava'
 import urlToRef from './url-to-ref'
 
-const BEREISHIT_1 = { b: 1, c: 1, v: 1 }
+const BEREISHIT_1 = { scroll: 'torah', b: 1, c: 1, v: 1 }
 
 test('non-URL input', t => {
   t.deepEqual(urlToRef('https://not-an-url.org/#/r/5-6-7'), BEREISHIT_1)
@@ -28,13 +28,13 @@ test('Invalid location reference: incomplete', t => {
 })
 
 test('Valid location reference', t => {
-  t.deepEqual(urlToRef(new URL('https://tikkun.io/#/r/4-13-1')), { b: 4, c: 13, v: 1 })
+  t.deepEqual(urlToRef(new URL('https://tikkun.io/#/r/4-13-1')), { scroll: 'torah', b: 4, c: 13, v: 1 })
 })
 
 test('Trailing slash okay', t => {
-  t.deepEqual(urlToRef(new URL('https://tikkun.io/#/r/4-13-1/')), { b: 4, c: 13, v: 1 })
+  t.deepEqual(urlToRef(new URL('https://tikkun.io/#/r/4-13-1/')), { scroll: 'torah', b: 4, c: 13, v: 1 })
 })
 
 test('Location references default to 1 if out of bounds', t => {
-  t.deepEqual(urlToRef(new URL('https://tikkun.io/#/r/4-999-99/')), { b: 4, c: 1, v: 1 })
+  t.deepEqual(urlToRef(new URL('https://tikkun.io/#/r/4-999-99/')), { scroll: 'torah', b: 4, c: 1, v: 1 })
 })

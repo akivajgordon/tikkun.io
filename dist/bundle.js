@@ -84,6 +84,422 @@
     }
   });
 
+  // build/holydays.json
+  var require_holydays = __commonJS({
+    "build/holydays.json"(exports, module) {
+      module.exports = {
+        "rosh-1": {
+          en: "Rosh HaShanah (Day 1)",
+          he: "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D0\u05F3",
+          ref: {
+            b: 1,
+            c: 21,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "rosh-2": {
+          en: "Rosh HaShanah (Day 2)",
+          he: "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D1\u05F3",
+          ref: {
+            b: 1,
+            c: 22,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "yom-kippur": {
+          en: "Yom Kippur",
+          he: "\u05D9\u05D5\u05DD \u05DB\u05D9\u05E4\u05D5\u05E8",
+          ref: {
+            b: 3,
+            c: 16,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "sukkot-1": {
+          en: "Sukkot (Day 1)",
+          he: "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D0\u05F3",
+          ref: {
+            b: 3,
+            c: 22,
+            v: 26,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "sukkot-2": {
+          en: "Sukkot (Day 2)",
+          he: "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D1\u05F3",
+          ref: {
+            b: 3,
+            c: 22,
+            v: 26,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "sukkot-3": {
+          en: "Sukkot (Day 3)",
+          he: "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D2\u05F3",
+          ref: {
+            b: 4,
+            c: 29,
+            v: 17,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "sukkot-4": {
+          en: "Sukkot (Day 4)",
+          he: "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D3\u05F3",
+          ref: {
+            b: 4,
+            c: 29,
+            v: 20,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "sukkot-5": {
+          en: "Sukkot (Day 5)",
+          he: "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D4\u05F3",
+          ref: {
+            b: 4,
+            c: 29,
+            v: 23,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "sukkot-6": {
+          en: "Sukkot (Day 6)",
+          he: "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D5\u05F3",
+          ref: {
+            b: 4,
+            c: 29,
+            v: 26,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "sukkot-7": {
+          en: "Sukkot (Day 7 \u2013 Hoshana Raba)",
+          he: "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D6\u05F3 (\u05D4\u05D5\u05E9\u05E2\u05E0\u05D0 \u05E8\u05D1\u05D4)",
+          ref: {
+            b: 4,
+            c: 29,
+            v: 26,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "sukkot-shabbat-chol-hamoed": {
+          en: "Sukkot (Shabbat Chol HaMoed)",
+          he: "\u05E1\u05D5\u05DB\u05D5\u05EA - \u05E9\u05D1\u05EA \u05D7\u05D5\u05DC \u05D4\u05DE\u05D5\u05E2\u05D3",
+          ref: {
+            b: 2,
+            c: 33,
+            v: 12,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "shmini-atzeret": {
+          en: "Shmini Atzeret",
+          he: "\u05E9\u05DE\u05D9\u05E0\u05D9 \u05E2\u05E6\u05E8\u05EA",
+          ref: {
+            b: 5,
+            c: 14,
+            v: 22,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "simchat-torah": {
+          en: "Simchat Torah",
+          he: "\u05E9\u05DE\u05D7\u05EA \u05EA\u05D5\u05E8\u05D4",
+          ref: {
+            b: 5,
+            c: 33,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "chanukah-1": {
+          en: "Chanukah (Day 1)",
+          he: "\u05D7\u05E0\u05D5\u05DB\u05D4 \u05D0\u05F3",
+          ref: {
+            b: 4,
+            c: 7,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "chanukah-2": {
+          en: "Chanukah (Day 2)",
+          he: "\u05D7\u05E0\u05D5\u05DB\u05D4 \u05D1\u05F3",
+          ref: {
+            b: 4,
+            c: 7,
+            v: 18,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "chanukah-3": {
+          en: "Chanukah (Day 3)",
+          he: "\u05D7\u05E0\u05D5\u05DB\u05D4 \u05D2\u05F3",
+          ref: {
+            b: 4,
+            c: 7,
+            v: 24,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "chanukah-4": {
+          en: "Chanukah (Day 4)",
+          he: "\u05D7\u05E0\u05D5\u05DB\u05D4 \u05D3\u05F3",
+          ref: {
+            b: 4,
+            c: 7,
+            v: 30,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "chanukah-5": {
+          en: "Chanukah (Day 5)",
+          he: "\u05D7\u05E0\u05D5\u05DB\u05D4 \u05D4\u05F3",
+          ref: {
+            b: 4,
+            c: 7,
+            v: 36,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "chanukah-7": {
+          en: "Chanukah (Day 7)",
+          he: "\u05D7\u05E0\u05D5\u05DB\u05D4 \u05D6\u05F3",
+          ref: {
+            b: 4,
+            c: 7,
+            v: 48,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "chanukah-8": {
+          en: "Chanukah (Day 8)",
+          he: "\u05D7\u05E0\u05D5\u05DB\u05D4 \u05D7\u05F3",
+          ref: {
+            b: 4,
+            c: 7,
+            v: 54,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        purim: {
+          en: "Purim",
+          he: "\u05E4\u05D5\u05E8\u05D9\u05DD",
+          ref: {
+            b: 2,
+            c: 17,
+            v: 8,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "taanit-tzibur": {
+          en: "Ta'anit Tzibur (Public Fast Day)",
+          he: "\u05EA\u05E2\u05E0\u05D9\u05EA \u05E6\u05D9\u05D1\u05D5\u05E8",
+          ref: {
+            b: 2,
+            c: 32,
+            v: 11,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "pesach-1": {
+          en: "Pesach (Day 1)",
+          he: "\u05E4\u05E1\u05D7 \u05D0\u05F3",
+          ref: {
+            b: 2,
+            c: 12,
+            v: 21,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "pesach-2": {
+          en: "Pesach (Day 2)",
+          he: "\u05E4\u05E1\u05D7 \u05D1\u05F3",
+          ref: {
+            b: 3,
+            c: 22,
+            v: 26,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "pesach-3": {
+          en: "Pesach (Day 3)",
+          he: "\u05E4\u05E1\u05D7 \u05D2\u05F3",
+          ref: {
+            b: 2,
+            c: 13,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "pesach-4": {
+          en: "Pesach (Day 4)",
+          he: "\u05E4\u05E1\u05D7 \u05D3\u05F3",
+          ref: {
+            b: 2,
+            c: 22,
+            v: 24,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "pesach-5": {
+          en: "Pesach (Day 5)",
+          he: "\u05E4\u05E1\u05D7 \u05D4\u05F3",
+          ref: {
+            b: 2,
+            c: 34,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "pesach-6": {
+          en: "Pesach (Day 6)",
+          he: "\u05E4\u05E1\u05D7 \u05D5\u05F3",
+          ref: {
+            b: 4,
+            c: 9,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "pesach-shabbat-chol-hamoed": {
+          en: "Pesach (Shabbat Chol HaMoed)",
+          he: "\u05E4\u05E1\u05D7 - \u05E9\u05D1\u05EA \u05D7\u05D5\u05DC \u05D4\u05DE\u05D5\u05E2\u05D3",
+          ref: {
+            b: 2,
+            c: 33,
+            v: 12,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "pesach-7": {
+          en: "Pesach (Day 7)",
+          he: "\u05E4\u05E1\u05D7 \u05D6\u05F3",
+          ref: {
+            b: 2,
+            c: 13,
+            v: 17,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "pesach-8": {
+          en: "Pesach (Day 8)",
+          he: "\u05E4\u05E1\u05D7 \u05D7\u05F3",
+          ref: {
+            b: 5,
+            c: 14,
+            v: 22,
+            a: {
+              special: 1
+            }
+          }
+        },
+        "shavuot-1": {
+          en: "Shavuot (Day 1)",
+          he: "\u05E9\u05D1\u05D5\u05E2\u05D5\u05EA \u05D0\u05F3",
+          ref: {
+            b: 2,
+            c: 19,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        "shavuot-2": {
+          en: "Shavuot (Day 2)",
+          he: "\u05E9\u05D1\u05D5\u05E2\u05D5\u05EA \u05D1\u05F3",
+          ref: {
+            b: 5,
+            c: 14,
+            v: 22,
+            a: {
+              special: 1
+            }
+          }
+        },
+        "tisha-bav": {
+          en: "Tish'a B'Av",
+          he: "\u05EA\u05E9\u05E2\u05D4 \u05D1\u05D0\u05D1",
+          ref: {
+            b: 5,
+            c: 4,
+            v: 25,
+            a: {
+              standard: 1
+            }
+          }
+        }
+      };
+    }
+  });
+
   // src/hebrew-numeral.js
   var require_hebrew_numeral = __commonJS({
     "src/hebrew-numeral.js"(exports, module) {
@@ -55951,422 +56367,6 @@
     }
   });
 
-  // build/holydays.json
-  var require_holydays = __commonJS({
-    "build/holydays.json"(exports, module) {
-      module.exports = {
-        "rosh-1": {
-          en: "Rosh HaShanah (Day 1)",
-          he: "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D0\u05F3",
-          ref: {
-            b: 1,
-            c: 21,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "rosh-2": {
-          en: "Rosh HaShanah (Day 2)",
-          he: "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D1\u05F3",
-          ref: {
-            b: 1,
-            c: 22,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "yom-kippur": {
-          en: "Yom Kippur",
-          he: "\u05D9\u05D5\u05DD \u05DB\u05D9\u05E4\u05D5\u05E8",
-          ref: {
-            b: 3,
-            c: 16,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "sukkot-1": {
-          en: "Sukkot (Day 1)",
-          he: "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D0\u05F3",
-          ref: {
-            b: 3,
-            c: 22,
-            v: 26,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "sukkot-2": {
-          en: "Sukkot (Day 2)",
-          he: "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D1\u05F3",
-          ref: {
-            b: 3,
-            c: 22,
-            v: 26,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "sukkot-3": {
-          en: "Sukkot (Day 3)",
-          he: "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D2\u05F3",
-          ref: {
-            b: 4,
-            c: 29,
-            v: 17,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "sukkot-4": {
-          en: "Sukkot (Day 4)",
-          he: "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D3\u05F3",
-          ref: {
-            b: 4,
-            c: 29,
-            v: 20,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "sukkot-5": {
-          en: "Sukkot (Day 5)",
-          he: "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D4\u05F3",
-          ref: {
-            b: 4,
-            c: 29,
-            v: 23,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "sukkot-6": {
-          en: "Sukkot (Day 6)",
-          he: "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D5\u05F3",
-          ref: {
-            b: 4,
-            c: 29,
-            v: 26,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "sukkot-7": {
-          en: "Sukkot (Day 7 \u2013 Hoshana Raba)",
-          he: "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D6\u05F3 (\u05D4\u05D5\u05E9\u05E2\u05E0\u05D0 \u05E8\u05D1\u05D4)",
-          ref: {
-            b: 4,
-            c: 29,
-            v: 26,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "sukkot-shabbat-chol-hamoed": {
-          en: "Sukkot (Shabbat Chol HaMoed)",
-          he: "\u05E1\u05D5\u05DB\u05D5\u05EA - \u05E9\u05D1\u05EA \u05D7\u05D5\u05DC \u05D4\u05DE\u05D5\u05E2\u05D3",
-          ref: {
-            b: 2,
-            c: 33,
-            v: 12,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "shmini-atzeret": {
-          en: "Shmini Atzeret",
-          he: "\u05E9\u05DE\u05D9\u05E0\u05D9 \u05E2\u05E6\u05E8\u05EA",
-          ref: {
-            b: 5,
-            c: 14,
-            v: 22,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "simchat-torah": {
-          en: "Simchat Torah",
-          he: "\u05E9\u05DE\u05D7\u05EA \u05EA\u05D5\u05E8\u05D4",
-          ref: {
-            b: 5,
-            c: 33,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "chanukah-1": {
-          en: "Chanukah (Day 1)",
-          he: "\u05D7\u05E0\u05D5\u05DB\u05D4 \u05D0\u05F3",
-          ref: {
-            b: 4,
-            c: 7,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "chanukah-2": {
-          en: "Chanukah (Day 2)",
-          he: "\u05D7\u05E0\u05D5\u05DB\u05D4 \u05D1\u05F3",
-          ref: {
-            b: 4,
-            c: 7,
-            v: 18,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "chanukah-3": {
-          en: "Chanukah (Day 3)",
-          he: "\u05D7\u05E0\u05D5\u05DB\u05D4 \u05D2\u05F3",
-          ref: {
-            b: 4,
-            c: 7,
-            v: 24,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "chanukah-4": {
-          en: "Chanukah (Day 4)",
-          he: "\u05D7\u05E0\u05D5\u05DB\u05D4 \u05D3\u05F3",
-          ref: {
-            b: 4,
-            c: 7,
-            v: 30,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "chanukah-5": {
-          en: "Chanukah (Day 5)",
-          he: "\u05D7\u05E0\u05D5\u05DB\u05D4 \u05D4\u05F3",
-          ref: {
-            b: 4,
-            c: 7,
-            v: 36,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "chanukah-7": {
-          en: "Chanukah (Day 7)",
-          he: "\u05D7\u05E0\u05D5\u05DB\u05D4 \u05D6\u05F3",
-          ref: {
-            b: 4,
-            c: 7,
-            v: 48,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "chanukah-8": {
-          en: "Chanukah (Day 8)",
-          he: "\u05D7\u05E0\u05D5\u05DB\u05D4 \u05D7\u05F3",
-          ref: {
-            b: 4,
-            c: 7,
-            v: 54,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        purim: {
-          en: "Purim",
-          he: "\u05E4\u05D5\u05E8\u05D9\u05DD",
-          ref: {
-            b: 2,
-            c: 17,
-            v: 8,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "taanit-tzibur": {
-          en: "Ta'anit Tzibur (Public Fast Day)",
-          he: "\u05EA\u05E2\u05E0\u05D9\u05EA \u05E6\u05D9\u05D1\u05D5\u05E8",
-          ref: {
-            b: 2,
-            c: 32,
-            v: 11,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "pesach-1": {
-          en: "Pesach (Day 1)",
-          he: "\u05E4\u05E1\u05D7 \u05D0\u05F3",
-          ref: {
-            b: 2,
-            c: 12,
-            v: 21,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "pesach-2": {
-          en: "Pesach (Day 2)",
-          he: "\u05E4\u05E1\u05D7 \u05D1\u05F3",
-          ref: {
-            b: 3,
-            c: 22,
-            v: 26,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "pesach-3": {
-          en: "Pesach (Day 3)",
-          he: "\u05E4\u05E1\u05D7 \u05D2\u05F3",
-          ref: {
-            b: 2,
-            c: 13,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "pesach-4": {
-          en: "Pesach (Day 4)",
-          he: "\u05E4\u05E1\u05D7 \u05D3\u05F3",
-          ref: {
-            b: 2,
-            c: 22,
-            v: 24,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "pesach-5": {
-          en: "Pesach (Day 5)",
-          he: "\u05E4\u05E1\u05D7 \u05D4\u05F3",
-          ref: {
-            b: 2,
-            c: 34,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "pesach-6": {
-          en: "Pesach (Day 6)",
-          he: "\u05E4\u05E1\u05D7 \u05D5\u05F3",
-          ref: {
-            b: 4,
-            c: 9,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "pesach-shabbat-chol-hamoed": {
-          en: "Pesach (Shabbat Chol HaMoed)",
-          he: "\u05E4\u05E1\u05D7 - \u05E9\u05D1\u05EA \u05D7\u05D5\u05DC \u05D4\u05DE\u05D5\u05E2\u05D3",
-          ref: {
-            b: 2,
-            c: 33,
-            v: 12,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "pesach-7": {
-          en: "Pesach (Day 7)",
-          he: "\u05E4\u05E1\u05D7 \u05D6\u05F3",
-          ref: {
-            b: 2,
-            c: 13,
-            v: 17,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "pesach-8": {
-          en: "Pesach (Day 8)",
-          he: "\u05E4\u05E1\u05D7 \u05D7\u05F3",
-          ref: {
-            b: 5,
-            c: 14,
-            v: 22,
-            a: {
-              special: 1
-            }
-          }
-        },
-        "shavuot-1": {
-          en: "Shavuot (Day 1)",
-          he: "\u05E9\u05D1\u05D5\u05E2\u05D5\u05EA \u05D0\u05F3",
-          ref: {
-            b: 2,
-            c: 19,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        "shavuot-2": {
-          en: "Shavuot (Day 2)",
-          he: "\u05E9\u05D1\u05D5\u05E2\u05D5\u05EA \u05D1\u05F3",
-          ref: {
-            b: 5,
-            c: 14,
-            v: 22,
-            a: {
-              special: 1
-            }
-          }
-        },
-        "tisha-bav": {
-          en: "Tish'a B'Av",
-          he: "\u05EA\u05E9\u05E2\u05D4 \u05D1\u05D0\u05D1",
-          ref: {
-            b: 5,
-            c: 4,
-            v: 25,
-            a: {
-              standard: 1
-            }
-          }
-        }
-      };
-    }
-  });
-
   // build/aliyot.json
   var require_aliyot = __commonJS({
     "build/aliyot.json"(exports, module) {
@@ -59991,6 +59991,857 @@
   // src/index.js
   var import_infinite_scroller = __toModule(require_infinite_scroller());
   var import_integer_iterator = __toModule(require_integer_iterator());
+
+  // build/page-titles.json
+  var page_titles_default = [
+    [
+      "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA"
+    ],
+    [
+      "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA"
+    ],
+    [
+      "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA"
+    ],
+    [
+      "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA"
+    ],
+    [
+      "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA"
+    ],
+    [
+      "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
+      "\u05E0\u05D7"
+    ],
+    [
+      "\u05E0\u05D7"
+    ],
+    [
+      "\u05E0\u05D7"
+    ],
+    [
+      "\u05E0\u05D7"
+    ],
+    [
+      "\u05E0\u05D7"
+    ],
+    [
+      "\u05E0\u05D7"
+    ],
+    [
+      "\u05E0\u05D7",
+      "\u05DC\u05DA \u05DC\u05DA"
+    ],
+    [
+      "\u05DC\u05DA \u05DC\u05DA"
+    ],
+    [
+      "\u05DC\u05DA \u05DC\u05DA"
+    ],
+    [
+      "\u05DC\u05DA \u05DC\u05DA"
+    ],
+    [
+      "\u05DC\u05DA \u05DC\u05DA"
+    ],
+    [
+      "\u05DC\u05DA \u05DC\u05DA",
+      "\u05D5\u05D9\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E8\u05D0",
+      "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4"
+    ],
+    [
+      "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4"
+    ],
+    [
+      "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4"
+    ],
+    [
+      "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4"
+    ],
+    [
+      "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
+      "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA"
+    ],
+    [
+      "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA"
+    ],
+    [
+      "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA"
+    ],
+    [
+      "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA"
+    ],
+    [
+      "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
+      "\u05D5\u05D9\u05E6\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E6\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E6\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E6\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E6\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E6\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E9\u05DC\u05D7"
+    ],
+    [
+      "\u05D5\u05D9\u05E9\u05DC\u05D7"
+    ],
+    [
+      "\u05D5\u05D9\u05E9\u05DC\u05D7"
+    ],
+    [
+      "\u05D5\u05D9\u05E9\u05DC\u05D7"
+    ],
+    [
+      "\u05D5\u05D9\u05E9\u05DC\u05D7"
+    ],
+    [
+      "\u05D5\u05D9\u05E9\u05DC\u05D7",
+      "\u05D5\u05D9\u05E9\u05D1"
+    ],
+    [
+      "\u05D5\u05D9\u05E9\u05D1"
+    ],
+    [
+      "\u05D5\u05D9\u05E9\u05D1"
+    ],
+    [
+      "\u05D5\u05D9\u05E9\u05D1"
+    ],
+    [
+      "\u05D5\u05D9\u05E9\u05D1"
+    ],
+    [
+      "\u05D5\u05D9\u05E9\u05D1",
+      "\u05DE\u05E7\u05E5"
+    ],
+    [
+      "\u05DE\u05E7\u05E5"
+    ],
+    [
+      "\u05DE\u05E7\u05E5"
+    ],
+    [
+      "\u05DE\u05E7\u05E5"
+    ],
+    [
+      "\u05DE\u05E7\u05E5"
+    ],
+    [
+      "\u05DE\u05E7\u05E5"
+    ],
+    [
+      "\u05DE\u05E7\u05E5",
+      "\u05D5\u05D9\u05D2\u05E9"
+    ],
+    [
+      "\u05D5\u05D9\u05D2\u05E9"
+    ],
+    [
+      "\u05D5\u05D9\u05D2\u05E9"
+    ],
+    [
+      "\u05D5\u05D9\u05D2\u05E9"
+    ],
+    [
+      "\u05D5\u05D9\u05D2\u05E9",
+      "\u05D5\u05D9\u05D7\u05D9"
+    ],
+    [
+      "\u05D5\u05D9\u05D7\u05D9"
+    ],
+    [
+      "\u05D5\u05D9\u05D7\u05D9"
+    ],
+    [
+      "\u05D5\u05D9\u05D7\u05D9"
+    ],
+    [
+      "\u05E9\u05DE\u05D5\u05EA"
+    ],
+    [
+      "\u05E9\u05DE\u05D5\u05EA"
+    ],
+    [
+      "\u05E9\u05DE\u05D5\u05EA"
+    ],
+    [
+      "\u05E9\u05DE\u05D5\u05EA"
+    ],
+    [
+      "\u05E9\u05DE\u05D5\u05EA"
+    ],
+    [
+      "\u05E9\u05DE\u05D5\u05EA",
+      "\u05D5\u05D0\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D0\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D0\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D0\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D0\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D0\u05E8\u05D0",
+      "\u05D1\u05D0"
+    ],
+    [
+      "\u05D1\u05D0"
+    ],
+    [
+      "\u05D1\u05D0"
+    ],
+    [
+      "\u05D1\u05D0"
+    ],
+    [
+      "\u05D1\u05D0"
+    ],
+    [
+      "\u05D1\u05D0",
+      "\u05D1\u05E9\u05DC\u05D7"
+    ],
+    [
+      "\u05D1\u05E9\u05DC\u05D7"
+    ],
+    [
+      "\u05D1\u05E9\u05DC\u05D7"
+    ],
+    [
+      "\u05D1\u05E9\u05DC\u05D7"
+    ],
+    [
+      "\u05D1\u05E9\u05DC\u05D7"
+    ],
+    [
+      "\u05D1\u05E9\u05DC\u05D7",
+      "\u05D9\u05EA\u05E8\u05D5"
+    ],
+    [
+      "\u05D9\u05EA\u05E8\u05D5"
+    ],
+    [
+      "\u05D9\u05EA\u05E8\u05D5"
+    ],
+    [
+      "\u05D9\u05EA\u05E8\u05D5",
+      "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD"
+    ],
+    [
+      "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD"
+    ],
+    [
+      "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD"
+    ],
+    [
+      "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD"
+    ],
+    [
+      "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD"
+    ],
+    [
+      "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
+      "\u05EA\u05E8\u05D5\u05DE\u05D4"
+    ],
+    [
+      "\u05EA\u05E8\u05D5\u05DE\u05D4"
+    ],
+    [
+      "\u05EA\u05E8\u05D5\u05DE\u05D4"
+    ],
+    [
+      "\u05EA\u05E8\u05D5\u05DE\u05D4",
+      "\u05EA\u05E6\u05D5\u05D4"
+    ],
+    [
+      "\u05EA\u05E6\u05D5\u05D4"
+    ],
+    [
+      "\u05EA\u05E6\u05D5\u05D4"
+    ],
+    [
+      "\u05EA\u05E6\u05D5\u05D4"
+    ],
+    [
+      "\u05EA\u05E6\u05D5\u05D4"
+    ],
+    [
+      "\u05EA\u05E6\u05D5\u05D4",
+      "\u05DB\u05D9 \u05EA\u05E9\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05E9\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05E9\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05E9\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05E9\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05E9\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E7\u05D4\u05DC"
+    ],
+    [
+      "\u05D5\u05D9\u05E7\u05D4\u05DC"
+    ],
+    [
+      "\u05D5\u05D9\u05E7\u05D4\u05DC"
+    ],
+    [
+      "\u05D5\u05D9\u05E7\u05D4\u05DC"
+    ],
+    [
+      "\u05D5\u05D9\u05E7\u05D4\u05DC"
+    ],
+    [
+      "\u05D5\u05D9\u05E7\u05D4\u05DC",
+      "\u05E4\u05E7\u05D5\u05D3\u05D9"
+    ],
+    [
+      "\u05E4\u05E7\u05D5\u05D3\u05D9"
+    ],
+    [
+      "\u05E4\u05E7\u05D5\u05D3\u05D9"
+    ],
+    [
+      "\u05E4\u05E7\u05D5\u05D3\u05D9",
+      "\u05D5\u05D9\u05E7\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E7\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E7\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E7\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E7\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E7\u05E8\u05D0"
+    ],
+    [
+      "\u05D5\u05D9\u05E7\u05E8\u05D0",
+      "\u05E6\u05D5"
+    ],
+    [
+      "\u05E6\u05D5"
+    ],
+    [
+      "\u05E6\u05D5"
+    ],
+    [
+      "\u05E6\u05D5"
+    ],
+    [
+      "\u05E6\u05D5",
+      "\u05E9\u05DE\u05D9\u05E0\u05D9"
+    ],
+    [
+      "\u05E9\u05DE\u05D9\u05E0\u05D9"
+    ],
+    [
+      "\u05E9\u05DE\u05D9\u05E0\u05D9"
+    ],
+    [
+      "\u05E9\u05DE\u05D9\u05E0\u05D9",
+      "\u05EA\u05D6\u05E8\u05D9\u05E2"
+    ],
+    [
+      "\u05EA\u05D6\u05E8\u05D9\u05E2"
+    ],
+    [
+      "\u05EA\u05D6\u05E8\u05D9\u05E2"
+    ],
+    [
+      "\u05EA\u05D6\u05E8\u05D9\u05E2",
+      "\u05DE\u05E6\u05D5\u05E8\u05E2"
+    ],
+    [
+      "\u05DE\u05E6\u05D5\u05E8\u05E2"
+    ],
+    [
+      "\u05DE\u05E6\u05D5\u05E8\u05E2"
+    ],
+    [
+      "\u05DE\u05E6\u05D5\u05E8\u05E2"
+    ],
+    [
+      "\u05DE\u05E6\u05D5\u05E8\u05E2",
+      "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA"
+    ],
+    [
+      "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA"
+    ],
+    [
+      "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA"
+    ],
+    [
+      "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA"
+    ],
+    [
+      "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA",
+      "\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD"
+    ],
+    [
+      "\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD"
+    ],
+    [
+      "\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
+      "\u05D0\u05DE\u05D5\u05E8"
+    ],
+    [
+      "\u05D0\u05DE\u05D5\u05E8"
+    ],
+    [
+      "\u05D0\u05DE\u05D5\u05E8"
+    ],
+    [
+      "\u05D0\u05DE\u05D5\u05E8"
+    ],
+    [
+      "\u05D0\u05DE\u05D5\u05E8"
+    ],
+    [
+      "\u05D0\u05DE\u05D5\u05E8"
+    ],
+    [
+      "\u05D1\u05D4\u05E8"
+    ],
+    [
+      "\u05D1\u05D4\u05E8"
+    ],
+    [
+      "\u05D1\u05D4\u05E8",
+      "\u05D1\u05D7\u05E7\u05EA\u05D9"
+    ],
+    [
+      "\u05D1\u05D7\u05E7\u05EA\u05D9"
+    ],
+    [
+      "\u05D1\u05D7\u05E7\u05EA\u05D9"
+    ],
+    [
+      "\u05D1\u05D7\u05E7\u05EA\u05D9",
+      "\u05D1\u05DE\u05D3\u05D1\u05E8"
+    ],
+    [
+      "\u05D1\u05DE\u05D3\u05D1\u05E8"
+    ],
+    [
+      "\u05D1\u05DE\u05D3\u05D1\u05E8"
+    ],
+    [
+      "\u05D1\u05DE\u05D3\u05D1\u05E8"
+    ],
+    [
+      "\u05D1\u05DE\u05D3\u05D1\u05E8"
+    ],
+    [
+      "\u05D1\u05DE\u05D3\u05D1\u05E8"
+    ],
+    [
+      "\u05D1\u05DE\u05D3\u05D1\u05E8",
+      "\u05E0\u05E9\u05D0"
+    ],
+    [
+      "\u05E0\u05E9\u05D0"
+    ],
+    [
+      "\u05E0\u05E9\u05D0"
+    ],
+    [
+      "\u05E0\u05E9\u05D0"
+    ],
+    [
+      "\u05E0\u05E9\u05D0"
+    ],
+    [
+      "\u05E0\u05E9\u05D0"
+    ],
+    [
+      "\u05E0\u05E9\u05D0"
+    ],
+    [
+      "\u05E0\u05E9\u05D0"
+    ],
+    [
+      "\u05E0\u05E9\u05D0",
+      "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA"
+    ],
+    [
+      "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA"
+    ],
+    [
+      "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA"
+    ],
+    [
+      "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA"
+    ],
+    [
+      "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA"
+    ],
+    [
+      "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA"
+    ],
+    [
+      "\u05E9\u05DC\u05D7"
+    ],
+    [
+      "\u05E9\u05DC\u05D7"
+    ],
+    [
+      "\u05E9\u05DC\u05D7"
+    ],
+    [
+      "\u05E9\u05DC\u05D7"
+    ],
+    [
+      "\u05E9\u05DC\u05D7",
+      "\u05E7\u05E8\u05D7"
+    ],
+    [
+      "\u05E7\u05E8\u05D7"
+    ],
+    [
+      "\u05E7\u05E8\u05D7"
+    ],
+    [
+      "\u05E7\u05E8\u05D7"
+    ],
+    [
+      "\u05E7\u05E8\u05D7"
+    ],
+    [
+      "\u05E7\u05E8\u05D7",
+      "\u05D7\u05E7\u05EA"
+    ],
+    [
+      "\u05D7\u05E7\u05EA"
+    ],
+    [
+      "\u05D7\u05E7\u05EA"
+    ],
+    [
+      "\u05D7\u05E7\u05EA",
+      "\u05D1\u05DC\u05E7"
+    ],
+    [
+      "\u05D1\u05DC\u05E7"
+    ],
+    [
+      "\u05D1\u05DC\u05E7"
+    ],
+    [
+      "\u05D1\u05DC\u05E7"
+    ],
+    [
+      "\u05D1\u05DC\u05E7"
+    ],
+    [
+      "\u05D1\u05DC\u05E7",
+      "\u05E4\u05E0\u05D7\u05E1"
+    ],
+    [
+      "\u05E4\u05E0\u05D7\u05E1"
+    ],
+    [
+      "\u05E4\u05E0\u05D7\u05E1"
+    ],
+    [
+      "\u05E4\u05E0\u05D7\u05E1"
+    ],
+    [
+      "\u05E4\u05E0\u05D7\u05E1"
+    ],
+    [
+      "\u05E4\u05E0\u05D7\u05E1"
+    ],
+    [
+      "\u05E4\u05E0\u05D7\u05E1",
+      "\u05DE\u05D8\u05D5\u05EA"
+    ],
+    [
+      "\u05DE\u05D8\u05D5\u05EA"
+    ],
+    [
+      "\u05DE\u05D8\u05D5\u05EA"
+    ],
+    [
+      "\u05DE\u05D8\u05D5\u05EA"
+    ],
+    [
+      "\u05DE\u05D8\u05D5\u05EA"
+    ],
+    [
+      "\u05DE\u05D8\u05D5\u05EA",
+      "\u05DE\u05E1\u05E2\u05D9"
+    ],
+    [
+      "\u05DE\u05E1\u05E2\u05D9"
+    ],
+    [
+      "\u05DE\u05E1\u05E2\u05D9"
+    ],
+    [
+      "\u05DE\u05E1\u05E2\u05D9"
+    ],
+    [
+      "\u05DE\u05E1\u05E2\u05D9",
+      "\u05D3\u05D1\u05E8\u05D9\u05DD"
+    ],
+    [
+      "\u05D3\u05D1\u05E8\u05D9\u05DD"
+    ],
+    [
+      "\u05D3\u05D1\u05E8\u05D9\u05DD"
+    ],
+    [
+      "\u05D3\u05D1\u05E8\u05D9\u05DD"
+    ],
+    [
+      "\u05D3\u05D1\u05E8\u05D9\u05DD"
+    ],
+    [
+      "\u05D3\u05D1\u05E8\u05D9\u05DD",
+      "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF"
+    ],
+    [
+      "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF"
+    ],
+    [
+      "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF"
+    ],
+    [
+      "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF"
+    ],
+    [
+      "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF"
+    ],
+    [
+      "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF"
+    ],
+    [
+      "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
+      "\u05E2\u05E7\u05D1"
+    ],
+    [
+      "\u05E2\u05E7\u05D1"
+    ],
+    [
+      "\u05E2\u05E7\u05D1"
+    ],
+    [
+      "\u05E2\u05E7\u05D1"
+    ],
+    [
+      "\u05E2\u05E7\u05D1"
+    ],
+    [
+      "\u05E2\u05E7\u05D1"
+    ],
+    [
+      "\u05E8\u05D0\u05D4"
+    ],
+    [
+      "\u05E8\u05D0\u05D4"
+    ],
+    [
+      "\u05E8\u05D0\u05D4"
+    ],
+    [
+      "\u05E8\u05D0\u05D4"
+    ],
+    [
+      "\u05E8\u05D0\u05D4"
+    ],
+    [
+      "\u05E8\u05D0\u05D4"
+    ],
+    [
+      "\u05E8\u05D0\u05D4",
+      "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD"
+    ],
+    [
+      "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD"
+    ],
+    [
+      "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD"
+    ],
+    [
+      "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD"
+    ],
+    [
+      "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
+      "\u05DB\u05D9 \u05EA\u05E6\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05E6\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05E6\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05E6\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05E6\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05E6\u05D0",
+      "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0"
+    ],
+    [
+      "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
+      "\u05E0\u05E6\u05D1\u05D9\u05DD"
+    ],
+    [
+      "\u05E0\u05E6\u05D1\u05D9\u05DD"
+    ],
+    [
+      "\u05E0\u05E6\u05D1\u05D9\u05DD",
+      "\u05D5\u05D9\u05DC\u05DA"
+    ],
+    [
+      "\u05D5\u05D9\u05DC\u05DA"
+    ],
+    [
+      "\u05D5\u05D9\u05DC\u05DA",
+      "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5"
+    ],
+    [
+      "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5"
+    ],
+    [
+      "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
+      "\u05D5\u05D6\u05D0\u05EA \u05D4\u05D1\u05E8\u05DB\u05D4"
+    ],
+    [
+      "\u05D5\u05D6\u05D0\u05EA \u05D4\u05D1\u05E8\u05DB\u05D4"
+    ]
+  ];
+
+  // src/scrolls-by-key.js
+  var import_holydays = __toModule(require_holydays());
+  var fetchPage = ({ path, title: title2 }) => window.fetch(path).then((res) => res.json()).then((page) => ({ content: page, title: title2 })).catch((err) => {
+    console.error(err);
+  });
+  var Scroll = {
+    new: ({ scroll: scroll2, makePath, makeTitle, startingAtRef = { b: 1, c: 1, v: 1 } }) => {
+      const { pageNumber, lineNumber } = physicalLocationFromRef({ ref: startingAtRef, scroll: scroll2 });
+      const iterator = import_integer_iterator.default.new({ startingAt: pageNumber });
+      return {
+        scrollName: scroll2,
+        fetchPrevious: () => {
+          const n = iterator.previous();
+          if (n <= 0)
+            return Promise.resolve();
+          return fetchPage({ path: makePath(n), title: makeTitle(n) });
+        },
+        fetchNext: () => {
+          const n = iterator.next();
+          return fetchPage({ path: makePath(n), title: makeTitle(n) });
+        },
+        startingLineNumber: lineNumber
+      };
+    }
+  };
+  var TorahScroll = {
+    new: ({ startingAtRef }) => {
+      return Scroll.new({
+        scroll: "torah",
+        makePath: (n) => `/build/pages/torah/${n}.json`,
+        makeTitle: (n) => title(page_titles_default[n - 1]),
+        startingAtRef
+      });
+    }
+  };
+  var EstherScroll = {
+    new: ({ startingAtRef }) => {
+      return Scroll.new({
+        scroll: "esther",
+        makePath: (n) => `/build/pages/esther/${n}.json`,
+        makeTitle: (n) => "\u05D0\u05E1\u05EA\u05E8",
+        startingAtRef
+      });
+    }
+  };
+  var scrolls_by_key_default = {
+    "torah": TorahScroll,
+    "esther": EstherScroll,
+    ...Object.keys(import_holydays.default).reduce((result, holydayKey) => {
+      const HolydayScroll = {
+        new: ({ startingAtRef }) => {
+          return Scroll.new({
+            scroll: holydayKey,
+            makePath: (n) => `/build/pages/${holydayKey}/${n}.json`,
+            makeTitle: (n) => import_holydays.default[holydayKey].he,
+            startingAtRef
+          });
+        }
+      };
+      return { ...result, [holydayKey]: HolydayScroll };
+    }, {})
+  };
+
+  // src/index.js
   var hebrewNumeralFromInteger = require_hebrew_numeral();
   var textFilter = require_text_filter();
   var displayRange = require_display_range();
@@ -60000,15 +60851,15 @@
 
   // components/Line.js
   var parshiyot = require_parshiyot();
-  var holydays = require_holydays();
+  var holydays2 = require_holydays();
   var aliyotJSON = require_aliyot();
   var ktivKriAnnotation = (text) => text.replace(/[{]/g, `<span class="ktiv-kri">`).replace(/[}]/g, `</span>`);
   var petuchaClass = (isPetucha) => isPetucha ? "mod-petucha" : "";
   var setumaClass = (column) => column.length > 1 ? "mod-setuma" : "";
   var aliyahFinderByScroll = {
     torah: parshiyot,
-    ...Object.keys(holydays).reduce((result, holydayKey) => {
-      return { ...result, [holydayKey]: [holydays[holydayKey]] };
+    ...Object.keys(holydays2).reduce((result, holydayKey) => {
+      return { ...result, [holydayKey]: [holydays2[holydayKey]] };
     }, {})
   };
   var aliyotByRefByScroll = aliyotJSON;
@@ -61281,7 +62132,7 @@
   ];
 
   // components/ParshaPicker.js
-  var import_holydays = __toModule(require_holydays());
+  var import_holydays2 = __toModule(require_holydays());
   var import_fuzzy = __toModule(require_fuzzy());
 
   // components/utils.js
@@ -61516,7 +62367,7 @@
         <li class="parsha-book">
           <ol class="parsha-list">
             ${col.map((holydayKey) => {
-    const holyday = import_holydays.default[holydayKey];
+    const holyday = import_holydays2.default[holydayKey];
     const { ref, he } = holyday;
     const { b, c, v } = ref;
     return Parsha({ ref: { b, c, v }, he, scroll: holydayKey });
@@ -61544,8 +62395,8 @@
       ref: { b: 1, c: 1, v: 1 },
       scroll: "esther"
     },
-    ...Object.keys(import_holydays.default).map((holydayKey) => {
-      const holyday = import_holydays.default[holydayKey];
+    ...Object.keys(import_holydays2.default).map((holydayKey) => {
+      const holyday = import_holydays2.default[holydayKey];
       const { he, en, ref } = holyday;
       const { b, c, v } = ref;
       return {
@@ -61624,794 +62475,7 @@
   };
   var ParshaPicker_default = ParshaPicker;
 
-  // build/page-titles.json
-  var page_titles_default = [
-    [
-      "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA"
-    ],
-    [
-      "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA"
-    ],
-    [
-      "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA"
-    ],
-    [
-      "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA"
-    ],
-    [
-      "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA"
-    ],
-    [
-      "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
-      "\u05E0\u05D7"
-    ],
-    [
-      "\u05E0\u05D7"
-    ],
-    [
-      "\u05E0\u05D7"
-    ],
-    [
-      "\u05E0\u05D7"
-    ],
-    [
-      "\u05E0\u05D7"
-    ],
-    [
-      "\u05E0\u05D7"
-    ],
-    [
-      "\u05E0\u05D7",
-      "\u05DC\u05DA \u05DC\u05DA"
-    ],
-    [
-      "\u05DC\u05DA \u05DC\u05DA"
-    ],
-    [
-      "\u05DC\u05DA \u05DC\u05DA"
-    ],
-    [
-      "\u05DC\u05DA \u05DC\u05DA"
-    ],
-    [
-      "\u05DC\u05DA \u05DC\u05DA"
-    ],
-    [
-      "\u05DC\u05DA \u05DC\u05DA",
-      "\u05D5\u05D9\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E8\u05D0",
-      "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4"
-    ],
-    [
-      "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4"
-    ],
-    [
-      "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4"
-    ],
-    [
-      "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4"
-    ],
-    [
-      "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
-      "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA"
-    ],
-    [
-      "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA"
-    ],
-    [
-      "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA"
-    ],
-    [
-      "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA"
-    ],
-    [
-      "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
-      "\u05D5\u05D9\u05E6\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E6\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E6\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E6\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E6\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E6\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E9\u05DC\u05D7"
-    ],
-    [
-      "\u05D5\u05D9\u05E9\u05DC\u05D7"
-    ],
-    [
-      "\u05D5\u05D9\u05E9\u05DC\u05D7"
-    ],
-    [
-      "\u05D5\u05D9\u05E9\u05DC\u05D7"
-    ],
-    [
-      "\u05D5\u05D9\u05E9\u05DC\u05D7"
-    ],
-    [
-      "\u05D5\u05D9\u05E9\u05DC\u05D7",
-      "\u05D5\u05D9\u05E9\u05D1"
-    ],
-    [
-      "\u05D5\u05D9\u05E9\u05D1"
-    ],
-    [
-      "\u05D5\u05D9\u05E9\u05D1"
-    ],
-    [
-      "\u05D5\u05D9\u05E9\u05D1"
-    ],
-    [
-      "\u05D5\u05D9\u05E9\u05D1"
-    ],
-    [
-      "\u05D5\u05D9\u05E9\u05D1",
-      "\u05DE\u05E7\u05E5"
-    ],
-    [
-      "\u05DE\u05E7\u05E5"
-    ],
-    [
-      "\u05DE\u05E7\u05E5"
-    ],
-    [
-      "\u05DE\u05E7\u05E5"
-    ],
-    [
-      "\u05DE\u05E7\u05E5"
-    ],
-    [
-      "\u05DE\u05E7\u05E5"
-    ],
-    [
-      "\u05DE\u05E7\u05E5",
-      "\u05D5\u05D9\u05D2\u05E9"
-    ],
-    [
-      "\u05D5\u05D9\u05D2\u05E9"
-    ],
-    [
-      "\u05D5\u05D9\u05D2\u05E9"
-    ],
-    [
-      "\u05D5\u05D9\u05D2\u05E9"
-    ],
-    [
-      "\u05D5\u05D9\u05D2\u05E9",
-      "\u05D5\u05D9\u05D7\u05D9"
-    ],
-    [
-      "\u05D5\u05D9\u05D7\u05D9"
-    ],
-    [
-      "\u05D5\u05D9\u05D7\u05D9"
-    ],
-    [
-      "\u05D5\u05D9\u05D7\u05D9"
-    ],
-    [
-      "\u05E9\u05DE\u05D5\u05EA"
-    ],
-    [
-      "\u05E9\u05DE\u05D5\u05EA"
-    ],
-    [
-      "\u05E9\u05DE\u05D5\u05EA"
-    ],
-    [
-      "\u05E9\u05DE\u05D5\u05EA"
-    ],
-    [
-      "\u05E9\u05DE\u05D5\u05EA"
-    ],
-    [
-      "\u05E9\u05DE\u05D5\u05EA",
-      "\u05D5\u05D0\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D0\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D0\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D0\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D0\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D0\u05E8\u05D0",
-      "\u05D1\u05D0"
-    ],
-    [
-      "\u05D1\u05D0"
-    ],
-    [
-      "\u05D1\u05D0"
-    ],
-    [
-      "\u05D1\u05D0"
-    ],
-    [
-      "\u05D1\u05D0"
-    ],
-    [
-      "\u05D1\u05D0",
-      "\u05D1\u05E9\u05DC\u05D7"
-    ],
-    [
-      "\u05D1\u05E9\u05DC\u05D7"
-    ],
-    [
-      "\u05D1\u05E9\u05DC\u05D7"
-    ],
-    [
-      "\u05D1\u05E9\u05DC\u05D7"
-    ],
-    [
-      "\u05D1\u05E9\u05DC\u05D7"
-    ],
-    [
-      "\u05D1\u05E9\u05DC\u05D7",
-      "\u05D9\u05EA\u05E8\u05D5"
-    ],
-    [
-      "\u05D9\u05EA\u05E8\u05D5"
-    ],
-    [
-      "\u05D9\u05EA\u05E8\u05D5"
-    ],
-    [
-      "\u05D9\u05EA\u05E8\u05D5",
-      "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD"
-    ],
-    [
-      "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD"
-    ],
-    [
-      "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD"
-    ],
-    [
-      "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD"
-    ],
-    [
-      "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD"
-    ],
-    [
-      "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
-      "\u05EA\u05E8\u05D5\u05DE\u05D4"
-    ],
-    [
-      "\u05EA\u05E8\u05D5\u05DE\u05D4"
-    ],
-    [
-      "\u05EA\u05E8\u05D5\u05DE\u05D4"
-    ],
-    [
-      "\u05EA\u05E8\u05D5\u05DE\u05D4",
-      "\u05EA\u05E6\u05D5\u05D4"
-    ],
-    [
-      "\u05EA\u05E6\u05D5\u05D4"
-    ],
-    [
-      "\u05EA\u05E6\u05D5\u05D4"
-    ],
-    [
-      "\u05EA\u05E6\u05D5\u05D4"
-    ],
-    [
-      "\u05EA\u05E6\u05D5\u05D4"
-    ],
-    [
-      "\u05EA\u05E6\u05D5\u05D4",
-      "\u05DB\u05D9 \u05EA\u05E9\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05E9\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05E9\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05E9\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05E9\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05E9\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E7\u05D4\u05DC"
-    ],
-    [
-      "\u05D5\u05D9\u05E7\u05D4\u05DC"
-    ],
-    [
-      "\u05D5\u05D9\u05E7\u05D4\u05DC"
-    ],
-    [
-      "\u05D5\u05D9\u05E7\u05D4\u05DC"
-    ],
-    [
-      "\u05D5\u05D9\u05E7\u05D4\u05DC"
-    ],
-    [
-      "\u05D5\u05D9\u05E7\u05D4\u05DC",
-      "\u05E4\u05E7\u05D5\u05D3\u05D9"
-    ],
-    [
-      "\u05E4\u05E7\u05D5\u05D3\u05D9"
-    ],
-    [
-      "\u05E4\u05E7\u05D5\u05D3\u05D9"
-    ],
-    [
-      "\u05E4\u05E7\u05D5\u05D3\u05D9",
-      "\u05D5\u05D9\u05E7\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E7\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E7\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E7\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E7\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E7\u05E8\u05D0"
-    ],
-    [
-      "\u05D5\u05D9\u05E7\u05E8\u05D0",
-      "\u05E6\u05D5"
-    ],
-    [
-      "\u05E6\u05D5"
-    ],
-    [
-      "\u05E6\u05D5"
-    ],
-    [
-      "\u05E6\u05D5"
-    ],
-    [
-      "\u05E6\u05D5",
-      "\u05E9\u05DE\u05D9\u05E0\u05D9"
-    ],
-    [
-      "\u05E9\u05DE\u05D9\u05E0\u05D9"
-    ],
-    [
-      "\u05E9\u05DE\u05D9\u05E0\u05D9"
-    ],
-    [
-      "\u05E9\u05DE\u05D9\u05E0\u05D9",
-      "\u05EA\u05D6\u05E8\u05D9\u05E2"
-    ],
-    [
-      "\u05EA\u05D6\u05E8\u05D9\u05E2"
-    ],
-    [
-      "\u05EA\u05D6\u05E8\u05D9\u05E2"
-    ],
-    [
-      "\u05EA\u05D6\u05E8\u05D9\u05E2",
-      "\u05DE\u05E6\u05D5\u05E8\u05E2"
-    ],
-    [
-      "\u05DE\u05E6\u05D5\u05E8\u05E2"
-    ],
-    [
-      "\u05DE\u05E6\u05D5\u05E8\u05E2"
-    ],
-    [
-      "\u05DE\u05E6\u05D5\u05E8\u05E2"
-    ],
-    [
-      "\u05DE\u05E6\u05D5\u05E8\u05E2",
-      "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA"
-    ],
-    [
-      "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA"
-    ],
-    [
-      "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA"
-    ],
-    [
-      "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA"
-    ],
-    [
-      "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA",
-      "\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD"
-    ],
-    [
-      "\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD"
-    ],
-    [
-      "\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
-      "\u05D0\u05DE\u05D5\u05E8"
-    ],
-    [
-      "\u05D0\u05DE\u05D5\u05E8"
-    ],
-    [
-      "\u05D0\u05DE\u05D5\u05E8"
-    ],
-    [
-      "\u05D0\u05DE\u05D5\u05E8"
-    ],
-    [
-      "\u05D0\u05DE\u05D5\u05E8"
-    ],
-    [
-      "\u05D0\u05DE\u05D5\u05E8"
-    ],
-    [
-      "\u05D1\u05D4\u05E8"
-    ],
-    [
-      "\u05D1\u05D4\u05E8"
-    ],
-    [
-      "\u05D1\u05D4\u05E8",
-      "\u05D1\u05D7\u05E7\u05EA\u05D9"
-    ],
-    [
-      "\u05D1\u05D7\u05E7\u05EA\u05D9"
-    ],
-    [
-      "\u05D1\u05D7\u05E7\u05EA\u05D9"
-    ],
-    [
-      "\u05D1\u05D7\u05E7\u05EA\u05D9",
-      "\u05D1\u05DE\u05D3\u05D1\u05E8"
-    ],
-    [
-      "\u05D1\u05DE\u05D3\u05D1\u05E8"
-    ],
-    [
-      "\u05D1\u05DE\u05D3\u05D1\u05E8"
-    ],
-    [
-      "\u05D1\u05DE\u05D3\u05D1\u05E8"
-    ],
-    [
-      "\u05D1\u05DE\u05D3\u05D1\u05E8"
-    ],
-    [
-      "\u05D1\u05DE\u05D3\u05D1\u05E8"
-    ],
-    [
-      "\u05D1\u05DE\u05D3\u05D1\u05E8",
-      "\u05E0\u05E9\u05D0"
-    ],
-    [
-      "\u05E0\u05E9\u05D0"
-    ],
-    [
-      "\u05E0\u05E9\u05D0"
-    ],
-    [
-      "\u05E0\u05E9\u05D0"
-    ],
-    [
-      "\u05E0\u05E9\u05D0"
-    ],
-    [
-      "\u05E0\u05E9\u05D0"
-    ],
-    [
-      "\u05E0\u05E9\u05D0"
-    ],
-    [
-      "\u05E0\u05E9\u05D0"
-    ],
-    [
-      "\u05E0\u05E9\u05D0",
-      "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA"
-    ],
-    [
-      "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA"
-    ],
-    [
-      "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA"
-    ],
-    [
-      "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA"
-    ],
-    [
-      "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA"
-    ],
-    [
-      "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA"
-    ],
-    [
-      "\u05E9\u05DC\u05D7"
-    ],
-    [
-      "\u05E9\u05DC\u05D7"
-    ],
-    [
-      "\u05E9\u05DC\u05D7"
-    ],
-    [
-      "\u05E9\u05DC\u05D7"
-    ],
-    [
-      "\u05E9\u05DC\u05D7",
-      "\u05E7\u05E8\u05D7"
-    ],
-    [
-      "\u05E7\u05E8\u05D7"
-    ],
-    [
-      "\u05E7\u05E8\u05D7"
-    ],
-    [
-      "\u05E7\u05E8\u05D7"
-    ],
-    [
-      "\u05E7\u05E8\u05D7"
-    ],
-    [
-      "\u05E7\u05E8\u05D7",
-      "\u05D7\u05E7\u05EA"
-    ],
-    [
-      "\u05D7\u05E7\u05EA"
-    ],
-    [
-      "\u05D7\u05E7\u05EA"
-    ],
-    [
-      "\u05D7\u05E7\u05EA",
-      "\u05D1\u05DC\u05E7"
-    ],
-    [
-      "\u05D1\u05DC\u05E7"
-    ],
-    [
-      "\u05D1\u05DC\u05E7"
-    ],
-    [
-      "\u05D1\u05DC\u05E7"
-    ],
-    [
-      "\u05D1\u05DC\u05E7"
-    ],
-    [
-      "\u05D1\u05DC\u05E7",
-      "\u05E4\u05E0\u05D7\u05E1"
-    ],
-    [
-      "\u05E4\u05E0\u05D7\u05E1"
-    ],
-    [
-      "\u05E4\u05E0\u05D7\u05E1"
-    ],
-    [
-      "\u05E4\u05E0\u05D7\u05E1"
-    ],
-    [
-      "\u05E4\u05E0\u05D7\u05E1"
-    ],
-    [
-      "\u05E4\u05E0\u05D7\u05E1"
-    ],
-    [
-      "\u05E4\u05E0\u05D7\u05E1",
-      "\u05DE\u05D8\u05D5\u05EA"
-    ],
-    [
-      "\u05DE\u05D8\u05D5\u05EA"
-    ],
-    [
-      "\u05DE\u05D8\u05D5\u05EA"
-    ],
-    [
-      "\u05DE\u05D8\u05D5\u05EA"
-    ],
-    [
-      "\u05DE\u05D8\u05D5\u05EA"
-    ],
-    [
-      "\u05DE\u05D8\u05D5\u05EA",
-      "\u05DE\u05E1\u05E2\u05D9"
-    ],
-    [
-      "\u05DE\u05E1\u05E2\u05D9"
-    ],
-    [
-      "\u05DE\u05E1\u05E2\u05D9"
-    ],
-    [
-      "\u05DE\u05E1\u05E2\u05D9"
-    ],
-    [
-      "\u05DE\u05E1\u05E2\u05D9",
-      "\u05D3\u05D1\u05E8\u05D9\u05DD"
-    ],
-    [
-      "\u05D3\u05D1\u05E8\u05D9\u05DD"
-    ],
-    [
-      "\u05D3\u05D1\u05E8\u05D9\u05DD"
-    ],
-    [
-      "\u05D3\u05D1\u05E8\u05D9\u05DD"
-    ],
-    [
-      "\u05D3\u05D1\u05E8\u05D9\u05DD"
-    ],
-    [
-      "\u05D3\u05D1\u05E8\u05D9\u05DD",
-      "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF"
-    ],
-    [
-      "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF"
-    ],
-    [
-      "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF"
-    ],
-    [
-      "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF"
-    ],
-    [
-      "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF"
-    ],
-    [
-      "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF"
-    ],
-    [
-      "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
-      "\u05E2\u05E7\u05D1"
-    ],
-    [
-      "\u05E2\u05E7\u05D1"
-    ],
-    [
-      "\u05E2\u05E7\u05D1"
-    ],
-    [
-      "\u05E2\u05E7\u05D1"
-    ],
-    [
-      "\u05E2\u05E7\u05D1"
-    ],
-    [
-      "\u05E2\u05E7\u05D1"
-    ],
-    [
-      "\u05E8\u05D0\u05D4"
-    ],
-    [
-      "\u05E8\u05D0\u05D4"
-    ],
-    [
-      "\u05E8\u05D0\u05D4"
-    ],
-    [
-      "\u05E8\u05D0\u05D4"
-    ],
-    [
-      "\u05E8\u05D0\u05D4"
-    ],
-    [
-      "\u05E8\u05D0\u05D4"
-    ],
-    [
-      "\u05E8\u05D0\u05D4",
-      "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD"
-    ],
-    [
-      "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD"
-    ],
-    [
-      "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD"
-    ],
-    [
-      "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD"
-    ],
-    [
-      "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
-      "\u05DB\u05D9 \u05EA\u05E6\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05E6\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05E6\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05E6\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05E6\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05E6\u05D0",
-      "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0"
-    ],
-    [
-      "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
-      "\u05E0\u05E6\u05D1\u05D9\u05DD"
-    ],
-    [
-      "\u05E0\u05E6\u05D1\u05D9\u05DD"
-    ],
-    [
-      "\u05E0\u05E6\u05D1\u05D9\u05DD",
-      "\u05D5\u05D9\u05DC\u05DA"
-    ],
-    [
-      "\u05D5\u05D9\u05DC\u05DA"
-    ],
-    [
-      "\u05D5\u05D9\u05DC\u05DA",
-      "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5"
-    ],
-    [
-      "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5"
-    ],
-    [
-      "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
-      "\u05D5\u05D6\u05D0\u05EA \u05D4\u05D1\u05E8\u05DB\u05D4"
-    ],
-    [
-      "\u05D5\u05D6\u05D0\u05EA \u05D4\u05D1\u05E8\u05DB\u05D4"
-    ]
-  ];
-
   // index.js
-  var import_holydays2 = __toModule(require_holydays());
   var { htmlToElement: htmlToElement5, whenKey: whenKey3, purgeNode: purgeNode3 } = utils_default;
   var insertBefore = (parent, child) => {
     parent.insertAdjacentElement("afterbegin", child);
@@ -62435,66 +62499,9 @@
     const book = document.querySelector(".tikkun-book");
     book.scrollTop = line.offsetTop + line.offsetHeight / 2 - book.offsetHeight / 2;
   };
-  var scrollsByKey = () => ({
-    "torah": TorahScroll,
-    "esther": EstherScroll,
-    ...Object.keys(import_holydays2.default).reduce((result, holydayKey) => {
-      const HolydayScroll = {
-        new: ({ startingAtRef }) => {
-          return Scroll.new({
-            scroll: holydayKey,
-            makePath: (n) => `/build/pages/${holydayKey}/${n}.json`,
-            makeTitle: (n) => import_holydays2.default[holydayKey].he,
-            startingAtRef
-          });
-        }
-      };
-      return { ...result, [holydayKey]: HolydayScroll };
-    }, {})
-  });
-  var Scroll = {
-    new: ({ scroll: scroll2, makePath, makeTitle, startingAtRef = { b: 1, c: 1, v: 1 } }) => {
-      const { pageNumber, lineNumber } = physicalLocationFromRef({ ref: startingAtRef, scroll: scroll2 });
-      const iterator = import_integer_iterator.default.new({ startingAt: pageNumber });
-      return {
-        scrollName: scroll2,
-        fetchPrevious: () => {
-          const n = iterator.previous();
-          if (n <= 0)
-            return Promise.resolve();
-          return fetchPage({ path: makePath(n), title: makeTitle(n) });
-        },
-        fetchNext: () => {
-          const n = iterator.next();
-          return fetchPage({ path: makePath(n), title: makeTitle(n) });
-        },
-        startingLineNumber: lineNumber
-      };
-    }
-  };
-  var TorahScroll = {
-    new: ({ startingAtRef }) => {
-      return Scroll.new({
-        scroll: "torah",
-        makePath: (n) => `/build/pages/torah/${n}.json`,
-        makeTitle: (n) => title(page_titles_default[n - 1]),
-        startingAtRef
-      });
-    }
-  };
-  var EstherScroll = {
-    new: ({ startingAtRef }) => {
-      return Scroll.new({
-        scroll: "esther",
-        makePath: (n) => `/build/pages/esther/${n}.json`,
-        makeTitle: (n) => "\u05D0\u05E1\u05EA\u05E8",
-        startingAtRef
-      });
-    }
-  };
   var app = {
     jumpTo: ({ ref }) => {
-      scroll = scrollsByKey()[ref.scroll].new({ startingAtRef: ref });
+      scroll = scrolls_by_key_default[ref.scroll].new({ startingAtRef: ref });
       purgeNode3(document.querySelector('[data-target-id="tikkun-book"]'));
       scroll.fetchNext().then(renderNext).then((pageNode) => {
         scrollToLine({ node: pageNode, lineIndex: scroll.startingLineNumber - 1 });
@@ -62608,9 +62615,6 @@
   };
   var renderPrevious = renderPage({ insertStrategy: insertBefore });
   var renderNext = renderPage({ insertStrategy: insertAfter });
-  var fetchPage = ({ path, title: title2 }) => window.fetch(path).then((res) => res.json()).then((page) => ({ content: page, title: title2 })).catch((err) => {
-    console.error(err);
-  });
   var debounce = (callback, delay) => {
     let timeout;
     return () => {

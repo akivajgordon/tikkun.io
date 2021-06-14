@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))
 
-  const startingRef = urlToRef(new URL(window.location.href))
+  const startingRef = urlToRef(window.location.href)
   app.jumpTo({ ref: startingRef })
     .then(hideParshaPicker)
 })

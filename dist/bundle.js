@@ -55684,33 +55684,6 @@
     }
   });
 
-  // src/url-to-ref.js
-  var require_url_to_ref = __commonJS({
-    "src/url-to-ref.js"(exports, module) {
-      var { defaultRef, resolveToValidRef } = require_location();
-      module.exports = (url) => {
-        if (url instanceof URL) {
-          const hashParts = url.hash.split("/").slice(1);
-          if (hashParts.length > 0) {
-            if (hashParts[0] == "r" && hashParts[1].length > 0) {
-              const locationRegex = /(\d+)\-(\d+)-(\d+)/;
-              const locationMatch = hashParts[1].match(locationRegex);
-              if (locationMatch) {
-                return resolveToValidRef({
-                  scroll: "torah",
-                  book: locationMatch[1],
-                  chapter: locationMatch[2],
-                  verse: locationMatch[3]
-                });
-              }
-            }
-          }
-        }
-        return defaultRef();
-      };
-    }
-  });
-
   // build/parshiyot.json
   var require_parshiyot = __commonJS({
     "build/parshiyot.json"(exports, module) {
@@ -56364,6 +56337,53 @@
           }
         }
       ];
+    }
+  });
+
+  // src/url-to-ref.js
+  var require_url_to_ref = __commonJS({
+    "src/url-to-ref.js"(exports, module) {
+      var { defaultRef, resolveToValidRef } = require_location();
+      var parshiyot3 = require_parshiyot();
+      var isURL = (url) => {
+        try {
+          new URL(url);
+        } catch (e) {
+          return false;
+        }
+        return true;
+      };
+      module.exports = (_url) => {
+        if (!isURL(_url))
+          return defaultRef();
+        const url = new URL(_url);
+        const hashParts = url.hash.split("/").slice(1);
+        if (hashParts.length > 0) {
+          if (hashParts[0] === "r" && hashParts[1].length > 0) {
+            const locationRegex = /(\d+)\-(\d+)-(\d+)/;
+            const locationMatch = hashParts[1].match(locationRegex);
+            if (locationMatch) {
+              return resolveToValidRef({
+                scroll: "torah",
+                book: locationMatch[1],
+                chapter: locationMatch[2],
+                verse: locationMatch[3]
+              });
+            }
+          } else if (hashParts[0] === "p") {
+            const found = parshiyot3.find(({ he, en }) => {
+              const decoded = decodeURIComponent(hashParts[1]);
+              const toLowercaseAlpha = (str) => str.toLowerCase().replace(/[^a-z]/g, "");
+              return he === decoded || toLowercaseAlpha(en) === toLowercaseAlpha(decoded);
+            });
+            if (!found)
+              return defaultRef();
+            const { b, c, v } = found.ref;
+            return { scroll: "torah", b, c, v };
+          }
+        }
+        return defaultRef();
+      };
     }
   });
 
@@ -62646,7 +62666,7 @@
     document.addEventListener("keyup", whenKey3("Shift", () => toggleAnnotations(() => toggle.checked)));
     document.querySelector('[data-target-id="parsha-title"]').addEventListener("click", toggleParshaPicker);
     document.addEventListener("keydown", whenKey3("/", toggleParshaPicker));
-    const startingRef = urlToRef(new URL(window.location.href));
+    const startingRef = urlToRef(window.location.href);
     app.jumpTo({ ref: startingRef }).then(hideParshaPicker);
   });
 })();

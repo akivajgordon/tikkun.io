@@ -30,8 +30,8 @@ const aliyotDisplay = ({ verses, scroll: __scroll }) => {
   const { standard, double, special } = found[0]
 
   return [
-    ...standard ? [standard.map(n => displayRange.aliyahName({ aliyah: n, getParshaName: getParshaName(verses, __scroll ) })).join(', ')] : [],
-    ...double ? [`[${displayRange.aliyahName({ aliyah: double, getParshaName: getParshaName(verses, __scroll ) })}]`] : [],
+    ...standard ? [standard.map(n => displayRange.aliyahName({ aliyah: n, getParshaName: getParshaName(verses, __scroll) })).join(', ')] : [],
+    ...double ? [`[${displayRange.aliyahName({ aliyah: double, getParshaName: getParshaName(verses, __scroll) })}]`] : [],
     ...special ? [`(${displayRange.aliyahName({ aliyah: special, getParshaName: getParshaName(verses, __scroll)})})`] : []
   ].join(' ')
 }

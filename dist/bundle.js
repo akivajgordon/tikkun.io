@@ -56353,36 +56353,49 @@
         }
         return true;
       };
-      module.exports = (_url) => {
-        if (!isURL(_url))
-          return defaultRef();
-        const url = new URL(_url);
-        const hashParts = url.hash.split("/").slice(1);
-        if (hashParts.length > 0) {
-          if (hashParts[0] === "r" && hashParts[1].length > 0) {
-            const locationRegex = /(\d+)\-(\d+)-(\d+)/;
-            const locationMatch = hashParts[1].match(locationRegex);
-            if (locationMatch) {
-              return resolveToValidRef({
-                scroll: "torah",
-                book: locationMatch[1],
-                chapter: locationMatch[2],
-                verse: locationMatch[3]
-              });
-            }
-          } else if (hashParts[0] === "p") {
-            const found = parshiyot3.find(({ he, en }) => {
-              const decoded = decodeURIComponent(hashParts[1]);
-              const toLowercaseAlpha = (str) => str.toLowerCase().replace(/[^a-z]/g, "");
-              return he === decoded || toLowercaseAlpha(en) === toLowercaseAlpha(decoded);
-            });
-            if (!found)
-              return defaultRef();
-            const { b, c, v } = found.ref;
-            return { scroll: "torah", b, c, v };
-          }
+      var hashOf = (url) => {
+        if (!isURL(url))
+          return "";
+        return new URL(url).hash;
+      };
+      var RefRouter = {
+        refFromPathParts: (pathParts) => {
+          if (!pathParts || !pathParts[0].length)
+            return defaultRef();
+          const locationMatch = pathParts[0].match(/(\d+)\-(\d+)-(\d+)/);
+          if (!locationMatch)
+            return defaultRef();
+          return resolveToValidRef({
+            scroll: "torah",
+            book: locationMatch[1],
+            chapter: locationMatch[2],
+            verse: locationMatch[3]
+          });
         }
-        return defaultRef();
+      };
+      var ParshaRouter = {
+        refFromPathParts: (pathParts) => {
+          if (!pathParts || !pathParts[0].length)
+            return defaultRef();
+          const decoded = decodeURIComponent(pathParts[0]);
+          const toLowercaseAlpha = (str) => str.toLowerCase().replace(/[^a-z]/g, "");
+          const found = parshiyot3.find(({ he, en }) => {
+            return he === decoded || toLowercaseAlpha(en) === toLowercaseAlpha(decoded);
+          });
+          if (!found)
+            return defaultRef();
+          const { b, c, v } = found.ref;
+          return { scroll: "torah", b, c, v };
+        }
+      };
+      var DefaultRouter = { refFromPathParts: () => defaultRef() };
+      module.exports = (url) => {
+        const hashParts = hashOf(url).split("/").slice(1);
+        const router = {
+          r: RefRouter,
+          p: ParshaRouter
+        }[hashParts[0]] || DefaultRouter;
+        return router.refFromPathParts(hashParts.slice(1));
       };
     }
   });

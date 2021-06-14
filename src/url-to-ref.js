@@ -11,40 +11,59 @@ const isURL = url => {
   return true
 }
 
-module.exports = _url => {
-  if (!isURL(_url)) return defaultRef()
+const hashOf = url => {
+  if (!isURL(url)) return ''
 
-  const url = new URL(_url)
+  return (new URL(url)).hash
+}
 
-  const hashParts = url.hash.split('/').slice(1)
+const RefRouter = {
+  refFromPathParts: (pathParts) => {
+    if (!pathParts || !pathParts[0].length) return defaultRef()
+    const locationMatch = pathParts[0].match(/(\d+)\-(\d+)-(\d+)/)
 
-  if (hashParts.length > 0) {
-    if ((hashParts[0] === 'r') && (hashParts[1].length > 0)) {
-      const locationRegex = /(\d+)\-(\d+)-(\d+)/
-      const locationMatch = hashParts[1].match(locationRegex)
-      if (locationMatch) {
-        return resolveToValidRef({
-          scroll: 'torah',
-          book: locationMatch[1],
-          chapter: locationMatch[2],
-          verse: locationMatch[3]
-        })
-      }
-    } else if (hashParts[0] === 'p') {
-      const found = parshiyot.find(({ he, en }) => {
-        const decoded = decodeURIComponent(hashParts[1])
+    if (!locationMatch) return defaultRef()
 
-        const toLowercaseAlpha = str => str.toLowerCase().replace(/[^a-z]/g, '')
-
-        return (he === decoded) || (toLowercaseAlpha(en) === toLowercaseAlpha(decoded))
-      })
-
-      if (!found) return defaultRef()
-
-      const { b, c, v } = found.ref
-      return { scroll: 'torah', b, c, v }
-    }
+    return resolveToValidRef({
+      scroll: 'torah',
+      book: locationMatch[1],
+      chapter: locationMatch[2],
+      verse: locationMatch[3]
+    })
   }
+}
 
-  return defaultRef()
+const ParshaRouter = {
+  refFromPathParts: (pathParts) => {
+    if (!pathParts || !pathParts[0].length) return defaultRef()
+
+    const decoded = decodeURIComponent(pathParts[0])
+
+    const toLowercaseAlpha = str => str
+      .toLowerCase()
+      .replace(/[^a-z]/g, '')
+
+    const found = parshiyot.find(({ he, en }) => {
+      return (he === decoded) || (toLowercaseAlpha(en) === toLowercaseAlpha(decoded))
+    })
+
+    if (!found) return defaultRef()
+
+    const { b, c, v } = found.ref
+    return { scroll: 'torah', b, c, v }
+  }
+}
+
+const DefaultRouter = { refFromPathParts: () => defaultRef() }
+
+module.exports = url => {
+  const hashParts = hashOf(url).split('/').slice(1)
+
+  const router = {
+    r: RefRouter,
+    p: ParshaRouter
+    // next: NextRouter
+  }[hashParts[0]] || DefaultRouter
+
+  return router.refFromPathParts(hashParts.slice(1))
 }

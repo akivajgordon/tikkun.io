@@ -1,5 +1,6 @@
 const { defaultRef, resolveToValidRef } = require('./location')
 const parshiyot = require('../build/parshiyot.json')
+const schedule = require('../build/schedule.json')
 
 const isURL = url => {
   try {
@@ -18,7 +19,7 @@ const hashOf = url => {
 }
 
 const RefRouter = {
-  refFromPathParts: (pathParts) => {
+  refFromPathParts: ({ pathParts }) => {
     if (!pathParts || !pathParts[0].length) return defaultRef()
     const locationMatch = pathParts[0].match(/(\d+)\-(\d+)-(\d+)/)
 
@@ -34,7 +35,7 @@ const RefRouter = {
 }
 
 const ParshaRouter = {
-  refFromPathParts: (pathParts) => {
+  refFromPathParts: ({ pathParts }) => {
     if (!pathParts || !pathParts[0].length) return defaultRef()
 
     const decoded = decodeURIComponent(pathParts[0])
@@ -54,16 +55,28 @@ const ParshaRouter = {
   }
 }
 
+const NextRouter = {
+  refFromPathParts: ({ pathParts, asOfDate }) => {
+    const { label } = schedule.find(({ datetime }) => new Date(datetime) > new Date(asOfDate || Date.now()))
+
+    const found = parshiyot.find(({ he }) => label === he)
+
+    const { b, c, v } = found.ref
+
+    return { scroll: 'torah', b, c, v }
+  }
+}
+
 const DefaultRouter = { refFromPathParts: () => defaultRef() }
 
-module.exports = url => {
+module.exports = ({ url, asOfDate }) => {
   const hashParts = hashOf(url).split('/').slice(1)
 
   const router = {
     r: RefRouter,
-    p: ParshaRouter
-    // next: NextRouter
+    p: ParshaRouter,
+    next: NextRouter
   }[hashParts[0]] || DefaultRouter
 
-  return router.refFromPathParts(hashParts.slice(1))
+  return router.refFromPathParts({ pathParts: hashParts.slice(1), asOfDate })
 }

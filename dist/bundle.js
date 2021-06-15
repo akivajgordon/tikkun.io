@@ -56340,11 +56340,1235 @@
     }
   });
 
+  // build/schedule.json
+  var require_schedule = __commonJS({
+    "build/schedule.json"(exports, module) {
+      module.exports = [
+        {
+          label: "\u05D5\u05D9\u05D2\u05E9",
+          datetime: "2020-01-04",
+          date: "Jan 4"
+        },
+        {
+          label: "\u05D5\u05D9\u05D7\u05D9",
+          datetime: "2020-01-11",
+          date: "Jan 11"
+        },
+        {
+          label: "\u05E9\u05DE\u05D5\u05EA",
+          datetime: "2020-01-18",
+          date: "Jan 18"
+        },
+        {
+          label: "\u05D5\u05D0\u05E8\u05D0",
+          datetime: "2020-01-25",
+          date: "Jan 25"
+        },
+        {
+          label: "\u05D1\u05D0",
+          datetime: "2020-02-01",
+          date: "Feb 1"
+        },
+        {
+          label: "\u05D1\u05E9\u05DC\u05D7",
+          datetime: "2020-02-08",
+          date: "Feb 8"
+        },
+        {
+          label: "\u05D9\u05EA\u05E8\u05D5",
+          datetime: "2020-02-15",
+          date: "Feb 15"
+        },
+        {
+          label: "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
+          datetime: "2020-02-22",
+          date: "Feb 22"
+        },
+        {
+          label: "\u05EA\u05E8\u05D5\u05DE\u05D4",
+          datetime: "2020-02-29",
+          date: "Feb 29"
+        },
+        {
+          label: "\u05EA\u05E6\u05D5\u05D4",
+          datetime: "2020-03-07",
+          date: "Mar 7"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05E9\u05D0",
+          datetime: "2020-03-14",
+          date: "Mar 14"
+        },
+        {
+          label: "\u05D5\u05D9\u05E7\u05D4\u05DC \u2013 \u05E4\u05E7\u05D5\u05D3\u05D9",
+          datetime: "2020-03-21",
+          date: "Mar 21"
+        },
+        {
+          label: "\u05D5\u05D9\u05E7\u05E8\u05D0",
+          datetime: "2020-03-28",
+          date: "Mar 28"
+        },
+        {
+          label: "\u05E6\u05D5",
+          datetime: "2020-04-04",
+          date: "Apr 4"
+        },
+        {
+          label: "\u05E9\u05DE\u05D9\u05E0\u05D9",
+          datetime: "2020-04-18",
+          date: "Apr 18"
+        },
+        {
+          label: "\u05EA\u05D6\u05E8\u05D9\u05E2 \u2013 \u05DE\u05E6\u05D5\u05E8\u05E2",
+          datetime: "2020-04-25",
+          date: "Apr 25"
+        },
+        {
+          label: "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA \u2013 \u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
+          datetime: "2020-05-02",
+          date: "May 2"
+        },
+        {
+          label: "\u05D0\u05DE\u05D5\u05E8",
+          datetime: "2020-05-09",
+          date: "May 9"
+        },
+        {
+          label: "\u05D1\u05D4\u05E8 \u2013 \u05D1\u05D7\u05E7\u05EA\u05D9",
+          datetime: "2020-05-16",
+          date: "May 16"
+        },
+        {
+          label: "\u05D1\u05DE\u05D3\u05D1\u05E8",
+          datetime: "2020-05-23",
+          date: "May 23"
+        },
+        {
+          label: "\u05E0\u05E9\u05D0",
+          datetime: "2020-06-06",
+          date: "Jun 6"
+        },
+        {
+          label: "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA",
+          datetime: "2020-06-13",
+          date: "Jun 13"
+        },
+        {
+          label: "\u05E9\u05DC\u05D7",
+          datetime: "2020-06-20",
+          date: "Jun 20"
+        },
+        {
+          label: "\u05E7\u05E8\u05D7",
+          datetime: "2020-06-27",
+          date: "Jun 27"
+        },
+        {
+          label: "\u05D7\u05E7\u05EA \u2013 \u05D1\u05DC\u05E7",
+          datetime: "2020-07-04",
+          date: "Jul 4"
+        },
+        {
+          label: "\u05E4\u05E0\u05D7\u05E1",
+          datetime: "2020-07-11",
+          date: "Jul 11"
+        },
+        {
+          label: "\u05DE\u05D8\u05D5\u05EA \u2013 \u05DE\u05E1\u05E2\u05D9",
+          datetime: "2020-07-18",
+          date: "Jul 18"
+        },
+        {
+          label: "\u05D3\u05D1\u05E8\u05D9\u05DD",
+          datetime: "2020-07-25",
+          date: "Jul 25"
+        },
+        {
+          label: "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
+          datetime: "2020-08-01",
+          date: "Aug 1"
+        },
+        {
+          label: "\u05E2\u05E7\u05D1",
+          datetime: "2020-08-08",
+          date: "Aug 8"
+        },
+        {
+          label: "\u05E8\u05D0\u05D4",
+          datetime: "2020-08-15",
+          date: "Aug 15"
+        },
+        {
+          label: "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
+          datetime: "2020-08-22",
+          date: "Aug 22"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05E6\u05D0",
+          datetime: "2020-08-29",
+          date: "Aug 29"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
+          datetime: "2020-09-05",
+          date: "Sep 5"
+        },
+        {
+          label: "\u05E0\u05E6\u05D1\u05D9\u05DD \u2013 \u05D5\u05D9\u05DC\u05DA",
+          datetime: "2020-09-12",
+          date: "Sep 12"
+        },
+        {
+          label: "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
+          datetime: "2020-09-26",
+          date: "Sep 26"
+        },
+        {
+          label: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
+          datetime: "2020-10-17",
+          date: "Oct 17"
+        },
+        {
+          label: "\u05E0\u05D7",
+          datetime: "2020-10-24",
+          date: "Oct 24"
+        },
+        {
+          label: "\u05DC\u05DA \u05DC\u05DA",
+          datetime: "2020-10-31",
+          date: "Oct 31"
+        },
+        {
+          label: "\u05D5\u05D9\u05E8\u05D0",
+          datetime: "2020-11-07",
+          date: "Nov 7"
+        },
+        {
+          label: "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
+          datetime: "2020-11-14",
+          date: "Nov 14"
+        },
+        {
+          label: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
+          datetime: "2020-11-21",
+          date: "Nov 21"
+        },
+        {
+          label: "\u05D5\u05D9\u05E6\u05D0",
+          datetime: "2020-11-28",
+          date: "Nov 28"
+        },
+        {
+          label: "\u05D5\u05D9\u05E9\u05DC\u05D7",
+          datetime: "2020-12-05",
+          date: "Dec 5"
+        },
+        {
+          label: "\u05D5\u05D9\u05E9\u05D1",
+          datetime: "2020-12-12",
+          date: "Dec 12"
+        },
+        {
+          label: "\u05DE\u05E7\u05E5",
+          datetime: "2020-12-19",
+          date: "Dec 19"
+        },
+        {
+          label: "\u05D5\u05D9\u05D2\u05E9",
+          datetime: "2020-12-26",
+          date: "Dec 26"
+        },
+        {
+          label: "\u05D5\u05D9\u05D7\u05D9",
+          datetime: "2021-01-02",
+          date: "Jan 2"
+        },
+        {
+          label: "\u05E9\u05DE\u05D5\u05EA",
+          datetime: "2021-01-09",
+          date: "Jan 9"
+        },
+        {
+          label: "\u05D5\u05D0\u05E8\u05D0",
+          datetime: "2021-01-16",
+          date: "Jan 16"
+        },
+        {
+          label: "\u05D1\u05D0",
+          datetime: "2021-01-23",
+          date: "Jan 23"
+        },
+        {
+          label: "\u05D1\u05E9\u05DC\u05D7",
+          datetime: "2021-01-30",
+          date: "Jan 30"
+        },
+        {
+          label: "\u05D9\u05EA\u05E8\u05D5",
+          datetime: "2021-02-06",
+          date: "Feb 6"
+        },
+        {
+          label: "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
+          datetime: "2021-02-13",
+          date: "Feb 13"
+        },
+        {
+          label: "\u05EA\u05E8\u05D5\u05DE\u05D4",
+          datetime: "2021-02-20",
+          date: "Feb 20"
+        },
+        {
+          label: "\u05EA\u05E6\u05D5\u05D4",
+          datetime: "2021-02-27",
+          date: "Feb 27"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05E9\u05D0",
+          datetime: "2021-03-06",
+          date: "Mar 6"
+        },
+        {
+          label: "\u05D5\u05D9\u05E7\u05D4\u05DC \u2013 \u05E4\u05E7\u05D5\u05D3\u05D9",
+          datetime: "2021-03-13",
+          date: "Mar 13"
+        },
+        {
+          label: "\u05D5\u05D9\u05E7\u05E8\u05D0",
+          datetime: "2021-03-20",
+          date: "Mar 20"
+        },
+        {
+          label: "\u05E6\u05D5",
+          datetime: "2021-03-27",
+          date: "Mar 27"
+        },
+        {
+          label: "\u05E9\u05DE\u05D9\u05E0\u05D9",
+          datetime: "2021-04-10",
+          date: "Apr 10"
+        },
+        {
+          label: "\u05EA\u05D6\u05E8\u05D9\u05E2 \u2013 \u05DE\u05E6\u05D5\u05E8\u05E2",
+          datetime: "2021-04-17",
+          date: "Apr 17"
+        },
+        {
+          label: "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA \u2013 \u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
+          datetime: "2021-04-24",
+          date: "Apr 24"
+        },
+        {
+          label: "\u05D0\u05DE\u05D5\u05E8",
+          datetime: "2021-05-01",
+          date: "May 1"
+        },
+        {
+          label: "\u05D1\u05D4\u05E8 \u2013 \u05D1\u05D7\u05E7\u05EA\u05D9",
+          datetime: "2021-05-08",
+          date: "May 8"
+        },
+        {
+          label: "\u05D1\u05DE\u05D3\u05D1\u05E8",
+          datetime: "2021-05-15",
+          date: "May 15"
+        },
+        {
+          label: "\u05E0\u05E9\u05D0",
+          datetime: "2021-05-22",
+          date: "May 22"
+        },
+        {
+          label: "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA",
+          datetime: "2021-05-29",
+          date: "May 29"
+        },
+        {
+          label: "\u05E9\u05DC\u05D7",
+          datetime: "2021-06-05",
+          date: "Jun 5"
+        },
+        {
+          label: "\u05E7\u05E8\u05D7",
+          datetime: "2021-06-12",
+          date: "Jun 12"
+        },
+        {
+          label: "\u05D7\u05E7\u05EA",
+          datetime: "2021-06-19",
+          date: "Jun 19"
+        },
+        {
+          label: "\u05D1\u05DC\u05E7",
+          datetime: "2021-06-26",
+          date: "Jun 26"
+        },
+        {
+          label: "\u05E4\u05E0\u05D7\u05E1",
+          datetime: "2021-07-03",
+          date: "Jul 3"
+        },
+        {
+          label: "\u05DE\u05D8\u05D5\u05EA \u2013 \u05DE\u05E1\u05E2\u05D9",
+          datetime: "2021-07-10",
+          date: "Jul 10"
+        },
+        {
+          label: "\u05D3\u05D1\u05E8\u05D9\u05DD",
+          datetime: "2021-07-17",
+          date: "Jul 17"
+        },
+        {
+          label: "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
+          datetime: "2021-07-24",
+          date: "Jul 24"
+        },
+        {
+          label: "\u05E2\u05E7\u05D1",
+          datetime: "2021-07-31",
+          date: "Jul 31"
+        },
+        {
+          label: "\u05E8\u05D0\u05D4",
+          datetime: "2021-08-07",
+          date: "Aug 7"
+        },
+        {
+          label: "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
+          datetime: "2021-08-14",
+          date: "Aug 14"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05E6\u05D0",
+          datetime: "2021-08-21",
+          date: "Aug 21"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
+          datetime: "2021-08-28",
+          date: "Aug 28"
+        },
+        {
+          label: "\u05E0\u05E6\u05D1\u05D9\u05DD",
+          datetime: "2021-09-04",
+          date: "Sep 4"
+        },
+        {
+          label: "\u05D5\u05D9\u05DC\u05DA",
+          datetime: "2021-09-11",
+          date: "Sep 11"
+        },
+        {
+          label: "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
+          datetime: "2021-09-18",
+          date: "Sep 18"
+        },
+        {
+          label: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
+          datetime: "2021-10-02",
+          date: "Oct 2"
+        },
+        {
+          label: "\u05E0\u05D7",
+          datetime: "2021-10-09",
+          date: "Oct 9"
+        },
+        {
+          label: "\u05DC\u05DA \u05DC\u05DA",
+          datetime: "2021-10-16",
+          date: "Oct 16"
+        },
+        {
+          label: "\u05D5\u05D9\u05E8\u05D0",
+          datetime: "2021-10-23",
+          date: "Oct 23"
+        },
+        {
+          label: "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
+          datetime: "2021-10-30",
+          date: "Oct 30"
+        },
+        {
+          label: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
+          datetime: "2021-11-06",
+          date: "Nov 6"
+        },
+        {
+          label: "\u05D5\u05D9\u05E6\u05D0",
+          datetime: "2021-11-13",
+          date: "Nov 13"
+        },
+        {
+          label: "\u05D5\u05D9\u05E9\u05DC\u05D7",
+          datetime: "2021-11-20",
+          date: "Nov 20"
+        },
+        {
+          label: "\u05D5\u05D9\u05E9\u05D1",
+          datetime: "2021-11-27",
+          date: "Nov 27"
+        },
+        {
+          label: "\u05DE\u05E7\u05E5",
+          datetime: "2021-12-04",
+          date: "Dec 4"
+        },
+        {
+          label: "\u05D5\u05D9\u05D2\u05E9",
+          datetime: "2021-12-11",
+          date: "Dec 11"
+        },
+        {
+          label: "\u05D5\u05D9\u05D7\u05D9",
+          datetime: "2021-12-18",
+          date: "Dec 18"
+        },
+        {
+          label: "\u05E9\u05DE\u05D5\u05EA",
+          datetime: "2021-12-25",
+          date: "Dec 25"
+        },
+        {
+          label: "\u05D5\u05D0\u05E8\u05D0",
+          datetime: "2022-01-01",
+          date: "Jan 1"
+        },
+        {
+          label: "\u05D1\u05D0",
+          datetime: "2022-01-08",
+          date: "Jan 8"
+        },
+        {
+          label: "\u05D1\u05E9\u05DC\u05D7",
+          datetime: "2022-01-15",
+          date: "Jan 15"
+        },
+        {
+          label: "\u05D9\u05EA\u05E8\u05D5",
+          datetime: "2022-01-22",
+          date: "Jan 22"
+        },
+        {
+          label: "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
+          datetime: "2022-01-29",
+          date: "Jan 29"
+        },
+        {
+          label: "\u05EA\u05E8\u05D5\u05DE\u05D4",
+          datetime: "2022-02-05",
+          date: "Feb 5"
+        },
+        {
+          label: "\u05EA\u05E6\u05D5\u05D4",
+          datetime: "2022-02-12",
+          date: "Feb 12"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05E9\u05D0",
+          datetime: "2022-02-19",
+          date: "Feb 19"
+        },
+        {
+          label: "\u05D5\u05D9\u05E7\u05D4\u05DC",
+          datetime: "2022-02-26",
+          date: "Feb 26"
+        },
+        {
+          label: "\u05E4\u05E7\u05D5\u05D3\u05D9",
+          datetime: "2022-03-05",
+          date: "Mar 5"
+        },
+        {
+          label: "\u05D5\u05D9\u05E7\u05E8\u05D0",
+          datetime: "2022-03-12",
+          date: "Mar 12"
+        },
+        {
+          label: "\u05E6\u05D5",
+          datetime: "2022-03-19",
+          date: "Mar 19"
+        },
+        {
+          label: "\u05E9\u05DE\u05D9\u05E0\u05D9",
+          datetime: "2022-03-26",
+          date: "Mar 26"
+        },
+        {
+          label: "\u05EA\u05D6\u05E8\u05D9\u05E2",
+          datetime: "2022-04-02",
+          date: "Apr 2"
+        },
+        {
+          label: "\u05DE\u05E6\u05D5\u05E8\u05E2",
+          datetime: "2022-04-09",
+          date: "Apr 9"
+        },
+        {
+          label: "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA",
+          datetime: "2022-04-30",
+          date: "Apr 30"
+        },
+        {
+          label: "\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
+          datetime: "2022-05-07",
+          date: "May 7"
+        },
+        {
+          label: "\u05D0\u05DE\u05D5\u05E8",
+          datetime: "2022-05-14",
+          date: "May 14"
+        },
+        {
+          label: "\u05D1\u05D4\u05E8",
+          datetime: "2022-05-21",
+          date: "May 21"
+        },
+        {
+          label: "\u05D1\u05D7\u05E7\u05EA\u05D9",
+          datetime: "2022-05-28",
+          date: "May 28"
+        },
+        {
+          label: "\u05D1\u05DE\u05D3\u05D1\u05E8",
+          datetime: "2022-06-04",
+          date: "Jun 4"
+        },
+        {
+          label: "\u05E0\u05E9\u05D0",
+          datetime: "2022-06-11",
+          date: "Jun 11"
+        },
+        {
+          label: "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA",
+          datetime: "2022-06-18",
+          date: "Jun 18"
+        },
+        {
+          label: "\u05E9\u05DC\u05D7",
+          datetime: "2022-06-25",
+          date: "Jun 25"
+        },
+        {
+          label: "\u05E7\u05E8\u05D7",
+          datetime: "2022-07-02",
+          date: "Jul 2"
+        },
+        {
+          label: "\u05D7\u05E7\u05EA",
+          datetime: "2022-07-09",
+          date: "Jul 9"
+        },
+        {
+          label: "\u05D1\u05DC\u05E7",
+          datetime: "2022-07-16",
+          date: "Jul 16"
+        },
+        {
+          label: "\u05E4\u05E0\u05D7\u05E1",
+          datetime: "2022-07-23",
+          date: "Jul 23"
+        },
+        {
+          label: "\u05DE\u05D8\u05D5\u05EA \u2013 \u05DE\u05E1\u05E2\u05D9",
+          datetime: "2022-07-30",
+          date: "Jul 30"
+        },
+        {
+          label: "\u05D3\u05D1\u05E8\u05D9\u05DD",
+          datetime: "2022-08-06",
+          date: "Aug 6"
+        },
+        {
+          label: "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
+          datetime: "2022-08-13",
+          date: "Aug 13"
+        },
+        {
+          label: "\u05E2\u05E7\u05D1",
+          datetime: "2022-08-20",
+          date: "Aug 20"
+        },
+        {
+          label: "\u05E8\u05D0\u05D4",
+          datetime: "2022-08-27",
+          date: "Aug 27"
+        },
+        {
+          label: "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
+          datetime: "2022-09-03",
+          date: "Sep 3"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05E6\u05D0",
+          datetime: "2022-09-10",
+          date: "Sep 10"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
+          datetime: "2022-09-17",
+          date: "Sep 17"
+        },
+        {
+          label: "\u05E0\u05E6\u05D1\u05D9\u05DD",
+          datetime: "2022-09-24",
+          date: "Sep 24"
+        },
+        {
+          label: "\u05D5\u05D9\u05DC\u05DA",
+          datetime: "2022-10-01",
+          date: "Oct 1"
+        },
+        {
+          label: "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
+          datetime: "2022-10-08",
+          date: "Oct 8"
+        },
+        {
+          label: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
+          datetime: "2022-10-22",
+          date: "Oct 22"
+        },
+        {
+          label: "\u05E0\u05D7",
+          datetime: "2022-10-29",
+          date: "Oct 29"
+        },
+        {
+          label: "\u05DC\u05DA \u05DC\u05DA",
+          datetime: "2022-11-05",
+          date: "Nov 5"
+        },
+        {
+          label: "\u05D5\u05D9\u05E8\u05D0",
+          datetime: "2022-11-12",
+          date: "Nov 12"
+        },
+        {
+          label: "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
+          datetime: "2022-11-19",
+          date: "Nov 19"
+        },
+        {
+          label: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
+          datetime: "2022-11-26",
+          date: "Nov 26"
+        },
+        {
+          label: "\u05D5\u05D9\u05E6\u05D0",
+          datetime: "2022-12-03",
+          date: "Dec 3"
+        },
+        {
+          label: "\u05D5\u05D9\u05E9\u05DC\u05D7",
+          datetime: "2022-12-10",
+          date: "Dec 10"
+        },
+        {
+          label: "\u05D5\u05D9\u05E9\u05D1",
+          datetime: "2022-12-17",
+          date: "Dec 17"
+        },
+        {
+          label: "\u05DE\u05E7\u05E5",
+          datetime: "2022-12-24",
+          date: "Dec 24"
+        },
+        {
+          label: "\u05D5\u05D9\u05D2\u05E9",
+          datetime: "2022-12-31",
+          date: "Dec 31"
+        },
+        {
+          label: "\u05D5\u05D9\u05D7\u05D9",
+          datetime: "2023-01-07",
+          date: "Jan 7"
+        },
+        {
+          label: "\u05E9\u05DE\u05D5\u05EA",
+          datetime: "2023-01-14",
+          date: "Jan 14"
+        },
+        {
+          label: "\u05D5\u05D0\u05E8\u05D0",
+          datetime: "2023-01-21",
+          date: "Jan 21"
+        },
+        {
+          label: "\u05D1\u05D0",
+          datetime: "2023-01-28",
+          date: "Jan 28"
+        },
+        {
+          label: "\u05D1\u05E9\u05DC\u05D7",
+          datetime: "2023-02-04",
+          date: "Feb 4"
+        },
+        {
+          label: "\u05D9\u05EA\u05E8\u05D5",
+          datetime: "2023-02-11",
+          date: "Feb 11"
+        },
+        {
+          label: "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
+          datetime: "2023-02-18",
+          date: "Feb 18"
+        },
+        {
+          label: "\u05EA\u05E8\u05D5\u05DE\u05D4",
+          datetime: "2023-02-25",
+          date: "Feb 25"
+        },
+        {
+          label: "\u05EA\u05E6\u05D5\u05D4",
+          datetime: "2023-03-04",
+          date: "Mar 4"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05E9\u05D0",
+          datetime: "2023-03-11",
+          date: "Mar 11"
+        },
+        {
+          label: "\u05D5\u05D9\u05E7\u05D4\u05DC \u2013 \u05E4\u05E7\u05D5\u05D3\u05D9",
+          datetime: "2023-03-18",
+          date: "Mar 18"
+        },
+        {
+          label: "\u05D5\u05D9\u05E7\u05E8\u05D0",
+          datetime: "2023-03-25",
+          date: "Mar 25"
+        },
+        {
+          label: "\u05E6\u05D5",
+          datetime: "2023-04-01",
+          date: "Apr 1"
+        },
+        {
+          label: "\u05E9\u05DE\u05D9\u05E0\u05D9",
+          datetime: "2023-04-15",
+          date: "Apr 15"
+        },
+        {
+          label: "\u05EA\u05D6\u05E8\u05D9\u05E2 \u2013 \u05DE\u05E6\u05D5\u05E8\u05E2",
+          datetime: "2023-04-22",
+          date: "Apr 22"
+        },
+        {
+          label: "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA \u2013 \u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
+          datetime: "2023-04-29",
+          date: "Apr 29"
+        },
+        {
+          label: "\u05D0\u05DE\u05D5\u05E8",
+          datetime: "2023-05-06",
+          date: "May 6"
+        },
+        {
+          label: "\u05D1\u05D4\u05E8 \u2013 \u05D1\u05D7\u05E7\u05EA\u05D9",
+          datetime: "2023-05-13",
+          date: "May 13"
+        },
+        {
+          label: "\u05D1\u05DE\u05D3\u05D1\u05E8",
+          datetime: "2023-05-20",
+          date: "May 20"
+        },
+        {
+          label: "\u05E0\u05E9\u05D0",
+          datetime: "2023-06-03",
+          date: "Jun 3"
+        },
+        {
+          label: "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA",
+          datetime: "2023-06-10",
+          date: "Jun 10"
+        },
+        {
+          label: "\u05E9\u05DC\u05D7",
+          datetime: "2023-06-17",
+          date: "Jun 17"
+        },
+        {
+          label: "\u05E7\u05E8\u05D7",
+          datetime: "2023-06-24",
+          date: "Jun 24"
+        },
+        {
+          label: "\u05D7\u05E7\u05EA \u2013 \u05D1\u05DC\u05E7",
+          datetime: "2023-07-01",
+          date: "Jul 1"
+        },
+        {
+          label: "\u05E4\u05E0\u05D7\u05E1",
+          datetime: "2023-07-08",
+          date: "Jul 8"
+        },
+        {
+          label: "\u05DE\u05D8\u05D5\u05EA \u2013 \u05DE\u05E1\u05E2\u05D9",
+          datetime: "2023-07-15",
+          date: "Jul 15"
+        },
+        {
+          label: "\u05D3\u05D1\u05E8\u05D9\u05DD",
+          datetime: "2023-07-22",
+          date: "Jul 22"
+        },
+        {
+          label: "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
+          datetime: "2023-07-29",
+          date: "Jul 29"
+        },
+        {
+          label: "\u05E2\u05E7\u05D1",
+          datetime: "2023-08-05",
+          date: "Aug 5"
+        },
+        {
+          label: "\u05E8\u05D0\u05D4",
+          datetime: "2023-08-12",
+          date: "Aug 12"
+        },
+        {
+          label: "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
+          datetime: "2023-08-19",
+          date: "Aug 19"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05E6\u05D0",
+          datetime: "2023-08-26",
+          date: "Aug 26"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
+          datetime: "2023-09-02",
+          date: "Sep 2"
+        },
+        {
+          label: "\u05E0\u05E6\u05D1\u05D9\u05DD \u2013 \u05D5\u05D9\u05DC\u05DA",
+          datetime: "2023-09-09",
+          date: "Sep 9"
+        },
+        {
+          label: "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
+          datetime: "2023-09-23",
+          date: "Sep 23"
+        },
+        {
+          label: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
+          datetime: "2023-10-14",
+          date: "Oct 14"
+        },
+        {
+          label: "\u05E0\u05D7",
+          datetime: "2023-10-21",
+          date: "Oct 21"
+        },
+        {
+          label: "\u05DC\u05DA \u05DC\u05DA",
+          datetime: "2023-10-28",
+          date: "Oct 28"
+        },
+        {
+          label: "\u05D5\u05D9\u05E8\u05D0",
+          datetime: "2023-11-04",
+          date: "Nov 4"
+        },
+        {
+          label: "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
+          datetime: "2023-11-11",
+          date: "Nov 11"
+        },
+        {
+          label: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
+          datetime: "2023-11-18",
+          date: "Nov 18"
+        },
+        {
+          label: "\u05D5\u05D9\u05E6\u05D0",
+          datetime: "2023-11-25",
+          date: "Nov 25"
+        },
+        {
+          label: "\u05D5\u05D9\u05E9\u05DC\u05D7",
+          datetime: "2023-12-02",
+          date: "Dec 2"
+        },
+        {
+          label: "\u05D5\u05D9\u05E9\u05D1",
+          datetime: "2023-12-09",
+          date: "Dec 9"
+        },
+        {
+          label: "\u05DE\u05E7\u05E5",
+          datetime: "2023-12-16",
+          date: "Dec 16"
+        },
+        {
+          label: "\u05D5\u05D9\u05D2\u05E9",
+          datetime: "2023-12-23",
+          date: "Dec 23"
+        },
+        {
+          label: "\u05D5\u05D9\u05D7\u05D9",
+          datetime: "2023-12-30",
+          date: "Dec 30"
+        },
+        {
+          label: "\u05E9\u05DE\u05D5\u05EA",
+          datetime: "2024-01-06",
+          date: "Jan 6"
+        },
+        {
+          label: "\u05D5\u05D0\u05E8\u05D0",
+          datetime: "2024-01-13",
+          date: "Jan 13"
+        },
+        {
+          label: "\u05D1\u05D0",
+          datetime: "2024-01-20",
+          date: "Jan 20"
+        },
+        {
+          label: "\u05D1\u05E9\u05DC\u05D7",
+          datetime: "2024-01-27",
+          date: "Jan 27"
+        },
+        {
+          label: "\u05D9\u05EA\u05E8\u05D5",
+          datetime: "2024-02-03",
+          date: "Feb 3"
+        },
+        {
+          label: "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
+          datetime: "2024-02-10",
+          date: "Feb 10"
+        },
+        {
+          label: "\u05EA\u05E8\u05D5\u05DE\u05D4",
+          datetime: "2024-02-17",
+          date: "Feb 17"
+        },
+        {
+          label: "\u05EA\u05E6\u05D5\u05D4",
+          datetime: "2024-02-24",
+          date: "Feb 24"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05E9\u05D0",
+          datetime: "2024-03-02",
+          date: "Mar 2"
+        },
+        {
+          label: "\u05D5\u05D9\u05E7\u05D4\u05DC",
+          datetime: "2024-03-09",
+          date: "Mar 9"
+        },
+        {
+          label: "\u05E4\u05E7\u05D5\u05D3\u05D9",
+          datetime: "2024-03-16",
+          date: "Mar 16"
+        },
+        {
+          label: "\u05D5\u05D9\u05E7\u05E8\u05D0",
+          datetime: "2024-03-23",
+          date: "Mar 23"
+        },
+        {
+          label: "\u05E6\u05D5",
+          datetime: "2024-03-30",
+          date: "Mar 30"
+        },
+        {
+          label: "\u05E9\u05DE\u05D9\u05E0\u05D9",
+          datetime: "2024-04-06",
+          date: "Apr 6"
+        },
+        {
+          label: "\u05EA\u05D6\u05E8\u05D9\u05E2",
+          datetime: "2024-04-13",
+          date: "Apr 13"
+        },
+        {
+          label: "\u05DE\u05E6\u05D5\u05E8\u05E2",
+          datetime: "2024-04-20",
+          date: "Apr 20"
+        },
+        {
+          label: "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA",
+          datetime: "2024-05-04",
+          date: "May 4"
+        },
+        {
+          label: "\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
+          datetime: "2024-05-11",
+          date: "May 11"
+        },
+        {
+          label: "\u05D0\u05DE\u05D5\u05E8",
+          datetime: "2024-05-18",
+          date: "May 18"
+        },
+        {
+          label: "\u05D1\u05D4\u05E8",
+          datetime: "2024-05-25",
+          date: "May 25"
+        },
+        {
+          label: "\u05D1\u05D7\u05E7\u05EA\u05D9",
+          datetime: "2024-06-01",
+          date: "Jun 1"
+        },
+        {
+          label: "\u05D1\u05DE\u05D3\u05D1\u05E8",
+          datetime: "2024-06-08",
+          date: "Jun 8"
+        },
+        {
+          label: "\u05E0\u05E9\u05D0",
+          datetime: "2024-06-15",
+          date: "Jun 15"
+        },
+        {
+          label: "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA",
+          datetime: "2024-06-22",
+          date: "Jun 22"
+        },
+        {
+          label: "\u05E9\u05DC\u05D7",
+          datetime: "2024-06-29",
+          date: "Jun 29"
+        },
+        {
+          label: "\u05E7\u05E8\u05D7",
+          datetime: "2024-07-06",
+          date: "Jul 6"
+        },
+        {
+          label: "\u05D7\u05E7\u05EA",
+          datetime: "2024-07-13",
+          date: "Jul 13"
+        },
+        {
+          label: "\u05D1\u05DC\u05E7",
+          datetime: "2024-07-20",
+          date: "Jul 20"
+        },
+        {
+          label: "\u05E4\u05E0\u05D7\u05E1",
+          datetime: "2024-07-27",
+          date: "Jul 27"
+        },
+        {
+          label: "\u05DE\u05D8\u05D5\u05EA \u2013 \u05DE\u05E1\u05E2\u05D9",
+          datetime: "2024-08-03",
+          date: "Aug 3"
+        },
+        {
+          label: "\u05D3\u05D1\u05E8\u05D9\u05DD",
+          datetime: "2024-08-10",
+          date: "Aug 10"
+        },
+        {
+          label: "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
+          datetime: "2024-08-17",
+          date: "Aug 17"
+        },
+        {
+          label: "\u05E2\u05E7\u05D1",
+          datetime: "2024-08-24",
+          date: "Aug 24"
+        },
+        {
+          label: "\u05E8\u05D0\u05D4",
+          datetime: "2024-08-31",
+          date: "Aug 31"
+        },
+        {
+          label: "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
+          datetime: "2024-09-07",
+          date: "Sep 7"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05E6\u05D0",
+          datetime: "2024-09-14",
+          date: "Sep 14"
+        },
+        {
+          label: "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
+          datetime: "2024-09-21",
+          date: "Sep 21"
+        },
+        {
+          label: "\u05E0\u05E6\u05D1\u05D9\u05DD \u2013 \u05D5\u05D9\u05DC\u05DA",
+          datetime: "2024-09-28",
+          date: "Sep 28"
+        },
+        {
+          label: "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
+          datetime: "2024-10-05",
+          date: "Oct 5"
+        },
+        {
+          label: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
+          datetime: "2024-10-26",
+          date: "Oct 26"
+        },
+        {
+          label: "\u05E0\u05D7",
+          datetime: "2024-11-02",
+          date: "Nov 2"
+        },
+        {
+          label: "\u05DC\u05DA \u05DC\u05DA",
+          datetime: "2024-11-09",
+          date: "Nov 9"
+        },
+        {
+          label: "\u05D5\u05D9\u05E8\u05D0",
+          datetime: "2024-11-16",
+          date: "Nov 16"
+        },
+        {
+          label: "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
+          datetime: "2024-11-23",
+          date: "Nov 23"
+        },
+        {
+          label: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
+          datetime: "2024-11-30",
+          date: "Nov 30"
+        },
+        {
+          label: "\u05D5\u05D9\u05E6\u05D0",
+          datetime: "2024-12-07",
+          date: "Dec 7"
+        },
+        {
+          label: "\u05D5\u05D9\u05E9\u05DC\u05D7",
+          datetime: "2024-12-14",
+          date: "Dec 14"
+        },
+        {
+          label: "\u05D5\u05D9\u05E9\u05D1",
+          datetime: "2024-12-21",
+          date: "Dec 21"
+        },
+        {
+          label: "\u05DE\u05E7\u05E5",
+          datetime: "2024-12-28",
+          date: "Dec 28"
+        }
+      ];
+    }
+  });
+
   // src/url-to-ref.js
   var require_url_to_ref = __commonJS({
     "src/url-to-ref.js"(exports, module) {
       var { defaultRef, resolveToValidRef } = require_location();
       var parshiyot3 = require_parshiyot();
+      var schedule = require_schedule();
       var isURL = (url) => {
         try {
           new URL(url);
@@ -56359,7 +57583,7 @@
         return new URL(url).hash;
       };
       var RefRouter = {
-        refFromPathParts: (pathParts) => {
+        refFromPathParts: ({ pathParts }) => {
           if (!pathParts || !pathParts[0].length)
             return defaultRef();
           const locationMatch = pathParts[0].match(/(\d+)\-(\d+)-(\d+)/);
@@ -56374,7 +57598,7 @@
         }
       };
       var ParshaRouter = {
-        refFromPathParts: (pathParts) => {
+        refFromPathParts: ({ pathParts }) => {
           if (!pathParts || !pathParts[0].length)
             return defaultRef();
           const decoded = decodeURIComponent(pathParts[0]);
@@ -56388,14 +57612,23 @@
           return { scroll: "torah", b, c, v };
         }
       };
+      var NextRouter = {
+        refFromPathParts: ({ pathParts, asOfDate }) => {
+          const { label } = schedule.find(({ datetime }) => new Date(datetime) > new Date(asOfDate || Date.now()));
+          const found = parshiyot3.find(({ he }) => label === he);
+          const { b, c, v } = found.ref;
+          return { scroll: "torah", b, c, v };
+        }
+      };
       var DefaultRouter = { refFromPathParts: () => defaultRef() };
-      module.exports = (url) => {
+      module.exports = ({ url, asOfDate }) => {
         const hashParts = hashOf(url).split("/").slice(1);
         const router = {
           r: RefRouter,
-          p: ParshaRouter
+          p: ParshaRouter,
+          next: NextRouter
         }[hashParts[0]] || DefaultRouter;
-        return router.refFromPathParts(hashParts.slice(1));
+        return router.refFromPathParts({ pathParts: hashParts.slice(1), asOfDate });
       };
     }
   });
@@ -60944,1227 +62177,7 @@
 
   // components/ParshaPicker.js
   var import_parshiyot = __toModule(require_parshiyot());
-
-  // build/schedule.json
-  var schedule_default = [
-    {
-      label: "\u05D5\u05D9\u05D2\u05E9",
-      datetime: "2020-01-04",
-      date: "Jan 4"
-    },
-    {
-      label: "\u05D5\u05D9\u05D7\u05D9",
-      datetime: "2020-01-11",
-      date: "Jan 11"
-    },
-    {
-      label: "\u05E9\u05DE\u05D5\u05EA",
-      datetime: "2020-01-18",
-      date: "Jan 18"
-    },
-    {
-      label: "\u05D5\u05D0\u05E8\u05D0",
-      datetime: "2020-01-25",
-      date: "Jan 25"
-    },
-    {
-      label: "\u05D1\u05D0",
-      datetime: "2020-02-01",
-      date: "Feb 1"
-    },
-    {
-      label: "\u05D1\u05E9\u05DC\u05D7",
-      datetime: "2020-02-08",
-      date: "Feb 8"
-    },
-    {
-      label: "\u05D9\u05EA\u05E8\u05D5",
-      datetime: "2020-02-15",
-      date: "Feb 15"
-    },
-    {
-      label: "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
-      datetime: "2020-02-22",
-      date: "Feb 22"
-    },
-    {
-      label: "\u05EA\u05E8\u05D5\u05DE\u05D4",
-      datetime: "2020-02-29",
-      date: "Feb 29"
-    },
-    {
-      label: "\u05EA\u05E6\u05D5\u05D4",
-      datetime: "2020-03-07",
-      date: "Mar 7"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05E9\u05D0",
-      datetime: "2020-03-14",
-      date: "Mar 14"
-    },
-    {
-      label: "\u05D5\u05D9\u05E7\u05D4\u05DC \u2013 \u05E4\u05E7\u05D5\u05D3\u05D9",
-      datetime: "2020-03-21",
-      date: "Mar 21"
-    },
-    {
-      label: "\u05D5\u05D9\u05E7\u05E8\u05D0",
-      datetime: "2020-03-28",
-      date: "Mar 28"
-    },
-    {
-      label: "\u05E6\u05D5",
-      datetime: "2020-04-04",
-      date: "Apr 4"
-    },
-    {
-      label: "\u05E9\u05DE\u05D9\u05E0\u05D9",
-      datetime: "2020-04-18",
-      date: "Apr 18"
-    },
-    {
-      label: "\u05EA\u05D6\u05E8\u05D9\u05E2 \u2013 \u05DE\u05E6\u05D5\u05E8\u05E2",
-      datetime: "2020-04-25",
-      date: "Apr 25"
-    },
-    {
-      label: "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA \u2013 \u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
-      datetime: "2020-05-02",
-      date: "May 2"
-    },
-    {
-      label: "\u05D0\u05DE\u05D5\u05E8",
-      datetime: "2020-05-09",
-      date: "May 9"
-    },
-    {
-      label: "\u05D1\u05D4\u05E8 \u2013 \u05D1\u05D7\u05E7\u05EA\u05D9",
-      datetime: "2020-05-16",
-      date: "May 16"
-    },
-    {
-      label: "\u05D1\u05DE\u05D3\u05D1\u05E8",
-      datetime: "2020-05-23",
-      date: "May 23"
-    },
-    {
-      label: "\u05E0\u05E9\u05D0",
-      datetime: "2020-06-06",
-      date: "Jun 6"
-    },
-    {
-      label: "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA",
-      datetime: "2020-06-13",
-      date: "Jun 13"
-    },
-    {
-      label: "\u05E9\u05DC\u05D7",
-      datetime: "2020-06-20",
-      date: "Jun 20"
-    },
-    {
-      label: "\u05E7\u05E8\u05D7",
-      datetime: "2020-06-27",
-      date: "Jun 27"
-    },
-    {
-      label: "\u05D7\u05E7\u05EA \u2013 \u05D1\u05DC\u05E7",
-      datetime: "2020-07-04",
-      date: "Jul 4"
-    },
-    {
-      label: "\u05E4\u05E0\u05D7\u05E1",
-      datetime: "2020-07-11",
-      date: "Jul 11"
-    },
-    {
-      label: "\u05DE\u05D8\u05D5\u05EA \u2013 \u05DE\u05E1\u05E2\u05D9",
-      datetime: "2020-07-18",
-      date: "Jul 18"
-    },
-    {
-      label: "\u05D3\u05D1\u05E8\u05D9\u05DD",
-      datetime: "2020-07-25",
-      date: "Jul 25"
-    },
-    {
-      label: "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
-      datetime: "2020-08-01",
-      date: "Aug 1"
-    },
-    {
-      label: "\u05E2\u05E7\u05D1",
-      datetime: "2020-08-08",
-      date: "Aug 8"
-    },
-    {
-      label: "\u05E8\u05D0\u05D4",
-      datetime: "2020-08-15",
-      date: "Aug 15"
-    },
-    {
-      label: "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
-      datetime: "2020-08-22",
-      date: "Aug 22"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05E6\u05D0",
-      datetime: "2020-08-29",
-      date: "Aug 29"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
-      datetime: "2020-09-05",
-      date: "Sep 5"
-    },
-    {
-      label: "\u05E0\u05E6\u05D1\u05D9\u05DD \u2013 \u05D5\u05D9\u05DC\u05DA",
-      datetime: "2020-09-12",
-      date: "Sep 12"
-    },
-    {
-      label: "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
-      datetime: "2020-09-26",
-      date: "Sep 26"
-    },
-    {
-      label: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
-      datetime: "2020-10-17",
-      date: "Oct 17"
-    },
-    {
-      label: "\u05E0\u05D7",
-      datetime: "2020-10-24",
-      date: "Oct 24"
-    },
-    {
-      label: "\u05DC\u05DA \u05DC\u05DA",
-      datetime: "2020-10-31",
-      date: "Oct 31"
-    },
-    {
-      label: "\u05D5\u05D9\u05E8\u05D0",
-      datetime: "2020-11-07",
-      date: "Nov 7"
-    },
-    {
-      label: "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
-      datetime: "2020-11-14",
-      date: "Nov 14"
-    },
-    {
-      label: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
-      datetime: "2020-11-21",
-      date: "Nov 21"
-    },
-    {
-      label: "\u05D5\u05D9\u05E6\u05D0",
-      datetime: "2020-11-28",
-      date: "Nov 28"
-    },
-    {
-      label: "\u05D5\u05D9\u05E9\u05DC\u05D7",
-      datetime: "2020-12-05",
-      date: "Dec 5"
-    },
-    {
-      label: "\u05D5\u05D9\u05E9\u05D1",
-      datetime: "2020-12-12",
-      date: "Dec 12"
-    },
-    {
-      label: "\u05DE\u05E7\u05E5",
-      datetime: "2020-12-19",
-      date: "Dec 19"
-    },
-    {
-      label: "\u05D5\u05D9\u05D2\u05E9",
-      datetime: "2020-12-26",
-      date: "Dec 26"
-    },
-    {
-      label: "\u05D5\u05D9\u05D7\u05D9",
-      datetime: "2021-01-02",
-      date: "Jan 2"
-    },
-    {
-      label: "\u05E9\u05DE\u05D5\u05EA",
-      datetime: "2021-01-09",
-      date: "Jan 9"
-    },
-    {
-      label: "\u05D5\u05D0\u05E8\u05D0",
-      datetime: "2021-01-16",
-      date: "Jan 16"
-    },
-    {
-      label: "\u05D1\u05D0",
-      datetime: "2021-01-23",
-      date: "Jan 23"
-    },
-    {
-      label: "\u05D1\u05E9\u05DC\u05D7",
-      datetime: "2021-01-30",
-      date: "Jan 30"
-    },
-    {
-      label: "\u05D9\u05EA\u05E8\u05D5",
-      datetime: "2021-02-06",
-      date: "Feb 6"
-    },
-    {
-      label: "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
-      datetime: "2021-02-13",
-      date: "Feb 13"
-    },
-    {
-      label: "\u05EA\u05E8\u05D5\u05DE\u05D4",
-      datetime: "2021-02-20",
-      date: "Feb 20"
-    },
-    {
-      label: "\u05EA\u05E6\u05D5\u05D4",
-      datetime: "2021-02-27",
-      date: "Feb 27"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05E9\u05D0",
-      datetime: "2021-03-06",
-      date: "Mar 6"
-    },
-    {
-      label: "\u05D5\u05D9\u05E7\u05D4\u05DC \u2013 \u05E4\u05E7\u05D5\u05D3\u05D9",
-      datetime: "2021-03-13",
-      date: "Mar 13"
-    },
-    {
-      label: "\u05D5\u05D9\u05E7\u05E8\u05D0",
-      datetime: "2021-03-20",
-      date: "Mar 20"
-    },
-    {
-      label: "\u05E6\u05D5",
-      datetime: "2021-03-27",
-      date: "Mar 27"
-    },
-    {
-      label: "\u05E9\u05DE\u05D9\u05E0\u05D9",
-      datetime: "2021-04-10",
-      date: "Apr 10"
-    },
-    {
-      label: "\u05EA\u05D6\u05E8\u05D9\u05E2 \u2013 \u05DE\u05E6\u05D5\u05E8\u05E2",
-      datetime: "2021-04-17",
-      date: "Apr 17"
-    },
-    {
-      label: "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA \u2013 \u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
-      datetime: "2021-04-24",
-      date: "Apr 24"
-    },
-    {
-      label: "\u05D0\u05DE\u05D5\u05E8",
-      datetime: "2021-05-01",
-      date: "May 1"
-    },
-    {
-      label: "\u05D1\u05D4\u05E8 \u2013 \u05D1\u05D7\u05E7\u05EA\u05D9",
-      datetime: "2021-05-08",
-      date: "May 8"
-    },
-    {
-      label: "\u05D1\u05DE\u05D3\u05D1\u05E8",
-      datetime: "2021-05-15",
-      date: "May 15"
-    },
-    {
-      label: "\u05E0\u05E9\u05D0",
-      datetime: "2021-05-22",
-      date: "May 22"
-    },
-    {
-      label: "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA",
-      datetime: "2021-05-29",
-      date: "May 29"
-    },
-    {
-      label: "\u05E9\u05DC\u05D7",
-      datetime: "2021-06-05",
-      date: "Jun 5"
-    },
-    {
-      label: "\u05E7\u05E8\u05D7",
-      datetime: "2021-06-12",
-      date: "Jun 12"
-    },
-    {
-      label: "\u05D7\u05E7\u05EA",
-      datetime: "2021-06-19",
-      date: "Jun 19"
-    },
-    {
-      label: "\u05D1\u05DC\u05E7",
-      datetime: "2021-06-26",
-      date: "Jun 26"
-    },
-    {
-      label: "\u05E4\u05E0\u05D7\u05E1",
-      datetime: "2021-07-03",
-      date: "Jul 3"
-    },
-    {
-      label: "\u05DE\u05D8\u05D5\u05EA \u2013 \u05DE\u05E1\u05E2\u05D9",
-      datetime: "2021-07-10",
-      date: "Jul 10"
-    },
-    {
-      label: "\u05D3\u05D1\u05E8\u05D9\u05DD",
-      datetime: "2021-07-17",
-      date: "Jul 17"
-    },
-    {
-      label: "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
-      datetime: "2021-07-24",
-      date: "Jul 24"
-    },
-    {
-      label: "\u05E2\u05E7\u05D1",
-      datetime: "2021-07-31",
-      date: "Jul 31"
-    },
-    {
-      label: "\u05E8\u05D0\u05D4",
-      datetime: "2021-08-07",
-      date: "Aug 7"
-    },
-    {
-      label: "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
-      datetime: "2021-08-14",
-      date: "Aug 14"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05E6\u05D0",
-      datetime: "2021-08-21",
-      date: "Aug 21"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
-      datetime: "2021-08-28",
-      date: "Aug 28"
-    },
-    {
-      label: "\u05E0\u05E6\u05D1\u05D9\u05DD",
-      datetime: "2021-09-04",
-      date: "Sep 4"
-    },
-    {
-      label: "\u05D5\u05D9\u05DC\u05DA",
-      datetime: "2021-09-11",
-      date: "Sep 11"
-    },
-    {
-      label: "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
-      datetime: "2021-09-18",
-      date: "Sep 18"
-    },
-    {
-      label: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
-      datetime: "2021-10-02",
-      date: "Oct 2"
-    },
-    {
-      label: "\u05E0\u05D7",
-      datetime: "2021-10-09",
-      date: "Oct 9"
-    },
-    {
-      label: "\u05DC\u05DA \u05DC\u05DA",
-      datetime: "2021-10-16",
-      date: "Oct 16"
-    },
-    {
-      label: "\u05D5\u05D9\u05E8\u05D0",
-      datetime: "2021-10-23",
-      date: "Oct 23"
-    },
-    {
-      label: "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
-      datetime: "2021-10-30",
-      date: "Oct 30"
-    },
-    {
-      label: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
-      datetime: "2021-11-06",
-      date: "Nov 6"
-    },
-    {
-      label: "\u05D5\u05D9\u05E6\u05D0",
-      datetime: "2021-11-13",
-      date: "Nov 13"
-    },
-    {
-      label: "\u05D5\u05D9\u05E9\u05DC\u05D7",
-      datetime: "2021-11-20",
-      date: "Nov 20"
-    },
-    {
-      label: "\u05D5\u05D9\u05E9\u05D1",
-      datetime: "2021-11-27",
-      date: "Nov 27"
-    },
-    {
-      label: "\u05DE\u05E7\u05E5",
-      datetime: "2021-12-04",
-      date: "Dec 4"
-    },
-    {
-      label: "\u05D5\u05D9\u05D2\u05E9",
-      datetime: "2021-12-11",
-      date: "Dec 11"
-    },
-    {
-      label: "\u05D5\u05D9\u05D7\u05D9",
-      datetime: "2021-12-18",
-      date: "Dec 18"
-    },
-    {
-      label: "\u05E9\u05DE\u05D5\u05EA",
-      datetime: "2021-12-25",
-      date: "Dec 25"
-    },
-    {
-      label: "\u05D5\u05D0\u05E8\u05D0",
-      datetime: "2022-01-01",
-      date: "Jan 1"
-    },
-    {
-      label: "\u05D1\u05D0",
-      datetime: "2022-01-08",
-      date: "Jan 8"
-    },
-    {
-      label: "\u05D1\u05E9\u05DC\u05D7",
-      datetime: "2022-01-15",
-      date: "Jan 15"
-    },
-    {
-      label: "\u05D9\u05EA\u05E8\u05D5",
-      datetime: "2022-01-22",
-      date: "Jan 22"
-    },
-    {
-      label: "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
-      datetime: "2022-01-29",
-      date: "Jan 29"
-    },
-    {
-      label: "\u05EA\u05E8\u05D5\u05DE\u05D4",
-      datetime: "2022-02-05",
-      date: "Feb 5"
-    },
-    {
-      label: "\u05EA\u05E6\u05D5\u05D4",
-      datetime: "2022-02-12",
-      date: "Feb 12"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05E9\u05D0",
-      datetime: "2022-02-19",
-      date: "Feb 19"
-    },
-    {
-      label: "\u05D5\u05D9\u05E7\u05D4\u05DC",
-      datetime: "2022-02-26",
-      date: "Feb 26"
-    },
-    {
-      label: "\u05E4\u05E7\u05D5\u05D3\u05D9",
-      datetime: "2022-03-05",
-      date: "Mar 5"
-    },
-    {
-      label: "\u05D5\u05D9\u05E7\u05E8\u05D0",
-      datetime: "2022-03-12",
-      date: "Mar 12"
-    },
-    {
-      label: "\u05E6\u05D5",
-      datetime: "2022-03-19",
-      date: "Mar 19"
-    },
-    {
-      label: "\u05E9\u05DE\u05D9\u05E0\u05D9",
-      datetime: "2022-03-26",
-      date: "Mar 26"
-    },
-    {
-      label: "\u05EA\u05D6\u05E8\u05D9\u05E2",
-      datetime: "2022-04-02",
-      date: "Apr 2"
-    },
-    {
-      label: "\u05DE\u05E6\u05D5\u05E8\u05E2",
-      datetime: "2022-04-09",
-      date: "Apr 9"
-    },
-    {
-      label: "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA",
-      datetime: "2022-04-30",
-      date: "Apr 30"
-    },
-    {
-      label: "\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
-      datetime: "2022-05-07",
-      date: "May 7"
-    },
-    {
-      label: "\u05D0\u05DE\u05D5\u05E8",
-      datetime: "2022-05-14",
-      date: "May 14"
-    },
-    {
-      label: "\u05D1\u05D4\u05E8",
-      datetime: "2022-05-21",
-      date: "May 21"
-    },
-    {
-      label: "\u05D1\u05D7\u05E7\u05EA\u05D9",
-      datetime: "2022-05-28",
-      date: "May 28"
-    },
-    {
-      label: "\u05D1\u05DE\u05D3\u05D1\u05E8",
-      datetime: "2022-06-04",
-      date: "Jun 4"
-    },
-    {
-      label: "\u05E0\u05E9\u05D0",
-      datetime: "2022-06-11",
-      date: "Jun 11"
-    },
-    {
-      label: "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA",
-      datetime: "2022-06-18",
-      date: "Jun 18"
-    },
-    {
-      label: "\u05E9\u05DC\u05D7",
-      datetime: "2022-06-25",
-      date: "Jun 25"
-    },
-    {
-      label: "\u05E7\u05E8\u05D7",
-      datetime: "2022-07-02",
-      date: "Jul 2"
-    },
-    {
-      label: "\u05D7\u05E7\u05EA",
-      datetime: "2022-07-09",
-      date: "Jul 9"
-    },
-    {
-      label: "\u05D1\u05DC\u05E7",
-      datetime: "2022-07-16",
-      date: "Jul 16"
-    },
-    {
-      label: "\u05E4\u05E0\u05D7\u05E1",
-      datetime: "2022-07-23",
-      date: "Jul 23"
-    },
-    {
-      label: "\u05DE\u05D8\u05D5\u05EA \u2013 \u05DE\u05E1\u05E2\u05D9",
-      datetime: "2022-07-30",
-      date: "Jul 30"
-    },
-    {
-      label: "\u05D3\u05D1\u05E8\u05D9\u05DD",
-      datetime: "2022-08-06",
-      date: "Aug 6"
-    },
-    {
-      label: "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
-      datetime: "2022-08-13",
-      date: "Aug 13"
-    },
-    {
-      label: "\u05E2\u05E7\u05D1",
-      datetime: "2022-08-20",
-      date: "Aug 20"
-    },
-    {
-      label: "\u05E8\u05D0\u05D4",
-      datetime: "2022-08-27",
-      date: "Aug 27"
-    },
-    {
-      label: "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
-      datetime: "2022-09-03",
-      date: "Sep 3"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05E6\u05D0",
-      datetime: "2022-09-10",
-      date: "Sep 10"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
-      datetime: "2022-09-17",
-      date: "Sep 17"
-    },
-    {
-      label: "\u05E0\u05E6\u05D1\u05D9\u05DD",
-      datetime: "2022-09-24",
-      date: "Sep 24"
-    },
-    {
-      label: "\u05D5\u05D9\u05DC\u05DA",
-      datetime: "2022-10-01",
-      date: "Oct 1"
-    },
-    {
-      label: "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
-      datetime: "2022-10-08",
-      date: "Oct 8"
-    },
-    {
-      label: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
-      datetime: "2022-10-22",
-      date: "Oct 22"
-    },
-    {
-      label: "\u05E0\u05D7",
-      datetime: "2022-10-29",
-      date: "Oct 29"
-    },
-    {
-      label: "\u05DC\u05DA \u05DC\u05DA",
-      datetime: "2022-11-05",
-      date: "Nov 5"
-    },
-    {
-      label: "\u05D5\u05D9\u05E8\u05D0",
-      datetime: "2022-11-12",
-      date: "Nov 12"
-    },
-    {
-      label: "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
-      datetime: "2022-11-19",
-      date: "Nov 19"
-    },
-    {
-      label: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
-      datetime: "2022-11-26",
-      date: "Nov 26"
-    },
-    {
-      label: "\u05D5\u05D9\u05E6\u05D0",
-      datetime: "2022-12-03",
-      date: "Dec 3"
-    },
-    {
-      label: "\u05D5\u05D9\u05E9\u05DC\u05D7",
-      datetime: "2022-12-10",
-      date: "Dec 10"
-    },
-    {
-      label: "\u05D5\u05D9\u05E9\u05D1",
-      datetime: "2022-12-17",
-      date: "Dec 17"
-    },
-    {
-      label: "\u05DE\u05E7\u05E5",
-      datetime: "2022-12-24",
-      date: "Dec 24"
-    },
-    {
-      label: "\u05D5\u05D9\u05D2\u05E9",
-      datetime: "2022-12-31",
-      date: "Dec 31"
-    },
-    {
-      label: "\u05D5\u05D9\u05D7\u05D9",
-      datetime: "2023-01-07",
-      date: "Jan 7"
-    },
-    {
-      label: "\u05E9\u05DE\u05D5\u05EA",
-      datetime: "2023-01-14",
-      date: "Jan 14"
-    },
-    {
-      label: "\u05D5\u05D0\u05E8\u05D0",
-      datetime: "2023-01-21",
-      date: "Jan 21"
-    },
-    {
-      label: "\u05D1\u05D0",
-      datetime: "2023-01-28",
-      date: "Jan 28"
-    },
-    {
-      label: "\u05D1\u05E9\u05DC\u05D7",
-      datetime: "2023-02-04",
-      date: "Feb 4"
-    },
-    {
-      label: "\u05D9\u05EA\u05E8\u05D5",
-      datetime: "2023-02-11",
-      date: "Feb 11"
-    },
-    {
-      label: "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
-      datetime: "2023-02-18",
-      date: "Feb 18"
-    },
-    {
-      label: "\u05EA\u05E8\u05D5\u05DE\u05D4",
-      datetime: "2023-02-25",
-      date: "Feb 25"
-    },
-    {
-      label: "\u05EA\u05E6\u05D5\u05D4",
-      datetime: "2023-03-04",
-      date: "Mar 4"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05E9\u05D0",
-      datetime: "2023-03-11",
-      date: "Mar 11"
-    },
-    {
-      label: "\u05D5\u05D9\u05E7\u05D4\u05DC \u2013 \u05E4\u05E7\u05D5\u05D3\u05D9",
-      datetime: "2023-03-18",
-      date: "Mar 18"
-    },
-    {
-      label: "\u05D5\u05D9\u05E7\u05E8\u05D0",
-      datetime: "2023-03-25",
-      date: "Mar 25"
-    },
-    {
-      label: "\u05E6\u05D5",
-      datetime: "2023-04-01",
-      date: "Apr 1"
-    },
-    {
-      label: "\u05E9\u05DE\u05D9\u05E0\u05D9",
-      datetime: "2023-04-15",
-      date: "Apr 15"
-    },
-    {
-      label: "\u05EA\u05D6\u05E8\u05D9\u05E2 \u2013 \u05DE\u05E6\u05D5\u05E8\u05E2",
-      datetime: "2023-04-22",
-      date: "Apr 22"
-    },
-    {
-      label: "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA \u2013 \u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
-      datetime: "2023-04-29",
-      date: "Apr 29"
-    },
-    {
-      label: "\u05D0\u05DE\u05D5\u05E8",
-      datetime: "2023-05-06",
-      date: "May 6"
-    },
-    {
-      label: "\u05D1\u05D4\u05E8 \u2013 \u05D1\u05D7\u05E7\u05EA\u05D9",
-      datetime: "2023-05-13",
-      date: "May 13"
-    },
-    {
-      label: "\u05D1\u05DE\u05D3\u05D1\u05E8",
-      datetime: "2023-05-20",
-      date: "May 20"
-    },
-    {
-      label: "\u05E0\u05E9\u05D0",
-      datetime: "2023-06-03",
-      date: "Jun 3"
-    },
-    {
-      label: "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA",
-      datetime: "2023-06-10",
-      date: "Jun 10"
-    },
-    {
-      label: "\u05E9\u05DC\u05D7",
-      datetime: "2023-06-17",
-      date: "Jun 17"
-    },
-    {
-      label: "\u05E7\u05E8\u05D7",
-      datetime: "2023-06-24",
-      date: "Jun 24"
-    },
-    {
-      label: "\u05D7\u05E7\u05EA \u2013 \u05D1\u05DC\u05E7",
-      datetime: "2023-07-01",
-      date: "Jul 1"
-    },
-    {
-      label: "\u05E4\u05E0\u05D7\u05E1",
-      datetime: "2023-07-08",
-      date: "Jul 8"
-    },
-    {
-      label: "\u05DE\u05D8\u05D5\u05EA \u2013 \u05DE\u05E1\u05E2\u05D9",
-      datetime: "2023-07-15",
-      date: "Jul 15"
-    },
-    {
-      label: "\u05D3\u05D1\u05E8\u05D9\u05DD",
-      datetime: "2023-07-22",
-      date: "Jul 22"
-    },
-    {
-      label: "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
-      datetime: "2023-07-29",
-      date: "Jul 29"
-    },
-    {
-      label: "\u05E2\u05E7\u05D1",
-      datetime: "2023-08-05",
-      date: "Aug 5"
-    },
-    {
-      label: "\u05E8\u05D0\u05D4",
-      datetime: "2023-08-12",
-      date: "Aug 12"
-    },
-    {
-      label: "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
-      datetime: "2023-08-19",
-      date: "Aug 19"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05E6\u05D0",
-      datetime: "2023-08-26",
-      date: "Aug 26"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
-      datetime: "2023-09-02",
-      date: "Sep 2"
-    },
-    {
-      label: "\u05E0\u05E6\u05D1\u05D9\u05DD \u2013 \u05D5\u05D9\u05DC\u05DA",
-      datetime: "2023-09-09",
-      date: "Sep 9"
-    },
-    {
-      label: "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
-      datetime: "2023-09-23",
-      date: "Sep 23"
-    },
-    {
-      label: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
-      datetime: "2023-10-14",
-      date: "Oct 14"
-    },
-    {
-      label: "\u05E0\u05D7",
-      datetime: "2023-10-21",
-      date: "Oct 21"
-    },
-    {
-      label: "\u05DC\u05DA \u05DC\u05DA",
-      datetime: "2023-10-28",
-      date: "Oct 28"
-    },
-    {
-      label: "\u05D5\u05D9\u05E8\u05D0",
-      datetime: "2023-11-04",
-      date: "Nov 4"
-    },
-    {
-      label: "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
-      datetime: "2023-11-11",
-      date: "Nov 11"
-    },
-    {
-      label: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
-      datetime: "2023-11-18",
-      date: "Nov 18"
-    },
-    {
-      label: "\u05D5\u05D9\u05E6\u05D0",
-      datetime: "2023-11-25",
-      date: "Nov 25"
-    },
-    {
-      label: "\u05D5\u05D9\u05E9\u05DC\u05D7",
-      datetime: "2023-12-02",
-      date: "Dec 2"
-    },
-    {
-      label: "\u05D5\u05D9\u05E9\u05D1",
-      datetime: "2023-12-09",
-      date: "Dec 9"
-    },
-    {
-      label: "\u05DE\u05E7\u05E5",
-      datetime: "2023-12-16",
-      date: "Dec 16"
-    },
-    {
-      label: "\u05D5\u05D9\u05D2\u05E9",
-      datetime: "2023-12-23",
-      date: "Dec 23"
-    },
-    {
-      label: "\u05D5\u05D9\u05D7\u05D9",
-      datetime: "2023-12-30",
-      date: "Dec 30"
-    },
-    {
-      label: "\u05E9\u05DE\u05D5\u05EA",
-      datetime: "2024-01-06",
-      date: "Jan 6"
-    },
-    {
-      label: "\u05D5\u05D0\u05E8\u05D0",
-      datetime: "2024-01-13",
-      date: "Jan 13"
-    },
-    {
-      label: "\u05D1\u05D0",
-      datetime: "2024-01-20",
-      date: "Jan 20"
-    },
-    {
-      label: "\u05D1\u05E9\u05DC\u05D7",
-      datetime: "2024-01-27",
-      date: "Jan 27"
-    },
-    {
-      label: "\u05D9\u05EA\u05E8\u05D5",
-      datetime: "2024-02-03",
-      date: "Feb 3"
-    },
-    {
-      label: "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
-      datetime: "2024-02-10",
-      date: "Feb 10"
-    },
-    {
-      label: "\u05EA\u05E8\u05D5\u05DE\u05D4",
-      datetime: "2024-02-17",
-      date: "Feb 17"
-    },
-    {
-      label: "\u05EA\u05E6\u05D5\u05D4",
-      datetime: "2024-02-24",
-      date: "Feb 24"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05E9\u05D0",
-      datetime: "2024-03-02",
-      date: "Mar 2"
-    },
-    {
-      label: "\u05D5\u05D9\u05E7\u05D4\u05DC",
-      datetime: "2024-03-09",
-      date: "Mar 9"
-    },
-    {
-      label: "\u05E4\u05E7\u05D5\u05D3\u05D9",
-      datetime: "2024-03-16",
-      date: "Mar 16"
-    },
-    {
-      label: "\u05D5\u05D9\u05E7\u05E8\u05D0",
-      datetime: "2024-03-23",
-      date: "Mar 23"
-    },
-    {
-      label: "\u05E6\u05D5",
-      datetime: "2024-03-30",
-      date: "Mar 30"
-    },
-    {
-      label: "\u05E9\u05DE\u05D9\u05E0\u05D9",
-      datetime: "2024-04-06",
-      date: "Apr 6"
-    },
-    {
-      label: "\u05EA\u05D6\u05E8\u05D9\u05E2",
-      datetime: "2024-04-13",
-      date: "Apr 13"
-    },
-    {
-      label: "\u05DE\u05E6\u05D5\u05E8\u05E2",
-      datetime: "2024-04-20",
-      date: "Apr 20"
-    },
-    {
-      label: "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA",
-      datetime: "2024-05-04",
-      date: "May 4"
-    },
-    {
-      label: "\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
-      datetime: "2024-05-11",
-      date: "May 11"
-    },
-    {
-      label: "\u05D0\u05DE\u05D5\u05E8",
-      datetime: "2024-05-18",
-      date: "May 18"
-    },
-    {
-      label: "\u05D1\u05D4\u05E8",
-      datetime: "2024-05-25",
-      date: "May 25"
-    },
-    {
-      label: "\u05D1\u05D7\u05E7\u05EA\u05D9",
-      datetime: "2024-06-01",
-      date: "Jun 1"
-    },
-    {
-      label: "\u05D1\u05DE\u05D3\u05D1\u05E8",
-      datetime: "2024-06-08",
-      date: "Jun 8"
-    },
-    {
-      label: "\u05E0\u05E9\u05D0",
-      datetime: "2024-06-15",
-      date: "Jun 15"
-    },
-    {
-      label: "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA",
-      datetime: "2024-06-22",
-      date: "Jun 22"
-    },
-    {
-      label: "\u05E9\u05DC\u05D7",
-      datetime: "2024-06-29",
-      date: "Jun 29"
-    },
-    {
-      label: "\u05E7\u05E8\u05D7",
-      datetime: "2024-07-06",
-      date: "Jul 6"
-    },
-    {
-      label: "\u05D7\u05E7\u05EA",
-      datetime: "2024-07-13",
-      date: "Jul 13"
-    },
-    {
-      label: "\u05D1\u05DC\u05E7",
-      datetime: "2024-07-20",
-      date: "Jul 20"
-    },
-    {
-      label: "\u05E4\u05E0\u05D7\u05E1",
-      datetime: "2024-07-27",
-      date: "Jul 27"
-    },
-    {
-      label: "\u05DE\u05D8\u05D5\u05EA \u2013 \u05DE\u05E1\u05E2\u05D9",
-      datetime: "2024-08-03",
-      date: "Aug 3"
-    },
-    {
-      label: "\u05D3\u05D1\u05E8\u05D9\u05DD",
-      datetime: "2024-08-10",
-      date: "Aug 10"
-    },
-    {
-      label: "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
-      datetime: "2024-08-17",
-      date: "Aug 17"
-    },
-    {
-      label: "\u05E2\u05E7\u05D1",
-      datetime: "2024-08-24",
-      date: "Aug 24"
-    },
-    {
-      label: "\u05E8\u05D0\u05D4",
-      datetime: "2024-08-31",
-      date: "Aug 31"
-    },
-    {
-      label: "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
-      datetime: "2024-09-07",
-      date: "Sep 7"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05E6\u05D0",
-      datetime: "2024-09-14",
-      date: "Sep 14"
-    },
-    {
-      label: "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
-      datetime: "2024-09-21",
-      date: "Sep 21"
-    },
-    {
-      label: "\u05E0\u05E6\u05D1\u05D9\u05DD \u2013 \u05D5\u05D9\u05DC\u05DA",
-      datetime: "2024-09-28",
-      date: "Sep 28"
-    },
-    {
-      label: "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
-      datetime: "2024-10-05",
-      date: "Oct 5"
-    },
-    {
-      label: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
-      datetime: "2024-10-26",
-      date: "Oct 26"
-    },
-    {
-      label: "\u05E0\u05D7",
-      datetime: "2024-11-02",
-      date: "Nov 2"
-    },
-    {
-      label: "\u05DC\u05DA \u05DC\u05DA",
-      datetime: "2024-11-09",
-      date: "Nov 9"
-    },
-    {
-      label: "\u05D5\u05D9\u05E8\u05D0",
-      datetime: "2024-11-16",
-      date: "Nov 16"
-    },
-    {
-      label: "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
-      datetime: "2024-11-23",
-      date: "Nov 23"
-    },
-    {
-      label: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
-      datetime: "2024-11-30",
-      date: "Nov 30"
-    },
-    {
-      label: "\u05D5\u05D9\u05E6\u05D0",
-      datetime: "2024-12-07",
-      date: "Dec 7"
-    },
-    {
-      label: "\u05D5\u05D9\u05E9\u05DC\u05D7",
-      datetime: "2024-12-14",
-      date: "Dec 14"
-    },
-    {
-      label: "\u05D5\u05D9\u05E9\u05D1",
-      datetime: "2024-12-21",
-      date: "Dec 21"
-    },
-    {
-      label: "\u05DE\u05E7\u05E5",
-      datetime: "2024-12-28",
-      date: "Dec 28"
-    }
-  ];
-
-  // components/ParshaPicker.js
+  var import_schedule = __toModule(require_schedule());
   var import_holydays2 = __toModule(require_holydays());
   var import_fuzzy = __toModule(require_fuzzy());
 
@@ -62369,7 +62382,7 @@
   </li>
   `;
   };
-  var comingUpReadings = schedule_default.filter((reading) => new Date(reading.datetime) > new Date()).slice(0, 3);
+  var comingUpReadings = import_schedule.default.filter((reading) => new Date(reading.datetime) > new Date()).slice(0, 3);
   var ComingUp = () => `
   <section dir="ltr" id="coming-up" class="section mod-alternate mod-padding">
     <div class="stack medium">
@@ -62679,7 +62692,7 @@
     document.addEventListener("keyup", whenKey3("Shift", () => toggleAnnotations(() => toggle.checked)));
     document.querySelector('[data-target-id="parsha-title"]').addEventListener("click", toggleParshaPicker);
     document.addEventListener("keydown", whenKey3("/", toggleParshaPicker));
-    const startingRef = urlToRef(window.location.href);
+    const startingRef = urlToRef({ url: window.location.href });
     app.jumpTo({ ref: startingRef }).then(hideParshaPicker);
   });
 })();

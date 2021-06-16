@@ -1,13 +1,9 @@
 /* global gtag */
 
-import EventEmitter from './src/event-emitter'
-import { InfiniteScroller, IntegerIterator, title as getTitle, physicalLocationFromRef, urlToRef } from './src'
+import { InfiniteScroller, urlToRef, scrollsByKey } from './src'
 import Page from './components/Page'
-import ParshaPicker, { search } from './components/ParshaPicker'
-import Search from './components/Search'
+import ParshaPicker from './components/ParshaPicker'
 import utils from './components/utils'
-import pageTitles from './build/page-titles.json'
-import holydays from './build/holydays.json'
 
 const { htmlToElement, whenKey, purgeNode } = utils
 
@@ -43,71 +39,9 @@ const scrollToLine = ({ node, lineIndex }) => {
   book.scrollTop = line.offsetTop + (line.offsetHeight / 2) - (book.offsetHeight / 2)
 }
 
-const scrollsByKey = () => ({
-  'torah': TorahScroll,
-  'esther': EstherScroll,
-  ...Object.keys(holydays).reduce((result, holydayKey) => {
-    const HolydayScroll = {
-      new: ({ startingAtRef }) => {
-        return Scroll.new({
-          scroll: holydayKey,
-          makePath: n => `/build/pages/${holydayKey}/${n}.json`,
-          makeTitle: n => holydays[holydayKey].he,
-          startingAtRef
-        })
-      }
-    }
-    return { ...result, [holydayKey]: HolydayScroll }
-  }, {})
-})
-
-const Scroll = {
-  new: ({ scroll, makePath, makeTitle, startingAtRef = { b: 1, c: 1, v: 1 } }) => {
-    const { pageNumber, lineNumber } = physicalLocationFromRef({ ref: startingAtRef, scroll })
-
-    const iterator = IntegerIterator.new({ startingAt: pageNumber })
-
-    return {
-      scrollName: scroll,
-      fetchPrevious: () => {
-        const n = iterator.previous()
-        if (n <= 0) return Promise.resolve()
-        return fetchPage({ path: makePath(n), title: makeTitle(n) })
-      },
-      fetchNext: () => {
-        const n = iterator.next()
-        return fetchPage({ path: makePath(n), title: makeTitle(n) })
-      },
-      startingLineNumber: lineNumber
-    }
-  }
-}
-
-const TorahScroll = {
-  new: ({ startingAtRef }) => {
-    return Scroll.new({
-      scroll: 'torah',
-      makePath: n => `/build/pages/torah/${n}.json`,
-      makeTitle: n => getTitle(pageTitles[n - 1]),
-      startingAtRef
-    })
-  }
-}
-
-const EstherScroll = {
-  new: ({ startingAtRef }) => {
-    return Scroll.new({
-      scroll: 'esther',
-      makePath: n => `/build/pages/esther/${n}.json`,
-      makeTitle: n => 'אסתר',
-      startingAtRef
-    })
-  }
-}
-
 const app = {
-  jumpTo: ({ ref, scroll: _scroll }) => {
-    scroll = scrollsByKey()[_scroll].new({ startingAtRef: ref })
+  jumpTo: ({ ref }) => {
+    scroll = scrollsByKey[ref.scroll].new({ startingAtRef: ref })
 
     purgeNode(document.querySelector('[data-target-id="tikkun-book"]'))
 
@@ -125,8 +59,9 @@ const app = {
 
 const refOf = element => {
   const refPart = (part) => Number(element.getAttribute(`data-jump-to-${part}`))
+  const scroll = element.getAttribute(`data-jump-to-scroll`)
 
-  return { b: refPart('book'), c: refPart('chapter'), v: refPart('verse') }
+  return { scroll, b: refPart('book'), c: refPart('chapter'), v: refPart('verse') }
 }
 
 const setVisibility = ({ selector, visible }) => {
@@ -144,16 +79,15 @@ const showParshaPicker = () => {
   ]
     .forEach(({ selector, visible }) => setVisibility({ selector, visible }))
 
-  const searchEmitter = EventEmitter.new()
+  const jumper = ParshaPicker(({ ref }) => app.jumpTo({ ref: refOf(ref) }))
 
-  const s = Search({ search, emitter: searchEmitter })
-  const jumper = ParshaPicker(s, searchEmitter, ({ ref, scroll }) => app.jumpTo({ ref: refOf(ref), scroll }))
-  document.querySelector('#js-app').appendChild(jumper)
+  document.querySelector('#js-app').appendChild(jumper.node)
+
   gtag('event', 'view', {
     event_category: 'navigation'
   })
 
-  setTimeout(() => s.focus(), 0)
+  jumper.onMount()
 }
 
 const hideParshaPicker = () => {
@@ -265,13 +199,6 @@ const renderPage = ({ insertStrategy: insert }) => ({ content, title }) => {
 const renderPrevious = renderPage({ insertStrategy: insertBefore })
 const renderNext = renderPage({ insertStrategy: insertAfter })
 
-const fetchPage = ({ path, title }) => window.fetch(path)
-  .then((res) => res.json())
-  .then((page) => ({ content: page, title }))
-  .catch((err) => {
-    console.error(err)
-  })
-
 const debounce = (callback, delay) => {
   let timeout
   return () => {
@@ -314,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))
 
-  const startingRef = urlToRef(new URL(window.location.href))
-  app.jumpTo({ ref: startingRef, scroll: 'torah' })
+  const startingRef = urlToRef({ url: window.location.href })
+  app.jumpTo({ ref: startingRef })
     .then(hideParshaPicker)
 })

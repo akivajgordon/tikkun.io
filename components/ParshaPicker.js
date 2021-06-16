@@ -6,6 +6,8 @@ import holydays from '../build/holydays.json'
 import fuzzy from '../src/fuzzy'
 import utils from './utils'
 import ParshaResult, { NoResults } from './ParshaResult'
+import Search from './Search'
+import EventEmitter from '../src/event-emitter'
 
 const { htmlToElement } = utils
 
@@ -23,7 +25,7 @@ const Parsha = ({ ref, he, scroll }) => `
     data-jump-to-book="${ref.b}"
     data-jump-to-chapter="${ref.c}"
     data-jump-to-verse="${ref.v}"
-    data-scroll="${scroll}"
+    data-jump-to-scroll="${scroll}"
   >
     ${he}
   </li>
@@ -51,7 +53,7 @@ const ComingUpReading = ({ label, date, datetime }) => {
         data-jump-to-book="${book}"
         data-jump-to-chapter="${chapter}"
         data-jump-to-verse="${verse}"
-        data-scroll="torah"
+        data-jump-to-scroll="torah"
         class="coming-up-button"
       >${label}</button>
       <time class="coming-up-date" datetime="${datetime}">${date}</time>
@@ -126,72 +128,6 @@ const Browse = () => `
   </div>
 `
 
-const ParshaPicker = (search, searchEmitter, jumpToRef) => {
-  const self = htmlToElement(`
-    <div class="parsha-picker">
-      <div class="stack xlarge">
-        <div class="centerize">
-          <div id="search" style="display: inline-block;"></div>
-        </div>
-        ${ComingUp()}
-        ${Browse()}
-      </div>
-    </div>
-  `)
-
-  searchEmitter.on('selection', (selected) => {
-    gtag('event', 'search_selection', {
-      event_category: 'navigation',
-      event_label: selected.querySelector('[data-target-class="result-hebrew"]').textContent.trim()
-    })
-
-    const result = selected.querySelector('[data-target-class="parsha-result"]')
-
-    jumpToRef({ ref: result, scroll: result.getAttribute('data-scroll') })
-  })
-
-  searchEmitter.on('search', query => {
-    self.querySelector('.browse').classList.add('u-hidden')
-    self.querySelector('#coming-up').classList.add('u-hidden')
-    gtag('event', 'search', {
-      event_category: 'navigation',
-      event_label: query
-    })
-  })
-
-  searchEmitter.on('clear', () => {
-    self.querySelector('.browse').classList.remove('u-hidden')
-    self.querySelector('#coming-up').classList.remove('u-hidden')
-  })
-
-  self.querySelector('#search').parentNode.replaceChild(search, self.querySelector('#search'))
-
-  ;[...self.querySelectorAll('[data-target-id="parsha"]')]
-    .forEach((parsha) => {
-      parsha.addEventListener('click', (e) => {
-        gtag('event', 'browse_selection', {
-          event_category: 'navigation',
-          event_label: e.target.textContent.trim()
-        })
-        jumpToRef({ ref: e.target, scroll: e.target.getAttribute('data-scroll') })
-      })
-    })
-
-  ;[...self.querySelectorAll('[data-target-class="coming-up-reading"]')]
-    .forEach(comingUpReading => {
-      comingUpReading.addEventListener('click', e => {
-        gtag('event', 'coming_up_selection', {
-          event_category: 'navigation',
-          event_label: e.target.textContent.trim()
-        })
-
-        jumpToRef({ ref: e.target, scroll: e.target.getAttribute('data-scroll') })
-      })
-    })
-
-  return self
-}
-
 const searchables = [
   ...parshiyot.map(p => ({ ...p, scroll: 'torah' })),
   {
@@ -234,6 +170,73 @@ const search = query => searchResults(query)
     : ParshaResult(result)
   )
 
-export { search }
+const ParshaPicker = (jumpToRef) => {
+  const searchEmitter = EventEmitter.new()
+  const s = Search({ search, emitter: searchEmitter })
+
+  const self = htmlToElement(`
+    <div class="parsha-picker">
+      <div class="stack xlarge">
+        <div class="centerize">
+          <div id="search" style="display: inline-block;"></div>
+        </div>
+        ${ComingUp()}
+        ${Browse()}
+      </div>
+    </div>
+  `)
+
+  searchEmitter.on('selection', (selected) => {
+    gtag('event', 'search_selection', {
+      event_category: 'navigation',
+      event_label: selected.querySelector('[data-target-class="result-hebrew"]').textContent.trim()
+    })
+
+    const result = selected.querySelector('[data-target-class="parsha-result"]')
+
+    jumpToRef({ ref: result })
+  })
+
+  searchEmitter.on('search', query => {
+    self.querySelector('.browse').classList.add('u-hidden')
+    self.querySelector('#coming-up').classList.add('u-hidden')
+    gtag('event', 'search', {
+      event_category: 'navigation',
+      event_label: query
+    })
+  })
+
+  searchEmitter.on('clear', () => {
+    self.querySelector('.browse').classList.remove('u-hidden')
+    self.querySelector('#coming-up').classList.remove('u-hidden')
+  })
+
+  self.querySelector('#search').parentNode.replaceChild(s.node, self.querySelector('#search'))
+
+  ;[...self.querySelectorAll('[data-target-id="parsha"]')]
+    .forEach((parsha) => {
+      parsha.addEventListener('click', (e) => {
+        gtag('event', 'browse_selection', {
+          event_category: 'navigation',
+          event_label: e.target.textContent.trim()
+        })
+        jumpToRef({ ref: e.target })
+      })
+    })
+
+  ;[...self.querySelectorAll('[data-target-class="coming-up-reading"]')]
+    .forEach((comingUpReading, index) => {
+      comingUpReading.addEventListener('click', e => {
+        gtag('event', 'coming_up_selection', {
+          event_category: 'navigation',
+          event_label: ['due up', 'on deck', 'in the hole'][index]
+        })
+
+        jumpToRef({ ref: e.target })
+      })
+    })
+
+  return { node: self, onMount: () => { setTimeout(() => s.focus(), 0) } }
+}
 
 export default ParshaPicker

@@ -61254,6 +61254,15 @@
     }
   });
 
+  // src/slugify.js
+  var require_slugify = __commonJS({
+    "src/slugify.js"(exports, module) {
+      module.exports = (str) => {
+        return str.replace(/[^a-zA-Z0-9\s]/g, "").replace(/\s+/g, "-").toLowerCase();
+      };
+    }
+  });
+
   // src/index.js
   var import_infinite_scroller = __toModule(require_infinite_scroller());
   var import_integer_iterator = __toModule(require_integer_iterator());
@@ -62180,6 +62189,7 @@
   var import_schedule = __toModule(require_schedule());
   var import_holydays2 = __toModule(require_holydays());
   var import_fuzzy = __toModule(require_fuzzy());
+  var import_slugify = __toModule(require_slugify());
 
   // components/utils.js
   var htmlToElement = (html2) => {
@@ -62221,7 +62231,7 @@
   };
   var strongify = (c) => `<strong>${c}</strong>`;
   var ParshaResult = ({ match, item }) => htmlToElement2(`
-  <div data-target-class="parsha-result" data-jump-to-book="${item.ref.b}" data-jump-to-chapter="${item.ref.c}" data-jump-to-verse="${item.ref.v}" data-jump-to-scroll="${item.scroll}">
+  <div data-target-class="parsha-result" data-jump-to-book="${item.ref.b}" data-jump-to-chapter="${item.ref.c}" data-jump-to-verse="${item.ref.v}" data-jump-to-scroll="${item.scroll}" data-key="${item.key}">
     <p class="search-result-tag mod-hebrew" data-target-class="result-hebrew">${match.index === 0 ? decorateString({
     string: item.he,
     atIndexes: match.indexes,
@@ -62344,10 +62354,11 @@
     ["pesach-1", "pesach-2", "pesach-3", "pesach-4", "pesach-5", "pesach-6", "pesach-shabbat-chol-hamoed", "pesach-7", "pesach-8"],
     ["purim", "chanukah-1", "chanukah-2", "chanukah-3", "chanukah-4", "chanukah-5", "chanukah-7", "chanukah-8"]
   ];
-  var Parsha = ({ ref, he, scroll: scroll2 }) => `
+  var Parsha = ({ ref, he, scroll: scroll2, key }) => `
   <li
     class="parsha"
     data-target-id="parsha"
+    data-key="${key}"
     data-jump-to-book="${ref.b}"
     data-jump-to-chapter="${ref.c}"
     data-jump-to-verse="${ref.v}"
@@ -62359,13 +62370,14 @@
   var Book = (book) => `
   <li class="parsha-book">
     <ol class="parsha-list">
-      ${book.map((b) => Parsha({ ...b, scroll: "torah" })).join("")}
+      ${book.map((p) => Parsha({ ...p, scroll: "torah", key: (0, import_slugify.default)(p.en) })).join("")}
     </ol>
   </li>
 `;
-  var refFromLabel = ({ label }) => import_parshiyot.default.find(({ he }) => label.startsWith(he)).ref;
-  var ComingUpReading = ({ label, date, datetime }) => {
-    const { b: book, c: chapter, v: verse } = refFromLabel({ label });
+  var parshaFromLabel = ({ label }) => import_parshiyot.default.find(({ he }) => label.startsWith(he));
+  var ComingUpReading = ({ label, date, datetime }, index) => {
+    const parsha = parshaFromLabel({ label });
+    const { b: book, c: chapter, v: verse } = parsha.ref;
     return `
   <li style="display: table-cell; width: calc(100% / 3); padding: 0 0.5em;">
     <div class="stack small" style="display: flex; flex-direction: column; align-items: center;">
@@ -62375,6 +62387,7 @@
         data-jump-to-chapter="${chapter}"
         data-jump-to-verse="${verse}"
         data-jump-to-scroll="torah"
+        data-key="${index === 0 ? "next" : (0, import_slugify.default)(parsha.en)}"
         class="coming-up-button"
       >${label}</button>
       <time class="coming-up-date" datetime="${datetime}">${date}</time>
@@ -62416,7 +62429,7 @@
     const holyday = import_holydays2.default[holydayKey];
     const { ref, he } = holyday;
     const { b, c, v } = ref;
-    return Parsha({ ref: { b, c, v }, he, scroll: holydayKey });
+    return Parsha({ ref: { b, c, v }, he, key: holydayKey, scroll: holydayKey });
   }).join("\n")}
           </ol>
         </li>
@@ -62427,18 +62440,19 @@
     <ol class="parsha-books">
       <li class="parsha-book">
         <ol class="parsha-list">
-          ${Parsha({ ref: { b: 1, c: 1, v: 1 }, he: "\u05D0\u05E1\u05EA\u05E8", scroll: "esther" })}
+          ${Parsha({ ref: { b: 1, c: 1, v: 1 }, he: "\u05D0\u05E1\u05EA\u05E8", key: "esther", scroll: "esther" })}
         </ol>
       </li>
     </ol>
   </div>
 `;
   var searchables = [
-    ...import_parshiyot.default.map((p) => ({ ...p, scroll: "torah" })),
+    ...import_parshiyot.default.map((p) => ({ ...p, scroll: "torah", key: (0, import_slugify.default)(p.en) })),
     {
       he: "\u05D0\u05E1\u05EA\u05E8",
       en: "Esther",
       ref: { b: 1, c: 1, v: 1 },
+      key: "esther",
       scroll: "esther"
     },
     ...Object.keys(import_holydays2.default).map((holydayKey) => {
@@ -62449,6 +62463,7 @@
         scroll: holydayKey,
         en,
         he,
+        key: holydayKey,
         ref: { b, c, v }
       };
     })
@@ -62573,7 +62588,11 @@
       { selector: '[data-target-id="repo-link"]', visible: false },
       { selector: '[data-target-id="tikkun-book"]', visible: false }
     ].forEach(({ selector, visible }) => setVisibility({ selector, visible }));
-    const jumper = ParshaPicker_default(({ ref }) => app.jumpTo({ ref: refOf(ref) }));
+    const jumper = ParshaPicker_default(({ ref }) => {
+      app.jumpTo({ ref: refOf(ref) });
+      const key = ref.getAttribute("data-key");
+      window.location.hash = `#/p/${key}`;
+    });
     document.querySelector("#js-app").appendChild(jumper.node);
     gtag("event", "view", {
       event_category: "navigation"

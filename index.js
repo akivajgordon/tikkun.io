@@ -79,7 +79,12 @@ const showParshaPicker = () => {
   ]
     .forEach(({ selector, visible }) => setVisibility({ selector, visible }))
 
-  const jumper = ParshaPicker(({ ref }) => app.jumpTo({ ref: refOf(ref) }))
+  const jumper = ParshaPicker(({ ref }) => {
+    app.jumpTo({ ref: refOf(ref) })
+
+    const key = ref.getAttribute('data-key')
+    window.location.hash = `#/p/${key}`
+  })
 
   document.querySelector('#js-app').appendChild(jumper.node)
 

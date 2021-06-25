@@ -4,6 +4,7 @@ import parshiyot from '../build/parshiyot.json'
 import readingSchedule from '../build/schedule.json'
 import holydays from '../build/holydays.json'
 import fuzzy from '../src/fuzzy'
+import slugify from '../src/slugify'
 import utils from './utils'
 import ParshaResult, { NoResults } from './ParshaResult'
 import Search from './Search'
@@ -18,10 +19,11 @@ const holydaysLayout = [
   ['purim', 'chanukah-1', 'chanukah-2', 'chanukah-3', 'chanukah-4', 'chanukah-5', 'chanukah-7', 'chanukah-8']
 ]
 
-const Parsha = ({ ref, he, scroll }) => `
+const Parsha = ({ ref, he, scroll, key }) => `
   <li
     class="parsha"
     data-target-id="parsha"
+    data-key="${key}"
     data-jump-to-book="${ref.b}"
     data-jump-to-chapter="${ref.c}"
     data-jump-to-verse="${ref.v}"
@@ -34,17 +36,17 @@ const Parsha = ({ ref, he, scroll }) => `
 const Book = (book) => `
   <li class="parsha-book">
     <ol class="parsha-list">
-      ${book.map(b => Parsha({ ...b, scroll: 'torah' })).join('')}
+      ${book.map(p => Parsha({ ...p, scroll: 'torah', key: slugify(p.en) })).join('')}
     </ol>
   </li>
 `
 
-const refFromLabel = ({ label }) => parshiyot
+const parshaFromLabel = ({ label }) => parshiyot
   .find(({ he }) => label.startsWith(he))
-  .ref
 
-const ComingUpReading = ({ label, date, datetime }) => {
-  const { b: book, c: chapter, v: verse } = refFromLabel({ label })
+const ComingUpReading = ({ label, date, datetime }, index) => {
+  const parsha = parshaFromLabel({ label })
+  const { b: book, c: chapter, v: verse } = parsha.ref
   return `
   <li style="display: table-cell; width: calc(100% / 3); padding: 0 0.5em;">
     <div class="stack small" style="display: flex; flex-direction: column; align-items: center;">
@@ -54,6 +56,7 @@ const ComingUpReading = ({ label, date, datetime }) => {
         data-jump-to-chapter="${chapter}"
         data-jump-to-verse="${verse}"
         data-jump-to-scroll="torah"
+        data-key="${index === 0 ? 'next' : slugify(parsha.en)}"
         class="coming-up-button"
       >${label}</button>
       <time class="coming-up-date" datetime="${datetime}">${date}</time>
@@ -110,7 +113,7 @@ const Browse = () => `
 
               const { b, c, v } = ref
 
-              return Parsha({ ref: { b, c, v }, he, scroll: holydayKey })
+              return Parsha({ ref: { b, c, v }, he, key: holydayKey, scroll: holydayKey })
             }).join('\n')}
           </ol>
         </li>
@@ -121,7 +124,7 @@ const Browse = () => `
     <ol class="parsha-books">
       <li class="parsha-book">
         <ol class="parsha-list">
-          ${Parsha({ ref: { b: 1, c: 1, v: 1 }, he: 'אסתר', scroll: 'esther' })}
+          ${Parsha({ ref: { b: 1, c: 1, v: 1 }, he: 'אסתר', key: 'esther', scroll: 'esther' })}
         </ol>
       </li>
     </ol>
@@ -129,11 +132,12 @@ const Browse = () => `
 `
 
 const searchables = [
-  ...parshiyot.map(p => ({ ...p, scroll: 'torah' })),
+  ...parshiyot.map(p => ({ ...p, scroll: 'torah', key: slugify(p.en) })),
   {
     he: 'אסתר',
     en: 'Esther',
     ref: { b: 1, c: 1, v: 1 },
+    key: 'esther',
     scroll: 'esther'
   },
   ...Object.keys(holydays).map(holydayKey => {
@@ -147,6 +151,7 @@ const searchables = [
       scroll: holydayKey,
       en,
       he,
+      key: holydayKey,
       ref: { b, c, v }
     }
   })

@@ -62231,7 +62231,7 @@
   };
   var strongify = (c) => `<strong>${c}</strong>`;
   var ParshaResult = ({ match, item }) => htmlToElement2(`
-  <div data-target-class="parsha-result" data-jump-to-book="${item.ref.b}" data-jump-to-chapter="${item.ref.c}" data-jump-to-verse="${item.ref.v}" data-jump-to-scroll="${item.scroll}" data-key="${item.key}">
+  <div data-target-class="parsha-result" data-idx="${item.idx}" data-token="${item.token}" data-key="${item.key}">
     <p class="search-result-tag mod-hebrew" data-target-class="result-hebrew">${match.index === 0 ? decorateString({
     string: item.he,
     atIndexes: match.indexes,
@@ -62354,15 +62354,13 @@
     ["pesach-1", "pesach-2", "pesach-3", "pesach-4", "pesach-5", "pesach-6", "pesach-shabbat-chol-hamoed", "pesach-7", "pesach-8"],
     ["purim", "chanukah-1", "chanukah-2", "chanukah-3", "chanukah-4", "chanukah-5", "chanukah-7", "chanukah-8"]
   ];
-  var Parsha = ({ ref, he, scroll: scroll2, key }) => `
+  var Parsha = ({ idx, token, he, key }) => `
   <li
     class="parsha"
+    data-idx="${idx}"
+    data-token="${token}"
     data-target-id="parsha"
     data-key="${key}"
-    data-jump-to-book="${ref.b}"
-    data-jump-to-chapter="${ref.c}"
-    data-jump-to-verse="${ref.v}"
-    data-jump-to-scroll="${scroll2}"
   >
     ${he}
   </li>
@@ -62370,23 +62368,19 @@
   var Book = (book) => `
   <li class="parsha-book">
     <ol class="parsha-list">
-      ${book.map((p) => Parsha({ ...p, scroll: "torah", key: (0, import_slugify.default)(p.en) })).join("")}
+      ${book.map((p) => Parsha({ idx: p.idx, token: "torah", he: p.he, key: (0, import_slugify.default)(p.en) })).join("")}
     </ol>
   </li>
 `;
   var parshaFromLabel = ({ label }) => import_parshiyot.default.find(({ he }) => label.startsWith(he));
   var ComingUpReading = ({ label, date, datetime }, index) => {
     const parsha = parshaFromLabel({ label });
-    const { b: book, c: chapter, v: verse } = parsha.ref;
     return `
   <li style="display: table-cell; width: calc(100% / 3); padding: 0 0.5em;">
     <div class="stack small" style="display: flex; flex-direction: column; align-items: center;">
       <button
         data-target-class="coming-up-reading"
-        data-jump-to-book="${book}"
-        data-jump-to-chapter="${chapter}"
-        data-jump-to-verse="${verse}"
-        data-jump-to-scroll="torah"
+        data-idx="${index}"
         data-key="${index === 0 ? "next" : (0, import_slugify.default)(parsha.en)}"
         class="coming-up-button"
       >${label}</button>
@@ -62412,10 +62406,10 @@
   <div class="browse">
     <h2 class="section-heading">\u05E4\u05E8\u05E9\u05EA \u05D4\u05E9\u05D1\u05D5\u05E2</h2>
     <ol class="parsha-books mod-emphasize-first-in-group">
-      ${import_parshiyot.default.reduce((books, parsha) => {
+      ${import_parshiyot.default.reduce((books, parsha, idx) => {
     const book = parsha.ref.b;
     books[book] = books[book] || [];
-    books[book].push(parsha);
+    books[book].push({ ...parsha, idx });
     return books;
   }, []).map(Book).join("")}
     </ol>
@@ -62427,9 +62421,7 @@
           <ol class="parsha-list">
             ${col.map((holydayKey) => {
     const holyday = import_holydays2.default[holydayKey];
-    const { ref, he } = holyday;
-    const { b, c, v } = ref;
-    return Parsha({ ref: { b, c, v }, he, key: holydayKey, scroll: holydayKey });
+    return Parsha({ idx: holydayKey, token: "holydays", he: holyday.he, key: holydayKey });
   }).join("\n")}
           </ol>
         </li>
@@ -62440,31 +62432,30 @@
     <ol class="parsha-books">
       <li class="parsha-book">
         <ol class="parsha-list">
-          ${Parsha({ ref: { b: 1, c: 1, v: 1 }, he: "\u05D0\u05E1\u05EA\u05E8", key: "esther", scroll: "esther" })}
+          ${Parsha({ idx: "esther", token: "esther", he: "\u05D0\u05E1\u05EA\u05E8", key: "esther" })}
         </ol>
       </li>
     </ol>
   </div>
 `;
   var searchables = [
-    ...import_parshiyot.default.map((p) => ({ ...p, scroll: "torah", key: (0, import_slugify.default)(p.en) })),
+    ...import_parshiyot.default.map((p, index) => ({ idx: index, token: "torah", ...p, key: (0, import_slugify.default)(p.en) })),
     {
+      idx: "esther",
+      token: "esther",
       he: "\u05D0\u05E1\u05EA\u05E8",
       en: "Esther",
-      ref: { b: 1, c: 1, v: 1 },
-      key: "esther",
-      scroll: "esther"
+      key: "esther"
     },
     ...Object.keys(import_holydays2.default).map((holydayKey) => {
       const holyday = import_holydays2.default[holydayKey];
-      const { he, en, ref } = holyday;
-      const { b, c, v } = ref;
+      const { he, en } = holyday;
       return {
-        scroll: holydayKey,
+        idx: holydayKey,
+        token: "holydays",
         en,
         he,
-        key: holydayKey,
-        ref: { b, c, v }
+        key: holydayKey
       };
     })
   ];
@@ -62477,7 +62468,9 @@
   };
   var top = (n) => (_, i) => i < n;
   var search = (query) => searchResults(query).filter(top(5)).map((result) => result.item === "No results" ? NoResults() : ParshaResult_default(result));
-  var ParshaPicker = (jumpToRef) => {
+  var ParshaPicker_default = (jumpToRef) => {
+    const keyOf = (element) => null;
+    const jumpTo = ({ ref }) => jumpToRef({ ref, key: keyOf(ref) });
     const searchEmitter = event_emitter_default.new();
     const s = Search_default({ search, emitter: searchEmitter });
     const self = htmlToElement4(`
@@ -62497,7 +62490,14 @@
         event_label: selected.querySelector('[data-target-class="result-hebrew"]').textContent.trim()
       });
       const result = selected.querySelector('[data-target-class="parsha-result"]');
-      jumpToRef({ ref: result });
+      const idx = result.getAttribute(`data-idx`);
+      const token = result.getAttribute(`data-token`);
+      const ref = {
+        torah: (idx2) => ({ ...import_parshiyot.default[idx2].ref, scroll: "torah" }),
+        holydays: (idx2) => ({ ...import_holydays2.default[idx2].ref, scroll: idx2 }),
+        esther: () => ({ b: 1, c: 1, v: 1, scroll: "esther" })
+      }[token](idx);
+      jumpTo({ ref });
     });
     searchEmitter.on("search", (query) => {
       self.querySelector(".browse").classList.add("u-hidden");
@@ -62518,7 +62518,14 @@
           event_category: "navigation",
           event_label: e.target.textContent.trim()
         });
-        jumpToRef({ ref: e.target });
+        const idx = e.target.getAttribute(`data-idx`);
+        const token = e.target.getAttribute(`data-token`);
+        const ref = {
+          torah: (idx2) => ({ ...import_parshiyot.default[Number(idx2)].ref, scroll: "torah" }),
+          holydays: (idx2) => ({ ...import_holydays2.default[idx2].ref, scroll: idx2 }),
+          esther: () => ({ b: 1, c: 1, v: 1, scroll: "esther" })
+        }[token](idx);
+        jumpTo({ ref });
       });
     });
     [...self.querySelectorAll('[data-target-class="coming-up-reading"]')].forEach((comingUpReading, index) => {
@@ -62527,14 +62534,24 @@
           event_category: "navigation",
           event_label: ["due up", "on deck", "in the hole"][index]
         });
-        jumpToRef({ ref: e.target });
+        const idx = Number(e.target.getAttribute(`data-idx`));
+        const token = "torah";
+        const ref = {
+          torah: (idx2) => {
+            const { label } = comingUpReadings[idx2];
+            const parsha = parshaFromLabel({ label });
+            return { ...parsha.ref, scroll: "torah" };
+          },
+          holydays: (idx2) => ({ ...import_holydays2.default[idx2].ref, scroll: "idx" }),
+          esther: () => ({ b: 1, c: 1, v: 1, scroll: "esther" })
+        }[token](idx);
+        jumpTo({ ref });
       });
     });
     return { node: self, onMount: () => {
       setTimeout(() => s.focus(), 0);
     } };
   };
-  var ParshaPicker_default = ParshaPicker;
 
   // index.js
   var { htmlToElement: htmlToElement5, whenKey: whenKey3, purgeNode: purgeNode3 } = utils_default;
@@ -62571,11 +62588,6 @@
       return Promise.resolve();
     }
   };
-  var refOf = (element) => {
-    const refPart = (part) => Number(element.getAttribute(`data-jump-to-${part}`));
-    const scroll2 = element.getAttribute(`data-jump-to-scroll`);
-    return { scroll: scroll2, b: refPart("book"), c: refPart("chapter"), v: refPart("verse") };
-  };
   var setVisibility = ({ selector, visible }) => {
     const classList = document.querySelector(selector).classList;
     classList[visible ? "remove" : "add"]("u-hidden");
@@ -62588,9 +62600,8 @@
       { selector: '[data-target-id="repo-link"]', visible: false },
       { selector: '[data-target-id="tikkun-book"]', visible: false }
     ].forEach(({ selector, visible }) => setVisibility({ selector, visible }));
-    const jumper = ParshaPicker_default(({ ref }) => {
-      app.jumpTo({ ref: refOf(ref) });
-      const key = ref.getAttribute("data-key");
+    const jumper = ParshaPicker_default(({ ref, key }) => {
+      app.jumpTo({ ref });
       window.location.hash = `#/p/${key}`;
     });
     document.querySelector("#js-app").appendChild(jumper.node);

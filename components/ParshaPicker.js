@@ -19,15 +19,13 @@ const holydaysLayout = [
   ['purim', 'chanukah-1', 'chanukah-2', 'chanukah-3', 'chanukah-4', 'chanukah-5', 'chanukah-7', 'chanukah-8']
 ]
 
-const Parsha = ({ ref, he, scroll, key }) => `
+const Parsha = ({ idx, token, he, key }) => `
   <li
     class="parsha"
+    data-idx="${idx}"
+    data-token="${token}"
     data-target-id="parsha"
     data-key="${key}"
-    data-jump-to-book="${ref.b}"
-    data-jump-to-chapter="${ref.c}"
-    data-jump-to-verse="${ref.v}"
-    data-jump-to-scroll="${scroll}"
   >
     ${he}
   </li>
@@ -36,7 +34,7 @@ const Parsha = ({ ref, he, scroll, key }) => `
 const Book = (book) => `
   <li class="parsha-book">
     <ol class="parsha-list">
-      ${book.map(p => Parsha({ ...p, scroll: 'torah', key: slugify(p.en) })).join('')}
+      ${book.map((p) => Parsha({ idx: p.idx, token: 'torah', he: p.he, key: slugify(p.en) })).join('')}
     </ol>
   </li>
 `
@@ -46,16 +44,12 @@ const parshaFromLabel = ({ label }) => parshiyot
 
 const ComingUpReading = ({ label, date, datetime }, index) => {
   const parsha = parshaFromLabel({ label })
-  const { b: book, c: chapter, v: verse } = parsha.ref
   return `
   <li style="display: table-cell; width: calc(100% / 3); padding: 0 0.5em;">
     <div class="stack small" style="display: flex; flex-direction: column; align-items: center;">
       <button
         data-target-class="coming-up-reading"
-        data-jump-to-book="${book}"
-        data-jump-to-chapter="${chapter}"
-        data-jump-to-verse="${verse}"
-        data-jump-to-scroll="torah"
+        data-idx="${index}"
         data-key="${index === 0 ? 'next' : slugify(parsha.en)}"
         class="coming-up-button"
       >${label}</button>
@@ -90,10 +84,10 @@ const Browse = () => `
     <h2 class="section-heading">פרשת השבוע</h2>
     <ol class="parsha-books mod-emphasize-first-in-group">
       ${parshiyot
-        .reduce((books, parsha) => {
+        .reduce((books, parsha, idx) => {
           const book = parsha.ref.b
           books[book] = books[book] || []
-          books[book].push(parsha)
+          books[book].push({ ...parsha, idx })
           return books
         }, [])
         .map(Book)
@@ -109,11 +103,7 @@ const Browse = () => `
             ${col.map(holydayKey => {
               const holyday = holydays[holydayKey]
 
-              const { ref, he } = holyday
-
-              const { b, c, v } = ref
-
-              return Parsha({ ref: { b, c, v }, he, key: holydayKey, scroll: holydayKey })
+              return Parsha({ idx: holydayKey, token: 'holydays', he: holyday.he, key: holydayKey })
             }).join('\n')}
           </ol>
         </li>
@@ -124,7 +114,7 @@ const Browse = () => `
     <ol class="parsha-books">
       <li class="parsha-book">
         <ol class="parsha-list">
-          ${Parsha({ ref: { b: 1, c: 1, v: 1 }, he: 'אסתר', key: 'esther', scroll: 'esther' })}
+          ${Parsha({ idx: 'esther', token: 'esther', he: 'אסתר', key: 'esther' })}
         </ol>
       </li>
     </ol>
@@ -132,27 +122,25 @@ const Browse = () => `
 `
 
 const searchables = [
-  ...parshiyot.map(p => ({ ...p, scroll: 'torah', key: slugify(p.en) })),
+  ...parshiyot.map((p, index) => ({ idx: index, token: 'torah', ...p, key: slugify(p.en) })),
   {
+    idx: 'esther',
+    token: 'esther',
     he: 'אסתר',
     en: 'Esther',
-    ref: { b: 1, c: 1, v: 1 },
-    key: 'esther',
-    scroll: 'esther'
+    key: 'esther'
   },
   ...Object.keys(holydays).map(holydayKey => {
     const holyday = holydays[holydayKey]
 
-    const { he, en, ref } = holyday
-
-    const { b, c, v } = ref
+    const { he, en } = holyday
 
     return {
-      scroll: holydayKey,
+      idx: holydayKey,
+      token: 'holydays',
       en,
       he,
-      key: holydayKey,
-      ref: { b, c, v }
+      key: holydayKey
     }
   })
 ]
@@ -175,7 +163,10 @@ const search = query => searchResults(query)
     : ParshaResult(result)
   )
 
-const ParshaPicker = (jumpToRef) => {
+export default jumpToRef => {
+  const keyOf = element => null // element.getAttribute('data-key')
+
+  const jumpTo = ({ ref }) => jumpToRef({ ref, key: keyOf(ref) })
   const searchEmitter = EventEmitter.new()
   const s = Search({ search, emitter: searchEmitter })
 
@@ -199,7 +190,16 @@ const ParshaPicker = (jumpToRef) => {
 
     const result = selected.querySelector('[data-target-class="parsha-result"]')
 
-    jumpToRef({ ref: result })
+    const idx = result.getAttribute(`data-idx`)
+    const token = result.getAttribute(`data-token`)
+
+    const ref = {
+      torah: idx => ({ ...parshiyot[idx].ref, scroll: 'torah' }),
+      holydays: idx => ({ ...holydays[idx].ref, scroll: idx }),
+      esther: () => ({ b: 1, c: 1, v: 1, scroll: 'esther' })
+    }[token](idx)
+
+    jumpTo({ ref })
   })
 
   searchEmitter.on('search', query => {
@@ -225,7 +225,17 @@ const ParshaPicker = (jumpToRef) => {
           event_category: 'navigation',
           event_label: e.target.textContent.trim()
         })
-        jumpToRef({ ref: e.target })
+
+        const idx = e.target.getAttribute(`data-idx`)
+        const token = e.target.getAttribute(`data-token`)
+
+        const ref = {
+          torah: idx => ({ ...parshiyot[Number(idx)].ref, scroll: 'torah' }),
+          holydays: idx => ({ ...holydays[idx].ref, scroll: idx }),
+          esther: () => ({ b: 1, c: 1, v: 1, scroll: 'esther' })
+        }[token](idx)
+
+        jumpTo({ ref })
       })
     })
 
@@ -237,11 +247,24 @@ const ParshaPicker = (jumpToRef) => {
           event_label: ['due up', 'on deck', 'in the hole'][index]
         })
 
-        jumpToRef({ ref: e.target })
+        const idx = Number(e.target.getAttribute(`data-idx`))
+        const token = 'torah' // e.getAttribute(`data-token`)
+
+        const ref = {
+          torah: (idx) => {
+            const { label } = comingUpReadings[idx]
+
+            const parsha = parshaFromLabel({ label })
+
+            return { ...parsha.ref, scroll: 'torah' }
+          },
+          holydays: idx => ({ ...holydays[idx].ref, scroll: 'idx' }),
+          esther: () => ({ b: 1, c: 1, v: 1, scroll: 'esther' })
+        }[token](idx)
+
+        jumpTo({ ref })
       })
     })
 
   return { node: self, onMount: () => { setTimeout(() => s.focus(), 0) } }
 }
-
-export default ParshaPicker

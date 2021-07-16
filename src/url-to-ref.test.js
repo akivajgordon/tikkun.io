@@ -69,3 +69,11 @@ test('returns next parsha given specified date', t => {
   const BEFORE_KORACH_5781 = '2021-06-10'
   t.deepEqual(urlToRef({ url: url('/#/next'), asOfDate: BEFORE_KORACH_5781}), { scroll: 'torah', b: 4, c: 16, v: 1 })
 })
+
+test('returns default ref for non-existant holyday reading', t => {
+  t.deepEqual(urlToRef({ url: url('/#/h/not-a-special-reading') }), BEREISHIT_1)
+})
+
+test('returns esther ref for esther as a holyday reading', t => {
+  t.deepEqual(urlToRef({ url: url('/#/h/esther') }), { scroll: 'esther', b: 1, c: 1, v: 1 })
+})

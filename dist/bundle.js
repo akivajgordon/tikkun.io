@@ -57569,6 +57569,7 @@
       var { defaultRef, resolveToValidRef } = require_location();
       var parshiyot3 = require_parshiyot();
       var schedule = require_schedule();
+      var holydays4 = require_holydays();
       var isURL = (url) => {
         try {
           new URL(url);
@@ -57612,10 +57613,19 @@
           return { scroll: "torah", b, c, v };
         }
       };
+      var HolydayRouter = {
+        refFromPathParts: ({ pathParts }) => {
+          const holyday = pathParts[0];
+          const holydaysAndEsther = { ...holydays4, "esther": { ref: { b: 1, c: 1, v: 1 } } };
+          if (!Object.keys(holydaysAndEsther).includes(holyday))
+            return defaultRef();
+          return { scroll: holyday, ...holydaysAndEsther[holyday].ref };
+        }
+      };
       var NextRouter = {
         refFromPathParts: ({ pathParts, asOfDate }) => {
           const { label } = schedule.find(({ datetime }) => new Date(datetime) > new Date(asOfDate || Date.now()));
-          const found = parshiyot3.find(({ he }) => label === he);
+          const found = parshiyot3.find(({ he }) => label.split("\u2013")[0].trim() === he);
           const { b, c, v } = found.ref;
           return { scroll: "torah", b, c, v };
         }
@@ -57626,6 +57636,7 @@
         const router = {
           r: RefRouter,
           p: ParshaRouter,
+          h: HolydayRouter,
           next: NextRouter
         }[hashParts[0]] || DefaultRouter;
         return router.refFromPathParts({ pathParts: hashParts.slice(1), asOfDate });
@@ -61254,6 +61265,15 @@
     }
   });
 
+  // src/slugify.js
+  var require_slugify = __commonJS({
+    "src/slugify.js"(exports, module) {
+      module.exports = (str) => {
+        return str.replace(/[^a-zA-Z0-9\s]/g, "").replace(/\s+/g, "-").toLowerCase();
+      };
+    }
+  });
+
   // src/index.js
   var import_infinite_scroller = __toModule(require_infinite_scroller());
   var import_integer_iterator = __toModule(require_integer_iterator());
@@ -62180,6 +62200,7 @@
   var import_schedule = __toModule(require_schedule());
   var import_holydays2 = __toModule(require_holydays());
   var import_fuzzy = __toModule(require_fuzzy());
+  var import_slugify = __toModule(require_slugify());
 
   // components/utils.js
   var htmlToElement = (html2) => {
@@ -62221,7 +62242,7 @@
   };
   var strongify = (c) => `<strong>${c}</strong>`;
   var ParshaResult = ({ match, item }) => htmlToElement2(`
-  <div data-target-class="parsha-result" data-jump-to-book="${item.ref.b}" data-jump-to-chapter="${item.ref.c}" data-jump-to-verse="${item.ref.v}" data-jump-to-scroll="${item.scroll}">
+  <div data-target-class="parsha-result" data-idx="${item.idx}" data-token="${item.token}" data-key="${item.key}">
     <p class="search-result-tag mod-hebrew" data-target-class="result-hebrew">${match.index === 0 ? decorateString({
     string: item.he,
     atIndexes: match.indexes,
@@ -62344,14 +62365,13 @@
     ["pesach-1", "pesach-2", "pesach-3", "pesach-4", "pesach-5", "pesach-6", "pesach-shabbat-chol-hamoed", "pesach-7", "pesach-8"],
     ["purim", "chanukah-1", "chanukah-2", "chanukah-3", "chanukah-4", "chanukah-5", "chanukah-7", "chanukah-8"]
   ];
-  var Parsha = ({ ref, he, scroll: scroll2 }) => `
+  var Parsha = ({ idx, token, he, key }) => `
   <li
     class="parsha"
+    data-idx="${idx}"
+    data-token="${token}"
     data-target-id="parsha"
-    data-jump-to-book="${ref.b}"
-    data-jump-to-chapter="${ref.c}"
-    data-jump-to-verse="${ref.v}"
-    data-jump-to-scroll="${scroll2}"
+    data-key="${key}"
   >
     ${he}
   </li>
@@ -62359,22 +62379,20 @@
   var Book = (book) => `
   <li class="parsha-book">
     <ol class="parsha-list">
-      ${book.map((b) => Parsha({ ...b, scroll: "torah" })).join("")}
+      ${book.map((p) => Parsha({ idx: p.idx, token: "torah", he: p.he, key: (0, import_slugify.default)(p.en) })).join("")}
     </ol>
   </li>
 `;
-  var refFromLabel = ({ label }) => import_parshiyot.default.find(({ he }) => label.startsWith(he)).ref;
-  var ComingUpReading = ({ label, date, datetime }) => {
-    const { b: book, c: chapter, v: verse } = refFromLabel({ label });
+  var parshaFromLabel = ({ label }) => import_parshiyot.default.find(({ he }) => label.startsWith(he));
+  var ComingUpReading = ({ label, date, datetime }, index) => {
+    const parsha = parshaFromLabel({ label });
     return `
   <li style="display: table-cell; width: calc(100% / 3); padding: 0 0.5em;">
     <div class="stack small" style="display: flex; flex-direction: column; align-items: center;">
       <button
         data-target-class="coming-up-reading"
-        data-jump-to-book="${book}"
-        data-jump-to-chapter="${chapter}"
-        data-jump-to-verse="${verse}"
-        data-jump-to-scroll="torah"
+        data-idx="${index}"
+        data-key="${index === 0 ? "next" : (0, import_slugify.default)(parsha.en)}"
         class="coming-up-button"
       >${label}</button>
       <time class="coming-up-date" datetime="${datetime}">${date}</time>
@@ -62399,10 +62417,10 @@
   <div class="browse">
     <h2 class="section-heading">\u05E4\u05E8\u05E9\u05EA \u05D4\u05E9\u05D1\u05D5\u05E2</h2>
     <ol class="parsha-books mod-emphasize-first-in-group">
-      ${import_parshiyot.default.reduce((books, parsha) => {
+      ${import_parshiyot.default.reduce((books, parsha, idx) => {
     const book = parsha.ref.b;
     books[book] = books[book] || [];
-    books[book].push(parsha);
+    books[book].push({ ...parsha, idx });
     return books;
   }, []).map(Book).join("")}
     </ol>
@@ -62414,9 +62432,7 @@
           <ol class="parsha-list">
             ${col.map((holydayKey) => {
     const holyday = import_holydays2.default[holydayKey];
-    const { ref, he } = holyday;
-    const { b, c, v } = ref;
-    return Parsha({ ref: { b, c, v }, he, scroll: holydayKey });
+    return Parsha({ idx: holydayKey, token: "holydays", he: holyday.he, key: holydayKey });
   }).join("\n")}
           </ol>
         </li>
@@ -62427,29 +62443,30 @@
     <ol class="parsha-books">
       <li class="parsha-book">
         <ol class="parsha-list">
-          ${Parsha({ ref: { b: 1, c: 1, v: 1 }, he: "\u05D0\u05E1\u05EA\u05E8", scroll: "esther" })}
+          ${Parsha({ idx: "esther", token: "esther", he: "\u05D0\u05E1\u05EA\u05E8", key: "esther" })}
         </ol>
       </li>
     </ol>
   </div>
 `;
   var searchables = [
-    ...import_parshiyot.default.map((p) => ({ ...p, scroll: "torah" })),
+    ...import_parshiyot.default.map((p, index) => ({ idx: index, token: "torah", ...p, key: (0, import_slugify.default)(p.en) })),
     {
+      idx: "esther",
+      token: "esther",
       he: "\u05D0\u05E1\u05EA\u05E8",
       en: "Esther",
-      ref: { b: 1, c: 1, v: 1 },
-      scroll: "esther"
+      key: "esther"
     },
     ...Object.keys(import_holydays2.default).map((holydayKey) => {
       const holyday = import_holydays2.default[holydayKey];
-      const { he, en, ref } = holyday;
-      const { b, c, v } = ref;
+      const { he, en } = holyday;
       return {
-        scroll: holydayKey,
+        idx: holydayKey,
+        token: "holydays",
         en,
         he,
-        ref: { b, c, v }
+        key: holydayKey
       };
     })
   ];
@@ -62462,7 +62479,7 @@
   };
   var top = (n) => (_, i) => i < n;
   var search = (query) => searchResults(query).filter(top(5)).map((result) => result.item === "No results" ? NoResults() : ParshaResult_default(result));
-  var ParshaPicker = (jumpToRef) => {
+  var ParshaPicker_default = (jumpToRef) => {
     const searchEmitter = event_emitter_default.new();
     const s = Search_default({ search, emitter: searchEmitter });
     const self = htmlToElement4(`
@@ -62482,7 +62499,17 @@
         event_label: selected.querySelector('[data-target-class="result-hebrew"]').textContent.trim()
       });
       const result = selected.querySelector('[data-target-class="parsha-result"]');
-      jumpToRef({ ref: result });
+      const idx = result.getAttribute(`data-idx`);
+      const token = result.getAttribute(`data-token`);
+      const { ref, key } = {
+        torah: (idx2) => {
+          const parsha = import_parshiyot.default[Number(idx2)];
+          return { ref: { ...parsha.ref, scroll: "torah" }, key: (0, import_slugify.default)(parsha.en) };
+        },
+        holydays: (idx2) => ({ ref: { ...import_holydays2.default[idx2].ref, scroll: idx2 }, key: idx2 }),
+        esther: () => ({ ref: { b: 1, c: 1, v: 1, scroll: "esther" }, key: "esther" })
+      }[token](idx);
+      jumpToRef({ ref, source: "search", key });
     });
     searchEmitter.on("search", (query) => {
       self.querySelector(".browse").classList.add("u-hidden");
@@ -62503,7 +62530,17 @@
           event_category: "navigation",
           event_label: e.target.textContent.trim()
         });
-        jumpToRef({ ref: e.target });
+        const idx = e.target.getAttribute(`data-idx`);
+        const token = e.target.getAttribute(`data-token`);
+        const { ref, key } = {
+          torah: (idx2) => {
+            const parsha2 = import_parshiyot.default[Number(idx2)];
+            return { ref: { ...parsha2.ref, scroll: "torah" }, key: (0, import_slugify.default)(parsha2.en) };
+          },
+          holydays: (idx2) => ({ ref: { ...import_holydays2.default[idx2].ref, scroll: idx2 }, key: idx2 }),
+          esther: () => ({ ref: { b: 1, c: 1, v: 1, scroll: "esther" }, key: "esther" })
+        }[token](idx);
+        jumpToRef({ ref, source: "browse", key });
       });
     });
     [...self.querySelectorAll('[data-target-class="coming-up-reading"]')].forEach((comingUpReading, index) => {
@@ -62512,14 +62549,24 @@
           event_category: "navigation",
           event_label: ["due up", "on deck", "in the hole"][index]
         });
-        jumpToRef({ ref: e.target });
+        const idx = Number(e.target.getAttribute(`data-idx`));
+        const token = "torah";
+        const { ref, key } = {
+          torah: (idx2) => {
+            const { label } = comingUpReadings[idx2];
+            const parsha = parshaFromLabel({ label });
+            return { ref: { ...parsha.ref, scroll: "torah" }, key: idx2 === 0 ? "next" : (0, import_slugify.default)(parsha.en) };
+          },
+          holydays: (idx2) => ({ ref: { ...import_holydays2.default[idx2].ref, scroll: idx2 }, key: idx2 }),
+          esther: () => ({ ref: { b: 1, c: 1, v: 1, scroll: "esther" }, key: "esther" })
+        }[token](idx);
+        jumpToRef({ ref, source: "comingUp", key });
       });
     });
     return { node: self, onMount: () => {
       setTimeout(() => s.focus(), 0);
     } };
   };
-  var ParshaPicker_default = ParshaPicker;
 
   // index.js
   var { htmlToElement: htmlToElement5, whenKey: whenKey3, purgeNode: purgeNode3 } = utils_default;
@@ -62556,11 +62603,6 @@
       return Promise.resolve();
     }
   };
-  var refOf = (element) => {
-    const refPart = (part) => Number(element.getAttribute(`data-jump-to-${part}`));
-    const scroll2 = element.getAttribute(`data-jump-to-scroll`);
-    return { scroll: scroll2, b: refPart("book"), c: refPart("chapter"), v: refPart("verse") };
-  };
   var setVisibility = ({ selector, visible }) => {
     const classList = document.querySelector(selector).classList;
     classList[visible ? "remove" : "add"]("u-hidden");
@@ -62573,7 +62615,16 @@
       { selector: '[data-target-id="repo-link"]', visible: false },
       { selector: '[data-target-id="tikkun-book"]', visible: false }
     ].forEach(({ selector, visible }) => setVisibility({ selector, visible }));
-    const jumper = ParshaPicker_default(({ ref }) => app.jumpTo({ ref: refOf(ref) }));
+    const jumper = ParshaPicker_default(({ ref, key, source }) => {
+      app.jumpTo({ ref });
+      const { scroll: scroll2 } = ref;
+      const hashBySource = {
+        comingUp: (key2) => key2 === "next" ? `#/next` : `#/p/${key2}`,
+        browse: (key2) => `#/${scroll2 === "torah" ? "p" : "h"}/${key2}`,
+        search: (key2) => `#/${scroll2 === "torah" ? "p" : "h"}/${key2}`
+      }[source](key);
+      window.location.hash = hashBySource;
+    });
     document.querySelector("#js-app").appendChild(jumper.node);
     gtag("event", "view", {
       event_category: "navigation"

@@ -1,13 +1,17 @@
 /* eslint-env mocha */
 /* global cy,expect */
 
+const openParshaPicker = () => {
+  cy.get('.app-toolbar').contains('בראשית').click()
+}
+
 describe('jumper', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8000')
   })
 
   it('opens the parsha picker when clicking on the current parsha', () => {
-    cy.get('.app-toolbar').contains('בראשית').click()
+    openParshaPicker()
 
     cy.contains('בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים אֵ֥ת הַשָּׁמַ֖יִם וְאֵ֥ת הָאָֽרֶץ׃').should('not.be.visible')
 
@@ -27,16 +31,14 @@ describe('jumper', () => {
   })
 
   it('hides annotations toggle and repo link when showing parsha picker', () => {
-    cy.get('.app-toolbar').contains('בראשית')
-      .click()
+    openParshaPicker()
 
     cy.get('[data-test-id="annotations-toggle"]').should('not.be.visible')
     cy.get('a[href^="https://www.github.com"]').should('not.be.visible')
   })
 
   it('jumps to the selected parsha', () => {
-    cy.get('.app-toolbar').contains('בראשית')
-      .click()
+    openParshaPicker()
 
     cy.contains('שופטים').click()
 
@@ -52,8 +54,7 @@ describe('jumper', () => {
   it('jumps to the center of the page', () => {
     const centerYOf = ({ y, height }) => y + (height / 2)
 
-    cy.get('.app-toolbar').contains('בראשית')
-      .click()
+    openParshaPicker()
 
     cy.contains('נח').click()
 
@@ -182,5 +183,25 @@ describe('jumper', () => {
 
         cy.get('.app-toolbar').contains($hebrewElement.text().trim())
       })
+  })
+
+  it('updates hash with parsha name when clicking on a browsing parsha', () => {
+    openParshaPicker()
+
+    cy.url().should('not.include', '#/p/eikev')
+
+    cy.contains('עקב').click()
+
+    cy.url().should('include', '#/p/eikev')
+  })
+
+  it('updates hash with parsha name when selecting a search result', () => {
+    openParshaPicker()
+
+    cy.url().should('not.include', '#/p/lech-lecha')
+
+    cy.focused().type('lechlec{enter}')
+
+    cy.url().should('include', '#/p/lech-lecha')
   })
 })

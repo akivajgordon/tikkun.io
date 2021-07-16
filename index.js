@@ -57,13 +57,6 @@ const app = {
   }
 }
 
-const refOf = element => {
-  const refPart = (part) => Number(element.getAttribute(`data-jump-to-${part}`))
-  const scroll = element.getAttribute(`data-jump-to-scroll`)
-
-  return { scroll, b: refPart('book'), c: refPart('chapter'), v: refPart('verse') }
-}
-
 const setVisibility = ({ selector, visible }) => {
   const classList = document.querySelector(selector).classList
 
@@ -79,7 +72,19 @@ const showParshaPicker = () => {
   ]
     .forEach(({ selector, visible }) => setVisibility({ selector, visible }))
 
-  const jumper = ParshaPicker(({ ref }) => app.jumpTo({ ref: refOf(ref) }))
+  const jumper = ParshaPicker(({ ref, key, source }) => {
+    app.jumpTo({ ref })
+
+    const { scroll } = ref
+
+    const hashBySource = {
+      comingUp: key => key === 'next' ? `#/next` : `#/p/${key}`,
+      browse: key => `#/${scroll === 'torah' ? 'p' : 'h'}/${key}`,
+      search: key => `#/${scroll === 'torah' ? 'p' : 'h'}/${key}`
+    }[source](key)
+
+    window.location.hash = hashBySource
+  })
 
   document.querySelector('#js-app').appendChild(jumper.node)
 

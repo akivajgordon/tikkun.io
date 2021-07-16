@@ -1,6 +1,7 @@
 const { defaultRef, resolveToValidRef } = require('./location')
 const parshiyot = require('../build/parshiyot.json')
 const schedule = require('../build/schedule.json')
+const holydays = require('../build/holydays.json')
 
 const isURL = url => {
   try {
@@ -55,11 +56,23 @@ const ParshaRouter = {
   }
 }
 
+const HolydayRouter = {
+  refFromPathParts: ({ pathParts }) => {
+    const holyday = pathParts[0]
+
+    const holydaysAndEsther = { ...holydays, 'esther': { ref: { b: 1, c: 1, v: 1 } } }
+
+    if (!Object.keys(holydaysAndEsther).includes(holyday)) return defaultRef()
+
+    return { scroll: holyday, ...holydaysAndEsther[holyday].ref }
+  }
+}
+
 const NextRouter = {
   refFromPathParts: ({ pathParts, asOfDate }) => {
     const { label } = schedule.find(({ datetime }) => new Date(datetime) > new Date(asOfDate || Date.now()))
 
-    const found = parshiyot.find(({ he }) => label === he)
+    const found = parshiyot.find(({ he }) => label.split('–')[0].trim() === he)
 
     const { b, c, v } = found.ref
 
@@ -75,6 +88,7 @@ module.exports = ({ url, asOfDate }) => {
   const router = {
     r: RefRouter,
     p: ParshaRouter,
+    h: HolydayRouter,
     next: NextRouter
   }[hashParts[0]] || DefaultRouter
 

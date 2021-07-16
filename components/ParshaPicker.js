@@ -164,9 +164,6 @@ const search = query => searchResults(query)
   )
 
 export default jumpToRef => {
-  const keyOf = element => null // element.getAttribute('data-key')
-
-  const jumpTo = ({ ref }) => jumpToRef({ ref, key: keyOf(ref) })
   const searchEmitter = EventEmitter.new()
   const s = Search({ search, emitter: searchEmitter })
 
@@ -193,13 +190,17 @@ export default jumpToRef => {
     const idx = result.getAttribute(`data-idx`)
     const token = result.getAttribute(`data-token`)
 
-    const ref = {
-      torah: idx => ({ ...parshiyot[idx].ref, scroll: 'torah' }),
-      holydays: idx => ({ ...holydays[idx].ref, scroll: idx }),
-      esther: () => ({ b: 1, c: 1, v: 1, scroll: 'esther' })
+    const { ref, key } = {
+      torah: idx => {
+        const parsha = parshiyot[Number(idx)]
+
+        return ({ ref: { ...parsha.ref, scroll: 'torah' }, key: slugify(parsha.en) })
+      },
+      holydays: idx => ({ ref: { ...holydays[idx].ref, scroll: idx }, key: idx }),
+      esther: () => ({ ref: { b: 1, c: 1, v: 1, scroll: 'esther' }, key: 'esther' })
     }[token](idx)
 
-    jumpTo({ ref })
+    jumpToRef({ ref, source: 'search', key })
   })
 
   searchEmitter.on('search', query => {
@@ -229,13 +230,17 @@ export default jumpToRef => {
         const idx = e.target.getAttribute(`data-idx`)
         const token = e.target.getAttribute(`data-token`)
 
-        const ref = {
-          torah: idx => ({ ...parshiyot[Number(idx)].ref, scroll: 'torah' }),
-          holydays: idx => ({ ...holydays[idx].ref, scroll: idx }),
-          esther: () => ({ b: 1, c: 1, v: 1, scroll: 'esther' })
+        const { ref, key } = {
+          torah: idx => {
+            const parsha = parshiyot[Number(idx)]
+
+            return ({ ref: { ...parsha.ref, scroll: 'torah' }, key: slugify(parsha.en) })
+          },
+          holydays: idx => ({ ref: { ...holydays[idx].ref, scroll: idx }, key: idx }),
+          esther: () => ({ ref: { b: 1, c: 1, v: 1, scroll: 'esther' }, key: 'esther' })
         }[token](idx)
 
-        jumpTo({ ref })
+        jumpToRef({ ref, source: 'browse', key })
       })
     })
 
@@ -250,19 +255,19 @@ export default jumpToRef => {
         const idx = Number(e.target.getAttribute(`data-idx`))
         const token = 'torah' // e.getAttribute(`data-token`)
 
-        const ref = {
+        const { ref, key } = {
           torah: (idx) => {
             const { label } = comingUpReadings[idx]
 
             const parsha = parshaFromLabel({ label })
 
-            return { ...parsha.ref, scroll: 'torah' }
+            return { ref: { ...parsha.ref, scroll: 'torah' }, key: idx === 0 ? 'next' : slugify(parsha.en) }
           },
-          holydays: idx => ({ ...holydays[idx].ref, scroll: 'idx' }),
-          esther: () => ({ b: 1, c: 1, v: 1, scroll: 'esther' })
+          holydays: idx => ({ ref: { ...holydays[idx].ref, scroll: idx }, key: idx }),
+          esther: () => ({ ref: { b: 1, c: 1, v: 1, scroll: 'esther' }, key: 'esther' })
         }[token](idx)
 
-        jumpTo({ ref })
+        jumpToRef({ ref, source: 'comingUp', key })
       })
     })
 

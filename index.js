@@ -72,10 +72,18 @@ const showParshaPicker = () => {
   ]
     .forEach(({ selector, visible }) => setVisibility({ selector, visible }))
 
-  const jumper = ParshaPicker(({ ref, key }) => {
+  const jumper = ParshaPicker(({ ref, key, source }) => {
     app.jumpTo({ ref })
 
-    window.location.hash = `#/p/${key}`
+    const { scroll } = ref
+
+    const hashBySource = {
+      comingUp: key => key === 'next' ? `#/next` : `#/p/${key}`,
+      browse: key => `#/${scroll === 'torah' ? 'p' : 'h'}/${key}`,
+      search: key => `#/${scroll === 'torah' ? 'p' : 'h'}/${key}`
+    }[source](key)
+
+    window.location.hash = hashBySource
   })
 
   document.querySelector('#js-app').appendChild(jumper.node)

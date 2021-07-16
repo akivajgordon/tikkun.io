@@ -57569,6 +57569,7 @@
       var { defaultRef, resolveToValidRef } = require_location();
       var parshiyot3 = require_parshiyot();
       var schedule = require_schedule();
+      var holydays4 = require_holydays();
       var isURL = (url) => {
         try {
           new URL(url);
@@ -57612,10 +57613,19 @@
           return { scroll: "torah", b, c, v };
         }
       };
+      var HolydayRouter = {
+        refFromPathParts: ({ pathParts }) => {
+          const holyday = pathParts[0];
+          const holydaysAndEsther = { ...holydays4, "esther": { ref: { b: 1, c: 1, v: 1 } } };
+          if (!Object.keys(holydaysAndEsther).includes(holyday))
+            return defaultRef();
+          return { scroll: holyday, ...holydaysAndEsther[holyday].ref };
+        }
+      };
       var NextRouter = {
         refFromPathParts: ({ pathParts, asOfDate }) => {
           const { label } = schedule.find(({ datetime }) => new Date(datetime) > new Date(asOfDate || Date.now()));
-          const found = parshiyot3.find(({ he }) => label === he);
+          const found = parshiyot3.find(({ he }) => label.split("\u2013")[0].trim() === he);
           const { b, c, v } = found.ref;
           return { scroll: "torah", b, c, v };
         }
@@ -57626,6 +57636,7 @@
         const router = {
           r: RefRouter,
           p: ParshaRouter,
+          h: HolydayRouter,
           next: NextRouter
         }[hashParts[0]] || DefaultRouter;
         return router.refFromPathParts({ pathParts: hashParts.slice(1), asOfDate });
@@ -62469,8 +62480,6 @@
   var top = (n) => (_, i) => i < n;
   var search = (query) => searchResults(query).filter(top(5)).map((result) => result.item === "No results" ? NoResults() : ParshaResult_default(result));
   var ParshaPicker_default = (jumpToRef) => {
-    const keyOf = (element) => null;
-    const jumpTo = ({ ref }) => jumpToRef({ ref, key: keyOf(ref) });
     const searchEmitter = event_emitter_default.new();
     const s = Search_default({ search, emitter: searchEmitter });
     const self = htmlToElement4(`
@@ -62492,12 +62501,15 @@
       const result = selected.querySelector('[data-target-class="parsha-result"]');
       const idx = result.getAttribute(`data-idx`);
       const token = result.getAttribute(`data-token`);
-      const ref = {
-        torah: (idx2) => ({ ...import_parshiyot.default[idx2].ref, scroll: "torah" }),
-        holydays: (idx2) => ({ ...import_holydays2.default[idx2].ref, scroll: idx2 }),
-        esther: () => ({ b: 1, c: 1, v: 1, scroll: "esther" })
+      const { ref, key } = {
+        torah: (idx2) => {
+          const parsha = import_parshiyot.default[Number(idx2)];
+          return { ref: { ...parsha.ref, scroll: "torah" }, key: (0, import_slugify.default)(parsha.en) };
+        },
+        holydays: (idx2) => ({ ref: { ...import_holydays2.default[idx2].ref, scroll: idx2 }, key: idx2 }),
+        esther: () => ({ ref: { b: 1, c: 1, v: 1, scroll: "esther" }, key: "esther" })
       }[token](idx);
-      jumpTo({ ref });
+      jumpToRef({ ref, source: "search", key });
     });
     searchEmitter.on("search", (query) => {
       self.querySelector(".browse").classList.add("u-hidden");
@@ -62520,12 +62532,15 @@
         });
         const idx = e.target.getAttribute(`data-idx`);
         const token = e.target.getAttribute(`data-token`);
-        const ref = {
-          torah: (idx2) => ({ ...import_parshiyot.default[Number(idx2)].ref, scroll: "torah" }),
-          holydays: (idx2) => ({ ...import_holydays2.default[idx2].ref, scroll: idx2 }),
-          esther: () => ({ b: 1, c: 1, v: 1, scroll: "esther" })
+        const { ref, key } = {
+          torah: (idx2) => {
+            const parsha2 = import_parshiyot.default[Number(idx2)];
+            return { ref: { ...parsha2.ref, scroll: "torah" }, key: (0, import_slugify.default)(parsha2.en) };
+          },
+          holydays: (idx2) => ({ ref: { ...import_holydays2.default[idx2].ref, scroll: idx2 }, key: idx2 }),
+          esther: () => ({ ref: { b: 1, c: 1, v: 1, scroll: "esther" }, key: "esther" })
         }[token](idx);
-        jumpTo({ ref });
+        jumpToRef({ ref, source: "browse", key });
       });
     });
     [...self.querySelectorAll('[data-target-class="coming-up-reading"]')].forEach((comingUpReading, index) => {
@@ -62536,16 +62551,16 @@
         });
         const idx = Number(e.target.getAttribute(`data-idx`));
         const token = "torah";
-        const ref = {
+        const { ref, key } = {
           torah: (idx2) => {
             const { label } = comingUpReadings[idx2];
             const parsha = parshaFromLabel({ label });
-            return { ...parsha.ref, scroll: "torah" };
+            return { ref: { ...parsha.ref, scroll: "torah" }, key: idx2 === 0 ? "next" : (0, import_slugify.default)(parsha.en) };
           },
-          holydays: (idx2) => ({ ...import_holydays2.default[idx2].ref, scroll: "idx" }),
-          esther: () => ({ b: 1, c: 1, v: 1, scroll: "esther" })
+          holydays: (idx2) => ({ ref: { ...import_holydays2.default[idx2].ref, scroll: idx2 }, key: idx2 }),
+          esther: () => ({ ref: { b: 1, c: 1, v: 1, scroll: "esther" }, key: "esther" })
         }[token](idx);
-        jumpTo({ ref });
+        jumpToRef({ ref, source: "comingUp", key });
       });
     });
     return { node: self, onMount: () => {
@@ -62600,9 +62615,15 @@
       { selector: '[data-target-id="repo-link"]', visible: false },
       { selector: '[data-target-id="tikkun-book"]', visible: false }
     ].forEach(({ selector, visible }) => setVisibility({ selector, visible }));
-    const jumper = ParshaPicker_default(({ ref, key }) => {
+    const jumper = ParshaPicker_default(({ ref, key, source }) => {
       app.jumpTo({ ref });
-      window.location.hash = `#/p/${key}`;
+      const { scroll: scroll2 } = ref;
+      const hashBySource = {
+        comingUp: (key2) => key2 === "next" ? `#/next` : `#/p/${key2}`,
+        browse: (key2) => `#/${scroll2 === "torah" ? "p" : "h"}/${key2}`,
+        search: (key2) => `#/${scroll2 === "torah" ? "p" : "h"}/${key2}`
+      }[source](key);
+      window.location.hash = hashBySource;
     });
     document.querySelector("#js-app").appendChild(jumper.node);
     gtag("event", "view", {

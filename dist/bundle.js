@@ -62705,7 +62705,7 @@
     } else {
       node.appendChild(el);
     }
-    renderTitle({ title: title2 });
+    setTimeout(updatePageTitle, 0);
     return node;
   };
   var renderPrevious = renderPage({ insertStrategy: insertBefore });

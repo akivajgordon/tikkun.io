@@ -196,7 +196,7 @@ const renderPage = ({ insertStrategy: insert }) => ({ content, title }) => {
     node.appendChild(el)
   }
 
-  renderTitle({ title })
+  setTimeout(updatePageTitle, 0)
 
   return node
 }

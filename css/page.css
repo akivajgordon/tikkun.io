@@ -102,9 +102,11 @@
 }
 
 .location-indicator.mod-aliyot {
-  right: -13ch;
+  right: 0;
   color: hsla(203, 100%, 50%, 0.75);
   max-width: 8ch;
+  transform: translateX(calc(9ch + 100%));
+  text-align: right;
 }
 
 .ktiv-kri {

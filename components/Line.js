@@ -47,18 +47,20 @@ const parshaName = (verses, __scroll) => {
 }
 
 const Line = ({ scroll: __scroll, text, verses, aliyot, isPetucha }) => `
-  <div class="line ${petuchaClass(isPetucha)}">
-    ${text.map((column) => (`
-      <div class="column">
-        ${column.map((fragment) => (`
-          <span class="fragment ${setumaClass(column)} mod-annotations-on">${ktivKriAnnotation(textFilter({ text: fragment, annotated: true }))}</span>
-          <span class="fragment ${setumaClass(column)} mod-annotations-off">${ktivKriAnnotation(textFilter({ text: fragment, annotated: false }))}</span>
-        `)).join('')}
-      </div>
-    `)).join('')}
-    <span class="location-indicator mod-verses">${displayRange.asVersesRange(verses)}</span>
-    <span class="location-indicator mod-aliyot" data-target-id="aliyot-range">${aliyotDisplay({ verses, scroll: __scroll })}</span>
-  </div>
+  <tr>
+    <td class="line ${petuchaClass(isPetucha)}">
+      ${text.map((column) => (`
+        <div class="column">
+          ${column.map((fragment) => (`
+            <span class="fragment ${setumaClass(column)} mod-annotations-on">${ktivKriAnnotation(textFilter({ text: fragment, annotated: true }))}</span>
+            <span class="fragment ${setumaClass(column)} mod-annotations-off">${ktivKriAnnotation(textFilter({ text: fragment, annotated: false }))}</span>
+          `)).join('')}
+        </div>
+      `)).join('')}
+      <span class="location-indicator mod-verses">${displayRange.asVersesRange(verses)}</span>
+      <span class="location-indicator mod-aliyot" data-target-id="aliyot-range">${aliyotDisplay({ verses, scroll: __scroll })}</span>
+    </td>
+  </tr>
 `
 
 export default Line

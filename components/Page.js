@@ -2,11 +2,7 @@ import Line from './Line'
 
 const Page = ({ scroll: _scroll, lines }) => `
   <table>
-    ${lines.map((line) => (`
-      <tr>
-        <td>${Line({ scroll: _scroll, ...line })}</td>
-      </tr>
-    `)).join('')}
+    ${lines.map(line => Line({ scroll: _scroll, ...line })).join('')}
   </table>
 `
 

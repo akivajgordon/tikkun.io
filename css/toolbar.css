@@ -33,6 +33,7 @@
   border-radius: 4px;
   color: var(--text-color);
   cursor: pointer;
+  direction: rtl;
 }
 
 .parsha-title:hover {

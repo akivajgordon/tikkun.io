@@ -111,7 +111,15 @@ ol {
   padding-top: 1em;
   font-size: 1.5em;
   height: 100%;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch; /*https://css-tricks.com/snippets/css/momentum-scrolling-on-ios-overflow-elements/*/
   box-sizing: border-box;
+
+  --pull-transform: 0s;
+  --pull-translation: 0;
+}
+
+.tikkun-book.mod-pull-releasing {
+  --pull-transform: 0.15s;
 }

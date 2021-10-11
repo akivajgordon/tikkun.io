@@ -62719,6 +62719,28 @@
       }, delay);
     };
   };
+  var listenForRevealGesture = (book) => {
+    const PULL_THRESHOLD = 30;
+    const PULL_MAXIMUM = 100;
+    const endTouch = () => {
+      book.classList.add("mod-pull-releasing");
+      book.style.setProperty("--pull-translation", 0);
+    };
+    let startX = 0;
+    book.addEventListener("touchstart", (e) => {
+      book.classList.remove("mod-pull-releasing");
+      startX = e.changedTouches[0].screenX;
+    });
+    book.addEventListener("touchmove", (e) => {
+      const touchX = e.changedTouches[0].screenX;
+      const pullDistance = -Math.max(touchX - startX, -PULL_MAXIMUM);
+      if (pullDistance < PULL_THRESHOLD)
+        return;
+      book.style.setProperty("--pull-translation", `${PULL_THRESHOLD - pullDistance}px`);
+    });
+    book.addEventListener("touchend", endTouch);
+    book.addEventListener("touchcancel", endTouch);
+  };
   document.addEventListener("DOMContentLoaded", () => {
     const book = document.querySelector('[data-target-id="tikkun-book"]');
     const toggle = document.querySelector('[data-target-id="annotations-toggle"]');
@@ -62733,6 +62755,7 @@
     book.addEventListener("scroll", debounce(() => {
       rememberLastScrolledPosition();
     }, 1e3));
+    listenForRevealGesture(book);
     window.addEventListener("resize", () => {
       resumeLastScrollPosition();
     });

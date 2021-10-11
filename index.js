@@ -196,7 +196,7 @@ const renderPage = ({ insertStrategy: insert }) => ({ content, title }) => {
     node.appendChild(el)
   }
 
-  renderTitle({ title })
+  setTimeout(updatePageTitle, 0)
 
   return node
 }
@@ -212,6 +212,38 @@ const debounce = (callback, delay) => {
       callback()
     }, delay)
   }
+}
+
+const listenForRevealGesture = book => {
+  const PULL_THRESHOLD = 30 // px
+  const PULL_MAXIMUM = 100
+
+  const endTouch = () => {
+    book.classList.add('mod-pull-releasing')
+
+    book.style.setProperty('--pull-translation', 0)
+  }
+
+  let startX = 0
+
+  book.addEventListener('touchstart', e => {
+    book.classList.remove('mod-pull-releasing')
+
+    startX = e.changedTouches[0].screenX
+  })
+
+  book.addEventListener('touchmove', e => {
+    const touchX = e.changedTouches[0].screenX
+    const pullDistance = -Math.max(touchX - startX, -PULL_MAXIMUM)
+
+    if (pullDistance < PULL_THRESHOLD) return
+
+    book.style.setProperty('--pull-translation', `${PULL_THRESHOLD - pullDistance}px`)
+  })
+
+  book.addEventListener('touchend', endTouch)
+
+  book.addEventListener('touchcancel', endTouch)
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -233,6 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
   book.addEventListener('scroll', debounce(() => {
     rememberLastScrolledPosition()
   }, 1000))
+
+  listenForRevealGesture(book)
 
   window.addEventListener('resize', () => {
     resumeLastScrollPosition()

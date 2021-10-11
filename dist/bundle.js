@@ -62168,29 +62168,27 @@
     return (found || { he: "\u05E8\u05D0\u05E9\u05D5\u05DF" }).he;
   };
   var Line = ({ scroll: __scroll, text, verses, aliyot, isPetucha }) => `
-  <div class="line ${petuchaClass(isPetucha)}">
-    ${text.map((column) => `
-      <div class="column">
-        ${column.map((fragment) => `
-          <span class="fragment ${setumaClass(column)} mod-annotations-on">${ktivKriAnnotation(textFilter({ text: fragment, annotated: true }))}</span>
-          <span class="fragment ${setumaClass(column)} mod-annotations-off">${ktivKriAnnotation(textFilter({ text: fragment, annotated: false }))}</span>
-        `).join("")}
-      </div>
-    `).join("")}
-    <span class="location-indicator mod-verses">${displayRange.asVersesRange(verses)}</span>
-    <span class="location-indicator mod-aliyot" data-target-id="aliyot-range">${aliyotDisplay({ verses, scroll: __scroll })}</span>
-  </div>
+  <tr>
+    <td class="line ${petuchaClass(isPetucha)}">
+      ${text.map((column) => `
+        <div class="column">
+          ${column.map((fragment) => `
+            <span class="fragment ${setumaClass(column)} mod-annotations-on">${ktivKriAnnotation(textFilter({ text: fragment, annotated: true }))}</span>
+            <span class="fragment ${setumaClass(column)} mod-annotations-off">${ktivKriAnnotation(textFilter({ text: fragment, annotated: false }))}</span>
+          `).join("")}
+        </div>
+      `).join("")}
+      <span class="location-indicator mod-verses">${displayRange.asVersesRange(verses)}</span>
+      <span class="location-indicator mod-aliyot" data-target-id="aliyot-range">${aliyotDisplay({ verses, scroll: __scroll })}</span>
+    </td>
+  </tr>
 `;
   var Line_default = Line;
 
   // components/Page.js
   var Page = ({ scroll: _scroll, lines }) => `
   <table>
-    ${lines.map((line) => `
-      <tr>
-        <td>${Line_default({ scroll: _scroll, ...line })}</td>
-      </tr>
-    `).join("")}
+    ${lines.map((line) => Line_default({ scroll: _scroll, ...line })).join("")}
   </table>
 `;
   var Page_default = Page;
@@ -62707,7 +62705,7 @@
     } else {
       node.appendChild(el);
     }
-    renderTitle({ title: title2 });
+    setTimeout(updatePageTitle, 0);
     return node;
   };
   var renderPrevious = renderPage({ insertStrategy: insertBefore });
@@ -62720,6 +62718,28 @@
         callback();
       }, delay);
     };
+  };
+  var listenForRevealGesture = (book) => {
+    const PULL_THRESHOLD = 30;
+    const PULL_MAXIMUM = 100;
+    const endTouch = () => {
+      book.classList.add("mod-pull-releasing");
+      book.style.setProperty("--pull-translation", 0);
+    };
+    let startX = 0;
+    book.addEventListener("touchstart", (e) => {
+      book.classList.remove("mod-pull-releasing");
+      startX = e.changedTouches[0].screenX;
+    });
+    book.addEventListener("touchmove", (e) => {
+      const touchX = e.changedTouches[0].screenX;
+      const pullDistance = -Math.max(touchX - startX, -PULL_MAXIMUM);
+      if (pullDistance < PULL_THRESHOLD)
+        return;
+      book.style.setProperty("--pull-translation", `${PULL_THRESHOLD - pullDistance}px`);
+    });
+    book.addEventListener("touchend", endTouch);
+    book.addEventListener("touchcancel", endTouch);
   };
   document.addEventListener("DOMContentLoaded", () => {
     const book = document.querySelector('[data-target-id="tikkun-book"]');
@@ -62735,6 +62755,7 @@
     book.addEventListener("scroll", debounce(() => {
       rememberLastScrolledPosition();
     }, 1e3));
+    listenForRevealGesture(book);
     window.addEventListener("resize", () => {
       resumeLastScrollPosition();
     });

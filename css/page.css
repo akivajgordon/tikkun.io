@@ -5,6 +5,11 @@
   color: var(--page-ink-color);
 }
 
+.tikkun-page table {
+  transform: translateX(var(--pull-translation));
+  transition: transform var(--pull-transform);
+}
+
 @media screen and (max-width: 900px) {
   .tikkun-page {
     font-size: 0.9em;
@@ -90,6 +95,10 @@
   position: absolute;
   font-family: sans-serif;
   font-size: 0.8em;
+
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .tikkun-book.mod-annotations-off .location-indicator {
@@ -102,9 +111,11 @@
 }
 
 .location-indicator.mod-aliyot {
-  right: -13ch;
+  right: 0;
   color: hsla(203, 100%, 50%, 0.75);
   max-width: 8ch;
+  transform: translateX(calc(9ch + 100%));
+  text-align: right;
 }
 
 .ktiv-kri {

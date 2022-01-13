@@ -28,7 +28,6 @@
   }
 }
 
-
 @media screen and (max-width: 600px) {
   .tikkun-page {
     font-size: 0.6em;
@@ -97,8 +96,9 @@
   font-size: 0.8em;
 
   -webkit-user-select: none;
-  -ms-user-select: none;
   user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
 }
 
 .tikkun-book.mod-annotations-off .location-indicator {

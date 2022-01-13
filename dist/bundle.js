@@ -549,17 +549,18 @@
   var require_text_filter = __commonJS({
     "src/text-filter.js"(exports, module) {
       var NUN_HAFUCHA = "\u05C6";
-      var ketiv = (text) => text.replace("#(\u05E4)", "").replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`).split(" ").map((maqafSeparatedWord) => maqafSeparatedWord.split("\u05BE").map((word) => {
+      var tee = (x) => {
+        console.log(x);
+        return x;
+      };
+      var ketiv = (text) => text.replace("#(\u05E4)", "").replace(`(${NUN_HAFUCHA})#`, `${NUN_HAFUCHA} `).replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`).split(" ").map((maqafSeparatedWord) => maqafSeparatedWord.split("\u05BE").map((word) => {
         const parts = word.split("#");
         if (parts.length <= 1) {
           return parts[0];
         }
-        return `{${parts.slice(1).map((bracketed) => bracketed.slice(1, -1)).join(" ")}}`;
-      }).join("\u05BE")).join(" ");
-      var kri = (text) => text.replace(/־/g, " ").replace("#(\u05E4)", "").replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`).split(" ").map((word) => {
-        const parts = word.split("#");
-        return parts[0];
-      }).join(" ").replace(new RegExp(`[^\u05D0-\u05EA\\s${NUN_HAFUCHA}]`, "g"), "");
+        return parts.slice(1);
+      }).join("\u05BE")).join(" ").replace(/\[/g, "{").replace(/\]/g, "}");
+      var kri = (text) => tee(text.replace("#(\u05E4)", "").replace(`(${NUN_HAFUCHA})#`, `${NUN_HAFUCHA} `).replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`).replace(/־/g, " ").replace(/#\[.+?\]/g, " ").replace(new RegExp(`[^\u05D0-\u05EA\\s${NUN_HAFUCHA}]`, "g"), "").replace(/\s{2,}/g, " "));
       module.exports = ({ text, annotated }) => annotated ? ketiv(text) : kri(text);
     }
   });
@@ -62066,12 +62067,20 @@
 
   // src/scrolls-by-key.js
   var import_holydays = __toModule(require_holydays());
-  var fetchPage = ({ path, title: title2 }) => window.fetch(path).then((res) => res.json()).then((page) => ({ content: page, title: title2 })).catch((err) => {
+  var fetchPage = ({ path, title: title2, pageNumber }) => window.fetch(path).then((res) => res.json()).then((page) => ({ content: page, title: title2, pageNumber })).catch((err) => {
     console.error(err);
   });
   var Scroll = {
-    new: ({ scroll: scroll2, makePath, makeTitle, startingAtRef = { b: 1, c: 1, v: 1 } }) => {
-      const { pageNumber, lineNumber } = physicalLocationFromRef({ ref: startingAtRef, scroll: scroll2 });
+    new: ({
+      scroll: scroll2,
+      makePath,
+      makeTitle,
+      startingAtRef = { b: 1, c: 1, v: 1 }
+    }) => {
+      const { pageNumber, lineNumber } = physicalLocationFromRef({
+        ref: startingAtRef,
+        scroll: scroll2
+      });
       const iterator = import_integer_iterator.default.new({ startingAt: pageNumber });
       return {
         scrollName: scroll2,
@@ -62079,11 +62088,19 @@
           const n = iterator.previous();
           if (n <= 0)
             return Promise.resolve();
-          return fetchPage({ path: makePath(n), title: makeTitle(n) });
+          return fetchPage({
+            path: makePath(n),
+            title: makeTitle(n),
+            pageNumber: n
+          });
         },
         fetchNext: () => {
           const n = iterator.next();
-          return fetchPage({ path: makePath(n), title: makeTitle(n) });
+          return fetchPage({
+            path: makePath(n),
+            title: makeTitle(n),
+            pageNumber: n
+          });
         },
         startingLineNumber: lineNumber
       };
@@ -62110,8 +62127,8 @@
     }
   };
   var scrolls_by_key_default = {
-    "torah": TorahScroll,
-    "esther": EstherScroll,
+    torah: TorahScroll,
+    esther: EstherScroll,
     ...Object.keys(import_holydays.default).reduce((result, holydayKey) => {
       const HolydayScroll = {
         new: ({ startingAtRef }) => {
@@ -62578,10 +62595,11 @@
   var renderTitle = ({ title: title2 }) => {
     document.querySelector('[data-target-id="parsha-title"]').innerHTML = title2;
   };
-  var makePageNode = ({ title: title2 }) => {
+  var makePageNode = ({ title: title2, pageNumber }) => {
     const node = document.createElement("div");
     node.classList.add("tikkun-page");
     node.setAttribute("data-page-title", title2);
+    node.setAttribute("data-page-number", pageNumber);
     return node;
   };
   var scrollToLine = ({ node, lineIndex }) => {
@@ -62595,7 +62613,10 @@
       scroll = scrolls_by_key_default[ref.scroll].new({ startingAtRef: ref });
       purgeNode3(document.querySelector('[data-target-id="tikkun-book"]'));
       scroll.fetchNext().then(renderNext).then((pageNode) => {
-        scrollToLine({ node: pageNode, lineIndex: scroll.startingLineNumber - 1 });
+        scrollToLine({
+          node: pageNode,
+          lineIndex: scroll.startingLineNumber - 1
+        });
       });
       hideParshaPicker();
       return Promise.resolve();
@@ -62671,7 +62692,9 @@
       x: bookBoundingRect.left + bookBoundingRect.width / 2,
       y: bookBoundingRect.top
     };
-    const pageAtTop = [...document.elementsFromPoint(topOfBookRelativeToViewport.x, topOfBookRelativeToViewport.y)].find((el) => el.className.includes("tikkun-page"));
+    const pageAtTop = [
+      ...document.elementsFromPoint(topOfBookRelativeToViewport.x, topOfBookRelativeToViewport.y)
+    ].find((el) => el.className.includes("tikkun-page"));
     if (!pageAtTop)
       return;
     scrollState.pageAtTop = pageAtTop;
@@ -62683,7 +62706,9 @@
       x: bookBoundingRect.left + bookBoundingRect.width / 2,
       y: bookBoundingRect.top + bookBoundingRect.height / 2
     };
-    const pageAtCenter = [...document.elementsFromPoint(centerOfBookRelativeToViewport.x, centerOfBookRelativeToViewport.y)].find((el) => el.className.includes("tikkun-page"));
+    const pageAtCenter = [
+      ...document.elementsFromPoint(centerOfBookRelativeToViewport.x, centerOfBookRelativeToViewport.y)
+    ].find((el) => el.className.includes("tikkun-page"));
     if (!pageAtCenter)
       return;
     renderTitle({ title: pageAtCenter.getAttribute("data-page-title") });
@@ -62695,8 +62720,8 @@
       f();
     }
   };
-  var renderPage = ({ insertStrategy: insert }) => ({ content, title: title2 }) => {
-    const node = makePageNode({ title: title2 });
+  var renderPage = ({ insertStrategy: insert }) => ({ content, title: title2, pageNumber }) => {
+    const node = makePageNode({ title: title2, pageNumber });
     insert(document.querySelector('[data-target-id="tikkun-book"]'), node);
     const el = htmlToElement5(Page_default({ scroll: scroll.scrollName, lines: content }));
     const firstChild = node.firstChild;
@@ -62746,7 +62771,10 @@
     const toggle = document.querySelector('[data-target-id="annotations-toggle"]');
     import_infinite_scroller.default.new({
       container: book,
-      fetchPreviousContent: { fetch: () => scroll.fetchPrevious(), render: renderPrevious },
+      fetchPreviousContent: {
+        fetch: () => scroll.fetchPrevious(),
+        render: renderPrevious
+      },
       fetchNextContent: { fetch: () => scroll.fetchNext(), render: renderNext }
     }).attach();
     book.addEventListener("scroll", () => {

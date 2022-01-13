@@ -21,10 +21,11 @@ const renderTitle = ({ title }) => {
   document.querySelector('[data-target-id="parsha-title"]').innerHTML = title
 }
 
-const makePageNode = ({ title }) => {
+const makePageNode = ({ title, pageNumber }) => {
   const node = document.createElement('div')
   node.classList.add('tikkun-page')
   node.setAttribute('data-page-title', title)
+  node.setAttribute('data-page-number', pageNumber)
 
   return node
 }
@@ -36,7 +37,8 @@ const scrollToLine = ({ node, lineIndex }) => {
 
   const book = document.querySelector('.tikkun-book')
 
-  book.scrollTop = line.offsetTop + (line.offsetHeight / 2) - (book.offsetHeight / 2)
+  book.scrollTop =
+    line.offsetTop + line.offsetHeight / 2 - book.offsetHeight / 2
 }
 
 const app = {
@@ -45,16 +47,20 @@ const app = {
 
     purgeNode(document.querySelector('[data-target-id="tikkun-book"]'))
 
-    scroll.fetchNext()
+    scroll
+      .fetchNext()
       .then(renderNext)
       .then((pageNode) => {
-        scrollToLine({ node: pageNode, lineIndex: scroll.startingLineNumber - 1 })
+        scrollToLine({
+          node: pageNode,
+          lineIndex: scroll.startingLineNumber - 1,
+        })
       })
 
     hideParshaPicker()
 
     return Promise.resolve()
-  }
+  },
 }
 
 const setVisibility = ({ selector, visible }) => {
@@ -68,9 +74,8 @@ const showParshaPicker = () => {
   ;[
     { selector: '[data-test-id="annotations-toggle"]', visible: false },
     { selector: '[data-target-id="repo-link"]', visible: false },
-    { selector: '[data-target-id="tikkun-book"]', visible: false }
-  ]
-    .forEach(({ selector, visible }) => setVisibility({ selector, visible }))
+    { selector: '[data-target-id="tikkun-book"]', visible: false },
+  ].forEach(({ selector, visible }) => setVisibility({ selector, visible }))
 
   const jumper = ParshaPicker(({ ref, key, source }) => {
     app.jumpTo({ ref })
@@ -78,9 +83,9 @@ const showParshaPicker = () => {
     const { scroll } = ref
 
     const hashBySource = {
-      comingUp: key => key === 'next' ? `#/next` : `#/p/${key}`,
-      browse: key => `#/${scroll === 'torah' ? 'p' : 'h'}/${key}`,
-      search: key => `#/${scroll === 'torah' ? 'p' : 'h'}/${key}`
+      comingUp: (key) => (key === 'next' ? `#/next` : `#/p/${key}`),
+      browse: (key) => `#/${scroll === 'torah' ? 'p' : 'h'}/${key}`,
+      search: (key) => `#/${scroll === 'torah' ? 'p' : 'h'}/${key}`,
     }[source](key)
 
     window.location.hash = hashBySource
@@ -89,7 +94,7 @@ const showParshaPicker = () => {
   document.querySelector('#js-app').appendChild(jumper.node)
 
   gtag('event', 'view', {
-    event_category: 'navigation'
+    event_category: 'navigation',
   })
 
   jumper.onMount()
@@ -99,15 +104,19 @@ const hideParshaPicker = () => {
   ;[
     { selector: '[data-test-id="annotations-toggle"]', visible: true },
     { selector: '[data-target-id="repo-link"]', visible: true },
-    { selector: '[data-target-id="tikkun-book"]', visible: true }
-  ]
-    .forEach(({ selector, visible }) => setVisibility({ selector, visible }))
+    { selector: '[data-target-id="tikkun-book"]', visible: true },
+  ].forEach(({ selector, visible }) => setVisibility({ selector, visible }))
 
-  document.querySelector('.parsha-picker') && document.querySelector('#js-app').removeChild(document.querySelector('.parsha-picker'))
+  document.querySelector('.parsha-picker') &&
+    document
+      .querySelector('#js-app')
+      .removeChild(document.querySelector('.parsha-picker'))
 }
 
 const toggleParshaPicker = () => {
-  const isShowingParshaPicker = Boolean(document.querySelector('.parsha-picker'))
+  const isShowingParshaPicker = Boolean(
+    document.querySelector('.parsha-picker')
+  )
 
   if (isShowingParshaPicker) {
     hideParshaPicker()
@@ -129,7 +138,7 @@ const toggleAnnotations = (getPreviousCheckedState) => {
 
 const scrollState = {
   lastScrolledPosition: 0,
-  pageAtTop: null
+  pageAtTop: null,
 }
 
 const resumeLastScrollPosition = () => {
@@ -137,7 +146,9 @@ const resumeLastScrollPosition = () => {
   const book = document.querySelector('.tikkun-book')
   const pageRect = scrollState.pageAtTop.getBoundingClientRect()
 
-  book.scrollTop = scrollState.pageAtTop.offsetTop + (scrollState.lastScrolledPosition * pageRect.height)
+  book.scrollTop =
+    scrollState.pageAtTop.offsetTop +
+    scrollState.lastScrolledPosition * pageRect.height
 }
 
 const rememberLastScrolledPosition = () => {
@@ -145,29 +156,40 @@ const rememberLastScrolledPosition = () => {
   const bookBoundingRect = book.getBoundingClientRect()
 
   const topOfBookRelativeToViewport = {
-    x: bookBoundingRect.left + (bookBoundingRect.width / 2),
-    y: bookBoundingRect.top
+    x: bookBoundingRect.left + bookBoundingRect.width / 2,
+    y: bookBoundingRect.top,
   }
 
-  const pageAtTop = [...document.elementsFromPoint(topOfBookRelativeToViewport.x, topOfBookRelativeToViewport.y)]
-    .find(el => el.className.includes('tikkun-page'))
+  const pageAtTop = [
+    ...document.elementsFromPoint(
+      topOfBookRelativeToViewport.x,
+      topOfBookRelativeToViewport.y
+    ),
+  ].find((el) => el.className.includes('tikkun-page'))
 
   if (!pageAtTop) return
 
   scrollState.pageAtTop = pageAtTop
-  scrollState.lastScrolledPosition = (book.scrollTop - pageAtTop.offsetTop) / pageAtTop.clientHeight
+  scrollState.lastScrolledPosition =
+    (book.scrollTop - pageAtTop.offsetTop) / pageAtTop.clientHeight
 }
 
 const updatePageTitle = () => {
-  const bookBoundingRect = document.querySelector('.tikkun-book').getBoundingClientRect()
+  const bookBoundingRect = document
+    .querySelector('.tikkun-book')
+    .getBoundingClientRect()
 
   const centerOfBookRelativeToViewport = {
-    x: bookBoundingRect.left + (bookBoundingRect.width / 2),
-    y: bookBoundingRect.top + (bookBoundingRect.height / 2)
+    x: bookBoundingRect.left + bookBoundingRect.width / 2,
+    y: bookBoundingRect.top + bookBoundingRect.height / 2,
   }
 
-  const pageAtCenter = [...document.elementsFromPoint(centerOfBookRelativeToViewport.x, centerOfBookRelativeToViewport.y)]
-    .find(el => el.className.includes('tikkun-page'))
+  const pageAtCenter = [
+    ...document.elementsFromPoint(
+      centerOfBookRelativeToViewport.x,
+      centerOfBookRelativeToViewport.y
+    ),
+  ].find((el) => el.className.includes('tikkun-page'))
 
   if (!pageAtCenter) return
 
@@ -175,31 +197,35 @@ const updatePageTitle = () => {
 }
 
 let lastCalled = Date.now()
-const throttle = f => {
+const throttle = (f) => {
   if (Date.now() - lastCalled > 300) {
     lastCalled = Date.now()
     f()
   }
 }
 
-const renderPage = ({ insertStrategy: insert }) => ({ content, title }) => {
-  const node = makePageNode({ title })
+const renderPage =
+  ({ insertStrategy: insert }) =>
+  ({ content, title, pageNumber }) => {
+    const node = makePageNode({ title, pageNumber })
 
-  insert(document.querySelector('[data-target-id="tikkun-book"]'), node)
+    insert(document.querySelector('[data-target-id="tikkun-book"]'), node)
 
-  const el = htmlToElement(Page({ scroll: scroll.scrollName, lines: content }))
+    const el = htmlToElement(
+      Page({ scroll: scroll.scrollName, lines: content })
+    )
 
-  const firstChild = node.firstChild
-  if (firstChild) {
-    node.replaceChild(el, firstChild)
-  } else {
-    node.appendChild(el)
+    const firstChild = node.firstChild
+    if (firstChild) {
+      node.replaceChild(el, firstChild)
+    } else {
+      node.appendChild(el)
+    }
+
+    setTimeout(updatePageTitle, 0)
+
+    return node
   }
-
-  setTimeout(updatePageTitle, 0)
-
-  return node
-}
 
 const renderPrevious = renderPage({ insertStrategy: insertBefore })
 const renderNext = renderPage({ insertStrategy: insertAfter })
@@ -214,7 +240,7 @@ const debounce = (callback, delay) => {
   }
 }
 
-const listenForRevealGesture = book => {
+const listenForRevealGesture = (book) => {
   const PULL_THRESHOLD = 30 // px
   const PULL_MAXIMUM = 100
 
@@ -226,19 +252,22 @@ const listenForRevealGesture = book => {
 
   let startX = 0
 
-  book.addEventListener('touchstart', e => {
+  book.addEventListener('touchstart', (e) => {
     book.classList.remove('mod-pull-releasing')
 
     startX = e.changedTouches[0].screenX
   })
 
-  book.addEventListener('touchmove', e => {
+  book.addEventListener('touchmove', (e) => {
     const touchX = e.changedTouches[0].screenX
     const pullDistance = -Math.max(touchX - startX, -PULL_MAXIMUM)
 
     if (pullDistance < PULL_THRESHOLD) return
 
-    book.style.setProperty('--pull-translation', `${PULL_THRESHOLD - pullDistance}px`)
+    book.style.setProperty(
+      '--pull-translation',
+      `${PULL_THRESHOLD - pullDistance}px`
+    )
   })
 
   book.addEventListener('touchend', endTouch)
@@ -250,21 +279,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const book = document.querySelector('[data-target-id="tikkun-book"]')
   const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
 
-  InfiniteScroller
-    .new({
-      container: book,
-      fetchPreviousContent: { fetch: () => scroll.fetchPrevious(), render: renderPrevious },
-      fetchNextContent: { fetch: () => scroll.fetchNext(), render: renderNext }
-    })
-    .attach()
+  InfiniteScroller.new({
+    container: book,
+    fetchPreviousContent: {
+      fetch: () => scroll.fetchPrevious(),
+      render: renderPrevious,
+    },
+    fetchNextContent: { fetch: () => scroll.fetchNext(), render: renderNext },
+  }).attach()
 
   book.addEventListener('scroll', () => {
     throttle(() => updatePageTitle())
   })
 
-  book.addEventListener('scroll', debounce(() => {
-    rememberLastScrolledPosition()
-  }, 1000))
+  book.addEventListener(
+    'scroll',
+    debounce(() => {
+      rememberLastScrolledPosition()
+    }, 1000)
+  )
 
   listenForRevealGesture(book)
 
@@ -272,15 +305,24 @@ document.addEventListener('DOMContentLoaded', () => {
     resumeLastScrollPosition()
   })
 
-  toggle.addEventListener('change', (e) => toggleAnnotations(() => !e.target.checked))
+  toggle.addEventListener('change', (e) =>
+    toggleAnnotations(() => !e.target.checked)
+  )
 
-  document.addEventListener('keydown', whenKey('Shift', () => toggleAnnotations(() => toggle.checked)))
-  document.addEventListener('keyup', whenKey('Shift', () => toggleAnnotations(() => toggle.checked)))
+  document.addEventListener(
+    'keydown',
+    whenKey('Shift', () => toggleAnnotations(() => toggle.checked))
+  )
+  document.addEventListener(
+    'keyup',
+    whenKey('Shift', () => toggleAnnotations(() => toggle.checked))
+  )
 
-  document.querySelector('[data-target-id="parsha-title"]').addEventListener('click', toggleParshaPicker)
+  document
+    .querySelector('[data-target-id="parsha-title"]')
+    .addEventListener('click', toggleParshaPicker)
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))
 
   const startingRef = urlToRef({ url: window.location.href })
-  app.jumpTo({ ref: startingRef })
-    .then(hideParshaPicker)
+  app.jumpTo({ ref: startingRef }).then(hideParshaPicker)
 })

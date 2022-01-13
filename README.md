@@ -3,6 +3,8 @@
 
 The mission is to **make better Torah readers** by providing the tools to maximize the reader's efficiency and preparedness. Your good, old-fashioned tikkunim are great, but in the end, they're static papers. With the dynamic nature of computer programs, we can make an even better tikkun.
 
+The source text is pulled from the [Sefaria API](https://github.com/Sefaria/Sefaria-Project/wiki/API-Documentation), with some minor overrides as issues are found (such as פתוחה/סתומה discrepancies).
+
 ## Contributing
 
 **Dependencies**: Node.js 10+

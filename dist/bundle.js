@@ -1234,23 +1234,6 @@
         }
         return [strings[0], strings[strings.length - 1]].join("-");
       };
-      var aliyotStrings = [
-        "\u05E8\u05D0\u05E9\u05D5\u05DF",
-        "\u05E9\u05E0\u05D9",
-        "\u05E9\u05DC\u05D9\u05E9\u05D9",
-        "\u05E8\u05D1\u05D9\u05E2\u05D9",
-        "\u05D7\u05DE\u05D9\u05E9\u05D9",
-        "\u05E9\u05E9\u05D9",
-        "\u05E9\u05D1\u05D9\u05E2\u05D9",
-        "\u05DE\u05E4\u05D8\u05D9\u05E8"
-      ];
-      var aliyahName = ({ aliyah, getParshaName }) => {
-        if (aliyah < 1 || aliyah > aliyotStrings.length)
-          return null;
-        if (aliyah === 1)
-          return getParshaName();
-        return aliyotStrings[aliyah - 1];
-      };
       var asVersesRange = (verses) => asRange(verses.map((verse) => {
         const components = [];
         if (verse.verse === 1) {
@@ -1259,7 +1242,7 @@
         components.push(verse.verse);
         return components.map((num) => hebrewNumeralFromInteger2(num)).join(":");
       }));
-      module.exports = { asVersesRange, aliyahName };
+      module.exports = { asVersesRange };
     }
   });
 
@@ -62096,6 +62079,23 @@
   var fetchPage = ({ path, title: title2, pageNumber }) => window.fetch(path).then((res) => res.json()).then((page) => ({ content: page, title: title2, pageNumber })).catch((err) => {
     console.error(err);
   });
+  var aliyotStrings = [
+    "\u05E8\u05D0\u05E9\u05D5\u05DF",
+    "\u05E9\u05E0\u05D9",
+    "\u05E9\u05DC\u05D9\u05E9\u05D9",
+    "\u05E8\u05D1\u05D9\u05E2\u05D9",
+    "\u05D7\u05DE\u05D9\u05E9\u05D9",
+    "\u05E9\u05E9\u05D9",
+    "\u05E9\u05D1\u05D9\u05E2\u05D9",
+    "\u05DE\u05E4\u05D8\u05D9\u05E8"
+  ];
+  var aliyahName = ({ aliyah, getParshaName }) => {
+    if (aliyah < 1 || aliyah > aliyotStrings.length)
+      return null;
+    if (aliyah === 1)
+      return getParshaName();
+    return aliyotStrings[aliyah - 1];
+  };
   var Scroll = {
     new: ({
       scroll: scroll2,
@@ -62139,11 +62139,11 @@
             return "";
           const { standard, double, special } = found[0];
           const display = (aliyah) => {
-            return displayRange.aliyahName({
+            return aliyahName({
               aliyah,
               getParshaName: () => {
                 const found2 = aliyahFinder.find(({ ref }) => verses.some(({ book: b, chapter: c, verse: v }) => ref.b === b && ref.c === c && ref.v === v));
-                return (found2 || { he: "\u05E8\u05D0\u05E9\u05D5\u05DF" }).he;
+                return found2?.he;
               }
             });
           };

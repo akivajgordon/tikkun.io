@@ -1,9 +1,4 @@
-import {
-  IntegerIterator,
-  physicalLocationFromRef,
-  title as getTitle,
-  displayRange,
-} from '.'
+import { IntegerIterator, physicalLocationFromRef, title as getTitle } from '.'
 import pageTitles from '../build/page-titles.json'
 import holydays from '../build/holydays.json'
 import parshiyot from '../build/parshiyot.json'
@@ -17,6 +12,25 @@ const fetchPage = ({ path, title, pageNumber }) =>
     .catch((err) => {
       console.error(err)
     })
+
+const aliyotStrings = [
+  'ראשון',
+  'שני',
+  'שלישי',
+  'רביעי',
+  'חמישי',
+  'ששי',
+  'שביעי',
+  'מפטיר',
+]
+
+const aliyahName = ({ aliyah, getParshaName }) => {
+  if (aliyah < 1 || aliyah > aliyotStrings.length) return null
+
+  if (aliyah === 1) return getParshaName()
+
+  return aliyotStrings[aliyah - 1]
+}
 
 const Scroll = {
   new: ({
@@ -66,7 +80,7 @@ const Scroll = {
         const { standard, double, special } = found[0]
 
         const display = (aliyah) => {
-          return displayRange.aliyahName({
+          return aliyahName({
             aliyah,
             getParshaName: () => {
               const found = aliyahFinder.find(({ ref }) =>
@@ -76,7 +90,7 @@ const Scroll = {
                 )
               )
 
-              return (found || { he: 'ראשון' }).he
+              return found?.he
             },
           })
         }

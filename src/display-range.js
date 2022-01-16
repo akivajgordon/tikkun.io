@@ -12,25 +12,6 @@ var asRange = (strings) => {
   return [strings[0], strings[strings.length - 1]].join('-')
 }
 
-const aliyotStrings = [
-  'ראשון',
-  'שני',
-  'שלישי',
-  'רביעי',
-  'חמישי',
-  'ששי',
-  'שביעי',
-  'מפטיר',
-]
-
-const aliyahName = ({ aliyah, getParshaName }) => {
-  if (aliyah < 1 || aliyah > aliyotStrings.length) return null
-
-  if (aliyah === 1) return getParshaName()
-
-  return aliyotStrings[aliyah - 1]
-}
-
 const asVersesRange = (verses) =>
   asRange(
     verses.map((verse) => {
@@ -46,4 +27,4 @@ const asVersesRange = (verses) =>
     })
   )
 
-module.exports = { asVersesRange, aliyahName }
+module.exports = { asVersesRange }

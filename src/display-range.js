@@ -20,7 +20,7 @@ const aliyotStrings = [
   'חמישי',
   'ששי',
   'שביעי',
-  'מפטיר'
+  'מפטיר',
 ]
 
 const aliyahName = ({ aliyah, getParshaName }) => {
@@ -31,31 +31,19 @@ const aliyahName = ({ aliyah, getParshaName }) => {
   return aliyotStrings[aliyah - 1]
 }
 
-const aliyotNames = (aliyot, getParshaName) => aliyot
-  .map((aliyah) => aliyahName({ aliyah, getParshaName }))
+const asVersesRange = (verses) =>
+  asRange(
+    verses.map((verse) => {
+      const components = []
 
-const asVersesRange = (verses) => asRange(verses.map((verse) => {
-  const components = []
+      if (verse.verse === 1) {
+        components.push(verse.chapter)
+      }
 
-  if (verse.verse === 1) {
-    components.push(verse.chapter)
-  }
+      components.push(verse.verse)
 
-  components.push(verse.verse)
+      return components.map((num) => hebrewNumeralFromInteger(num)).join(':')
+    })
+  )
 
-  return components
-    .map((num) => hebrewNumeralFromInteger(num))
-    .join(':')
-}))
-
-const asAliyotRange = (aliyot, getParshaName) => {
-  if (!aliyot.length) {
-    return ''
-  }
-
-  const aliyotByName = aliyotNames(aliyot, getParshaName)
-
-  return aliyotByName[0] + (aliyotByName[1] ? ` [${aliyotByName[1]}]` : '')
-}
-
-module.exports = { asVersesRange, asAliyotRange, aliyotStrings, aliyotNames, aliyahName }
+module.exports = { asVersesRange, aliyahName }

@@ -211,9 +211,7 @@ const renderPage =
 
     insert(document.querySelector('[data-target-id="tikkun-book"]'), node)
 
-    const el = htmlToElement(
-      Page({ scroll: scroll.scrollName, lines: content })
-    )
+    const el = htmlToElement(Page({ scroll, lines: content }))
 
     const firstChild = node.firstChild
     if (firstChild) {

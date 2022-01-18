@@ -1,10 +1,5 @@
 const NUN_HAFUCHA = '׆'
 
-const tee = (x) => {
-  console.log(x)
-  return x
-}
-
 const ketiv = (text) =>
   text
     .replace('#(פ)', '')
@@ -30,15 +25,13 @@ const ketiv = (text) =>
     .replace(/\]/g, '}')
 
 const kri = (text) =>
-  tee(
-    text
-      .replace('#(פ)', '')
-      .replace(`(${NUN_HAFUCHA})#`, `${NUN_HAFUCHA} `)
-      .replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`)
-      .replace(/־/g, ' ')
-      .replace(/#\[.+?\]/g, ' ')
-      .replace(new RegExp(`[^א-ת\\s${NUN_HAFUCHA}]`, 'g'), '')
-      .replace(/\s{2,}/g, ' ')
-  )
+  text
+    .replace('#(פ)', '')
+    .replace(`(${NUN_HAFUCHA})#`, `${NUN_HAFUCHA} `)
+    .replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`)
+    .replace(/־/g, ' ')
+    .replace(/#\[.+?\]/g, ' ')
+    .replace(new RegExp(`[^א-ת\\s${NUN_HAFUCHA}]`, 'g'), '')
+    .replace(/\s{2,}/g, ' ')
 
 module.exports = ({ text, annotated }) => (annotated ? ketiv(text) : kri(text))

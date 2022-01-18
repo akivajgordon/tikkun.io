@@ -1205,10 +1205,6 @@
   var require_text_filter = __commonJS({
     "src/text-filter.js"(exports, module) {
       var NUN_HAFUCHA = "\u05C6";
-      var tee = (x) => {
-        console.log(x);
-        return x;
-      };
       var ketiv = (text) => text.replace("#(\u05E4)", "").replace(`(${NUN_HAFUCHA})#`, `${NUN_HAFUCHA} `).replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`).split(" ").map((maqafSeparatedWord) => maqafSeparatedWord.split("\u05BE").map((word) => {
         const parts = word.split("#");
         if (parts.length <= 1) {
@@ -1216,7 +1212,7 @@
         }
         return parts.slice(1);
       }).join("\u05BE")).join(" ").replace(/\[/g, "{").replace(/\]/g, "}");
-      var kri = (text) => tee(text.replace("#(\u05E4)", "").replace(`(${NUN_HAFUCHA})#`, `${NUN_HAFUCHA} `).replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`).replace(/־/g, " ").replace(/#\[.+?\]/g, " ").replace(new RegExp(`[^\u05D0-\u05EA\\s${NUN_HAFUCHA}]`, "g"), "").replace(/\s{2,}/g, " "));
+      var kri = (text) => text.replace("#(\u05E4)", "").replace(`(${NUN_HAFUCHA})#`, `${NUN_HAFUCHA} `).replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`).replace(/־/g, " ").replace(/#\[.+?\]/g, " ").replace(new RegExp(`[^\u05D0-\u05EA\\s${NUN_HAFUCHA}]`, "g"), "").replace(/\s{2,}/g, " ");
       module.exports = ({ text, annotated }) => annotated ? ketiv(text) : kri(text);
     }
   });

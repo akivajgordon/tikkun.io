@@ -7,18 +7,18 @@
   var __hasOwnProp = Object.prototype.hasOwnProperty;
   var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
   var __commonJS = (cb, mod) => function __require() {
-    return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
   };
-  var __reExport = (target, module, desc) => {
+  var __reExport = (target, module, copyDefault, desc) => {
     if (module && typeof module === "object" || typeof module === "function") {
       for (let key of __getOwnPropNames(module))
-        if (!__hasOwnProp.call(target, key) && key !== "default")
+        if (!__hasOwnProp.call(target, key) && (copyDefault || key !== "default"))
           __defProp(target, key, { get: () => module[key], enumerable: !(desc = __getOwnPropDesc(module, key)) || desc.enumerable });
     }
     return target;
   };
-  var __toModule = (module) => {
-    return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
+  var __toESM = (module, isNodeMode) => {
+    return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", !isNodeMode && module && module.__esModule ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
   };
 
   // src/infinite-scroller.js
@@ -500,6 +500,662 @@
     }
   });
 
+  // build/parshiyot.json
+  var require_parshiyot = __commonJS({
+    "build/parshiyot.json"(exports, module) {
+      module.exports = [
+        {
+          he: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
+          en: "Bereshit",
+          ref: {
+            b: 1,
+            c: 1,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05E0\u05D7",
+          en: "Noach",
+          ref: {
+            b: 1,
+            c: 6,
+            v: 9,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05DC\u05DA \u05DC\u05DA",
+          en: "Lech Lecha",
+          ref: {
+            b: 1,
+            c: 12,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D5\u05D9\u05E8\u05D0",
+          en: "Vayera",
+          ref: {
+            b: 1,
+            c: 18,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
+          en: "Chayei Sara",
+          ref: {
+            b: 1,
+            c: 23,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
+          en: "Toldot",
+          ref: {
+            b: 1,
+            c: 25,
+            v: 19,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D5\u05D9\u05E6\u05D0",
+          en: "Vayetzei",
+          ref: {
+            b: 1,
+            c: 28,
+            v: 10,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D5\u05D9\u05E9\u05DC\u05D7",
+          en: "Vayishlach",
+          ref: {
+            b: 1,
+            c: 32,
+            v: 4,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D5\u05D9\u05E9\u05D1",
+          en: "Vayeshev",
+          ref: {
+            b: 1,
+            c: 37,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05DE\u05E7\u05E5",
+          en: "Miketz",
+          ref: {
+            b: 1,
+            c: 41,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D5\u05D9\u05D2\u05E9",
+          en: "Vayigash",
+          ref: {
+            b: 1,
+            c: 44,
+            v: 18,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D5\u05D9\u05D7\u05D9",
+          en: "Vayechi",
+          ref: {
+            b: 1,
+            c: 47,
+            v: 28,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05E9\u05DE\u05D5\u05EA",
+          en: "Shemot",
+          ref: {
+            b: 2,
+            c: 1,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D5\u05D0\u05E8\u05D0",
+          en: "Vaera",
+          ref: {
+            b: 2,
+            c: 6,
+            v: 2,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D1\u05D0",
+          en: "Bo",
+          ref: {
+            b: 2,
+            c: 10,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D1\u05E9\u05DC\u05D7",
+          en: "Beshalach",
+          ref: {
+            b: 2,
+            c: 13,
+            v: 17,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D9\u05EA\u05E8\u05D5",
+          en: "Yitro",
+          ref: {
+            b: 2,
+            c: 18,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
+          en: "Mishpatim",
+          ref: {
+            b: 2,
+            c: 21,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05EA\u05E8\u05D5\u05DE\u05D4",
+          en: "Terumah",
+          ref: {
+            b: 2,
+            c: 25,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05EA\u05E6\u05D5\u05D4",
+          en: "Tetzaveh",
+          ref: {
+            b: 2,
+            c: 27,
+            v: 20,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05DB\u05D9 \u05EA\u05E9\u05D0",
+          en: "Ki Tisa",
+          ref: {
+            b: 2,
+            c: 30,
+            v: 11,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D5\u05D9\u05E7\u05D4\u05DC",
+          en: "Vayakhel",
+          ref: {
+            b: 2,
+            c: 35,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05E4\u05E7\u05D5\u05D3\u05D9",
+          en: "Pekudei",
+          ref: {
+            b: 2,
+            c: 38,
+            v: 21,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D5\u05D9\u05E7\u05E8\u05D0",
+          en: "Vayikra",
+          ref: {
+            b: 3,
+            c: 1,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05E6\u05D5",
+          en: "Tzav",
+          ref: {
+            b: 3,
+            c: 6,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05E9\u05DE\u05D9\u05E0\u05D9",
+          en: "Shmini",
+          ref: {
+            b: 3,
+            c: 9,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05EA\u05D6\u05E8\u05D9\u05E2",
+          en: "Tazria",
+          ref: {
+            b: 3,
+            c: 12,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05DE\u05E6\u05D5\u05E8\u05E2",
+          en: "Metzora",
+          ref: {
+            b: 3,
+            c: 14,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA",
+          en: "Achrei Mot",
+          ref: {
+            b: 3,
+            c: 16,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
+          en: "Kedoshim",
+          ref: {
+            b: 3,
+            c: 19,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D0\u05DE\u05D5\u05E8",
+          en: "Emor",
+          ref: {
+            b: 3,
+            c: 21,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D1\u05D4\u05E8",
+          en: "Behar",
+          ref: {
+            b: 3,
+            c: 25,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D1\u05D7\u05E7\u05EA\u05D9",
+          en: "Bechukotai",
+          ref: {
+            b: 3,
+            c: 26,
+            v: 3,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D1\u05DE\u05D3\u05D1\u05E8",
+          en: "Bamidbar",
+          ref: {
+            b: 4,
+            c: 1,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05E0\u05E9\u05D0",
+          en: "Nasso",
+          ref: {
+            b: 4,
+            c: 4,
+            v: 21,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA",
+          en: "Beha'alotcha",
+          ref: {
+            b: 4,
+            c: 8,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05E9\u05DC\u05D7",
+          en: "Sh'lach",
+          ref: {
+            b: 4,
+            c: 13,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05E7\u05E8\u05D7",
+          en: "Korach",
+          ref: {
+            b: 4,
+            c: 16,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D7\u05E7\u05EA",
+          en: "Chukat",
+          ref: {
+            b: 4,
+            c: 19,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D1\u05DC\u05E7",
+          en: "Balak",
+          ref: {
+            b: 4,
+            c: 22,
+            v: 2,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05E4\u05E0\u05D7\u05E1",
+          en: "Pinchas",
+          ref: {
+            b: 4,
+            c: 25,
+            v: 10,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05DE\u05D8\u05D5\u05EA",
+          en: "Matot",
+          ref: {
+            b: 4,
+            c: 30,
+            v: 2,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05DE\u05E1\u05E2\u05D9",
+          en: "Masei",
+          ref: {
+            b: 4,
+            c: 33,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D3\u05D1\u05E8\u05D9\u05DD",
+          en: "Devarim",
+          ref: {
+            b: 5,
+            c: 1,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
+          en: "Vaetchanan",
+          ref: {
+            b: 5,
+            c: 3,
+            v: 23,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05E2\u05E7\u05D1",
+          en: "Eikev",
+          ref: {
+            b: 5,
+            c: 7,
+            v: 12,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05E8\u05D0\u05D4",
+          en: "Re'eh",
+          ref: {
+            b: 5,
+            c: 11,
+            v: 26,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
+          en: "Shoftim",
+          ref: {
+            b: 5,
+            c: 16,
+            v: 18,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05DB\u05D9 \u05EA\u05E6\u05D0",
+          en: "Ki Teitzei",
+          ref: {
+            b: 5,
+            c: 21,
+            v: 10,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
+          en: "Ki Tavo",
+          ref: {
+            b: 5,
+            c: 26,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05E0\u05E6\u05D1\u05D9\u05DD",
+          en: "Nitzavim",
+          ref: {
+            b: 5,
+            c: 29,
+            v: 9,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D5\u05D9\u05DC\u05DA",
+          en: "Vayeilech",
+          ref: {
+            b: 5,
+            c: 31,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
+          en: "Ha'Azinu",
+          ref: {
+            b: 5,
+            c: 32,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        },
+        {
+          he: "\u05D5\u05D6\u05D0\u05EA \u05D4\u05D1\u05E8\u05DB\u05D4",
+          en: "Vezot Haberakhah",
+          ref: {
+            b: 5,
+            c: 33,
+            v: 1,
+            a: {
+              standard: 1
+            }
+          }
+        }
+      ];
+    }
+  });
+
   // src/hebrew-numeral.js
   var require_hebrew_numeral = __commonJS({
     "src/hebrew-numeral.js"(exports, module) {
@@ -549,10 +1205,6 @@
   var require_text_filter = __commonJS({
     "src/text-filter.js"(exports, module) {
       var NUN_HAFUCHA = "\u05C6";
-      var tee = (x) => {
-        console.log(x);
-        return x;
-      };
       var ketiv = (text) => text.replace("#(\u05E4)", "").replace(`(${NUN_HAFUCHA})#`, `${NUN_HAFUCHA} `).replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`).split(" ").map((maqafSeparatedWord) => maqafSeparatedWord.split("\u05BE").map((word) => {
         const parts = word.split("#");
         if (parts.length <= 1) {
@@ -560,7 +1212,7 @@
         }
         return parts.slice(1);
       }).join("\u05BE")).join(" ").replace(/\[/g, "{").replace(/\]/g, "}");
-      var kri = (text) => tee(text.replace("#(\u05E4)", "").replace(`(${NUN_HAFUCHA})#`, `${NUN_HAFUCHA} `).replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`).replace(/־/g, " ").replace(/#\[.+?\]/g, " ").replace(new RegExp(`[^\u05D0-\u05EA\\s${NUN_HAFUCHA}]`, "g"), "").replace(/\s{2,}/g, " "));
+      var kri = (text) => text.replace("#(\u05E4)", "").replace(`(${NUN_HAFUCHA})#`, `${NUN_HAFUCHA} `).replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`).replace(/־/g, " ").replace(/#\[.+?\]/g, " ").replace(new RegExp(`[^\u05D0-\u05EA\\s${NUN_HAFUCHA}]`, "g"), "").replace(/\s{2,}/g, " ");
       module.exports = ({ text, annotated }) => annotated ? ketiv(text) : kri(text);
     }
   });
@@ -578,24 +1230,6 @@
         }
         return [strings[0], strings[strings.length - 1]].join("-");
       };
-      var aliyotStrings = [
-        "\u05E8\u05D0\u05E9\u05D5\u05DF",
-        "\u05E9\u05E0\u05D9",
-        "\u05E9\u05DC\u05D9\u05E9\u05D9",
-        "\u05E8\u05D1\u05D9\u05E2\u05D9",
-        "\u05D7\u05DE\u05D9\u05E9\u05D9",
-        "\u05E9\u05E9\u05D9",
-        "\u05E9\u05D1\u05D9\u05E2\u05D9",
-        "\u05DE\u05E4\u05D8\u05D9\u05E8"
-      ];
-      var aliyahName = ({ aliyah, getParshaName: getParshaName2 }) => {
-        if (aliyah < 1 || aliyah > aliyotStrings.length)
-          return null;
-        if (aliyah === 1)
-          return getParshaName2();
-        return aliyotStrings[aliyah - 1];
-      };
-      var aliyotNames = (aliyot, getParshaName2) => aliyot.map((aliyah) => aliyahName({ aliyah, getParshaName: getParshaName2 }));
       var asVersesRange = (verses) => asRange(verses.map((verse) => {
         const components = [];
         if (verse.verse === 1) {
@@ -604,14 +1238,7 @@
         components.push(verse.verse);
         return components.map((num) => hebrewNumeralFromInteger2(num)).join(":");
       }));
-      var asAliyotRange = (aliyot, getParshaName2) => {
-        if (!aliyot.length) {
-          return "";
-        }
-        const aliyotByName = aliyotNames(aliyot, getParshaName2);
-        return aliyotByName[0] + (aliyotByName[1] ? ` [${aliyotByName[1]}]` : "");
-      };
-      module.exports = { asVersesRange, asAliyotRange, aliyotStrings, aliyotNames, aliyahName };
+      module.exports = { asVersesRange };
     }
   });
 
@@ -55685,662 +56312,6 @@
     }
   });
 
-  // build/parshiyot.json
-  var require_parshiyot = __commonJS({
-    "build/parshiyot.json"(exports, module) {
-      module.exports = [
-        {
-          he: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
-          en: "Bereshit",
-          ref: {
-            b: 1,
-            c: 1,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05E0\u05D7",
-          en: "Noach",
-          ref: {
-            b: 1,
-            c: 6,
-            v: 9,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05DC\u05DA \u05DC\u05DA",
-          en: "Lech Lecha",
-          ref: {
-            b: 1,
-            c: 12,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D5\u05D9\u05E8\u05D0",
-          en: "Vayera",
-          ref: {
-            b: 1,
-            c: 18,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D7\u05D9\u05D9 \u05E9\u05E8\u05D4",
-          en: "Chayei Sara",
-          ref: {
-            b: 1,
-            c: 23,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
-          en: "Toldot",
-          ref: {
-            b: 1,
-            c: 25,
-            v: 19,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D5\u05D9\u05E6\u05D0",
-          en: "Vayetzei",
-          ref: {
-            b: 1,
-            c: 28,
-            v: 10,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D5\u05D9\u05E9\u05DC\u05D7",
-          en: "Vayishlach",
-          ref: {
-            b: 1,
-            c: 32,
-            v: 4,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D5\u05D9\u05E9\u05D1",
-          en: "Vayeshev",
-          ref: {
-            b: 1,
-            c: 37,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05DE\u05E7\u05E5",
-          en: "Miketz",
-          ref: {
-            b: 1,
-            c: 41,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D5\u05D9\u05D2\u05E9",
-          en: "Vayigash",
-          ref: {
-            b: 1,
-            c: 44,
-            v: 18,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D5\u05D9\u05D7\u05D9",
-          en: "Vayechi",
-          ref: {
-            b: 1,
-            c: 47,
-            v: 28,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05E9\u05DE\u05D5\u05EA",
-          en: "Shemot",
-          ref: {
-            b: 2,
-            c: 1,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D5\u05D0\u05E8\u05D0",
-          en: "Vaera",
-          ref: {
-            b: 2,
-            c: 6,
-            v: 2,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D1\u05D0",
-          en: "Bo",
-          ref: {
-            b: 2,
-            c: 10,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D1\u05E9\u05DC\u05D7",
-          en: "Beshalach",
-          ref: {
-            b: 2,
-            c: 13,
-            v: 17,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D9\u05EA\u05E8\u05D5",
-          en: "Yitro",
-          ref: {
-            b: 2,
-            c: 18,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05DE\u05E9\u05E4\u05D8\u05D9\u05DD",
-          en: "Mishpatim",
-          ref: {
-            b: 2,
-            c: 21,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05EA\u05E8\u05D5\u05DE\u05D4",
-          en: "Terumah",
-          ref: {
-            b: 2,
-            c: 25,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05EA\u05E6\u05D5\u05D4",
-          en: "Tetzaveh",
-          ref: {
-            b: 2,
-            c: 27,
-            v: 20,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05DB\u05D9 \u05EA\u05E9\u05D0",
-          en: "Ki Tisa",
-          ref: {
-            b: 2,
-            c: 30,
-            v: 11,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D5\u05D9\u05E7\u05D4\u05DC",
-          en: "Vayakhel",
-          ref: {
-            b: 2,
-            c: 35,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05E4\u05E7\u05D5\u05D3\u05D9",
-          en: "Pekudei",
-          ref: {
-            b: 2,
-            c: 38,
-            v: 21,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D5\u05D9\u05E7\u05E8\u05D0",
-          en: "Vayikra",
-          ref: {
-            b: 3,
-            c: 1,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05E6\u05D5",
-          en: "Tzav",
-          ref: {
-            b: 3,
-            c: 6,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05E9\u05DE\u05D9\u05E0\u05D9",
-          en: "Shmini",
-          ref: {
-            b: 3,
-            c: 9,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05EA\u05D6\u05E8\u05D9\u05E2",
-          en: "Tazria",
-          ref: {
-            b: 3,
-            c: 12,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05DE\u05E6\u05D5\u05E8\u05E2",
-          en: "Metzora",
-          ref: {
-            b: 3,
-            c: 14,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D0\u05D7\u05E8\u05D9 \u05DE\u05D5\u05EA",
-          en: "Achrei Mot",
-          ref: {
-            b: 3,
-            c: 16,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
-          en: "Kedoshim",
-          ref: {
-            b: 3,
-            c: 19,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D0\u05DE\u05D5\u05E8",
-          en: "Emor",
-          ref: {
-            b: 3,
-            c: 21,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D1\u05D4\u05E8",
-          en: "Behar",
-          ref: {
-            b: 3,
-            c: 25,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D1\u05D7\u05E7\u05EA\u05D9",
-          en: "Bechukotai",
-          ref: {
-            b: 3,
-            c: 26,
-            v: 3,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D1\u05DE\u05D3\u05D1\u05E8",
-          en: "Bamidbar",
-          ref: {
-            b: 4,
-            c: 1,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05E0\u05E9\u05D0",
-          en: "Nasso",
-          ref: {
-            b: 4,
-            c: 4,
-            v: 21,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D1\u05D4\u05E2\u05DC\u05D5\u05EA\u05DA",
-          en: "Beha'alotcha",
-          ref: {
-            b: 4,
-            c: 8,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05E9\u05DC\u05D7",
-          en: "Sh'lach",
-          ref: {
-            b: 4,
-            c: 13,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05E7\u05E8\u05D7",
-          en: "Korach",
-          ref: {
-            b: 4,
-            c: 16,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D7\u05E7\u05EA",
-          en: "Chukat",
-          ref: {
-            b: 4,
-            c: 19,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D1\u05DC\u05E7",
-          en: "Balak",
-          ref: {
-            b: 4,
-            c: 22,
-            v: 2,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05E4\u05E0\u05D7\u05E1",
-          en: "Pinchas",
-          ref: {
-            b: 4,
-            c: 25,
-            v: 10,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05DE\u05D8\u05D5\u05EA",
-          en: "Matot",
-          ref: {
-            b: 4,
-            c: 30,
-            v: 2,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05DE\u05E1\u05E2\u05D9",
-          en: "Masei",
-          ref: {
-            b: 4,
-            c: 33,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D3\u05D1\u05E8\u05D9\u05DD",
-          en: "Devarim",
-          ref: {
-            b: 5,
-            c: 1,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D5\u05D0\u05EA\u05D7\u05E0\u05DF",
-          en: "Vaetchanan",
-          ref: {
-            b: 5,
-            c: 3,
-            v: 23,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05E2\u05E7\u05D1",
-          en: "Eikev",
-          ref: {
-            b: 5,
-            c: 7,
-            v: 12,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05E8\u05D0\u05D4",
-          en: "Re'eh",
-          ref: {
-            b: 5,
-            c: 11,
-            v: 26,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05E9\u05D5\u05E4\u05D8\u05D9\u05DD",
-          en: "Shoftim",
-          ref: {
-            b: 5,
-            c: 16,
-            v: 18,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05DB\u05D9 \u05EA\u05E6\u05D0",
-          en: "Ki Teitzei",
-          ref: {
-            b: 5,
-            c: 21,
-            v: 10,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05DB\u05D9 \u05EA\u05D1\u05D5\u05D0",
-          en: "Ki Tavo",
-          ref: {
-            b: 5,
-            c: 26,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05E0\u05E6\u05D1\u05D9\u05DD",
-          en: "Nitzavim",
-          ref: {
-            b: 5,
-            c: 29,
-            v: 9,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D5\u05D9\u05DC\u05DA",
-          en: "Vayeilech",
-          ref: {
-            b: 5,
-            c: 31,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D4\u05D0\u05D6\u05D9\u05E0\u05D5",
-          en: "Ha'Azinu",
-          ref: {
-            b: 5,
-            c: 32,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        },
-        {
-          he: "\u05D5\u05D6\u05D0\u05EA \u05D4\u05D1\u05E8\u05DB\u05D4",
-          en: "Vezot Haberakhah",
-          ref: {
-            b: 5,
-            c: 33,
-            v: 1,
-            a: {
-              standard: 1
-            }
-          }
-        }
-      ];
-    }
-  });
-
   // build/schedule.json
   var require_schedule = __commonJS({
     "build/schedule.json"(exports, module) {
@@ -57570,7 +57541,7 @@
       var { defaultRef, resolveToValidRef } = require_location();
       var parshiyot3 = require_parshiyot();
       var schedule = require_schedule();
-      var holydays4 = require_holydays();
+      var holydays3 = require_holydays();
       var isURL = (url) => {
         try {
           new URL(url);
@@ -57617,7 +57588,7 @@
       var HolydayRouter = {
         refFromPathParts: ({ pathParts }) => {
           const holyday = pathParts[0];
-          const holydaysAndEsther = { ...holydays4, "esther": { ref: { b: 1, c: 1, v: 1 } } };
+          const holydaysAndEsther = { ...holydays3, "esther": { ref: { b: 1, c: 1, v: 1 } } };
           if (!Object.keys(holydaysAndEsther).includes(holyday))
             return defaultRef();
           return { scroll: holyday, ...holydaysAndEsther[holyday].ref };
@@ -57641,3578 +57612,6 @@
           next: NextRouter
         }[hashParts[0]] || DefaultRouter;
         return router.refFromPathParts({ pathParts: hashParts.slice(1), asOfDate });
-      };
-    }
-  });
-
-  // build/aliyot.json
-  var require_aliyot = __commonJS({
-    "build/aliyot.json"(exports, module) {
-      module.exports = {
-        torah: {
-          "1": {
-            "1": {
-              "1": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "2": {
-              "4": {
-                standard: [
-                  2
-                ]
-              },
-              "20": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "3": {
-              "22": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "4": {
-              "19": {
-                standard: [
-                  5
-                ]
-              },
-              "23": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "5": {
-              "25": {
-                standard: [
-                  7
-                ]
-              }
-            },
-            "6": {
-              "5": {
-                standard: [
-                  8
-                ]
-              },
-              "9": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "7": {
-              "1": {
-                standard: [
-                  2
-                ]
-              },
-              "17": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "8": {
-              "15": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "9": {
-              "8": {
-                standard: [
-                  5
-                ]
-              },
-              "18": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "11": {
-              "1": {
-                standard: [
-                  7
-                ]
-              },
-              "29": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "12": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "14": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "13": {
-              "5": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "14": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "21": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "15": {
-              "7": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "17": {
-              "7": {
-                standard: [
-                  7
-                ]
-              },
-              "24": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "18": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "15": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "19": {
-              "1": {
-                standard: [
-                  3
-                ]
-              },
-              "21": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "21": {
-              "5": {
-                standard: [
-                  5
-                ]
-              },
-              "22": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "22": {
-              "1": {
-                standard: [
-                  7
-                ]
-              },
-              "20": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "23": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "17": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "24": {
-              "10": {
-                standard: [
-                  3
-                ]
-              },
-              "27": {
-                standard: [
-                  4
-                ]
-              },
-              "53": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "25": {
-              "1": {
-                standard: [
-                  6
-                ]
-              },
-              "12": {
-                standard: [
-                  7
-                ]
-              },
-              "16": {
-                standard: [
-                  8
-                ]
-              },
-              "19": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "26": {
-              "6": {
-                standard: [
-                  2
-                ]
-              },
-              "13": {
-                standard: [
-                  3
-                ]
-              },
-              "23": {
-                standard: [
-                  4
-                ]
-              },
-              "30": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "27": {
-              "28": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "28": {
-              "5": {
-                standard: [
-                  7
-                ]
-              },
-              "7": {
-                standard: [
-                  8
-                ]
-              },
-              "10": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "29": {
-              "1": {
-                standard: [
-                  2
-                ]
-              },
-              "18": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "30": {
-              "14": {
-                standard: [
-                  4
-                ]
-              },
-              "28": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "31": {
-              "17": {
-                standard: [
-                  6
-                ]
-              },
-              "43": {
-                standard: [
-                  7
-                ]
-              }
-            },
-            "32": {
-              "1": {
-                standard: [
-                  8
-                ]
-              },
-              "4": {
-                standard: [
-                  1
-                ]
-              },
-              "14": {
-                standard: [
-                  2
-                ]
-              },
-              "31": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "33": {
-              "6": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "34": {
-              "1": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "35": {
-              "12": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "36": {
-              "20": {
-                standard: [
-                  7
-                ]
-              },
-              "40": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "37": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "12": {
-                standard: [
-                  2
-                ]
-              },
-              "23": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "38": {
-              "1": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "39": {
-              "1": {
-                standard: [
-                  5
-                ]
-              },
-              "7": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "40": {
-              "1": {
-                standard: [
-                  7
-                ]
-              },
-              "20": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "41": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "15": {
-                standard: [
-                  2
-                ]
-              },
-              "39": {
-                standard: [
-                  3
-                ]
-              },
-              "53": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "42": {
-              "19": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "43": {
-              "16": {
-                standard: [
-                  6
-                ]
-              },
-              "30": {
-                standard: [
-                  7
-                ]
-              }
-            },
-            "44": {
-              "14": {
-                standard: [
-                  8
-                ]
-              },
-              "18": {
-                standard: [
-                  1
-                ]
-              },
-              "31": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "45": {
-              "8": {
-                standard: [
-                  3
-                ]
-              },
-              "19": {
-                standard: [
-                  4
-                ]
-              },
-              "28": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "46": {
-              "28": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "47": {
-              "11": {
-                standard: [
-                  7
-                ]
-              },
-              "25": {
-                standard: [
-                  8
-                ]
-              },
-              "28": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "48": {
-              "10": {
-                standard: [
-                  2
-                ]
-              },
-              "17": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "49": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "19": {
-                standard: [
-                  5
-                ]
-              },
-              "27": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "50": {
-              "21": {
-                standard: [
-                  7
-                ]
-              },
-              "23": {
-                standard: [
-                  8
-                ]
-              }
-            }
-          },
-          "2": {
-            "1": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "18": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "2": {
-              "11": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "3": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "16": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "4": {
-              "18": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "5": {
-              "1": {
-                standard: [
-                  7
-                ]
-              },
-              "22": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "6": {
-              "2": {
-                standard: [
-                  1
-                ]
-              },
-              "14": {
-                standard: [
-                  2
-                ]
-              },
-              "29": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "7": {
-              "8": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "8": {
-              "7": {
-                standard: [
-                  5
-                ]
-              },
-              "19": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "9": {
-              "17": {
-                standard: [
-                  7
-                ]
-              },
-              "33": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "10": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "12": {
-                standard: [
-                  2
-                ]
-              },
-              "24": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "11": {
-              "4": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "12": {
-              "21": {
-                standard: [
-                  5
-                ]
-              },
-              "29": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "13": {
-              "1": {
-                standard: [
-                  7
-                ]
-              },
-              "14": {
-                standard: [
-                  8
-                ]
-              },
-              "17": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "14": {
-              "9": {
-                standard: [
-                  2
-                ]
-              },
-              "15": {
-                standard: [
-                  3
-                ]
-              },
-              "26": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "15": {
-              "27": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "16": {
-              "11": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "17": {
-              "1": {
-                standard: [
-                  7
-                ]
-              },
-              "14": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "18": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "13": {
-                standard: [
-                  2
-                ]
-              },
-              "24": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "19": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "7": {
-                standard: [
-                  5
-                ]
-              },
-              "20": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "20": {
-              "15": {
-                standard: [
-                  7
-                ]
-              },
-              "19": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "21": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "20": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "22": {
-              "4": {
-                standard: [
-                  3
-                ]
-              },
-              "27": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "23": {
-              "6": {
-                standard: [
-                  5
-                ]
-              },
-              "20": {
-                standard: [
-                  6
-                ]
-              },
-              "26": {
-                standard: [
-                  7
-                ]
-              }
-            },
-            "24": {
-              "15": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "25": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "17": {
-                standard: [
-                  2
-                ]
-              },
-              "31": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "26": {
-              "15": {
-                standard: [
-                  4
-                ]
-              },
-              "31": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "27": {
-              "1": {
-                standard: [
-                  6
-                ]
-              },
-              "9": {
-                standard: [
-                  7
-                ]
-              },
-              "17": {
-                standard: [
-                  8
-                ]
-              },
-              "20": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "28": {
-              "13": {
-                standard: [
-                  2
-                ]
-              },
-              "31": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "29": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "19": {
-                standard: [
-                  5
-                ]
-              },
-              "38": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "30": {
-              "1": {
-                standard: [
-                  7
-                ]
-              },
-              "8": {
-                standard: [
-                  8
-                ]
-              },
-              "11": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "31": {
-              "18": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "33": {
-              "12": {
-                standard: [
-                  3
-                ]
-              },
-              "17": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "34": {
-              "1": {
-                standard: [
-                  5
-                ]
-              },
-              "10": {
-                standard: [
-                  6
-                ]
-              },
-              "27": {
-                standard: [
-                  7
-                ]
-              },
-              "33": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "35": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "21": {
-                standard: [
-                  2
-                ]
-              },
-              "30": {
-                standard: [
-                  3
-                ],
-                double: 2
-              }
-            },
-            "36": {
-              "8": {
-                standard: [
-                  4
-                ]
-              },
-              "20": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "37": {
-              "17": {
-                standard: [
-                  6
-                ],
-                double: 3
-              }
-            },
-            "38": {
-              "1": {
-                standard: [
-                  7
-                ],
-                double: 4
-              },
-              "18": {
-                standard: [
-                  8
-                ]
-              },
-              "21": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "39": {
-              "2": {
-                standard: [
-                  2
-                ],
-                double: 5
-              },
-              "22": {
-                standard: [
-                  3
-                ],
-                double: 6
-              },
-              "33": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "40": {
-              "1": {
-                standard: [
-                  5
-                ],
-                double: 7
-              },
-              "17": {
-                standard: [
-                  6
-                ]
-              },
-              "28": {
-                standard: [
-                  7
-                ]
-              },
-              "34": {
-                standard: [
-                  8
-                ]
-              }
-            }
-          },
-          "3": {
-            "1": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "14": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "2": {
-              "7": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "3": {
-              "1": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "4": {
-              "1": {
-                standard: [
-                  5
-                ]
-              },
-              "27": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "5": {
-              "11": {
-                standard: [
-                  7
-                ]
-              },
-              "24": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "6": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "12": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "7": {
-              "11": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "8": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "14": {
-                standard: [
-                  5
-                ]
-              },
-              "22": {
-                standard: [
-                  6
-                ]
-              },
-              "30": {
-                standard: [
-                  7
-                ]
-              },
-              "33": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "9": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "17": {
-                standard: [
-                  2
-                ]
-              },
-              "24": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "10": {
-              "12": {
-                standard: [
-                  4
-                ]
-              },
-              "16": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "11": {
-              "1": {
-                standard: [
-                  6
-                ]
-              },
-              "33": {
-                standard: [
-                  7
-                ]
-              },
-              "45": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "12": {
-              "1": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "13": {
-              "6": {
-                standard: [
-                  2
-                ]
-              },
-              "18": {
-                standard: [
-                  3
-                ]
-              },
-              "24": {
-                standard: [
-                  4
-                ],
-                double: 2
-              },
-              "29": {
-                standard: [
-                  5
-                ]
-              },
-              "40": {
-                standard: [
-                  6
-                ],
-                double: 3
-              },
-              "55": {
-                standard: [
-                  7
-                ],
-                double: 4
-              },
-              "57": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "14": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "13": {
-                standard: [
-                  2
-                ]
-              },
-              "21": {
-                standard: [
-                  3
-                ],
-                double: 5
-              },
-              "33": {
-                standard: [
-                  4
-                ],
-                double: 6
-              },
-              "54": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "15": {
-              "16": {
-                standard: [
-                  6
-                ],
-                double: 7
-              },
-              "29": {
-                standard: [
-                  7
-                ]
-              },
-              "31": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "16": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "18": {
-                standard: [
-                  2
-                ]
-              },
-              "25": {
-                standard: [
-                  3
-                ],
-                double: 2
-              }
-            },
-            "17": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "8": {
-                standard: [
-                  5
-                ],
-                double: 3
-              }
-            },
-            "18": {
-              "6": {
-                standard: [
-                  6
-                ]
-              },
-              "22": {
-                standard: [
-                  7
-                ],
-                double: 4
-              },
-              "28": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "19": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "15": {
-                standard: [
-                  2
-                ],
-                double: 5
-              },
-              "23": {
-                standard: [
-                  3
-                ]
-              },
-              "33": {
-                standard: [
-                  4
-                ],
-                double: 6
-              }
-            },
-            "20": {
-              "1": {
-                standard: [
-                  5
-                ]
-              },
-              "8": {
-                standard: [
-                  6
-                ],
-                double: 7
-              },
-              "23": {
-                standard: [
-                  7
-                ]
-              },
-              "25": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "21": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "16": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "22": {
-              "17": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "23": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "23": {
-                standard: [
-                  5
-                ]
-              },
-              "33": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "24": {
-              "1": {
-                standard: [
-                  7
-                ]
-              },
-              "21": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "25": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "14": {
-                standard: [
-                  2
-                ]
-              },
-              "19": {
-                standard: [
-                  3
-                ],
-                double: 2
-              },
-              "25": {
-                standard: [
-                  4
-                ]
-              },
-              "29": {
-                standard: [
-                  5
-                ],
-                double: 3
-              },
-              "39": {
-                standard: [
-                  6
-                ],
-                double: 4
-              },
-              "47": {
-                standard: [
-                  7
-                ]
-              },
-              "55": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "26": {
-              "3": {
-                standard: [
-                  1
-                ]
-              },
-              "6": {
-                standard: [
-                  2
-                ]
-              },
-              "10": {
-                standard: [
-                  3
-                ],
-                double: 5
-              }
-            },
-            "27": {
-              "1": {
-                standard: [
-                  4
-                ],
-                double: 6
-              },
-              "16": {
-                standard: [
-                  5
-                ],
-                double: 7
-              },
-              "22": {
-                standard: [
-                  6
-                ]
-              },
-              "29": {
-                standard: [
-                  7
-                ]
-              },
-              "32": {
-                standard: [
-                  8
-                ]
-              }
-            }
-          },
-          "4": {
-            "1": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "20": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "2": {
-              "1": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "3": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "14": {
-                standard: [
-                  5
-                ]
-              },
-              "40": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "4": {
-              "1": {
-                standard: [
-                  7
-                ]
-              },
-              "17": {
-                standard: [
-                  8
-                ]
-              },
-              "21": {
-                standard: [
-                  1
-                ]
-              },
-              "38": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "5": {
-              "1": {
-                standard: [
-                  3
-                ]
-              },
-              "11": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "7": {
-              "1": {
-                standard: [
-                  5
-                ]
-              },
-              "42": {
-                standard: [
-                  6
-                ]
-              },
-              "72": {
-                standard: [
-                  7
-                ]
-              },
-              "87": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "8": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "15": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "9": {
-              "1": {
-                standard: [
-                  3
-                ]
-              },
-              "15": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "10": {
-              "11": {
-                standard: [
-                  5
-                ]
-              },
-              "35": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "11": {
-              "30": {
-                standard: [
-                  7
-                ]
-              }
-            },
-            "12": {
-              "14": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "13": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "21": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "14": {
-              "8": {
-                standard: [
-                  3
-                ]
-              },
-              "26": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "15": {
-              "8": {
-                standard: [
-                  5
-                ]
-              },
-              "17": {
-                standard: [
-                  6
-                ]
-              },
-              "27": {
-                standard: [
-                  7
-                ]
-              },
-              "37": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "16": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "14": {
-                standard: [
-                  2
-                ]
-              },
-              "20": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "17": {
-              "9": {
-                standard: [
-                  4
-                ]
-              },
-              "16": {
-                standard: [
-                  5
-                ]
-              },
-              "25": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "18": {
-              "21": {
-                standard: [
-                  7
-                ]
-              },
-              "30": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "19": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "18": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "20": {
-              "7": {
-                standard: [
-                  3
-                ],
-                double: 2
-              },
-              "14": {
-                standard: [
-                  4
-                ]
-              },
-              "22": {
-                standard: [
-                  5
-                ],
-                double: 3
-              }
-            },
-            "21": {
-              "10": {
-                standard: [
-                  6
-                ]
-              },
-              "21": {
-                standard: [
-                  7
-                ],
-                double: 4
-              },
-              "34": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "22": {
-              "2": {
-                standard: [
-                  1
-                ]
-              },
-              "13": {
-                standard: [
-                  2
-                ],
-                double: 5
-              },
-              "21": {
-                standard: [
-                  3
-                ]
-              },
-              "39": {
-                standard: [
-                  4
-                ],
-                double: 6
-              }
-            },
-            "23": {
-              "13": {
-                standard: [
-                  5
-                ]
-              },
-              "27": {
-                standard: [
-                  6
-                ],
-                double: 7
-              }
-            },
-            "24": {
-              "14": {
-                standard: [
-                  7
-                ]
-              }
-            },
-            "25": {
-              "7": {
-                standard: [
-                  8
-                ]
-              },
-              "10": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "26": {
-              "5": {
-                standard: [
-                  2
-                ]
-              },
-              "52": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "27": {
-              "6": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "28": {
-              "1": {
-                standard: [
-                  5
-                ]
-              },
-              "16": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "29": {
-              "12": {
-                standard: [
-                  7
-                ]
-              },
-              "35": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "30": {
-              "2": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "31": {
-              "1": {
-                standard: [
-                  2
-                ]
-              },
-              "13": {
-                standard: [
-                  3
-                ],
-                double: 2
-              },
-              "25": {
-                standard: [
-                  4
-                ]
-              },
-              "42": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "32": {
-              "1": {
-                standard: [
-                  6
-                ],
-                double: 3
-              },
-              "20": {
-                standard: [
-                  7
-                ],
-                double: 4
-              },
-              "39": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "33": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "11": {
-                standard: [
-                  2
-                ]
-              },
-              "50": {
-                standard: [
-                  3
-                ],
-                double: 5
-              }
-            },
-            "34": {
-              "16": {
-                standard: [
-                  4
-                ],
-                double: 6
-              }
-            },
-            "35": {
-              "1": {
-                standard: [
-                  5
-                ]
-              },
-              "9": {
-                standard: [
-                  6
-                ],
-                double: 7
-              }
-            },
-            "36": {
-              "1": {
-                standard: [
-                  7
-                ]
-              },
-              "11": {
-                standard: [
-                  8
-                ]
-              }
-            }
-          },
-          "5": {
-            "1": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "11": {
-                standard: [
-                  2
-                ]
-              },
-              "22": {
-                standard: [
-                  3
-                ]
-              },
-              "39": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "2": {
-              "2": {
-                standard: [
-                  5
-                ]
-              },
-              "31": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "3": {
-              "15": {
-                standard: [
-                  7
-                ]
-              },
-              "20": {
-                standard: [
-                  8
-                ]
-              },
-              "23": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "4": {
-              "5": {
-                standard: [
-                  2
-                ]
-              },
-              "41": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "5": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "19": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "6": {
-              "4": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "7": {
-              "1": {
-                standard: [
-                  7
-                ]
-              },
-              "9": {
-                standard: [
-                  8
-                ]
-              },
-              "12": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "8": {
-              "11": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "9": {
-              "4": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "10": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "12": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "11": {
-              "10": {
-                standard: [
-                  6
-                ]
-              },
-              "22": {
-                standard: [
-                  7,
-                  8
-                ]
-              },
-              "26": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "12": {
-              "11": {
-                standard: [
-                  2
-                ]
-              },
-              "29": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "14": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "22": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "15": {
-              "1": {
-                standard: [
-                  6
-                ]
-              },
-              "19": {
-                standard: [
-                  7
-                ]
-              }
-            },
-            "16": {
-              "13": {
-                standard: [
-                  8
-                ]
-              },
-              "18": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "17": {
-              "14": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "18": {
-              "1": {
-                standard: [
-                  3
-                ]
-              },
-              "6": {
-                standard: [
-                  4
-                ]
-              },
-              "14": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "19": {
-              "14": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "20": {
-              "10": {
-                standard: [
-                  7
-                ]
-              }
-            },
-            "21": {
-              "7": {
-                standard: [
-                  8
-                ]
-              },
-              "10": {
-                standard: [
-                  1
-                ]
-              },
-              "22": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "22": {
-              "8": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "23": {
-              "8": {
-                standard: [
-                  4
-                ]
-              },
-              "25": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "24": {
-              "5": {
-                standard: [
-                  6
-                ]
-              },
-              "14": {
-                standard: [
-                  7
-                ]
-              }
-            },
-            "25": {
-              "17": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "26": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "12": {
-                standard: [
-                  2
-                ]
-              },
-              "16": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "27": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "11": {
-                standard: [
-                  5
-                ]
-              }
-            },
-            "28": {
-              "7": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "29": {
-              "1": {
-                standard: [
-                  7
-                ]
-              },
-              "6": {
-                standard: [
-                  8
-                ]
-              },
-              "9": {
-                standard: [
-                  1
-                ]
-              },
-              "12": {
-                standard: [
-                  2
-                ]
-              },
-              "15": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "30": {
-              "1": {
-                standard: [
-                  4
-                ],
-                double: 2
-              },
-              "7": {
-                standard: [
-                  5
-                ],
-                double: 3
-              },
-              "11": {
-                standard: [
-                  6
-                ]
-              },
-              "15": {
-                standard: [
-                  7,
-                  8
-                ]
-              }
-            },
-            "31": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "4": {
-                standard: [
-                  2
-                ]
-              },
-              "7": {
-                standard: [
-                  3
-                ],
-                double: 5
-              },
-              "10": {
-                standard: [
-                  4
-                ]
-              },
-              "14": {
-                standard: [
-                  5
-                ],
-                double: 6
-              },
-              "20": {
-                standard: [
-                  6
-                ],
-                double: 7
-              },
-              "25": {
-                standard: [
-                  7
-                ]
-              },
-              "28": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "32": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "7": {
-                standard: [
-                  2
-                ]
-              },
-              "13": {
-                standard: [
-                  3
-                ]
-              },
-              "19": {
-                standard: [
-                  4
-                ]
-              },
-              "29": {
-                standard: [
-                  5
-                ]
-              },
-              "40": {
-                standard: [
-                  6
-                ]
-              },
-              "44": {
-                standard: [
-                  7
-                ]
-              },
-              "48": {
-                standard: [
-                  8
-                ]
-              }
-            },
-            "33": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "8": {
-                standard: [
-                  2
-                ]
-              },
-              "13": {
-                standard: [
-                  3
-                ]
-              },
-              "18": {
-                standard: [
-                  4
-                ]
-              },
-              "22": {
-                standard: [
-                  5
-                ]
-              },
-              "27": {
-                standard: [
-                  6
-                ]
-              }
-            },
-            "34": {
-              "1": {
-                standard: [
-                  7
-                ]
-              }
-            }
-          }
-        },
-        "rosh-1": {
-          "1": {
-            "21": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "5": {
-                standard: [
-                  2
-                ]
-              },
-              "9": {
-                special: 3
-              },
-              "13": {
-                standard: [
-                  3
-                ],
-                special: 4
-              },
-              "18": {
-                special: 5
-              },
-              "22": {
-                standard: [
-                  4
-                ],
-                special: 6
-              },
-              "28": {
-                standard: [
-                  5
-                ],
-                special: 7
-              }
-            }
-          }
-        },
-        "rosh-2": {
-          "1": {
-            "22": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "4": {
-                standard: [
-                  2
-                ]
-              },
-              "9": {
-                standard: [
-                  3
-                ]
-              },
-              "15": {
-                standard: [
-                  4
-                ]
-              },
-              "20": {
-                standard: [
-                  5
-                ]
-              }
-            }
-          }
-        },
-        "yom-kippur": {
-          "3": {
-            "16": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "4": {
-                special: 2
-              },
-              "7": {
-                standard: [
-                  2
-                ],
-                special: 3
-              },
-              "12": {
-                standard: [
-                  3
-                ],
-                special: 4
-              },
-              "18": {
-                standard: [
-                  4
-                ],
-                special: 5
-              },
-              "25": {
-                standard: [
-                  5
-                ],
-                special: 6
-              },
-              "31": {
-                standard: [
-                  6
-                ],
-                special: 7
-              }
-            }
-          }
-        },
-        "sukkot-1": {
-          "3": {
-            "22": {
-              "26": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "23": {
-              "1": {
-                special: 2
-              },
-              "4": {
-                standard: [
-                  2
-                ],
-                special: 3
-              },
-              "9": {
-                standard: [
-                  3
-                ],
-                special: 4
-              },
-              "15": {
-                standard: [
-                  3
-                ],
-                special: 5
-              },
-              "23": {
-                standard: [
-                  4
-                ],
-                special: 6
-              },
-              "33": {
-                standard: [
-                  5
-                ],
-                special: 7
-              }
-            }
-          }
-        },
-        "sukkot-2": {
-          "3": {
-            "22": {
-              "26": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "23": {
-              "4": {
-                standard: [
-                  2
-                ]
-              },
-              "15": {
-                standard: [
-                  3
-                ]
-              },
-              "23": {
-                standard: [
-                  4
-                ]
-              },
-              "33": {
-                standard: [
-                  5
-                ]
-              }
-            }
-          }
-        },
-        "sukkot-3": {
-          "4": {
-            "29": {
-              "17": {
-                standard: [
-                  1
-                ]
-              },
-              "20": {
-                standard: [
-                  2
-                ]
-              },
-              "23": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "sukkot-4": {
-          "4": {
-            "29": {
-              "20": {
-                standard: [
-                  1
-                ]
-              },
-              "23": {
-                standard: [
-                  2
-                ]
-              },
-              "26": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "sukkot-5": {
-          "4": {
-            "29": {
-              "23": {
-                standard: [
-                  1
-                ]
-              },
-              "26": {
-                standard: [
-                  2
-                ]
-              },
-              "29": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "sukkot-6": {
-          "4": {
-            "29": {
-              "26": {
-                standard: [
-                  1
-                ]
-              },
-              "29": {
-                standard: [
-                  2
-                ]
-              },
-              "32": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "sukkot-7": {
-          "4": {
-            "29": {
-              "26": {
-                standard: [
-                  1
-                ]
-              },
-              "29": {
-                standard: [
-                  2
-                ]
-              },
-              "32": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "sukkot-shabbat-chol-hamoed": {
-          "2": {
-            "33": {
-              "12": {
-                standard: [
-                  1
-                ]
-              },
-              "17": {
-                standard: [
-                  2
-                ]
-              },
-              "20": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "34": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "4": {
-                standard: [
-                  5
-                ]
-              },
-              "11": {
-                standard: [
-                  6
-                ]
-              },
-              "18": {
-                standard: [
-                  7
-                ]
-              }
-            }
-          }
-        },
-        "shmini-atzeret": {
-          "5": {
-            "14": {
-              "22": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "15": {
-              "1": {
-                standard: [
-                  2
-                ]
-              },
-              "19": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "16": {
-              "1": {
-                special: 4
-              },
-              "4": {
-                standard: [
-                  4
-                ],
-                special: 5
-              },
-              "9": {
-                standard: [
-                  5
-                ],
-                special: 6
-              },
-              "13": {
-                special: 7
-              }
-            }
-          }
-        },
-        "simchat-torah": {
-          "5": {
-            "33": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "8": {
-                standard: [
-                  2
-                ]
-              },
-              "13": {
-                standard: [
-                  3
-                ]
-              },
-              "18": {
-                standard: [
-                  4
-                ]
-              },
-              "22": {
-                standard: [
-                  5
-                ]
-              },
-              "27": {
-                standard: [
-                  6
-                ]
-              }
-            }
-          }
-        },
-        "chanukah-1": {
-          "4": {
-            "7": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "12": {
-                standard: [
-                  2
-                ]
-              },
-              "15": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "chanukah-2": {
-          "4": {
-            "7": {
-              "18": {
-                standard: [
-                  1
-                ]
-              },
-              "21": {
-                standard: [
-                  2
-                ]
-              },
-              "24": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "chanukah-3": {
-          "4": {
-            "7": {
-              "24": {
-                standard: [
-                  1
-                ]
-              },
-              "27": {
-                standard: [
-                  2
-                ]
-              },
-              "30": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "chanukah-4": {
-          "4": {
-            "7": {
-              "30": {
-                standard: [
-                  1
-                ]
-              },
-              "33": {
-                standard: [
-                  2
-                ]
-              },
-              "36": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "chanukah-5": {
-          "4": {
-            "7": {
-              "36": {
-                standard: [
-                  1
-                ]
-              },
-              "39": {
-                standard: [
-                  2
-                ]
-              },
-              "42": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "chanukah-7": {
-          "4": {
-            "7": {
-              "48": {
-                standard: [
-                  1
-                ]
-              },
-              "51": {
-                standard: [
-                  2
-                ]
-              },
-              "54": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "chanukah-8": {
-          "4": {
-            "7": {
-              "54": {
-                standard: [
-                  1
-                ]
-              },
-              "57": {
-                standard: [
-                  2
-                ]
-              },
-              "60": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        purim: {
-          "2": {
-            "17": {
-              "8": {
-                standard: [
-                  1
-                ]
-              },
-              "11": {
-                standard: [
-                  2
-                ]
-              },
-              "14": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "taanit-tzibur": {
-          "2": {
-            "32": {
-              "11": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "34": {
-              "1": {
-                standard: [
-                  2
-                ]
-              },
-              "4": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "pesach-1": {
-          "2": {
-            "12": {
-              "21": {
-                standard: [
-                  1
-                ]
-              },
-              "25": {
-                standard: [
-                  2
-                ]
-              },
-              "29": {
-                standard: [
-                  3
-                ]
-              },
-              "33": {
-                special: 4
-              },
-              "37": {
-                standard: [
-                  4
-                ],
-                special: 5
-              },
-              "43": {
-                standard: [
-                  5
-                ],
-                special: 6
-              },
-              "48": {
-                special: 7
-              }
-            }
-          }
-        },
-        "pesach-2": {
-          "3": {
-            "22": {
-              "26": {
-                standard: [
-                  1
-                ]
-              }
-            },
-            "23": {
-              "4": {
-                standard: [
-                  2
-                ]
-              },
-              "15": {
-                standard: [
-                  3
-                ]
-              },
-              "23": {
-                standard: [
-                  4
-                ]
-              },
-              "33": {
-                standard: [
-                  5
-                ]
-              }
-            }
-          }
-        },
-        "pesach-3": {
-          "2": {
-            "13": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "5": {
-                standard: [
-                  2
-                ]
-              },
-              "11": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "pesach-4": {
-          "2": {
-            "22": {
-              "24": {
-                standard: [
-                  1
-                ]
-              },
-              "27": {
-                standard: [
-                  2
-                ]
-              }
-            },
-            "23": {
-              "6": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "pesach-5": {
-          "2": {
-            "34": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "11": {
-                standard: [
-                  2
-                ]
-              },
-              "18": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "pesach-6": {
-          "4": {
-            "9": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "6": {
-                standard: [
-                  2
-                ]
-              },
-              "9": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        },
-        "pesach-shabbat-chol-hamoed": {
-          "2": {
-            "33": {
-              "12": {
-                standard: [
-                  1
-                ]
-              },
-              "17": {
-                standard: [
-                  2
-                ]
-              },
-              "20": {
-                standard: [
-                  3
-                ]
-              }
-            },
-            "34": {
-              "1": {
-                standard: [
-                  4
-                ]
-              },
-              "4": {
-                standard: [
-                  5
-                ]
-              },
-              "11": {
-                standard: [
-                  6
-                ]
-              },
-              "18": {
-                standard: [
-                  7
-                ]
-              }
-            }
-          }
-        },
-        "pesach-7": {
-          "2": {
-            "13": {
-              "17": {
-                standard: [
-                  1
-                ]
-              },
-              "20": {
-                special: 2
-              }
-            },
-            "14": {
-              "1": {
-                standard: [
-                  2
-                ],
-                special: 3
-              },
-              "5": {
-                special: 4
-              },
-              "9": {
-                standard: [
-                  3
-                ],
-                special: 5
-              },
-              "15": {
-                standard: [
-                  4
-                ],
-                special: 6
-              },
-              "26": {
-                standard: [
-                  5
-                ],
-                special: 7
-              }
-            }
-          }
-        },
-        "pesach-8": {
-          "5": {
-            "14": {
-              "22": {
-                special: 1
-              }
-            },
-            "15": {
-              "1": {
-                special: 2
-              },
-              "19": {
-                standard: [
-                  1
-                ],
-                special: 3
-              }
-            },
-            "16": {
-              "1": {
-                standard: [
-                  2
-                ],
-                special: 4
-              },
-              "4": {
-                standard: [
-                  3
-                ],
-                special: 5
-              },
-              "9": {
-                standard: [
-                  4
-                ],
-                special: 6
-              },
-              "13": {
-                standard: [
-                  5
-                ],
-                special: 7
-              }
-            }
-          }
-        },
-        "shavuot-1": {
-          "2": {
-            "19": {
-              "1": {
-                standard: [
-                  1
-                ]
-              },
-              "7": {
-                standard: [
-                  2
-                ]
-              },
-              "14": {
-                standard: [
-                  3
-                ]
-              },
-              "20": {
-                standard: [
-                  4
-                ]
-              }
-            },
-            "20": {
-              "15": {
-                standard: [
-                  5
-                ]
-              }
-            }
-          }
-        },
-        "shavuot-2": {
-          "5": {
-            "14": {
-              "22": {
-                special: 1
-              }
-            },
-            "15": {
-              "1": {
-                special: 2
-              },
-              "19": {
-                standard: [
-                  1
-                ],
-                special: 3
-              }
-            },
-            "16": {
-              "1": {
-                standard: [
-                  2
-                ],
-                special: 4
-              },
-              "4": {
-                standard: [
-                  3
-                ],
-                special: 5
-              },
-              "9": {
-                standard: [
-                  4
-                ],
-                special: 6
-              },
-              "13": {
-                standard: [
-                  5
-                ],
-                special: 7
-              }
-            }
-          }
-        },
-        "tisha-bav": {
-          "5": {
-            "4": {
-              "25": {
-                standard: [
-                  1
-                ]
-              },
-              "30": {
-                standard: [
-                  2
-                ]
-              },
-              "36": {
-                standard: [
-                  3
-                ]
-              }
-            }
-          }
-        }
       };
     }
   });
@@ -61276,8 +57675,8 @@
   });
 
   // src/index.js
-  var import_infinite_scroller = __toModule(require_infinite_scroller());
-  var import_integer_iterator = __toModule(require_integer_iterator());
+  var import_infinite_scroller = __toESM(require_infinite_scroller());
+  var import_integer_iterator = __toESM(require_integer_iterator());
 
   // build/page-titles.json
   var page_titles_default = [
@@ -62066,16 +58465,3641 @@
   ];
 
   // src/scrolls-by-key.js
-  var import_holydays = __toModule(require_holydays());
+  var import_holydays = __toESM(require_holydays());
+  var import_parshiyot = __toESM(require_parshiyot());
+
+  // build/aliyot.json
+  var torah = {
+    "1": {
+      "1": {
+        "1": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "2": {
+        "4": {
+          standard: [
+            2
+          ]
+        },
+        "20": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "3": {
+        "22": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "4": {
+        "19": {
+          standard: [
+            5
+          ]
+        },
+        "23": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "5": {
+        "25": {
+          standard: [
+            7
+          ]
+        }
+      },
+      "6": {
+        "5": {
+          standard: [
+            8
+          ]
+        },
+        "9": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "7": {
+        "1": {
+          standard: [
+            2
+          ]
+        },
+        "17": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "8": {
+        "15": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "9": {
+        "8": {
+          standard: [
+            5
+          ]
+        },
+        "18": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "11": {
+        "1": {
+          standard: [
+            7
+          ]
+        },
+        "29": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "12": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "14": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "13": {
+        "5": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "14": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "21": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "15": {
+        "7": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "17": {
+        "7": {
+          standard: [
+            7
+          ]
+        },
+        "24": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "18": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "15": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "19": {
+        "1": {
+          standard: [
+            3
+          ]
+        },
+        "21": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "21": {
+        "5": {
+          standard: [
+            5
+          ]
+        },
+        "22": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "22": {
+        "1": {
+          standard: [
+            7
+          ]
+        },
+        "20": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "23": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "17": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "24": {
+        "10": {
+          standard: [
+            3
+          ]
+        },
+        "27": {
+          standard: [
+            4
+          ]
+        },
+        "53": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "25": {
+        "1": {
+          standard: [
+            6
+          ]
+        },
+        "12": {
+          standard: [
+            7
+          ]
+        },
+        "16": {
+          standard: [
+            8
+          ]
+        },
+        "19": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "26": {
+        "6": {
+          standard: [
+            2
+          ]
+        },
+        "13": {
+          standard: [
+            3
+          ]
+        },
+        "23": {
+          standard: [
+            4
+          ]
+        },
+        "30": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "27": {
+        "28": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "28": {
+        "5": {
+          standard: [
+            7
+          ]
+        },
+        "7": {
+          standard: [
+            8
+          ]
+        },
+        "10": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "29": {
+        "1": {
+          standard: [
+            2
+          ]
+        },
+        "18": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "30": {
+        "14": {
+          standard: [
+            4
+          ]
+        },
+        "28": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "31": {
+        "17": {
+          standard: [
+            6
+          ]
+        },
+        "43": {
+          standard: [
+            7
+          ]
+        }
+      },
+      "32": {
+        "1": {
+          standard: [
+            8
+          ]
+        },
+        "4": {
+          standard: [
+            1
+          ]
+        },
+        "14": {
+          standard: [
+            2
+          ]
+        },
+        "31": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "33": {
+        "6": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "34": {
+        "1": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "35": {
+        "12": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "36": {
+        "20": {
+          standard: [
+            7
+          ]
+        },
+        "40": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "37": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "12": {
+          standard: [
+            2
+          ]
+        },
+        "23": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "38": {
+        "1": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "39": {
+        "1": {
+          standard: [
+            5
+          ]
+        },
+        "7": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "40": {
+        "1": {
+          standard: [
+            7
+          ]
+        },
+        "20": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "41": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "15": {
+          standard: [
+            2
+          ]
+        },
+        "39": {
+          standard: [
+            3
+          ]
+        },
+        "53": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "42": {
+        "19": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "43": {
+        "16": {
+          standard: [
+            6
+          ]
+        },
+        "30": {
+          standard: [
+            7
+          ]
+        }
+      },
+      "44": {
+        "14": {
+          standard: [
+            8
+          ]
+        },
+        "18": {
+          standard: [
+            1
+          ]
+        },
+        "31": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "45": {
+        "8": {
+          standard: [
+            3
+          ]
+        },
+        "19": {
+          standard: [
+            4
+          ]
+        },
+        "28": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "46": {
+        "28": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "47": {
+        "11": {
+          standard: [
+            7
+          ]
+        },
+        "25": {
+          standard: [
+            8
+          ]
+        },
+        "28": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "48": {
+        "10": {
+          standard: [
+            2
+          ]
+        },
+        "17": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "49": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "19": {
+          standard: [
+            5
+          ]
+        },
+        "27": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "50": {
+        "21": {
+          standard: [
+            7
+          ]
+        },
+        "23": {
+          standard: [
+            8
+          ]
+        }
+      }
+    },
+    "2": {
+      "1": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "18": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "2": {
+        "11": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "3": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "16": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "4": {
+        "18": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "5": {
+        "1": {
+          standard: [
+            7
+          ]
+        },
+        "22": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "6": {
+        "2": {
+          standard: [
+            1
+          ]
+        },
+        "14": {
+          standard: [
+            2
+          ]
+        },
+        "29": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "7": {
+        "8": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "8": {
+        "7": {
+          standard: [
+            5
+          ]
+        },
+        "19": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "9": {
+        "17": {
+          standard: [
+            7
+          ]
+        },
+        "33": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "10": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "12": {
+          standard: [
+            2
+          ]
+        },
+        "24": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "11": {
+        "4": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "12": {
+        "21": {
+          standard: [
+            5
+          ]
+        },
+        "29": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "13": {
+        "1": {
+          standard: [
+            7
+          ]
+        },
+        "14": {
+          standard: [
+            8
+          ]
+        },
+        "17": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "14": {
+        "9": {
+          standard: [
+            2
+          ]
+        },
+        "15": {
+          standard: [
+            3
+          ]
+        },
+        "26": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "15": {
+        "27": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "16": {
+        "11": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "17": {
+        "1": {
+          standard: [
+            7
+          ]
+        },
+        "14": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "18": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "13": {
+          standard: [
+            2
+          ]
+        },
+        "24": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "19": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "7": {
+          standard: [
+            5
+          ]
+        },
+        "20": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "20": {
+        "15": {
+          standard: [
+            7
+          ]
+        },
+        "19": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "21": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "20": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "22": {
+        "4": {
+          standard: [
+            3
+          ]
+        },
+        "27": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "23": {
+        "6": {
+          standard: [
+            5
+          ]
+        },
+        "20": {
+          standard: [
+            6
+          ]
+        },
+        "26": {
+          standard: [
+            7
+          ]
+        }
+      },
+      "24": {
+        "15": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "25": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "17": {
+          standard: [
+            2
+          ]
+        },
+        "31": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "26": {
+        "15": {
+          standard: [
+            4
+          ]
+        },
+        "31": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "27": {
+        "1": {
+          standard: [
+            6
+          ]
+        },
+        "9": {
+          standard: [
+            7
+          ]
+        },
+        "17": {
+          standard: [
+            8
+          ]
+        },
+        "20": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "28": {
+        "13": {
+          standard: [
+            2
+          ]
+        },
+        "31": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "29": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "19": {
+          standard: [
+            5
+          ]
+        },
+        "38": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "30": {
+        "1": {
+          standard: [
+            7
+          ]
+        },
+        "8": {
+          standard: [
+            8
+          ]
+        },
+        "11": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "31": {
+        "18": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "33": {
+        "12": {
+          standard: [
+            3
+          ]
+        },
+        "17": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "34": {
+        "1": {
+          standard: [
+            5
+          ]
+        },
+        "10": {
+          standard: [
+            6
+          ]
+        },
+        "27": {
+          standard: [
+            7
+          ]
+        },
+        "33": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "35": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "21": {
+          standard: [
+            2
+          ]
+        },
+        "30": {
+          standard: [
+            3
+          ],
+          double: 2
+        }
+      },
+      "36": {
+        "8": {
+          standard: [
+            4
+          ]
+        },
+        "20": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "37": {
+        "17": {
+          standard: [
+            6
+          ],
+          double: 3
+        }
+      },
+      "38": {
+        "1": {
+          standard: [
+            7
+          ],
+          double: 4
+        },
+        "18": {
+          standard: [
+            8
+          ]
+        },
+        "21": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "39": {
+        "2": {
+          standard: [
+            2
+          ],
+          double: 5
+        },
+        "22": {
+          standard: [
+            3
+          ],
+          double: 6
+        },
+        "33": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "40": {
+        "1": {
+          standard: [
+            5
+          ],
+          double: 7
+        },
+        "17": {
+          standard: [
+            6
+          ]
+        },
+        "28": {
+          standard: [
+            7
+          ]
+        },
+        "34": {
+          standard: [
+            8
+          ]
+        }
+      }
+    },
+    "3": {
+      "1": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "14": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "2": {
+        "7": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "3": {
+        "1": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "4": {
+        "1": {
+          standard: [
+            5
+          ]
+        },
+        "27": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "5": {
+        "11": {
+          standard: [
+            7
+          ]
+        },
+        "24": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "6": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "12": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "7": {
+        "11": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "8": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "14": {
+          standard: [
+            5
+          ]
+        },
+        "22": {
+          standard: [
+            6
+          ]
+        },
+        "30": {
+          standard: [
+            7
+          ]
+        },
+        "33": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "9": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "17": {
+          standard: [
+            2
+          ]
+        },
+        "24": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "10": {
+        "12": {
+          standard: [
+            4
+          ]
+        },
+        "16": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "11": {
+        "1": {
+          standard: [
+            6
+          ]
+        },
+        "33": {
+          standard: [
+            7
+          ]
+        },
+        "45": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "12": {
+        "1": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "13": {
+        "6": {
+          standard: [
+            2
+          ]
+        },
+        "18": {
+          standard: [
+            3
+          ]
+        },
+        "24": {
+          standard: [
+            4
+          ],
+          double: 2
+        },
+        "29": {
+          standard: [
+            5
+          ]
+        },
+        "40": {
+          standard: [
+            6
+          ],
+          double: 3
+        },
+        "55": {
+          standard: [
+            7
+          ],
+          double: 4
+        },
+        "57": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "14": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "13": {
+          standard: [
+            2
+          ]
+        },
+        "21": {
+          standard: [
+            3
+          ],
+          double: 5
+        },
+        "33": {
+          standard: [
+            4
+          ],
+          double: 6
+        },
+        "54": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "15": {
+        "16": {
+          standard: [
+            6
+          ],
+          double: 7
+        },
+        "29": {
+          standard: [
+            7
+          ]
+        },
+        "31": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "16": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "18": {
+          standard: [
+            2
+          ]
+        },
+        "25": {
+          standard: [
+            3
+          ],
+          double: 2
+        }
+      },
+      "17": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "8": {
+          standard: [
+            5
+          ],
+          double: 3
+        }
+      },
+      "18": {
+        "6": {
+          standard: [
+            6
+          ]
+        },
+        "22": {
+          standard: [
+            7
+          ],
+          double: 4
+        },
+        "28": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "19": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "15": {
+          standard: [
+            2
+          ],
+          double: 5
+        },
+        "23": {
+          standard: [
+            3
+          ]
+        },
+        "33": {
+          standard: [
+            4
+          ],
+          double: 6
+        }
+      },
+      "20": {
+        "1": {
+          standard: [
+            5
+          ]
+        },
+        "8": {
+          standard: [
+            6
+          ],
+          double: 7
+        },
+        "23": {
+          standard: [
+            7
+          ]
+        },
+        "25": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "21": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "16": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "22": {
+        "17": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "23": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "23": {
+          standard: [
+            5
+          ]
+        },
+        "33": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "24": {
+        "1": {
+          standard: [
+            7
+          ]
+        },
+        "21": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "25": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "14": {
+          standard: [
+            2
+          ]
+        },
+        "19": {
+          standard: [
+            3
+          ],
+          double: 2
+        },
+        "25": {
+          standard: [
+            4
+          ]
+        },
+        "29": {
+          standard: [
+            5
+          ],
+          double: 3
+        },
+        "39": {
+          standard: [
+            6
+          ],
+          double: 4
+        },
+        "47": {
+          standard: [
+            7
+          ]
+        },
+        "55": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "26": {
+        "3": {
+          standard: [
+            1
+          ]
+        },
+        "6": {
+          standard: [
+            2
+          ]
+        },
+        "10": {
+          standard: [
+            3
+          ],
+          double: 5
+        }
+      },
+      "27": {
+        "1": {
+          standard: [
+            4
+          ],
+          double: 6
+        },
+        "16": {
+          standard: [
+            5
+          ],
+          double: 7
+        },
+        "22": {
+          standard: [
+            6
+          ]
+        },
+        "29": {
+          standard: [
+            7
+          ]
+        },
+        "32": {
+          standard: [
+            8
+          ]
+        }
+      }
+    },
+    "4": {
+      "1": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "20": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "2": {
+        "1": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "3": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "14": {
+          standard: [
+            5
+          ]
+        },
+        "40": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "4": {
+        "1": {
+          standard: [
+            7
+          ]
+        },
+        "17": {
+          standard: [
+            8
+          ]
+        },
+        "21": {
+          standard: [
+            1
+          ]
+        },
+        "38": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "5": {
+        "1": {
+          standard: [
+            3
+          ]
+        },
+        "11": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "7": {
+        "1": {
+          standard: [
+            5
+          ]
+        },
+        "42": {
+          standard: [
+            6
+          ]
+        },
+        "72": {
+          standard: [
+            7
+          ]
+        },
+        "87": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "8": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "15": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "9": {
+        "1": {
+          standard: [
+            3
+          ]
+        },
+        "15": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "10": {
+        "11": {
+          standard: [
+            5
+          ]
+        },
+        "35": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "11": {
+        "30": {
+          standard: [
+            7
+          ]
+        }
+      },
+      "12": {
+        "14": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "13": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "21": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "14": {
+        "8": {
+          standard: [
+            3
+          ]
+        },
+        "26": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "15": {
+        "8": {
+          standard: [
+            5
+          ]
+        },
+        "17": {
+          standard: [
+            6
+          ]
+        },
+        "27": {
+          standard: [
+            7
+          ]
+        },
+        "37": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "16": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "14": {
+          standard: [
+            2
+          ]
+        },
+        "20": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "17": {
+        "9": {
+          standard: [
+            4
+          ]
+        },
+        "16": {
+          standard: [
+            5
+          ]
+        },
+        "25": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "18": {
+        "21": {
+          standard: [
+            7
+          ]
+        },
+        "30": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "19": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "18": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "20": {
+        "7": {
+          standard: [
+            3
+          ],
+          double: 2
+        },
+        "14": {
+          standard: [
+            4
+          ]
+        },
+        "22": {
+          standard: [
+            5
+          ],
+          double: 3
+        }
+      },
+      "21": {
+        "10": {
+          standard: [
+            6
+          ]
+        },
+        "21": {
+          standard: [
+            7
+          ],
+          double: 4
+        },
+        "34": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "22": {
+        "2": {
+          standard: [
+            1
+          ]
+        },
+        "13": {
+          standard: [
+            2
+          ],
+          double: 5
+        },
+        "21": {
+          standard: [
+            3
+          ]
+        },
+        "39": {
+          standard: [
+            4
+          ],
+          double: 6
+        }
+      },
+      "23": {
+        "13": {
+          standard: [
+            5
+          ]
+        },
+        "27": {
+          standard: [
+            6
+          ],
+          double: 7
+        }
+      },
+      "24": {
+        "14": {
+          standard: [
+            7
+          ]
+        }
+      },
+      "25": {
+        "7": {
+          standard: [
+            8
+          ]
+        },
+        "10": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "26": {
+        "5": {
+          standard: [
+            2
+          ]
+        },
+        "52": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "27": {
+        "6": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "28": {
+        "1": {
+          standard: [
+            5
+          ]
+        },
+        "16": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "29": {
+        "12": {
+          standard: [
+            7
+          ]
+        },
+        "35": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "30": {
+        "2": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "31": {
+        "1": {
+          standard: [
+            2
+          ]
+        },
+        "13": {
+          standard: [
+            3
+          ],
+          double: 2
+        },
+        "25": {
+          standard: [
+            4
+          ]
+        },
+        "42": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "32": {
+        "1": {
+          standard: [
+            6
+          ],
+          double: 3
+        },
+        "20": {
+          standard: [
+            7
+          ],
+          double: 4
+        },
+        "39": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "33": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "11": {
+          standard: [
+            2
+          ]
+        },
+        "50": {
+          standard: [
+            3
+          ],
+          double: 5
+        }
+      },
+      "34": {
+        "16": {
+          standard: [
+            4
+          ],
+          double: 6
+        }
+      },
+      "35": {
+        "1": {
+          standard: [
+            5
+          ]
+        },
+        "9": {
+          standard: [
+            6
+          ],
+          double: 7
+        }
+      },
+      "36": {
+        "1": {
+          standard: [
+            7
+          ]
+        },
+        "11": {
+          standard: [
+            8
+          ]
+        }
+      }
+    },
+    "5": {
+      "1": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "11": {
+          standard: [
+            2
+          ]
+        },
+        "22": {
+          standard: [
+            3
+          ]
+        },
+        "39": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "2": {
+        "2": {
+          standard: [
+            5
+          ]
+        },
+        "31": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "3": {
+        "15": {
+          standard: [
+            7
+          ]
+        },
+        "20": {
+          standard: [
+            8
+          ]
+        },
+        "23": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "4": {
+        "5": {
+          standard: [
+            2
+          ]
+        },
+        "41": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "5": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "19": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "6": {
+        "4": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "7": {
+        "1": {
+          standard: [
+            7
+          ]
+        },
+        "9": {
+          standard: [
+            8
+          ]
+        },
+        "12": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "8": {
+        "11": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "9": {
+        "4": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "10": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "12": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "11": {
+        "10": {
+          standard: [
+            6
+          ]
+        },
+        "22": {
+          standard: [
+            7,
+            8
+          ]
+        },
+        "26": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "12": {
+        "11": {
+          standard: [
+            2
+          ]
+        },
+        "29": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "14": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "22": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "15": {
+        "1": {
+          standard: [
+            6
+          ]
+        },
+        "19": {
+          standard: [
+            7
+          ]
+        }
+      },
+      "16": {
+        "13": {
+          standard: [
+            8
+          ]
+        },
+        "18": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "17": {
+        "14": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "18": {
+        "1": {
+          standard: [
+            3
+          ]
+        },
+        "6": {
+          standard: [
+            4
+          ]
+        },
+        "14": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "19": {
+        "14": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "20": {
+        "10": {
+          standard: [
+            7
+          ]
+        }
+      },
+      "21": {
+        "7": {
+          standard: [
+            8
+          ]
+        },
+        "10": {
+          standard: [
+            1
+          ]
+        },
+        "22": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "22": {
+        "8": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "23": {
+        "8": {
+          standard: [
+            4
+          ]
+        },
+        "25": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "24": {
+        "5": {
+          standard: [
+            6
+          ]
+        },
+        "14": {
+          standard: [
+            7
+          ]
+        }
+      },
+      "25": {
+        "17": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "26": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "12": {
+          standard: [
+            2
+          ]
+        },
+        "16": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "27": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "11": {
+          standard: [
+            5
+          ]
+        }
+      },
+      "28": {
+        "7": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "29": {
+        "1": {
+          standard: [
+            7
+          ]
+        },
+        "6": {
+          standard: [
+            8
+          ]
+        },
+        "9": {
+          standard: [
+            1
+          ]
+        },
+        "12": {
+          standard: [
+            2
+          ]
+        },
+        "15": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "30": {
+        "1": {
+          standard: [
+            4
+          ],
+          double: 2
+        },
+        "7": {
+          standard: [
+            5
+          ],
+          double: 3
+        },
+        "11": {
+          standard: [
+            6
+          ]
+        },
+        "15": {
+          standard: [
+            7,
+            8
+          ]
+        }
+      },
+      "31": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "4": {
+          standard: [
+            2
+          ]
+        },
+        "7": {
+          standard: [
+            3
+          ],
+          double: 5
+        },
+        "10": {
+          standard: [
+            4
+          ]
+        },
+        "14": {
+          standard: [
+            5
+          ],
+          double: 6
+        },
+        "20": {
+          standard: [
+            6
+          ],
+          double: 7
+        },
+        "25": {
+          standard: [
+            7
+          ]
+        },
+        "28": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "32": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "7": {
+          standard: [
+            2
+          ]
+        },
+        "13": {
+          standard: [
+            3
+          ]
+        },
+        "19": {
+          standard: [
+            4
+          ]
+        },
+        "29": {
+          standard: [
+            5
+          ]
+        },
+        "40": {
+          standard: [
+            6
+          ]
+        },
+        "44": {
+          standard: [
+            7
+          ]
+        },
+        "48": {
+          standard: [
+            8
+          ]
+        }
+      },
+      "33": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "8": {
+          standard: [
+            2
+          ]
+        },
+        "13": {
+          standard: [
+            3
+          ]
+        },
+        "18": {
+          standard: [
+            4
+          ]
+        },
+        "22": {
+          standard: [
+            5
+          ]
+        },
+        "27": {
+          standard: [
+            6
+          ]
+        }
+      },
+      "34": {
+        "1": {
+          standard: [
+            7
+          ]
+        }
+      }
+    }
+  };
+  var rosh_1 = {
+    "1": {
+      "21": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "5": {
+          standard: [
+            2
+          ]
+        },
+        "9": {
+          special: 3
+        },
+        "13": {
+          standard: [
+            3
+          ],
+          special: 4
+        },
+        "18": {
+          special: 5
+        },
+        "22": {
+          standard: [
+            4
+          ],
+          special: 6
+        },
+        "28": {
+          standard: [
+            5
+          ],
+          special: 7
+        }
+      }
+    }
+  };
+  var rosh_2 = {
+    "1": {
+      "22": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "4": {
+          standard: [
+            2
+          ]
+        },
+        "9": {
+          standard: [
+            3
+          ]
+        },
+        "15": {
+          standard: [
+            4
+          ]
+        },
+        "20": {
+          standard: [
+            5
+          ]
+        }
+      }
+    }
+  };
+  var yom_kippur = {
+    "3": {
+      "16": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "4": {
+          special: 2
+        },
+        "7": {
+          standard: [
+            2
+          ],
+          special: 3
+        },
+        "12": {
+          standard: [
+            3
+          ],
+          special: 4
+        },
+        "18": {
+          standard: [
+            4
+          ],
+          special: 5
+        },
+        "25": {
+          standard: [
+            5
+          ],
+          special: 6
+        },
+        "31": {
+          standard: [
+            6
+          ],
+          special: 7
+        }
+      }
+    }
+  };
+  var sukkot_1 = {
+    "3": {
+      "22": {
+        "26": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "23": {
+        "1": {
+          special: 2
+        },
+        "4": {
+          standard: [
+            2
+          ],
+          special: 3
+        },
+        "9": {
+          standard: [
+            3
+          ],
+          special: 4
+        },
+        "15": {
+          standard: [
+            3
+          ],
+          special: 5
+        },
+        "23": {
+          standard: [
+            4
+          ],
+          special: 6
+        },
+        "33": {
+          standard: [
+            5
+          ],
+          special: 7
+        }
+      }
+    }
+  };
+  var sukkot_2 = {
+    "3": {
+      "22": {
+        "26": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "23": {
+        "4": {
+          standard: [
+            2
+          ]
+        },
+        "15": {
+          standard: [
+            3
+          ]
+        },
+        "23": {
+          standard: [
+            4
+          ]
+        },
+        "33": {
+          standard: [
+            5
+          ]
+        }
+      }
+    }
+  };
+  var sukkot_3 = {
+    "4": {
+      "29": {
+        "17": {
+          standard: [
+            1
+          ]
+        },
+        "20": {
+          standard: [
+            2
+          ]
+        },
+        "23": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var sukkot_4 = {
+    "4": {
+      "29": {
+        "20": {
+          standard: [
+            1
+          ]
+        },
+        "23": {
+          standard: [
+            2
+          ]
+        },
+        "26": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var sukkot_5 = {
+    "4": {
+      "29": {
+        "23": {
+          standard: [
+            1
+          ]
+        },
+        "26": {
+          standard: [
+            2
+          ]
+        },
+        "29": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var sukkot_6 = {
+    "4": {
+      "29": {
+        "26": {
+          standard: [
+            1
+          ]
+        },
+        "29": {
+          standard: [
+            2
+          ]
+        },
+        "32": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var sukkot_7 = {
+    "4": {
+      "29": {
+        "26": {
+          standard: [
+            1
+          ]
+        },
+        "29": {
+          standard: [
+            2
+          ]
+        },
+        "32": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var sukkot_shabbat_chol_hamoed = {
+    "2": {
+      "33": {
+        "12": {
+          standard: [
+            1
+          ]
+        },
+        "17": {
+          standard: [
+            2
+          ]
+        },
+        "20": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "34": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "4": {
+          standard: [
+            5
+          ]
+        },
+        "11": {
+          standard: [
+            6
+          ]
+        },
+        "18": {
+          standard: [
+            7
+          ]
+        }
+      }
+    }
+  };
+  var shmini_atzeret = {
+    "5": {
+      "14": {
+        "22": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "15": {
+        "1": {
+          standard: [
+            2
+          ]
+        },
+        "19": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "16": {
+        "1": {
+          special: 4
+        },
+        "4": {
+          standard: [
+            4
+          ],
+          special: 5
+        },
+        "9": {
+          standard: [
+            5
+          ],
+          special: 6
+        },
+        "13": {
+          special: 7
+        }
+      }
+    }
+  };
+  var simchat_torah = {
+    "5": {
+      "33": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "8": {
+          standard: [
+            2
+          ]
+        },
+        "13": {
+          standard: [
+            3
+          ]
+        },
+        "18": {
+          standard: [
+            4
+          ]
+        },
+        "22": {
+          standard: [
+            5
+          ]
+        },
+        "27": {
+          standard: [
+            6
+          ]
+        }
+      }
+    }
+  };
+  var chanukah_1 = {
+    "4": {
+      "7": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "12": {
+          standard: [
+            2
+          ]
+        },
+        "15": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var chanukah_2 = {
+    "4": {
+      "7": {
+        "18": {
+          standard: [
+            1
+          ]
+        },
+        "21": {
+          standard: [
+            2
+          ]
+        },
+        "24": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var chanukah_3 = {
+    "4": {
+      "7": {
+        "24": {
+          standard: [
+            1
+          ]
+        },
+        "27": {
+          standard: [
+            2
+          ]
+        },
+        "30": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var chanukah_4 = {
+    "4": {
+      "7": {
+        "30": {
+          standard: [
+            1
+          ]
+        },
+        "33": {
+          standard: [
+            2
+          ]
+        },
+        "36": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var chanukah_5 = {
+    "4": {
+      "7": {
+        "36": {
+          standard: [
+            1
+          ]
+        },
+        "39": {
+          standard: [
+            2
+          ]
+        },
+        "42": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var chanukah_7 = {
+    "4": {
+      "7": {
+        "48": {
+          standard: [
+            1
+          ]
+        },
+        "51": {
+          standard: [
+            2
+          ]
+        },
+        "54": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var chanukah_8 = {
+    "4": {
+      "7": {
+        "54": {
+          standard: [
+            1
+          ]
+        },
+        "57": {
+          standard: [
+            2
+          ]
+        },
+        "60": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var purim = {
+    "2": {
+      "17": {
+        "8": {
+          standard: [
+            1
+          ]
+        },
+        "11": {
+          standard: [
+            2
+          ]
+        },
+        "14": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var taanit_tzibur = {
+    "2": {
+      "32": {
+        "11": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "34": {
+        "1": {
+          standard: [
+            2
+          ]
+        },
+        "4": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var pesach_1 = {
+    "2": {
+      "12": {
+        "21": {
+          standard: [
+            1
+          ]
+        },
+        "25": {
+          standard: [
+            2
+          ]
+        },
+        "29": {
+          standard: [
+            3
+          ]
+        },
+        "33": {
+          special: 4
+        },
+        "37": {
+          standard: [
+            4
+          ],
+          special: 5
+        },
+        "43": {
+          standard: [
+            5
+          ],
+          special: 6
+        },
+        "48": {
+          special: 7
+        }
+      }
+    }
+  };
+  var pesach_2 = {
+    "3": {
+      "22": {
+        "26": {
+          standard: [
+            1
+          ]
+        }
+      },
+      "23": {
+        "4": {
+          standard: [
+            2
+          ]
+        },
+        "15": {
+          standard: [
+            3
+          ]
+        },
+        "23": {
+          standard: [
+            4
+          ]
+        },
+        "33": {
+          standard: [
+            5
+          ]
+        }
+      }
+    }
+  };
+  var pesach_3 = {
+    "2": {
+      "13": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "5": {
+          standard: [
+            2
+          ]
+        },
+        "11": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var pesach_4 = {
+    "2": {
+      "22": {
+        "24": {
+          standard: [
+            1
+          ]
+        },
+        "27": {
+          standard: [
+            2
+          ]
+        }
+      },
+      "23": {
+        "6": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var pesach_5 = {
+    "2": {
+      "34": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "11": {
+          standard: [
+            2
+          ]
+        },
+        "18": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var pesach_6 = {
+    "4": {
+      "9": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "6": {
+          standard: [
+            2
+          ]
+        },
+        "9": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var pesach_shabbat_chol_hamoed = {
+    "2": {
+      "33": {
+        "12": {
+          standard: [
+            1
+          ]
+        },
+        "17": {
+          standard: [
+            2
+          ]
+        },
+        "20": {
+          standard: [
+            3
+          ]
+        }
+      },
+      "34": {
+        "1": {
+          standard: [
+            4
+          ]
+        },
+        "4": {
+          standard: [
+            5
+          ]
+        },
+        "11": {
+          standard: [
+            6
+          ]
+        },
+        "18": {
+          standard: [
+            7
+          ]
+        }
+      }
+    }
+  };
+  var pesach_7 = {
+    "2": {
+      "13": {
+        "17": {
+          standard: [
+            1
+          ]
+        },
+        "20": {
+          special: 2
+        }
+      },
+      "14": {
+        "1": {
+          standard: [
+            2
+          ],
+          special: 3
+        },
+        "5": {
+          special: 4
+        },
+        "9": {
+          standard: [
+            3
+          ],
+          special: 5
+        },
+        "15": {
+          standard: [
+            4
+          ],
+          special: 6
+        },
+        "26": {
+          standard: [
+            5
+          ],
+          special: 7
+        }
+      }
+    }
+  };
+  var pesach_8 = {
+    "5": {
+      "14": {
+        "22": {
+          special: 1
+        }
+      },
+      "15": {
+        "1": {
+          special: 2
+        },
+        "19": {
+          standard: [
+            1
+          ],
+          special: 3
+        }
+      },
+      "16": {
+        "1": {
+          standard: [
+            2
+          ],
+          special: 4
+        },
+        "4": {
+          standard: [
+            3
+          ],
+          special: 5
+        },
+        "9": {
+          standard: [
+            4
+          ],
+          special: 6
+        },
+        "13": {
+          standard: [
+            5
+          ],
+          special: 7
+        }
+      }
+    }
+  };
+  var shavuot_1 = {
+    "2": {
+      "19": {
+        "1": {
+          standard: [
+            1
+          ]
+        },
+        "7": {
+          standard: [
+            2
+          ]
+        },
+        "14": {
+          standard: [
+            3
+          ]
+        },
+        "20": {
+          standard: [
+            4
+          ]
+        }
+      },
+      "20": {
+        "15": {
+          standard: [
+            5
+          ]
+        }
+      }
+    }
+  };
+  var shavuot_2 = {
+    "5": {
+      "14": {
+        "22": {
+          special: 1
+        }
+      },
+      "15": {
+        "1": {
+          special: 2
+        },
+        "19": {
+          standard: [
+            1
+          ],
+          special: 3
+        }
+      },
+      "16": {
+        "1": {
+          standard: [
+            2
+          ],
+          special: 4
+        },
+        "4": {
+          standard: [
+            3
+          ],
+          special: 5
+        },
+        "9": {
+          standard: [
+            4
+          ],
+          special: 6
+        },
+        "13": {
+          standard: [
+            5
+          ],
+          special: 7
+        }
+      }
+    }
+  };
+  var tisha_bav = {
+    "5": {
+      "4": {
+        "25": {
+          standard: [
+            1
+          ]
+        },
+        "30": {
+          standard: [
+            2
+          ]
+        },
+        "36": {
+          standard: [
+            3
+          ]
+        }
+      }
+    }
+  };
+  var aliyot_default = {
+    torah,
+    "rosh-1": rosh_1,
+    "rosh-2": rosh_2,
+    "yom-kippur": yom_kippur,
+    "sukkot-1": sukkot_1,
+    "sukkot-2": sukkot_2,
+    "sukkot-3": sukkot_3,
+    "sukkot-4": sukkot_4,
+    "sukkot-5": sukkot_5,
+    "sukkot-6": sukkot_6,
+    "sukkot-7": sukkot_7,
+    "sukkot-shabbat-chol-hamoed": sukkot_shabbat_chol_hamoed,
+    "shmini-atzeret": shmini_atzeret,
+    "simchat-torah": simchat_torah,
+    "chanukah-1": chanukah_1,
+    "chanukah-2": chanukah_2,
+    "chanukah-3": chanukah_3,
+    "chanukah-4": chanukah_4,
+    "chanukah-5": chanukah_5,
+    "chanukah-7": chanukah_7,
+    "chanukah-8": chanukah_8,
+    purim,
+    "taanit-tzibur": taanit_tzibur,
+    "pesach-1": pesach_1,
+    "pesach-2": pesach_2,
+    "pesach-3": pesach_3,
+    "pesach-4": pesach_4,
+    "pesach-5": pesach_5,
+    "pesach-6": pesach_6,
+    "pesach-shabbat-chol-hamoed": pesach_shabbat_chol_hamoed,
+    "pesach-7": pesach_7,
+    "pesach-8": pesach_8,
+    "shavuot-1": shavuot_1,
+    "shavuot-2": shavuot_2,
+    "tisha-bav": tisha_bav
+  };
+
+  // src/scrolls-by-key.js
   var fetchPage = ({ path, title: title2, pageNumber }) => window.fetch(path).then((res) => res.json()).then((page) => ({ content: page, title: title2, pageNumber })).catch((err) => {
     console.error(err);
   });
+  var aliyotStrings = [
+    "\u05E8\u05D0\u05E9\u05D5\u05DF",
+    "\u05E9\u05E0\u05D9",
+    "\u05E9\u05DC\u05D9\u05E9\u05D9",
+    "\u05E8\u05D1\u05D9\u05E2\u05D9",
+    "\u05D7\u05DE\u05D9\u05E9\u05D9",
+    "\u05E9\u05E9\u05D9",
+    "\u05E9\u05D1\u05D9\u05E2\u05D9",
+    "\u05DE\u05E4\u05D8\u05D9\u05E8"
+  ];
+  var aliyahName = ({ aliyah, getParshaName }) => {
+    if (aliyah < 1 || aliyah > aliyotStrings.length)
+      return null;
+    if (aliyah === 1)
+      return getParshaName();
+    return aliyotStrings[aliyah - 1];
+  };
   var Scroll = {
     new: ({
       scroll: scroll2,
       makePath,
       makeTitle,
-      startingAtRef = { b: 1, c: 1, v: 1 }
+      startingAtRef = { b: 1, c: 1, v: 1 },
+      aliyotByRef,
+      aliyahFinder
     }) => {
       const { pageNumber, lineNumber } = physicalLocationFromRef({
         ref: startingAtRef,
@@ -62102,7 +62126,29 @@
             pageNumber: n
           });
         },
-        startingLineNumber: lineNumber
+        startingLineNumber: lineNumber,
+        aliyotFor: ({ verses }) => {
+          const found = verses.map(({ book, chapter, verse }) => {
+            return aliyotByRef?.[book]?.[chapter]?.[verse];
+          }).filter(Boolean);
+          if (!found.length)
+            return "";
+          const { standard, double, special } = found[0];
+          const display = (aliyah) => {
+            return aliyahName({
+              aliyah,
+              getParshaName: () => {
+                const found2 = aliyahFinder.find(({ ref }) => verses.some(({ book: b, chapter: c, verse: v }) => ref.b === b && ref.c === c && ref.v === v));
+                return found2?.he;
+              }
+            });
+          };
+          return [
+            ...standard ? [standard.map((n) => display(n)).join(", ")] : [],
+            ...double ? [`[${display(double)}]`] : [],
+            ...special ? [`(${display(special)})`] : []
+          ].join(" ");
+        }
       };
     }
   };
@@ -62112,7 +62158,9 @@
         scroll: "torah",
         makePath: (n) => `/build/pages/torah/${n}.json`,
         makeTitle: (n) => title(page_titles_default[n - 1]),
-        startingAtRef
+        startingAtRef,
+        aliyahFinder: import_parshiyot.default,
+        aliyotByRef: aliyot_default.torah
       });
     }
   };
@@ -62121,8 +62169,10 @@
       return Scroll.new({
         scroll: "esther",
         makePath: (n) => `/build/pages/esther/${n}.json`,
-        makeTitle: (n) => "\u05D0\u05E1\u05EA\u05E8",
-        startingAtRef
+        makeTitle: () => "\u05D0\u05E1\u05EA\u05E8",
+        startingAtRef,
+        aliyahFinder: [],
+        aliyotByRef: aliyot_default.esther
       });
     }
   };
@@ -62135,8 +62185,10 @@
           return Scroll.new({
             scroll: holydayKey,
             makePath: (n) => `/build/pages/${holydayKey}/${n}.json`,
-            makeTitle: (n) => import_holydays.default[holydayKey].he,
-            startingAtRef
+            makeTitle: () => import_holydays.default[holydayKey].he,
+            startingAtRef,
+            aliyahFinder: [import_holydays.default[holydayKey]],
+            aliyotByRef: aliyot_default[holydayKey]
           });
         }
       };
@@ -62153,38 +62205,10 @@
   var urlToRef = require_url_to_ref();
 
   // components/Line.js
-  var parshiyot = require_parshiyot();
-  var holydays2 = require_holydays();
-  var aliyotJSON = require_aliyot();
   var ktivKriAnnotation = (text) => text.replace(/[{]/g, `<span class="ktiv-kri">`).replace(/[}]/g, `</span>`);
   var petuchaClass = (isPetucha) => isPetucha ? "mod-petucha" : "";
   var setumaClass = (column) => column.length > 1 ? "mod-setuma" : "";
-  var aliyahFinderByScroll = {
-    torah: parshiyot,
-    ...Object.keys(holydays2).reduce((result, holydayKey) => {
-      return { ...result, [holydayKey]: [holydays2[holydayKey]] };
-    }, {})
-  };
-  var aliyotByRefByScroll = aliyotJSON;
-  var getParshaName = (verses, __scroll) => () => parshaName(verses, __scroll);
-  var aliyotDisplay = ({ verses, scroll: __scroll }) => {
-    const found = verses.map(({ book, chapter, verse }) => {
-      return aliyotByRefByScroll[__scroll]?.[book]?.[chapter]?.[verse];
-    }).filter(Boolean);
-    if (!found.length)
-      return "";
-    const { standard, double, special } = found[0];
-    return [
-      ...standard ? [standard.map((n) => displayRange.aliyahName({ aliyah: n, getParshaName: getParshaName(verses, __scroll) })).join(", ")] : [],
-      ...double ? [`[${displayRange.aliyahName({ aliyah: double, getParshaName: getParshaName(verses, __scroll) })}]`] : [],
-      ...special ? [`(${displayRange.aliyahName({ aliyah: special, getParshaName: getParshaName(verses, __scroll) })})`] : []
-    ].join(" ");
-  };
-  var parshaName = (verses, __scroll) => {
-    const found = aliyahFinderByScroll[__scroll].find(({ ref }) => verses.some(({ book: b, chapter: c, verse: v }) => ref.b === b && ref.c === c && ref.v === v));
-    return (found || { he: "\u05E8\u05D0\u05E9\u05D5\u05DF" }).he;
-  };
-  var Line = ({ scroll: __scroll, text, verses, aliyot, isPetucha }) => `
+  var Line = ({ scroll: __scroll, text, verses, isPetucha }) => `
   <tr>
     <td class="line ${petuchaClass(isPetucha)}">
       ${text.map((column) => `
@@ -62196,7 +62220,7 @@
         </div>
       `).join("")}
       <span class="location-indicator mod-verses">${displayRange.asVersesRange(verses)}</span>
-      <span class="location-indicator mod-aliyot" data-target-id="aliyot-range">${aliyotDisplay({ verses, scroll: __scroll })}</span>
+      <span class="location-indicator mod-aliyot" data-target-id="aliyot-range">${__scroll.aliyotFor({ verses })}</span>
     </td>
   </tr>
 `;
@@ -62211,11 +62235,11 @@
   var Page_default = Page;
 
   // components/ParshaPicker.js
-  var import_parshiyot = __toModule(require_parshiyot());
-  var import_schedule = __toModule(require_schedule());
-  var import_holydays2 = __toModule(require_holydays());
-  var import_fuzzy = __toModule(require_fuzzy());
-  var import_slugify = __toModule(require_slugify());
+  var import_parshiyot2 = __toESM(require_parshiyot());
+  var import_schedule = __toESM(require_schedule());
+  var import_holydays2 = __toESM(require_holydays());
+  var import_fuzzy = __toESM(require_fuzzy());
+  var import_slugify = __toESM(require_slugify());
 
   // components/utils.js
   var htmlToElement = (html2) => {
@@ -62398,7 +62422,7 @@
     </ol>
   </li>
 `;
-  var parshaFromLabel = ({ label }) => import_parshiyot.default.find(({ he }) => label.startsWith(he));
+  var parshaFromLabel = ({ label }) => import_parshiyot2.default.find(({ he }) => label.startsWith(he));
   var ComingUpReading = ({ label, date, datetime }, index) => {
     const parsha = parshaFromLabel({ label });
     return `
@@ -62432,7 +62456,7 @@
   <div class="browse">
     <h2 class="section-heading">\u05E4\u05E8\u05E9\u05EA \u05D4\u05E9\u05D1\u05D5\u05E2</h2>
     <ol class="parsha-books mod-emphasize-first-in-group">
-      ${import_parshiyot.default.reduce((books, parsha, idx) => {
+      ${import_parshiyot2.default.reduce((books, parsha, idx) => {
     const book = parsha.ref.b;
     books[book] = books[book] || [];
     books[book].push({ ...parsha, idx });
@@ -62465,7 +62489,7 @@
   </div>
 `;
   var searchables = [
-    ...import_parshiyot.default.map((p, index) => ({ idx: index, token: "torah", ...p, key: (0, import_slugify.default)(p.en) })),
+    ...import_parshiyot2.default.map((p, index) => ({ idx: index, token: "torah", ...p, key: (0, import_slugify.default)(p.en) })),
     {
       idx: "esther",
       token: "esther",
@@ -62518,7 +62542,7 @@
       const token = result.getAttribute(`data-token`);
       const { ref, key } = {
         torah: (idx2) => {
-          const parsha = import_parshiyot.default[Number(idx2)];
+          const parsha = import_parshiyot2.default[Number(idx2)];
           return { ref: { ...parsha.ref, scroll: "torah" }, key: (0, import_slugify.default)(parsha.en) };
         },
         holydays: (idx2) => ({ ref: { ...import_holydays2.default[idx2].ref, scroll: idx2 }, key: idx2 }),
@@ -62549,7 +62573,7 @@
         const token = e.target.getAttribute(`data-token`);
         const { ref, key } = {
           torah: (idx2) => {
-            const parsha2 = import_parshiyot.default[Number(idx2)];
+            const parsha2 = import_parshiyot2.default[Number(idx2)];
             return { ref: { ...parsha2.ref, scroll: "torah" }, key: (0, import_slugify.default)(parsha2.en) };
           },
           holydays: (idx2) => ({ ref: { ...import_holydays2.default[idx2].ref, scroll: idx2 }, key: idx2 }),
@@ -62723,7 +62747,7 @@
   var renderPage = ({ insertStrategy: insert }) => ({ content, title: title2, pageNumber }) => {
     const node = makePageNode({ title: title2, pageNumber });
     insert(document.querySelector('[data-target-id="tikkun-book"]'), node);
-    const el = htmlToElement5(Page_default({ scroll: scroll.scrollName, lines: content }));
+    const el = htmlToElement5(Page_default({ scroll, lines: content }));
     const firstChild = node.firstChild;
     if (firstChild) {
       node.replaceChild(el, firstChild);

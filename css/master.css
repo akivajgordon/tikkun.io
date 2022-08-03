@@ -1,15 +1,15 @@
 @charset "UTF-8";
-@import "/dist/normalize.css";
+@import '/dist/normalize.css';
 
-@import "./app-layout.css";
-@import "./tooltip.css";
-@import "./page.css";
-@import "./parsha-picker.css";
-@import "./toggle.css";
-@import "./toolbar.css";
+@import './app-layout.css';
+@import './tooltip.css';
+@import './page.css';
+@import './parsha-picker.css';
+@import './toggle.css';
+@import './toolbar.css';
 
 @font-face {
-  font-family: "ShlomosemiStam";
+  font-family: 'ShlomosemiStam';
   src: url(/assets/fonts/ShlomosemiStam.ttf);
 }
 
@@ -24,7 +24,8 @@ body {
   background-color: var(--paper-color, white);
 }
 
-body, input {
+body,
+input {
   font-family: -apple-system, sans-serif;
 }
 
@@ -58,11 +59,21 @@ ol {
   animation: fade-out 0.2s;
 }
 
-.stack.xsmall  > * + * { margin-top: 0.35em; }
-.stack.small   > * + * { margin-top: 0.5em; }
-.stack.medium  > * + * { margin-top: 1em; }
-.stack.large   > * + * { margin-top: 1.5em; }
-.stack.xlarge  > * + * { margin-top: 2em; }
+.stack.xsmall > * + * {
+  margin-top: 0.35em;
+}
+.stack.small > * + * {
+  margin-top: 0.5em;
+}
+.stack.medium > * + * {
+  margin-top: 1em;
+}
+.stack.large > * + * {
+  margin-top: 1.5em;
+}
+.stack.xlarge > * + * {
+  margin-top: 2em;
+}
 
 .cluster {
   display: inline-flex;
@@ -109,6 +120,7 @@ ol {
 
 .tikkun-book {
   padding-top: 1em;
+  padding-bottom: 5em; /* basically some scroll overflow so that when you get to the end of a Scroll, you can scroll past the annotations toggle so that it doesn't block the last few lines of text */
   font-size: 1.5em;
   height: 100%;
   overflow-y: auto;

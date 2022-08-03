@@ -16,22 +16,36 @@
   color: var(--tooltip-text-color);
   display: inline-block;
   position: absolute;
-  top: var(--header-height);
   padding: 1em 1.5em;
   border-radius: 4px;
   font-size: 0.8em;
   white-space: nowrap;
+  box-shadow: 0 0 8px -4px black;
+  font-family: sans-serif;
+
+  top: var(--header-height);
   left: 50%;
   transform: translate(-50%, 0) scale(0);
   transform-origin: top center;
-  box-shadow: 0 0 8px -4px black;
-  font-family: sans-serif;
+  transition-delay: 0.1s;
 }
 
 [data-tooltip]:hover::after {
-  transform: translate(-50%, 0) scale(1.0);
+  transform: translate(-50%, 0) scale(1);
   transition: transform 0.15s;
   transition-delay: 1s;
+}
+
+[data-tooltip][data-tooltip-position='top-left']::after {
+  left: unset;
+  right: 0;
+  top: 0;
+  transform: translate(0, calc(-100% - 10px)) scale(0);
+  transform-origin: bottom right;
+}
+
+[data-tooltip][data-tooltip-position='top-left']:hover::after {
+  transform: translate(0, calc(-100% - 10px)) scale(1);
 }
 
 @media (hover: none) {

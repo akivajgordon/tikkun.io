@@ -1,17 +1,30 @@
 .toggle {
+  --annotations-toggle-active-color: white;
+  --annotations-toggle-inactive-color: hsla(0, 0%, 100%, 0.6);
   text-align: middle;
   display: flex;
   align-items: center;
   cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-.toggle [type="checkbox"] {
+@media (prefers-color-scheme: dark) {
+  .toggle {
+    --annotations-toggle-active-color: black;
+    --annotations-toggle-inactive-color: hsla(0, 0%, 0%, 0.5);
+  }
+}
+
+.toggle [type='checkbox'] {
   display: none;
 }
 
 .toggle-state {
-  color: var(--light-text-color);
+  color: var(--annotations-toggle-inactive-color);
   transition: all 0.1s;
+  position: relative;
+  right: 3px; /* <fb0f10> To give the appearance of the toggle-state being centered within the circle, shift things over a bit to the right when the toggle is checked. See comment `1adb87` for corresponding "unchecked" state. */
 }
 
 .toggle-state.mod-off {
@@ -19,7 +32,34 @@
   margin-right: 0.25em;
 }
 
-.toggle>[type="checkbox"]:checked~.toggle-state.mod-on, .toggle>[type="checkbox"]:not(:checked)~.toggle-state.mod-off {
+.toggle [type='checkbox']:checked ~ .toggle-state.mod-on,
+.toggle [type='checkbox']:not(:checked) ~ .toggle-state.mod-off {
   transform: scale(1.5);
   color: var(--annotations-toggle-active-color);
+}
+
+.toggle [type='checkbox']:not(:checked) ~ .toggle-state.mod-on,
+.toggle [type='checkbox']:not(:checked) ~ .toggle-state.mod-off {
+  right: -3px; /* <1adb87> When toggle is unchecked, give the appearance of shifting things to the left a little. See comment `fb0f10` for "checked" state. */
+}
+
+.shadowed-circle {
+  padding: 1em;
+  height: 4em;
+  width: 4em;
+  /* border: 1px solid hsla(0, 0%, 0%, 0.5); */
+  /* box-shadow: 0 0 10px -5px hsla(0, 0%, 100%, 0.5); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: black;
+  color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  .shadowed-circle {
+    background: white;
+    color: black;
+  }
 }

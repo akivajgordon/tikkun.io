@@ -1,4 +1,4 @@
-const hebrewNumeralFromInteger = require('./hebrew-numeral')
+import hebrewNumeralFromInteger from './hebrew-numeral'
 
 var asRange = (strings) => {
   if (!strings.length) {
@@ -27,4 +27,4 @@ const asVersesRange = (verses) =>
     })
   )
 
-module.exports = { asVersesRange }
+export default { asVersesRange }

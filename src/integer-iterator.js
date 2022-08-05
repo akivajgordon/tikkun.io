@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   new: ({ startingAt }) => {
     let previousCount = 0
     let nextCount = 0
@@ -11,7 +11,7 @@ module.exports = {
       next: () => {
         nextCount += 1
         return startingAt + nextCount - 1
-      }
+      },
     }
-  }
+  },
 }

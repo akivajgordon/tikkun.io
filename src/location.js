@@ -1,42 +1,49 @@
-const toc = require('../build/table-of-contents.json')
-const estherToc = require('../build/table-of-contents-esther.json')
-const holydaysToc = require('../build/table-of-contents-holydays.json')
+import toc from '../build/table-of-contents.json'
+import estherToc from '../build/table-of-contents-esther.json'
+import holydaysToc from '../build/table-of-contents-holydays.json'
 
 const tocFromScroll = {
   torah: toc,
   esther: estherToc,
-  ...holydaysToc
+  ...holydaysToc,
 }
 
-const defaultRef = () => { return { scroll: 'torah', b: 1, c: 1, v: 1 } }
+export const defaultRef = () => {
+  return { scroll: 'torah', b: 1, c: 1, v: 1 }
+}
 
 const convertToValidInt = (val, validValues) => {
-  return (val && (val in validValues)) ? parseInt(val) : 1
+  return val && val in validValues ? parseInt(val) : 1
 }
 
-module.exports = {
-  physicalLocationFromRef: ({ ref: { b: book, c: chapter, v: verse }, scroll }) => {
-    const { p: pageNumber, l: lineNumber } = tocFromScroll[scroll][book][chapter][verse]
-    return { pageNumber, lineNumber }
-  },
+export const physicalLocationFromRef = ({
+  ref: { b: book, c: chapter, v: verse },
+  scroll,
+}) => {
+  const { p: pageNumber, l: lineNumber } =
+    tocFromScroll[scroll][book][chapter][verse]
+  return { pageNumber, lineNumber }
+}
 
-  defaultRef,
+export const resolveToValidRef = ({
+  scroll = 'torah',
+  book,
+  chapter,
+  verse,
+}) => {
+  const ref = defaultRef()
+  if (scroll !== 'torah') {
+    return ref
+  }
 
-  resolveToValidRef: ({ scroll = 'torah', book, chapter, verse }) => {
-    const ref = defaultRef()
-    if (scroll !== 'torah') {
-      return ref
-    }
+  const toc = tocFromScroll.torah
 
-    const toc = tocFromScroll.torah
+  ref.b = convertToValidInt(book, toc)
+  ref.c = convertToValidInt(chapter, toc[ref.b])
+  ref.v = convertToValidInt(verse, toc[ref.b][ref.c])
 
-    ref.b = convertToValidInt(book, toc)
-    ref.c = convertToValidInt(chapter, toc[ref.b])
-    ref.v = convertToValidInt(verse, toc[ref.b][ref.c])
-
-    return {
-      scroll,
-      ...ref
-    }
+  return {
+    scroll,
+    ...ref,
   }
 }

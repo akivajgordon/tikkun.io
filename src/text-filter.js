@@ -34,4 +34,4 @@ const kri = (text) =>
     .replace(new RegExp(`[^א-ת\\s${NUN_HAFUCHA}]`, 'g'), '')
     .replace(/\s{2,}/g, ' ')
 
-module.exports = ({ text, annotated }) => (annotated ? ketiv(text) : kri(text))
+export default ({ text, annotated }) => (annotated ? ketiv(text) : kri(text))

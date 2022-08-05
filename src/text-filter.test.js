@@ -1,6 +1,5 @@
 import test from 'ava'
-
-const textFilter = require('./text-filter')
+import textFilter from './text-filter'
 
 test('simple annotated text remains untouched', (t) => {
   t.is(

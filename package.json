@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "The online tikkun you always wanted, but never had.",
   "main": "index.js",
+  "type": "module",
   "ava": {
-    "babel": true,
     "files": [
       "src/*.test.js"
+    ],
+    "nodeArguments": [
+      "--loader=esbuild-node-loader",
+      "--experimental-specifier-resolution=node"
     ]
   },
   "scripts": {
@@ -32,12 +36,10 @@
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {
-    "@ava/babel": "^2.0.0",
-    "@babel/core": "^7.14.3",
-    "@babel/register": "^7.13.16",
-    "ava": "^3.15.0",
-    "cypress": "^9.1.1",
-    "esbuild": "^0.14.11",
+    "ava": "^4.3.1",
+    "cypress": "^10.4.0",
+    "esbuild": "^0.14.53",
+    "esbuild-node-loader": "^0.8.0",
     "onchange": "^7.1.0"
   }
 }

@@ -25,11 +25,12 @@
     "watch:data": "onchange --initial 'src/data' -- npm run build:data",
     "build:static": "cp -R static/ dist",
     "watch:static": "onchange --initial 'static/**/*' -- npm run build:static",
-    "build:js": "esbuild --bundle --outfile=\"dist/bundle.js\" --sourcemap src/index.js",
-    "watch:js": "onchange --initial 'src/**/*.js' -- npm run build:js",
+    "build:js": "esbuild --bundle --outfile=\"dist/bundle.js\" --minify src/index.js",
+    "watch:js": "esbuild --bundle --outfile=\"dist/bundle.js\" --sourcemap --watch src/index.js",
     "build": "npm run build:css && npm run build:data && npm run build:static && npm run build:js",
     "dev": "npm-run-all --print-label --parallel watch:css watch:data watch:static watch:js serve",
-    "deploy": "npm run build && echo 'tikkun.io\nwww.tikkun.io' > dist/CNAME && gh-pages -d dist"
+    "clean": "rm -r dist",
+    "deploy": "npm run clean && npm run build && echo 'tikkun.io\nwww.tikkun.io' > dist/CNAME && gh-pages -d dist"
   },
   "repository": {
     "type": "git",

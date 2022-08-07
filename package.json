@@ -14,7 +14,7 @@
     ]
   },
   "scripts": {
-    "serve": "cd dist && python -m SimpleHTTPServer",
+    "serve": "mkdir -p dist && cd dist && python -m SimpleHTTPServer",
     "test": "ava",
     "test:watch": "npm test -- --watch",
     "test:ui": "cypress run",
@@ -29,7 +29,7 @@
     "watch:js": "esbuild --bundle --outfile=\"dist/bundle.js\" --sourcemap --watch src/index.js",
     "build": "npm run build:css && npm run build:data && npm run build:static && npm run build:js",
     "dev": "npm-run-all --print-label --parallel watch:css watch:data watch:static watch:js serve",
-    "clean": "rm -r dist",
+    "clean": "rm -rf dist",
     "deploy": "npm run clean && npm run build && echo 'tikkun.io\nwww.tikkun.io' > dist/CNAME && gh-pages -d dist"
   },
   "repository": {

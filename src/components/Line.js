@@ -1,4 +1,5 @@
-import { displayRange, textFilter } from '../src'
+import displayRange from '../display-range'
+import textFilter from '../text-filter'
 
 const ktivKriAnnotation = (text) =>
   text.replace(/[{]/g, `<span class="ktiv-kri">`).replace(/[}]/g, `</span>`)

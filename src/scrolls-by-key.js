@@ -1,4 +1,6 @@
-import { IntegerIterator, physicalLocationFromRef, title as getTitle } from '.'
+import IntegerIterator from './integer-iterator'
+import { physicalLocationFromRef } from './location'
+import getTitle from './title'
 import pageTitles from '../build/page-titles.json'
 import holydays from '../build/holydays.json'
 import parshiyot from '../build/parshiyot.json'

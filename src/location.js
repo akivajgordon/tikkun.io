@@ -1,6 +1,6 @@
-import toc from '../build/table-of-contents.json'
-import estherToc from '../build/table-of-contents-esther.json'
-import holydaysToc from '../build/table-of-contents-holydays.json'
+import toc from './data/table-of-contents.json'
+import estherToc from './data/table-of-contents-esther.json'
+import holydaysToc from './data/table-of-contents-holydays.json'
 
 const tocFromScroll = {
   torah: toc,

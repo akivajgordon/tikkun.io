@@ -1,10 +1,10 @@
 import IntegerIterator from './integer-iterator'
 import { physicalLocationFromRef } from './location'
 import getTitle from './title'
-import pageTitles from '../build/page-titles.json'
-import holydays from '../build/holydays.json'
-import parshiyot from '../build/parshiyot.json'
-import aliyotJSON from '../build/aliyot.json'
+import pageTitles from './data/page-titles.json'
+import holydays from './data/holydays.json'
+import parshiyot from './data/parshiyot.json'
+import aliyotJSON from './data/aliyot.json'
 
 const fetchPage = ({ path, title, pageNumber }) =>
   window
@@ -111,7 +111,7 @@ const TorahScroll = {
   new: ({ startingAtRef }) => {
     return Scroll.new({
       scroll: 'torah',
-      makePath: (n) => `/build/pages/torah/${n}.json`,
+      makePath: (n) => `/src/data/pages/torah/${n}.json`,
       makeTitle: (n) => getTitle(pageTitles[n - 1]),
       startingAtRef,
       aliyahFinder: parshiyot,
@@ -124,7 +124,7 @@ const EstherScroll = {
   new: ({ startingAtRef }) => {
     return Scroll.new({
       scroll: 'esther',
-      makePath: (n) => `/build/pages/esther/${n}.json`,
+      makePath: (n) => `/src/data/pages/esther/${n}.json`,
       makeTitle: () => 'אסתר',
       startingAtRef,
       aliyahFinder: [],
@@ -141,7 +141,7 @@ export default {
       new: ({ startingAtRef }) => {
         return Scroll.new({
           scroll: holydayKey,
-          makePath: (n) => `/build/pages/${holydayKey}/${n}.json`,
+          makePath: (n) => `/src/data/pages/${holydayKey}/${n}.json`,
           makeTitle: () => holydays[holydayKey].he,
           startingAtRef,
           aliyahFinder: [holydays[holydayKey]],

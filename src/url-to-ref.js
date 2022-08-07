@@ -1,7 +1,7 @@
 import { defaultRef, resolveToValidRef } from './location'
-import parshiyot from '../build/parshiyot.json'
-import schedule from '../build/schedule.json'
-import holydays from '../build/holydays.json'
+import parshiyot from './data/parshiyot.json'
+import schedule from './data/schedule.json'
+import holydays from './data/holydays.json'
 
 const isURL = (url) => {
   try {

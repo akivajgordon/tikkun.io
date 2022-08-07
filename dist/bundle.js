@@ -36,7 +36,7 @@
   };
   var infinite_scroller_default = InfiniteScroller;
 
-  // build/table-of-contents.json
+  // src/data/table-of-contents.json
   var table_of_contents_default = {
     "1": {
       "1": {
@@ -23808,7 +23808,7 @@
     }
   };
 
-  // build/table-of-contents-esther.json
+  // src/data/table-of-contents-esther.json
   var table_of_contents_esther_default = {
     "1": {
       "1": {
@@ -47580,7 +47580,7 @@
     }
   };
 
-  // build/table-of-contents-holydays.json
+  // src/data/table-of-contents-holydays.json
   var table_of_contents_holydays_default = {
     "rosh-1": {
       "1": {
@@ -55083,7 +55083,7 @@
     };
   };
 
-  // build/parshiyot.json
+  // src/data/parshiyot.json
   var parshiyot_default = [
     {
       he: "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA",
@@ -55735,7 +55735,7 @@
     }
   ];
 
-  // build/schedule.json
+  // src/data/schedule.json
   var schedule_default = [
     {
       label: "\u05D5\u05D9\u05D2\u05E9",
@@ -56954,7 +56954,7 @@
     }
   ];
 
-  // build/holydays.json
+  // src/data/holydays.json
   var holydays_default = {
     "rosh-1": {
       en: "Rosh HaShanah (Day 1)",
@@ -57467,7 +57467,7 @@
     return parshiyot.join(" \u2013 ");
   };
 
-  // build/page-titles.json
+  // src/data/page-titles.json
   var page_titles_default = [
     [
       "\u05D1\u05E8\u05D0\u05E9\u05D9\u05EA"
@@ -58253,7 +58253,7 @@
     ]
   ];
 
-  // build/aliyot.json
+  // src/data/aliyot.json
   var aliyot_default = {
     torah: {
       "1": {
@@ -61910,7 +61910,7 @@
     new: ({ startingAtRef }) => {
       return Scroll.new({
         scroll: "torah",
-        makePath: (n) => `/build/pages/torah/${n}.json`,
+        makePath: (n) => `/src/data/pages/torah/${n}.json`,
         makeTitle: (n) => title_default(page_titles_default[n - 1]),
         startingAtRef,
         aliyahFinder: parshiyot_default,
@@ -61922,7 +61922,7 @@
     new: ({ startingAtRef }) => {
       return Scroll.new({
         scroll: "esther",
-        makePath: (n) => `/build/pages/esther/${n}.json`,
+        makePath: (n) => `/src/data/pages/esther/${n}.json`,
         makeTitle: () => "\u05D0\u05E1\u05EA\u05E8",
         startingAtRef,
         aliyahFinder: [],
@@ -61938,7 +61938,7 @@
         new: ({ startingAtRef }) => {
           return Scroll.new({
             scroll: holydayKey,
-            makePath: (n) => `/build/pages/${holydayKey}/${n}.json`,
+            makePath: (n) => `/src/data/pages/${holydayKey}/${n}.json`,
             makeTitle: () => holydays_default[holydayKey].he,
             startingAtRef,
             aliyahFinder: [holydays_default[holydayKey]],

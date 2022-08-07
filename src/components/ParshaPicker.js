@@ -1,8 +1,8 @@
 /* global gtag */
 
-import parshiyot from '../../build/parshiyot.json'
-import readingSchedule from '../../build/schedule.json'
-import holydays from '../../build/holydays.json'
+import parshiyot from '../data/parshiyot.json'
+import readingSchedule from '../data/schedule.json'
+import holydays from '../data/holydays.json'
 import fuzzy from '../fuzzy'
 import slugify from '../slugify'
 import utils from './utils'

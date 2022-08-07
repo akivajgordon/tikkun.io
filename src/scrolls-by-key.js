@@ -111,7 +111,7 @@ const TorahScroll = {
   new: ({ startingAtRef }) => {
     return Scroll.new({
       scroll: 'torah',
-      makePath: (n) => `/src/data/pages/torah/${n}.json`,
+      makePath: (n) => `/data/pages/torah/${n}.json`,
       makeTitle: (n) => getTitle(pageTitles[n - 1]),
       startingAtRef,
       aliyahFinder: parshiyot,
@@ -124,7 +124,7 @@ const EstherScroll = {
   new: ({ startingAtRef }) => {
     return Scroll.new({
       scroll: 'esther',
-      makePath: (n) => `/src/data/pages/esther/${n}.json`,
+      makePath: (n) => `/data/pages/esther/${n}.json`,
       makeTitle: () => 'אסתר',
       startingAtRef,
       aliyahFinder: [],
@@ -141,7 +141,7 @@ export default {
       new: ({ startingAtRef }) => {
         return Scroll.new({
           scroll: holydayKey,
-          makePath: (n) => `/src/data/pages/${holydayKey}/${n}.json`,
+          makePath: (n) => `/data/pages/${holydayKey}/${n}.json`,
           makeTitle: () => holydays[holydayKey].he,
           startingAtRef,
           aliyahFinder: [holydays[holydayKey]],

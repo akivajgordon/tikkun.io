@@ -18,9 +18,11 @@
     "test": "ava",
     "test:watch": "npm test -- --watch",
     "test:ui": "cypress run",
-    "build:css": "cp node_modules/normalize.css/normalize.css dist/",
-    "build": "npm run build:css && esbuild --bundle --outfile=\"dist/bundle.js\" --sourcemap src/index.js",
-    "watch": "onchange --initial 'src/**/*.js' -- npm run build"
+    "build:css": "cp node_modules/normalize.css/normalize.css dist/ && cp -R css dist",
+    "build:data": "mkdir -p dist/data/pages && cp -R src/data/pages dist/data/",
+    "build:static": "cp -R static/ dist",
+    "build": "npm run build:css && npm run build:data && npm run build:static && esbuild --bundle --outfile=\"dist/bundle.js\" --sourcemap src/index.js",
+    "watch": "onchange --initial 'src/**/*.js' 'static/**/*' 'css/**/*.css' -- npm run build"
   },
   "repository": {
     "type": "git",

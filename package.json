@@ -14,15 +14,21 @@
     ]
   },
   "scripts": {
-    "start": "python -m SimpleHTTPServer",
+    "serve": "cd dist && python -m SimpleHTTPServer",
     "test": "ava",
     "test:watch": "npm test -- --watch",
     "test:ui": "cypress run",
+    "prebuild": "mkdir -p dist",
     "build:css": "cp node_modules/normalize.css/normalize.css dist/ && cp -R css dist",
+    "watch:css": "onchange --initial 'css/**/*.css' -- npm run build:css",
     "build:data": "mkdir -p dist/data/pages && cp -R src/data/pages dist/data/",
+    "watch:data": "onchange --initial 'src/data' -- npm run build:data",
     "build:static": "cp -R static/ dist",
-    "build": "npm run build:css && npm run build:data && npm run build:static && esbuild --bundle --outfile=\"dist/bundle.js\" --sourcemap src/index.js",
-    "watch": "onchange --initial 'src/**/*.js' 'static/**/*' 'css/**/*.css' -- npm run build"
+    "watch:static": "onchange --initial 'static/**/*' -- npm run build:static",
+    "build:js": "esbuild --bundle --outfile=\"dist/bundle.js\" --sourcemap src/index.js",
+    "watch:js": "onchange --initial 'src/**/*.js' -- npm run build:js",
+    "build": "npm run build:css && npm run build:data && npm run build:static && npm run build:js",
+    "dev": "npm-run-all --print-label --parallel watch:css watch:data watch:static watch:js serve"
   },
   "repository": {
     "type": "git",
@@ -42,6 +48,7 @@
     "cypress": "^10.4.0",
     "esbuild": "^0.14.53",
     "esbuild-node-loader": "^0.8.0",
+    "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0"
   }
 }

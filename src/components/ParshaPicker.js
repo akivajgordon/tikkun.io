@@ -1,7 +1,7 @@
 /* global gtag */
 
 import parshiyot from '../data/parshiyot.json'
-import readingSchedule from '../data/schedule.json'
+import scheduleFetcher from '../schedule'
 import holydays from '../data/holydays.json'
 import fuzzy from '../fuzzy'
 import slugify from '../slugify'
@@ -101,17 +101,12 @@ const ComingUpReading = ({ label, date, datetime }, index) => {
   `
 }
 
-const comingUpReadings = readingSchedule
-  .filter((reading) => new Date(reading.datetime) > new Date())
-  .slice(0, 3)
-
 const ComingUp = () => `
   <section dir="ltr" id="coming-up" class="section mod-alternate mod-padding">
     <div class="stack medium">
       <label class="section-label">Coming up</label>
       <div style="overflow-x: auto;">
-        <ol class="cluster" style="list-style: none; display: table; margin-left: auto; margin-right: auto; white-space: nowrap;">
-          ${comingUpReadings.map(ComingUpReading).join('')}
+        <ol id="coming-up-readings-list" class="cluster" style="list-style: none; display: table; margin-left: auto; margin-right: auto; white-space: nowrap;">
         </ol>
       </div>
     </div>
@@ -242,6 +237,60 @@ export default (jumpToRef) => {
     </div>
   `)
 
+  scheduleFetcher.fetch().then((readingSchedule) => {
+    const comingUpReadings = readingSchedule
+      .filter((reading) => new Date(reading.datetime) > new Date())
+      .slice(0, 3)
+
+    const comingUpReadingsList = document.querySelector(
+      '#coming-up-readings-list'
+    )
+
+    comingUpReadingsList.replaceWith(
+      htmlToElement(`
+        <ol id="coming-up-readings-list" class="cluster" style="list-style: none; display: table; margin-left: auto; margin-right: auto; white-space: nowrap;">
+          ${comingUpReadings.map(ComingUpReading).join('')}
+        </ol>
+        `)
+    )
+    ;[
+      ...self.querySelectorAll('[data-target-class="coming-up-reading"]'),
+    ].forEach((comingUpReading, index) => {
+      comingUpReading.addEventListener('click', (e) => {
+        gtag('event', 'coming_up_selection', {
+          event_category: 'navigation',
+          event_label: ['due up', 'on deck', 'in the hole'][index],
+        })
+
+        const idx = Number(e.target.getAttribute(`data-idx`))
+        const token = 'torah' // e.getAttribute(`data-token`)
+
+        const { ref, key } = {
+          torah: (idx) => {
+            const label = comingUpReading.textContent
+
+            const parsha = parshaFromLabel({ label })
+
+            return {
+              ref: { ...parsha.ref, scroll: 'torah' },
+              key: idx === 0 ? 'next' : slugify(parsha.en),
+            }
+          },
+          holydays: (idx) => ({
+            ref: { ...holydays[idx].ref, scroll: idx },
+            key: idx,
+          }),
+          esther: () => ({
+            ref: { b: 1, c: 1, v: 1, scroll: 'esther' },
+            key: 'esther',
+          }),
+        }[token](idx)
+
+        jumpToRef({ ref, source: 'comingUp', key })
+      })
+    })
+  })
+
   searchEmitter.on('selection', (selected) => {
     gtag('event', 'search_selection', {
       event_category: 'navigation',
@@ -324,42 +373,6 @@ export default (jumpToRef) => {
       }[token](idx)
 
       jumpToRef({ ref, source: 'browse', key })
-    })
-  })
-  ;[
-    ...self.querySelectorAll('[data-target-class="coming-up-reading"]'),
-  ].forEach((comingUpReading, index) => {
-    comingUpReading.addEventListener('click', (e) => {
-      gtag('event', 'coming_up_selection', {
-        event_category: 'navigation',
-        event_label: ['due up', 'on deck', 'in the hole'][index],
-      })
-
-      const idx = Number(e.target.getAttribute(`data-idx`))
-      const token = 'torah' // e.getAttribute(`data-token`)
-
-      const { ref, key } = {
-        torah: (idx) => {
-          const { label } = comingUpReadings[idx]
-
-          const parsha = parshaFromLabel({ label })
-
-          return {
-            ref: { ...parsha.ref, scroll: 'torah' },
-            key: idx === 0 ? 'next' : slugify(parsha.en),
-          }
-        },
-        holydays: (idx) => ({
-          ref: { ...holydays[idx].ref, scroll: idx },
-          key: idx,
-        }),
-        esther: () => ({
-          ref: { b: 1, c: 1, v: 1, scroll: 'esther' },
-          key: 'esther',
-        }),
-      }[token](idx)
-
-      jumpToRef({ ref, source: 'comingUp', key })
     })
   })
 

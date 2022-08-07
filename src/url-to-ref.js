@@ -72,22 +72,35 @@ const HolydayRouter = {
 }
 
 const NextRouter = {
-  refFromPathParts: ({ pathParts, asOfDate }) => {
-    const { label } = schedule.find(
-      ({ datetime }) => new Date(datetime) > new Date(asOfDate || Date.now())
-    )
+  new: ({ scheduleFetcher }) => ({
+    refFromPathParts: async ({ pathParts, asOfDate }) => {
+      const schedule = await scheduleFetcher.fetch()
+      const found = schedule.find(
+        ({ datetime }) => new Date(datetime) > new Date(asOfDate || Date.now())
+      )
 
-    const found = parshiyot.find(({ he }) => label.split('–')[0].trim() === he)
+      if (!found) return defaultRef()
 
-    const { b, c, v } = found.ref
+      const parsha = parshiyot.find(
+        ({ he }) => found.label.split('–')[0].trim() === he
+      )
 
-    return { scroll: 'torah', b, c, v }
-  },
+      const { b, c, v } = parsha.ref
+
+      return { scroll: 'torah', b, c, v }
+    },
+  }),
 }
 
 const DefaultRouter = { refFromPathParts: () => defaultRef() }
 
-export default ({ url, asOfDate }) => {
+const emptyScheduleFetcher = { fetch: () => [] }
+
+export default async ({
+  url,
+  asOfDate,
+  scheduleFetcher = emptyScheduleFetcher,
+}) => {
   const hashParts = hashOf(url).split('/').slice(1)
 
   const router =
@@ -95,8 +108,11 @@ export default ({ url, asOfDate }) => {
       r: RefRouter,
       p: ParshaRouter,
       h: HolydayRouter,
-      next: NextRouter,
+      next: NextRouter.new({ scheduleFetcher }),
     }[hashParts[0]] || DefaultRouter
 
-  return router.refFromPathParts({ pathParts: hashParts.slice(1), asOfDate })
+  return await router.refFromPathParts({
+    pathParts: hashParts.slice(1),
+    asOfDate,
+  })
 }

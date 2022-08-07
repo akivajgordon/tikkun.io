@@ -21,7 +21,7 @@
     "prebuild": "mkdir -p dist",
     "build:css": "cp node_modules/normalize.css/normalize.css dist/ && cp -R css dist",
     "watch:css": "onchange --initial 'css/**/*.css' -- npm run build:css",
-    "build:data": "mkdir -p dist/data/pages && cp -R src/data/pages dist/data/",
+    "build:data": "mkdir -p dist/data/pages && cp -R src/data/pages dist/data/ && cp src/data/schedule.json dist/data/schedule.json",
     "watch:data": "onchange --initial 'src/data' -- npm run build:data",
     "build:static": "cp -R static/ dist",
     "watch:static": "onchange --initial 'static/**/*' -- npm run build:static",

@@ -6,6 +6,7 @@ import scrollsByKey from './scrolls-by-key'
 import Page from './components/Page'
 import ParshaPicker from './components/ParshaPicker'
 import utils from './components/utils'
+import scheduleFetcher from './schedule'
 
 const { htmlToElement, whenKey, purgeNode } = utils
 
@@ -275,7 +276,7 @@ const listenForRevealGesture = (book) => {
   book.addEventListener('touchcancel', endTouch)
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const book = document.querySelector('[data-target-id="tikkun-book"]')
   const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
 
@@ -323,6 +324,9 @@ document.addEventListener('DOMContentLoaded', () => {
     .addEventListener('click', toggleParshaPicker)
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))
 
-  const startingRef = urlToRef({ url: window.location.href })
+  const startingRef = await urlToRef({
+    url: window.location.href,
+    scheduleFetcher,
+  })
   app.jumpTo({ ref: startingRef }).then(hideParshaPicker)
 })

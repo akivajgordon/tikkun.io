@@ -7,8 +7,8 @@ const ktivKriAnnotation = (text) =>
 const petuchaClass = (isPetucha) => (isPetucha ? 'mod-petucha' : '')
 const setumaClass = (column) => (column.length > 1 ? 'mod-setuma' : '')
 
-const Line = ({ scroll: __scroll, text, verses, isPetucha }) => `
-  <tr>
+const Line = ({ scroll: __scroll, text, verses, isPetucha, lineIndex }) => `
+  <tr data-class="line" data-line-index="${lineIndex}">
     <td class="line ${petuchaClass(isPetucha)}">
       ${text
         .map(

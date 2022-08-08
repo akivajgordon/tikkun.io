@@ -276,6 +276,24 @@ const listenForRevealGesture = (book) => {
   book.addEventListener('touchcancel', endTouch)
 }
 
+const onSelectionEnd = (callback) => {
+  let lastMouseUpAt
+  let lastSelectionStartAt
+  document.addEventListener('pointerup', () => {
+    const previousLastMouseUp = lastMouseUpAt
+    lastMouseUpAt = Date.now()
+    if (lastSelectionStartAt > (previousLastMouseUp || 0)) {
+      const selection = window.getSelection()
+      if (selection.isCollapsed) return
+
+      callback(selection)
+    }
+  })
+  document.addEventListener('selectstart', () => {
+    lastSelectionStartAt = Date.now()
+  })
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   const book = document.querySelector('[data-target-id="tikkun-book"]')
   const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
@@ -323,6 +341,60 @@ document.addEventListener('DOMContentLoaded', async () => {
     .querySelector('[data-target-id="parsha-title"]')
     .addEventListener('click', toggleParshaPicker)
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))
+
+  const ancestorOf = (node, options) => {
+    if (!node) return null
+
+    if (options.matching(node)) return node
+
+    return ancestorOf(node.parentNode, options)
+  }
+
+  onSelectionEnd((selection) => {
+    const anchorLine = ancestorOf(selection.anchorNode, {
+      matching: (node) => node.dataset && node.dataset.class === 'line',
+    })
+
+    const focusLine = ancestorOf(selection.focusNode, {
+      matching: (node) => node.dataset && node.dataset.class === 'line',
+    })
+
+    const anchorPage = ancestorOf(anchorLine, {
+      matching: (node) => [...node.classList].includes('tikkun-page'),
+    })
+    const focusPage = ancestorOf(focusLine, {
+      matching: (node) => [...node.classList].includes('tikkun-page'),
+    })
+
+    const anchor = {
+      page: (anchorPage && anchorPage.dataset['page-number']) || 0,
+      line: anchorLine.dataset['line-index'],
+      offset: selection.anchorOffset,
+    }
+    const focus = {
+      page: (focusPage && focusPage.dataset['page-number']) || 0,
+      line: focusLine.dataset['line-index'],
+      offset: selection.focusOffset,
+    }
+
+    let selectionStart = anchor
+    let selectionEnd = focus
+
+    if (
+      focus.page < anchor.page ||
+      (focus.page === anchor.page && focus.line < anchor.line) ||
+      (focus.page === anchor.page &&
+        focus.line === anchor.line &&
+        focus.offset < anchor.offset)
+    ) {
+      selectionStart = focus
+      selectionEnd = anchor
+    }
+
+    // // SEE https://developer.mozilla.org/en-US/docs/Web/API/Selection/setBaseAndExtent FOR HOW TO PROGRAMMATICALLY SELECT TO EXTEND THE SELECTION TO WORD BOUNDARIES
+    // console.log(selectionStart)
+    // console.log(selectionEnd)
+  })
 
   const startingRef = await urlToRef({
     url: window.location.href,

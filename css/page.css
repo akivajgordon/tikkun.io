@@ -59,6 +59,7 @@
   flex: 1;
   display: flex;
   justify-content: space-between;
+  min-width: 18ch; /* HACK: This provides the most gap possible for עשרת בני המן in מגילת אסתר without compromising the layout for האזינו */
 }
 
 .column:nth-child(2) {

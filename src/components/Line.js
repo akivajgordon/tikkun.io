@@ -2,7 +2,10 @@ import displayRange from '../display-range'
 import textFilter from '../text-filter'
 
 const ktivKriAnnotation = (text) =>
-  text.replace(/[{]/g, `<span class="ktiv-kri">`).replace(/[}]/g, `</span>`)
+  text
+    .replace(/[{]/g, `<span class="ktiv-kri">`)
+    .replace(/[}]/g, `</span>`)
+    .trim()
 
 const petuchaClass = (isPetucha) => (isPetucha ? 'mod-petucha' : '')
 const setumaClass = (column) => (column.length > 1 ? 'mod-setuma' : '')

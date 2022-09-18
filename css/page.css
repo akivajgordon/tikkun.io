@@ -123,6 +123,6 @@
   background-color: var(--medium-accent-color);
   padding: 0.1rem 0.1rem;
   border: 1px solid var(--medium-accent-color);
-  border-radius: 4px;
+  border-radius: 8px;
   position: relative;
 }

@@ -31,7 +31,7 @@
 .search {
   background-color: var(--light-accent-color);
   display: inline-block;
-  border-radius: 4px;
+  border-radius: var(--button-border-radius);
   color: var(--text-color);
   border: 1px solid hsla(0, 0%, 0%, 0);
   width: 30ch;
@@ -70,10 +70,9 @@
 .list-item {
   list-style: none;
   padding: 1em 1em;
-  cursor: pointer;
 }
 
-.list-item[data-selected="true"],
+.list-item[data-selected='true'],
 .list-item:hover {
   background-color: var(--light-accent-color);
 }
@@ -135,13 +134,14 @@
 .parsha {
   padding: 1em;
   color: var(--text-color);
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--button-border-radius);
   box-sizing: border-box;
   width: 100%;
 }
 
-.parsha-books.mod-emphasize-first-in-group .parsha:first-child {
+.parsha-books.mod-emphasize-first-in-group li:first-child > .parsha {
   font-weight: bolder;
 }
 
@@ -174,10 +174,9 @@
   background-color: var(--light-accent-color);
   padding: 0.5em 1em;
   width: 100%;
-  border-radius: 4px;
+  border-radius: var(--button-border-radius);
   color: var(--text-color);
   border: none;
-  cursor: pointer;
   font-weight: 500;
 }
 

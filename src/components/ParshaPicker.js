@@ -58,7 +58,7 @@ const holydaysLayout = [
 ]
 
 const Parsha = ({ idx, token, he, key }) => `
-  <li
+  <li><button
     class="parsha"
     data-idx="${idx}"
     data-token="${token}"
@@ -66,7 +66,7 @@ const Parsha = ({ idx, token, he, key }) => `
     data-key="${key}"
   >
     ${he}
-  </li>
+  </button></li>
   `
 
 const Book = (book) => `

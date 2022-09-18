@@ -116,12 +116,11 @@ const hideParshaPicker = () => {
       .removeChild(document.querySelector('.parsha-picker'))
 }
 
-const toggleParshaPicker = () => {
-  const isShowingParshaPicker = Boolean(
-    document.querySelector('.parsha-picker')
-  )
+const isShowingParshaPicker = () =>
+  Boolean(document.querySelector('.parsha-picker'))
 
-  if (isShowingParshaPicker) {
+const toggleParshaPicker = () => {
+  if (isShowingParshaPicker()) {
     hideParshaPicker()
   } else {
     showParshaPicker()
@@ -341,6 +340,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     .querySelector('[data-target-id="parsha-title"]')
     .addEventListener('click', toggleParshaPicker)
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))
+
+  document.addEventListener(
+    'keydown',
+    whenKey('Escape', (e) => {
+      if (isShowingParshaPicker()) {
+        e.preventDefault()
+        hideParshaPicker()
+      }
+    })
+  )
 
   const ancestorOf = (node, options) => {
     if (!node) return null

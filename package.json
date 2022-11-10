@@ -14,7 +14,7 @@
     ]
   },
   "scripts": {
-    "serve": "mkdir -p dist && cd dist && python -m SimpleHTTPServer",
+    "serve": "mkdir -p dist && cd dist && python3 -m http.server",
     "test": "ava",
     "test:watch": "npm test -- --watch",
     "test:ui": "cypress run",

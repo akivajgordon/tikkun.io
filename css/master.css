@@ -19,8 +19,12 @@
   padding: 0;
 }
 
+:root {
+  height: var(--app-height, 100vh);
+}
+
 body {
-  height: 100vh;
+  height: 100%;
   background-color: var(--paper-color, white);
 }
 

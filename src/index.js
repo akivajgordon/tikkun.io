@@ -293,6 +293,14 @@ const onSelectionEnd = (callback) => {
   })
 }
 
+document.addEventListener('resize', setAppHeight)
+const setAppHeight = () => {
+  document.documentElement.style.setProperty(
+    '--app-height',
+    `${window.innerHeight}px`
+  )
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   const book = document.querySelector('[data-target-id="tikkun-book"]')
   const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
@@ -409,5 +417,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     url: window.location.href,
     scheduleFetcher,
   })
+
+  setAppHeight()
+
   app.jumpTo({ ref: startingRef }).then(hideParshaPicker)
 })

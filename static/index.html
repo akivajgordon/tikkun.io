@@ -1,135 +1,92 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script>
-      ;(function () {
-        var script = document.createElement('script')
 
-        var trackingId = window.location.href.includes('localhost')
-          ? 'G-LHD6GSE2LN'
-          : 'G-37262L90KC'
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script>
+    ; (function () {
+      var script = document.createElement('script')
 
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + trackingId
+      var trackingId = window.location.href.includes('localhost')
+        ? 'G-LHD6GSE2LN'
+        : 'G-37262L90KC'
 
-        document.querySelector('head').appendChild(script)
-      })()
-    </script>
-    <script>
-      window.dataLayer = window.dataLayer || []
-      function gtag() {
-        dataLayer.push(arguments)
-      }
-      gtag('js', new Date())
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=' + trackingId
 
-      gtag(
-        'config',
-        window.location.href.includes('localhost')
-          ? 'G-LHD6GSE2LN'
-          : 'G-37262L90KC'
-      )
-    </script>
+      document.querySelector('head').appendChild(script)
+    })()
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || []
+    function gtag() {
+      dataLayer.push(arguments)
+    }
+    gtag('js', new Date())
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Practice torah reading using this online tikkun."
-    />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="tikkun.io" />
+    gtag(
+      'config',
+      window.location.href.includes('localhost')
+        ? 'G-LHD6GSE2LN'
+        : 'G-37262L90KC'
+    )
+  </script>
 
-    <link
-      rel="icon"
-      type="image/png"
-      href="/assets/images/android-chrome-192x192.png"
-      sizes="192x192"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/assets/images/apple-touch-icon.png"
-    />
-    <link
-      rel="mask-icon"
-      href="/assets/images/safari-pinned-tab.svg"
-      color="#000000"
-    />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Practice torah reading using this online tikkun." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="tikkun.io" />
 
-    <title>tikkun.io</title>
-    <link
-      rel="stylesheet"
-      href="/css/master.css"
-      media="screen"
-      charset="utf-8"
-    />
-  </head>
-  <body>
-    <div class="app">
-      <header class="app-toolbar">
-        <div class="toolbar-content u-page-wrap">
-          <div class="toolbar-wrapper mod-left">
-            <div class="toolbar-item"></div>
-          </div>
-          <div class="toolbar-wrapper mod-center">
-            <div class="toolbar-item">
-              <button
-                class="parsha-title"
-                data-target-id="parsha-title"
-                data-tooltip='Tip: Press "/" to open quickly'
-              >
-                בראשית
-              </button>
-            </div>
-          </div>
-          <div class="toolbar-wrapper mod-right">
-            <div class="toolbar-item">
-              <a
-                href="https://www.github.com/akivajgordon/tikkun.io"
-                target="_blank"
-                data-target-id="repo-link"
-                title="Go to GitHub repository"
-              >
-                <img
-                  class="toolbar-github"
-                  src="/assets/images/github.svg"
-                  alt="GitHub"
-                  height="32px"
-                  width="32px"
-                />
-              </a>
-            </div>
+  <link rel="icon" type="image/png" href="/assets/images/android-chrome-192x192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+  <link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#000000" />
+
+  <title>tikkun.io</title>
+  <link rel="stylesheet" href="/css/master.css" media="screen" charset="utf-8" />
+</head>
+
+<body>
+  <div class="app">
+    <header class="app-toolbar">
+      <div class="toolbar-content u-page-wrap">
+        <div class="toolbar-wrapper mod-left">
+          <div class="toolbar-item"></div>
+        </div>
+        <div class="toolbar-wrapper mod-center">
+          <div class="toolbar-item">
+            <button class="parsha-title" data-target-id="parsha-title" data-tooltip='Tip: Press "/" to open quickly'>
+              בראשית
+            </button>
           </div>
         </div>
-      </header>
-      <div id="js-app" class="app-body" style="direction: rtl">
-        <div
-          class="tikkun-book mod-annotations-on"
-          data-target-id="tikkun-book"
-        ></div>
-        <div class="" data-target-id="parsha-picker"></div>
-      </div>
-      <div style="position: fixed; bottom: 1.5em; right: 1.5em">
-        <div
-          class="annotations-toggle"
-          data-test-id="annotations-toggle"
-          data-tooltip='Tip: Hold "Shift" to toggle quickly'
-          data-tooltip-position="top-left"
-        >
-          <label class="toggle">
-            <div class="shadowed-circle">
-              <input
-                data-target-id="annotations-toggle"
-                type="checkbox"
-                checked
-              />
-              <span class="toggle-state mod-off">א</span>
-              <span class="toggle-state mod-on">אֶ֨</span>
-            </div>
-          </label>
+        <div class="toolbar-wrapper mod-right">
+          <div class="toolbar-item">
+            <a href="https://www.github.com/akivajgordon/tikkun.io" target="_blank" data-target-id="repo-link"
+              title="Go to GitHub repository">
+              <img class="toolbar-github" src="/assets/images/github.svg" alt="GitHub" height="32px" width="32px" />
+            </a>
+          </div>
         </div>
       </div>
+    </header>
+    <div id="js-app" class="app-body" style="direction: rtl">
+      <div class="tikkun-book mod-annotations-on" data-target-id="tikkun-book"></div>
+      <div class="" data-target-id="parsha-picker"></div>
     </div>
-    <script src="/bundle.js"></script>
-  </body>
+    <div style="position: fixed; bottom: 1.5em; right: 1.5em">
+      <button class="annotations-toggle" data-test-id="annotations-toggle"
+        data-tooltip='Tip: Hold "Shift" to toggle quickly' data-tooltip-position="top-left">
+        <label class="toggle">
+          <div class="shadowed-circle">
+            <input data-target-id="annotations-toggle" type="checkbox" checked />
+            <span class="toggle-state mod-off">א</span>
+            <span class="toggle-state mod-on">אֶ֨</span>
+          </div>
+        </label>
+      </button>
+    </div>
+  </div>
+  <script src="/bundle.js"></script>
+</body>
+
 </html>

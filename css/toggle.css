@@ -1,3 +1,9 @@
+.annotations-toggle {
+  font-family: ShlomosemiStam;
+  border: none;
+  border-radius: 50%; /* no border, but setting the border-radius allows the focused highlight to fit the button nicely */
+}
+
 .toggle {
   --annotations-toggle-active-color: white;
   --annotations-toggle-inactive-color: hsla(0, 0%, 100%, 0.6);

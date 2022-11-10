@@ -293,13 +293,17 @@ const onSelectionEnd = (callback) => {
   })
 }
 
-document.addEventListener('resize', setAppHeight)
 const setAppHeight = () => {
+  // This prevents double-scroll bars from the inner "book" scrolling
+  // when on browsers that have browser "chrome" (like the tab bar),
+  // especially on mobile browsers
   document.documentElement.style.setProperty(
     '--app-height',
     `${window.innerHeight}px`
   )
 }
+
+document.addEventListener('resize', setAppHeight)
 
 document.addEventListener('DOMContentLoaded', async () => {
   const book = document.querySelector('[data-target-id="tikkun-book"]')

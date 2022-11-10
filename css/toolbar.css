@@ -24,10 +24,6 @@
   justify-content: flex-end;
 }
 
-.annotations-toggle {
-  font-family: ShlomosemiStam;
-}
-
 .parsha-title {
   background-color: var(--light-accent-color);
   padding: 0.5em 3em;

@@ -17,6 +17,7 @@ const holydaysLayout = [
     'rosh-1',
     'rosh-2',
     'yom-kippur',
+    'rosh-chodesh',
     'taanit-tzibur',
     'tisha-bav',
     'shavuot-1',

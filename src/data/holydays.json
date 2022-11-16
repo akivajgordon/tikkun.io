@@ -1,4 +1,16 @@
 {
+  "rosh-chodesh": {
+    "en": "Rosh Chodesh",
+    "he": "ראש חודש",
+    "ref": {
+      "b": 4,
+      "c": 28,
+      "v": 1,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
   "rosh-1": {
     "en": "Rosh HaShanah (Day 1)",
     "he": "ראש השנה א׳",

@@ -17,7 +17,7 @@
   display: inline-block;
   position: absolute;
   padding: 1em 1.5em;
-  border-radius: 4px;
+  border-radius: var(--button-border-radius);
   font-size: 0.8em;
   white-space: nowrap;
   box-shadow: 0 0 8px -4px black;
@@ -27,13 +27,17 @@
   left: 50%;
   transform: translate(-50%, 0) scale(0);
   transform-origin: top center;
+
+  transition: transform 0.15s;
+
   transition-delay: 0.1s;
+
+  pointer-events: none; /* this prevents the tooltip from sticking around while you hover over the tooltip itself */
 }
 
 [data-tooltip]:hover::after {
+  transition-delay: 1.2s;
   transform: translate(-50%, 0) scale(1);
-  transition: transform 0.15s;
-  transition-delay: 1s;
 }
 
 [data-tooltip][data-tooltip-position='top-left']::after {

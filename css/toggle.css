@@ -1,10 +1,15 @@
+.annotations-toggle {
+  font-family: ShlomosemiStam;
+  border: none;
+  border-radius: 50%; /* no border, but setting the border-radius allows the focused highlight to fit the button nicely */
+}
+
 .toggle {
   --annotations-toggle-active-color: white;
   --annotations-toggle-inactive-color: hsla(0, 0%, 100%, 0.6);
   text-align: middle;
   display: flex;
   align-items: center;
-  cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -55,6 +60,11 @@
   border-radius: 50%;
   background: black;
   color: white;
+  transition: 0.15s transform;
+}
+
+.shadowed-circle:hover {
+  transform: scale(1.1);
 }
 
 @media (prefers-color-scheme: dark) {

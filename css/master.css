@@ -19,8 +19,12 @@
   padding: 0;
 }
 
+:root {
+  height: var(--app-height, 100vh);
+}
+
 body {
-  height: 100vh;
+  height: 100%;
   background-color: var(--paper-color, white);
 }
 
@@ -100,6 +104,7 @@ ol {
   --heavy-accent-color: hsla(0, 0%, 0%, 0.2);
   --text-color: hsla(0, 0%, 0%, 0.7);
   --light-text-color: hsla(0, 0%, 0%, 0.5);
+  --button-border-radius: 8px;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -15,26 +15,30 @@ const InfiniteScroller = {
         const scrollView = e.target
 
         const hiddenAboveHeight = scrollView.scrollTop
-        const height = scrollView.clientHeight
+        const visibleHeight = scrollView.clientHeight
 
         const hiddenBelowHeight =
           scrollView.scrollHeight -
           (scrollView.clientHeight + scrollView.scrollTop)
 
-        if (hiddenAboveHeight < 0.5 * height) {
-          oneAtATime(() => fetchPreviousContent.fetch()).then((fetched) => {
-            if (!fetched) return
+        if (hiddenAboveHeight < 0.5 * visibleHeight) {
+          oneAtATime(() =>
+            fetchPreviousContent.fetch().then((fetched) => {
+              if (!fetched) return
 
-            const belowHeight = scrollView.scrollHeight - scrollView.scrollTop
+              const belowHeight = scrollView.scrollHeight - scrollView.scrollTop
 
-            fetchPreviousContent.render(fetched)
+              fetchPreviousContent.render(fetched)
 
-            scrollView.scrollTop = scrollView.scrollHeight - belowHeight
-          })
-        } else if (hiddenBelowHeight < 0.5 * height) {
-          oneAtATime(() => fetchNextContent.fetch()).then((fetched) => {
-            if (fetched) fetchNextContent.render(fetched)
-          })
+              scrollView.scrollTop = scrollView.scrollHeight - belowHeight
+            })
+          )
+        } else if (hiddenBelowHeight < 0.5 * visibleHeight) {
+          oneAtATime(() =>
+            fetchNextContent.fetch().then((fetched) => {
+              if (fetched) fetchNextContent.render(fetched)
+            })
+          )
         }
       }),
   }),

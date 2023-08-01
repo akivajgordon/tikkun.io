@@ -17,7 +17,6 @@
     "serve": "mkdir -p dist && cd dist && python3 -m http.server",
     "test": "ava",
     "test:watch": "npm test -- --watch",
-    "test:ui": "cypress run",
     "prebuild": "mkdir -p dist",
     "build:css": "cp node_modules/normalize.css/normalize.css dist/ && cp -R css dist",
     "watch:css": "onchange --initial 'css/**/*.css' -- npm run build:css",
@@ -46,11 +45,10 @@
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {
-    "ava": "^4.3.1",
-    "cypress": "^10.4.0",
-    "esbuild": "^0.14.53",
+    "ava": "^5.3.1",
+    "esbuild": "^0.18.17",
     "esbuild-node-loader": "^0.8.0",
-    "gh-pages": "^4.0.0",
+    "gh-pages": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0"
   }

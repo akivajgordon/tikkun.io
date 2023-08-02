@@ -1,6 +1,6 @@
 const NUN_HAFUCHA = '׆'
 
-const ketiv = (text) =>
+const ketiv = (text: string) =>
   text
     .replace('#(פ)', '')
     .replace(`(${NUN_HAFUCHA})#`, `${NUN_HAFUCHA} `)
@@ -24,7 +24,7 @@ const ketiv = (text) =>
     .replace(/\[/g, '{')
     .replace(/\]/g, '}')
 
-const kri = (text) =>
+const kri = (text: string) =>
   text
     .replace('#(פ)', '')
     .replace(`(${NUN_HAFUCHA})#`, `${NUN_HAFUCHA} `)

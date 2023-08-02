@@ -1,5 +1,5 @@
 export default {
-  new: ({ startingAt }) => {
+  new: ({ startingAt }: { startingAt: number }) => {
     let previousCount = 0
     let nextCount = 0
 

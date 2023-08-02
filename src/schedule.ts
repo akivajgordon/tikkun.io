@@ -1,4 +1,10 @@
-let _schedule
+type Schedule = {
+  label: string
+  datetime: string
+  date: string
+}[]
+
+let _schedule: Schedule
 
 export default {
   fetch: async () => {

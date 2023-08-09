@@ -3,6 +3,9 @@
     "outDir": "./dist",
     "allowJs": true,
     "target": "es5",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true
   },
   "include": [
     "./src/**/*"

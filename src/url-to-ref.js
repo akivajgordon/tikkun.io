@@ -1,6 +1,5 @@
 import { defaultRef, resolveToValidRef } from './location'
 import parshiyot from './data/parshiyot.json'
-import schedule from './data/schedule.json'
 import holydays from './data/holydays.json'
 
 const isURL = (url) => {
@@ -73,7 +72,7 @@ const HolydayRouter = {
 
 const NextRouter = {
   new: ({ scheduleFetcher }) => ({
-    refFromPathParts: async ({ pathParts, asOfDate }) => {
+    refFromPathParts: async ({ asOfDate }) => {
       const schedule = await scheduleFetcher.fetch()
       const found = schedule.find(
         ({ datetime }) => new Date(datetime) > new Date(asOfDate || Date.now())

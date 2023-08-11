@@ -1,8 +1,9 @@
 import { defaultRef, resolveToValidRef } from './location'
 import parshiyot from './data/parshiyot.json'
 import holydays from './data/holydays.json'
+import { Ref } from './ref'
 
-const isURL = (url) => {
+const isURL = (url: string) => {
   try {
     new URL(url)
   } catch (e) {
@@ -12,14 +13,16 @@ const isURL = (url) => {
   return true
 }
 
-const hashOf = (url) => {
+const hashOf = (url: string) => {
   if (!isURL(url)) return ''
 
   return new URL(url).hash
 }
 
+type PathPart = string
+
 const RefRouter = {
-  refFromPathParts: ({ pathParts }) => {
+  refFromPathParts: ({ pathParts }: { pathParts: PathPart[] }) => {
     if (!pathParts || !pathParts[0].length) return defaultRef()
     const locationMatch = pathParts[0].match(/(\d+)\-(\d+)-(\d+)/)
 
@@ -35,12 +38,13 @@ const RefRouter = {
 }
 
 const ParshaRouter = {
-  refFromPathParts: ({ pathParts }) => {
+  refFromPathParts: ({ pathParts }: { pathParts: PathPart[] }) => {
     if (!pathParts || !pathParts[0].length) return defaultRef()
 
     const decoded = decodeURIComponent(pathParts[0])
 
-    const toLowercaseAlpha = (str) => str.toLowerCase().replace(/[^a-z]/g, '')
+    const toLowercaseAlpha = (str: string) =>
+      str.toLowerCase().replace(/[^a-z]/g, '')
 
     const found = parshiyot.find(({ he, en }) => {
       return (
@@ -56,10 +60,10 @@ const ParshaRouter = {
 }
 
 const HolydayRouter = {
-  refFromPathParts: ({ pathParts }) => {
+  refFromPathParts: ({ pathParts }: { pathParts: PathPart[] }) => {
     const holyday = pathParts[0]
 
-    const holydaysAndEsther = {
+    const holydaysAndEsther: Record<string, { ref: Ref }> = {
       ...holydays,
       esther: { ref: { b: 1, c: 1, v: 1 } },
     }
@@ -70,9 +74,18 @@ const HolydayRouter = {
   },
 }
 
+type Schedule = {
+  datetime: string
+  label: string
+}[]
+
+type ScheduleFetcher = {
+  fetch: () => Promise<Schedule>
+}
+
 const NextRouter = {
-  new: ({ scheduleFetcher }) => ({
-    refFromPathParts: async ({ asOfDate }) => {
+  new: ({ scheduleFetcher }: { scheduleFetcher: ScheduleFetcher }) => ({
+    refFromPathParts: async ({ asOfDate }: { asOfDate: string }) => {
       const schedule = await scheduleFetcher.fetch()
       const found = schedule.find(
         ({ datetime }) => new Date(datetime) > new Date(asOfDate || Date.now())
@@ -93,12 +106,16 @@ const NextRouter = {
 
 const DefaultRouter = { refFromPathParts: () => defaultRef() }
 
-const emptyScheduleFetcher = { fetch: () => [] }
+const emptyScheduleFetcher: ScheduleFetcher = { fetch: async () => [] }
 
 export default async ({
   url,
   asOfDate,
   scheduleFetcher = emptyScheduleFetcher,
+}: {
+  url: string
+  asOfDate: string
+  scheduleFetcher: ScheduleFetcher
 }) => {
   const hashParts = hashOf(url).split('/').slice(1)
 

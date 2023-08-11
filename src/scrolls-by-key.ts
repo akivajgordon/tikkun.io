@@ -5,6 +5,7 @@ import pageTitles from './data/page-titles.json'
 import _holydays from './data/holydays.json'
 import parshiyot from './data/parshiyot.json'
 import _aliyotJSON from './data/aliyot.json'
+import { Ref } from './ref'
 
 const holydays: Record<string, { en: string; he: string; ref: Ref }> = _holydays
 const aliyotJSON: Record<
@@ -52,12 +53,6 @@ const aliyahName = ({
   if (aliyah === 1) return getParshaName()
 
   return aliyotStrings[aliyah - 1]
-}
-
-type Ref = {
-  b: number
-  c: number
-  v: number
 }
 
 const Scroll = {

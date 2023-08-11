@@ -1,18 +1,30 @@
 let alreadyInFlight = false
-const oneAtATime = (promise) => {
+const oneAtATime = async (promise: () => Promise<unknown>) => {
   if (alreadyInFlight) return Promise.resolve()
   alreadyInFlight = true
-  return promise().then((val) => {
-    alreadyInFlight = false
-    return val
-  })
+  const val = await promise()
+  alreadyInFlight = false
+  return val
+}
+
+type Fetcher = {
+  fetch: () => Promise<unknown>
+  render: (content: unknown) => void
 }
 
 const InfiniteScroller = {
-  new: ({ container, fetchPreviousContent, fetchNextContent }) => ({
+  new: ({
+    container,
+    fetchPreviousContent,
+    fetchNextContent,
+  }: {
+    container: HTMLElement
+    fetchPreviousContent: Fetcher
+    fetchNextContent: Fetcher
+  }) => ({
     attach: () =>
-      container.addEventListener('scroll', (e) => {
-        const scrollView = e.target
+      container.addEventListener('scroll', (_e) => {
+        const scrollView = container
 
         const hiddenAboveHeight = scrollView.scrollTop
         const visibleHeight = scrollView.clientHeight

@@ -36,7 +36,7 @@ export const physicalLocationFromRef = ({
   ref: { b: book, c: chapter, v: verse },
   scroll,
 }: {
-  ref: Ref
+  ref: Omit<Ref, 'scroll'>
   scroll: keyof typeof tocFromScroll
 }) => {
   const { p: pageNumber, l: lineNumber } =

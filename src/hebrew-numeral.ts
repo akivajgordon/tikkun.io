@@ -23,7 +23,7 @@ const letters = [
   { glyph: 'ת', value: 400 },
 ].reverse()
 
-const hebrewNumeral = (n) => {
+const hebrewNumeral = (n: number): string => {
   if (n <= 0) return ''
   if (n === 15) return 'טו'
   if (n === 16) return 'טז'

@@ -2,11 +2,25 @@ import IntegerIterator from './integer-iterator'
 import { physicalLocationFromRef } from './location'
 import getTitle from './title'
 import pageTitles from './data/page-titles.json'
-import holydays from './data/holydays.json'
+import _holydays from './data/holydays.json'
 import parshiyot from './data/parshiyot.json'
-import aliyotJSON from './data/aliyot.json'
+import _aliyotJSON from './data/aliyot.json'
 
-const fetchPage = ({ path, title, pageNumber }) =>
+const holydays: Record<string, { en: string; he: string; ref: Ref }> = _holydays
+const aliyotJSON: Record<
+  string,
+  Record<string, Record<string, {}>>
+> = _aliyotJSON
+
+const fetchPage = ({
+  path,
+  title,
+  pageNumber,
+}: {
+  path: string
+  title: string
+  pageNumber: unknown
+}) =>
   window
     .fetch(path)
     .then((res) => res.json())
@@ -26,12 +40,24 @@ const aliyotStrings = [
   'מפטיר',
 ]
 
-const aliyahName = ({ aliyah, getParshaName }) => {
+const aliyahName = ({
+  aliyah,
+  getParshaName,
+}: {
+  aliyah: number
+  getParshaName: () => string
+}) => {
   if (aliyah < 1 || aliyah > aliyotStrings.length) return null
 
   if (aliyah === 1) return getParshaName()
 
   return aliyotStrings[aliyah - 1]
+}
+
+type Ref = {
+  b: number
+  c: number
+  v: number
 }
 
 const Scroll = {
@@ -42,6 +68,19 @@ const Scroll = {
     startingAtRef = { b: 1, c: 1, v: 1 },
     aliyotByRef,
     aliyahFinder,
+  }: {
+    scroll: string
+    makePath: (n: number) => string
+    makeTitle: (n: number) => string
+    startingAtRef: Ref
+    aliyotByRef: Record<
+      string,
+      Record<
+        string,
+        Record<string, { standard: number[]; double: number; special: number }>
+      >
+    >
+    aliyahFinder: { he: string; ref: Ref }[]
   }) => {
     const { pageNumber, lineNumber } = physicalLocationFromRef({
       ref: startingAtRef,
@@ -70,7 +109,11 @@ const Scroll = {
         })
       },
       startingLineNumber: lineNumber,
-      aliyotFor: ({ verses }) => {
+      aliyotFor: ({
+        verses,
+      }: {
+        verses: { book: number; chapter: number; verse: number }[]
+      }) => {
         const found = verses
           .map(({ book, chapter, verse }) => {
             return aliyotByRef?.[book]?.[chapter]?.[verse]
@@ -81,7 +124,7 @@ const Scroll = {
 
         const { standard, double, special } = found[0]
 
-        const display = (aliyah) => {
+        const display = (aliyah: number) => {
           return aliyahName({
             aliyah,
             getParshaName: () => {
@@ -98,7 +141,9 @@ const Scroll = {
         }
 
         return [
-          ...(standard ? [standard.map((n) => display(n)).join(', ')] : []),
+          ...(standard
+            ? [standard.map((n: number) => display(n)).join(', ')]
+            : []),
           ...(double ? [`[${display(double)}]`] : []),
           ...(special ? [`(${display(special)})`] : []),
         ].join(' ')
@@ -108,7 +153,7 @@ const Scroll = {
 }
 
 const TorahScroll = {
-  new: ({ startingAtRef }) => {
+  new: ({ startingAtRef }: { startingAtRef: Ref }) => {
     return Scroll.new({
       scroll: 'torah',
       makePath: (n) => `/data/pages/torah/${n}.json`,
@@ -121,7 +166,7 @@ const TorahScroll = {
 }
 
 const EstherScroll = {
-  new: ({ startingAtRef }) => {
+  new: ({ startingAtRef }: { startingAtRef: Ref }) => {
     return Scroll.new({
       scroll: 'esther',
       makePath: (n) => `/data/pages/esther/${n}.json`,
@@ -138,7 +183,7 @@ export default {
   esther: EstherScroll,
   ...Object.keys(holydays).reduce((result, holydayKey) => {
     const HolydayScroll = {
-      new: ({ startingAtRef }) => {
+      new: ({ startingAtRef }: { startingAtRef: Ref }) => {
         return Scroll.new({
           scroll: holydayKey,
           makePath: (n) => `/data/pages/${holydayKey}/${n}.json`,

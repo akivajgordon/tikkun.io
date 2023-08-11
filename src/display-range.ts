@@ -1,6 +1,6 @@
 import hebrewNumeralFromInteger from './hebrew-numeral'
 
-var asRange = (strings) => {
+var asRange = (strings: string[]) => {
   if (!strings.length) {
     return ''
   }
@@ -12,7 +12,12 @@ var asRange = (strings) => {
   return [strings[0], strings[strings.length - 1]].join('-')
 }
 
-const asVersesRange = (verses) =>
+type Ref = {
+  verse: number
+  chapter: number
+}
+
+const asVersesRange = (verses: Ref[]) =>
   asRange(
     verses.map((verse) => {
       const components = []

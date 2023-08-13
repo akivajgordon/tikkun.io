@@ -1,16 +1,29 @@
 import displayRange from '../display-range'
 import textFilter from '../text-filter'
 
-const ktivKriAnnotation = (text) =>
+const ktivKriAnnotation = (text: string) =>
   text
     .replace(/[{]/g, `<span class="ktiv-kri">`)
     .replace(/[}]/g, `</span>`)
     .trim()
 
-const petuchaClass = (isPetucha) => (isPetucha ? 'mod-petucha' : '')
-const setumaClass = (column) => (column.length > 1 ? 'mod-setuma' : '')
+const petuchaClass = (isPetucha: boolean) => (isPetucha ? 'mod-petucha' : '')
+const setumaClass = (column: unknown[]) =>
+  column.length > 1 ? 'mod-setuma' : ''
 
-const Line = ({ scroll: __scroll, text, verses, isPetucha, lineIndex }) => `
+const Line = ({
+  scroll: __scroll,
+  text,
+  verses,
+  isPetucha,
+  lineIndex,
+}: {
+  scroll: { aliyotFor: (verses: unknown) => string }
+  text: unknown[][]
+  verses: { verse: number; chapter: number }[]
+  isPetucha: boolean
+  lineIndex: number
+}) => `
   <tr data-class="line" data-line-index="${lineIndex}">
     <td class="line ${petuchaClass(isPetucha)}">
       ${text

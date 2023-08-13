@@ -55,6 +55,8 @@ const aliyahName = ({
   return aliyotStrings[aliyah - 1]
 }
 
+export type ScrollType = ReturnType<typeof Scroll['new']>
+
 const Scroll = {
   new: ({
     scroll,
@@ -148,7 +150,7 @@ const Scroll = {
 }
 
 const TorahScroll = {
-  new: ({ startingAtRef }: { startingAtRef: Ref }) => {
+  new: ({ startingAtRef }: { startingAtRef: Ref }): ScrollType => {
     return Scroll.new({
       scroll: 'torah',
       makePath: (n) => `/data/pages/torah/${n}.json`,
@@ -161,7 +163,7 @@ const TorahScroll = {
 }
 
 const EstherScroll = {
-  new: ({ startingAtRef }: { startingAtRef: Ref }) => {
+  new: ({ startingAtRef }: { startingAtRef: Ref }): ScrollType => {
     return Scroll.new({
       scroll: 'esther',
       makePath: (n) => `/data/pages/esther/${n}.json`,
@@ -178,7 +180,7 @@ export default {
   esther: EstherScroll,
   ...Object.keys(holydays).reduce((result, holydayKey) => {
     const HolydayScroll = {
-      new: ({ startingAtRef }: { startingAtRef: Ref }) => {
+      new: ({ startingAtRef }: { startingAtRef: Ref }): ScrollType => {
         return Scroll.new({
           scroll: holydayKey,
           makePath: (n) => `/data/pages/${holydayKey}/${n}.json`,

@@ -29,10 +29,11 @@ const indexScore = (needle: string, match: string) => {
 }
 
 type SearchTerm = string
-type GetSearchTermsFn = (candidate: unknown) => SearchTerm[]
+type GetSearchTermsFn<T> = (candidate: T) => SearchTerm[]
 
 const bestMatch =
-  (needle: string, getSearchTerms: GetSearchTermsFn) => (candidate: string) => {
+  <T>(needle: string, getSearchTerms: GetSearchTermsFn<T>) =>
+  (candidate: T) => {
     const { minScore, index } = getSearchTerms(candidate)
       .map((term) =>
         hasEveryCharacterInOrder(needle)(term)
@@ -48,7 +49,12 @@ const bestMatch =
         { minScore: Infinity, index: 0 }
       )
 
-    if (!isFinite(minScore)) return { score: minScore }
+    if (!isFinite(minScore))
+      return {
+        item: candidate,
+        score: minScore,
+        match: { index: NaN, indexes: [] as number[] },
+      }
 
     return {
       score: minScore,
@@ -60,10 +66,10 @@ const bestMatch =
     }
   }
 
-export default (
-  haystack: string[],
+export default <T>(
+  haystack: T[],
   needle: string,
-  getSearchTerms: GetSearchTermsFn = (x) => [x.toString()]
+  getSearchTerms: GetSearchTermsFn<T> = (x) => [x.toString()]
 ) =>
   haystack
     .map(bestMatch(needle, getSearchTerms))

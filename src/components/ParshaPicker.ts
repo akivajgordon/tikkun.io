@@ -1,14 +1,24 @@
 /* global gtag */
 
-import parshiyot from '../data/parshiyot.json'
+import _parshiyot from '../data/parshiyot.json'
 import scheduleFetcher from '../schedule'
-import holydays from '../data/holydays.json'
+import _holydays from '../data/holydays.json'
 import fuzzy from '../fuzzy'
 import slugify from '../slugify'
 import utils from './utils'
 import ParshaResult, { NoResults } from './ParshaResult'
-import Search from './Search'
+import Search, { SearchEmitter } from './Search'
 import EventEmitter from '../event-emitter'
+import { Ref } from '../ref'
+
+type Reading = {
+  en: string
+  he: string
+  ref: Ref
+}
+
+const parshiyot: Reading[] = _parshiyot
+const holydays: Record<string, Reading> = _holydays
 
 const { htmlToElement } = utils
 
@@ -58,7 +68,19 @@ const holydaysLayout = [
   ],
 ]
 
-const Parsha = ({ idx, token, he, key }) => `
+export type Token = 'torah' | 'esther' | 'holydays'
+
+const Parsha = ({
+  idx,
+  token,
+  he,
+  key,
+}: {
+  idx: unknown
+  token: Token
+  he: string
+  key: unknown
+}) => `
   <li><button
     class="parsha"
     data-idx="${idx}"
@@ -70,7 +92,15 @@ const Parsha = ({ idx, token, he, key }) => `
   </button></li>
   `
 
-const Book = (book) => `
+type Parsha = {
+  idx: number | string
+  he: string
+  en: string
+}
+
+type BookType = Parsha[]
+
+const Book = (book: BookType) => `
   <li class="parsha-book">
     <ol class="parsha-list">
       ${book
@@ -82,10 +112,13 @@ const Book = (book) => `
   </li>
 `
 
-const parshaFromLabel = ({ label }) =>
+const parshaFromLabel = ({ label }: { label: string }) =>
   parshiyot.find(({ he }) => label.startsWith(he))
 
-const ComingUpReading = ({ label, date, datetime }, index) => {
+const ComingUpReading = (
+  { label, date, datetime }: { label: string; date: string; datetime: string },
+  index: number
+) => {
   const parsha = parshaFromLabel({ label })
   return `
   <li style="display: table-cell; width: calc(100% / 3); padding: 0 0.5em;">
@@ -171,13 +204,20 @@ const Browse = () => `
   </div>
 `
 
-const searchables = [
-  ...parshiyot.map((p, index) => ({
-    idx: index,
-    token: 'torah',
-    ...p,
-    key: slugify(p.en),
-  })),
+type Searchable = Parsha & {
+  token: Token
+  key: string
+}
+
+const searchables: Searchable[] = [
+  ...parshiyot.map(
+    (p, index): Searchable => ({
+      idx: index,
+      token: 'torah',
+      ...p,
+      key: slugify(p.en),
+    })
+  ),
   {
     idx: 'esther',
     token: 'esther',
@@ -185,7 +225,7 @@ const searchables = [
     en: 'Esther',
     key: 'esther',
   },
-  ...Object.keys(holydays).map((holydayKey) => {
+  ...Object.keys(holydays).map((holydayKey): Searchable => {
     const holyday = holydays[holydayKey]
 
     const { he, en } = holyday
@@ -200,30 +240,32 @@ const searchables = [
   }),
 ]
 
-const searchResults = (query) => {
-  const results = fuzzy(searchables, query, (parsha) => [parsha.he, parsha.en])
-
-  return results.length
-    ? results
-    : [
-        {
-          item: 'No results',
-          match: { index: 0, indexes: [] },
-        },
-      ]
+const searchResults = (query: string) => {
+  return fuzzy(searchables, query, (parsha) => [parsha.he, parsha.en])
 }
 
-const top = (n) => (_, i) => i < n
+const top = (n: number) => (_: unknown, i: number) => i < n
 
-const search = (query) =>
-  searchResults(query)
-    .filter(top(5))
-    .map((result) =>
-      result.item === 'No results' ? NoResults() : ParshaResult(result)
-    )
+const search = (query: string) => {
+  const results = searchResults(query)
 
-export default (jumpToRef) => {
-  const searchEmitter = EventEmitter.new()
+  if (!results.length) return [NoResults()]
+
+  return results.filter(top(5)).map((result) => ParshaResult(result))
+}
+
+declare function gtag(type: 'event', eventName: string, payload: unknown): void
+
+export default (
+  jumpToRef: ({
+    ref,
+  }: {
+    ref: Ref
+    source: 'comingUp' | 'search' | 'browse'
+    key: unknown
+  }) => void
+) => {
+  const searchEmitter = EventEmitter.new<SearchEmitter>()
   const s = Search({ search, emitter: searchEmitter })
 
   const self = htmlToElement(`
@@ -263,11 +305,11 @@ export default (jumpToRef) => {
           event_label: ['due up', 'on deck', 'in the hole'][index],
         })
 
-        const idx = Number(e.target.getAttribute(`data-idx`))
+        const idx = Number((e.target as Element).getAttribute(`data-idx`))
         const token = 'torah' // e.getAttribute(`data-token`)
 
         const { ref, key } = {
-          torah: (idx) => {
+          torah: (idx: number) => {
             const label = comingUpReading.textContent
 
             const parsha = parshaFromLabel({ label })
@@ -277,7 +319,7 @@ export default (jumpToRef) => {
               key: idx === 0 ? 'next' : slugify(parsha.en),
             }
           },
-          holydays: (idx) => ({
+          holydays: (idx: number | string) => ({
             ref: { ...holydays[idx].ref, scroll: idx },
             key: idx,
           }),
@@ -303,10 +345,13 @@ export default (jumpToRef) => {
     const result = selected.querySelector('[data-target-class="parsha-result"]')
 
     const idx = result.getAttribute(`data-idx`)
-    const token = result.getAttribute(`data-token`)
+    const token = result.getAttribute(`data-token`) as
+      | 'torah'
+      | 'holydays'
+      | 'esther'
 
     const { ref, key } = {
-      torah: (idx) => {
+      torah: (idx: number | string) => {
         const parsha = parshiyot[Number(idx)]
 
         return {
@@ -314,7 +359,7 @@ export default (jumpToRef) => {
           key: slugify(parsha.en),
         }
       },
-      holydays: (idx) => ({
+      holydays: (idx: number | string) => ({
         ref: { ...holydays[idx].ref, scroll: idx },
         key: idx,
       }),
@@ -346,16 +391,18 @@ export default (jumpToRef) => {
     .parentNode.replaceChild(s.node, self.querySelector('#search'))
   ;[...self.querySelectorAll('[data-target-id="parsha"]')].forEach((parsha) => {
     parsha.addEventListener('click', (e) => {
+      const target = e.target as Element
+
       gtag('event', 'browse_selection', {
         event_category: 'navigation',
-        event_label: e.target.textContent.trim(),
+        event_label: target.textContent.trim(),
       })
 
-      const idx = e.target.getAttribute(`data-idx`)
-      const token = e.target.getAttribute(`data-token`)
+      const idx = target.getAttribute(`data-idx`)
+      const token = target.getAttribute(`data-token`) as Token
 
       const { ref, key } = {
-        torah: (idx) => {
+        torah: (idx: number | string) => {
           const parsha = parshiyot[Number(idx)]
 
           return {
@@ -363,7 +410,7 @@ export default (jumpToRef) => {
             key: slugify(parsha.en),
           }
         },
-        holydays: (idx) => ({
+        holydays: (idx: number | string) => ({
           ref: { ...holydays[idx].ref, scroll: idx },
           key: idx,
         }),

@@ -6,7 +6,8 @@
     "target": "es2016",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "sourceMap": true
   },
   "include": [
     "./src/**/*"

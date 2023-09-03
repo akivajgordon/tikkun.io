@@ -7,7 +7,7 @@ type Verse = {
   verse: number
 }
 
-type LineType = {
+export type LineType = {
   text: string[][]
   verses: Verse[]
   aliyot: { standard: number }[]

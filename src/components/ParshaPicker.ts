@@ -9,7 +9,7 @@ import utils from './utils'
 import ParshaResult, { NoResults } from './ParshaResult'
 import Search, { SearchEmitter } from './Search'
 import EventEmitter from '../event-emitter'
-import { Ref } from '../ref'
+import { Ref, RefWithScroll, Scroll } from '../ref'
 
 type Reading = {
   en: string
@@ -260,9 +260,9 @@ export default (
   jumpToRef: ({
     ref,
   }: {
-    ref: Ref
+    ref: RefWithScroll
     source: 'comingUp' | 'search' | 'browse'
-    key: unknown
+    key: string
   }) => void
 ) => {
   const searchEmitter = EventEmitter.new<SearchEmitter>()
@@ -315,16 +315,16 @@ export default (
             const parsha = parshaFromLabel({ label })
 
             return {
-              ref: { ...parsha.ref, scroll: 'torah' },
+              ref: { ...parsha.ref, scroll: 'torah' as const },
               key: idx === 0 ? 'next' : slugify(parsha.en),
             }
           },
-          holydays: (idx: number | string) => ({
+          holydays: (idx: Scroll) => ({
             ref: { ...holydays[idx].ref, scroll: idx },
             key: idx,
           }),
           esther: () => ({
-            ref: { b: 1, c: 1, v: 1, scroll: 'esther' },
+            ref: { b: 1, c: 1, v: 1, scroll: 'esther' as const },
             key: 'esther',
           }),
         }[token](idx)
@@ -344,7 +344,7 @@ export default (
 
     const result = selected.querySelector('[data-target-class="parsha-result"]')
 
-    const idx = result.getAttribute(`data-idx`)
+    const idx = result.getAttribute(`data-idx`) as Scroll
     const token = result.getAttribute(`data-token`) as
       | 'torah'
       | 'holydays'
@@ -355,16 +355,16 @@ export default (
         const parsha = parshiyot[Number(idx)]
 
         return {
-          ref: { ...parsha.ref, scroll: 'torah' },
+          ref: { ...parsha.ref, scroll: 'torah' as const },
           key: slugify(parsha.en),
         }
       },
-      holydays: (idx: number | string) => ({
+      holydays: (idx: Scroll) => ({
         ref: { ...holydays[idx].ref, scroll: idx },
         key: idx,
       }),
       esther: () => ({
-        ref: { b: 1, c: 1, v: 1, scroll: 'esther' },
+        ref: { b: 1, c: 1, v: 1, scroll: 'esther' as const },
         key: 'esther',
       }),
     }[token](idx)
@@ -398,7 +398,7 @@ export default (
         event_label: target.textContent.trim(),
       })
 
-      const idx = target.getAttribute(`data-idx`)
+      const idx = target.getAttribute(`data-idx`) as Scroll
       const token = target.getAttribute(`data-token`) as Token
 
       const { ref, key } = {
@@ -406,16 +406,16 @@ export default (
           const parsha = parshiyot[Number(idx)]
 
           return {
-            ref: { ...parsha.ref, scroll: 'torah' },
+            ref: { ...parsha.ref, scroll: 'torah' as const },
             key: slugify(parsha.en),
           }
         },
-        holydays: (idx: number | string) => ({
+        holydays: (idx: Scroll) => ({
           ref: { ...holydays[idx].ref, scroll: idx },
           key: idx,
         }),
         esther: () => ({
-          ref: { b: 1, c: 1, v: 1, scroll: 'esther' },
+          ref: { b: 1, c: 1, v: 1, scroll: 'esther' as const },
           key: 'esther',
         }),
       }[token](idx)

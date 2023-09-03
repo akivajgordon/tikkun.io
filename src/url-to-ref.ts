@@ -1,7 +1,7 @@
 import { defaultRef, resolveToValidRef } from './location'
 import parshiyot from './data/parshiyot.json'
 import holydays from './data/holydays.json'
-import { Ref } from './ref'
+import { Holyday, Ref, RefWithScroll } from './ref'
 
 const isURL = (url: string) => {
   try {
@@ -21,8 +21,18 @@ const hashOf = (url: string) => {
 
 type PathPart = string
 
-const RefRouter = {
-  refFromPathParts: ({ pathParts }: { pathParts: PathPart[] }) => {
+type Router = {
+  refFromPathParts: ({
+    pathParts,
+    asOfDate,
+  }: {
+    pathParts: PathPart[]
+    asOfDate: string
+  }) => Promise<RefWithScroll>
+}
+
+const RefRouter: Router = {
+  refFromPathParts: async ({ pathParts }) => {
     if (!pathParts || !pathParts[0].length) return defaultRef()
     const locationMatch = pathParts[0].match(/(\d+)\-(\d+)-(\d+)/)
 
@@ -37,8 +47,8 @@ const RefRouter = {
   },
 }
 
-const ParshaRouter = {
-  refFromPathParts: ({ pathParts }: { pathParts: PathPart[] }) => {
+const ParshaRouter: Router = {
+  refFromPathParts: async ({ pathParts }) => {
     if (!pathParts || !pathParts[0].length) return defaultRef()
 
     const decoded = decodeURIComponent(pathParts[0])
@@ -59,8 +69,8 @@ const ParshaRouter = {
   },
 }
 
-const HolydayRouter = {
-  refFromPathParts: ({ pathParts }: { pathParts: PathPart[] }) => {
+const HolydayRouter: Router = {
+  refFromPathParts: async ({ pathParts }) => {
     const holyday = pathParts[0]
 
     const holydaysAndEsther: Record<string, { ref: Ref }> = {
@@ -68,7 +78,12 @@ const HolydayRouter = {
       esther: { ref: { b: 1, c: 1, v: 1 } },
     }
 
-    if (!Object.keys(holydaysAndEsther).includes(holyday)) return defaultRef()
+    const isRecognizedHolyday = (
+      holyday: string
+    ): holyday is 'esther' | Holyday =>
+      Object.keys(holydaysAndEsther).includes(holyday)
+
+    if (!isRecognizedHolyday(holyday)) return defaultRef()
 
     return { scroll: holyday, ...holydaysAndEsther[holyday].ref }
   },
@@ -84,7 +99,7 @@ type ScheduleFetcher = {
 }
 
 const NextRouter = {
-  new: ({ scheduleFetcher }: { scheduleFetcher: ScheduleFetcher }) => ({
+  new: ({ scheduleFetcher }: { scheduleFetcher: ScheduleFetcher }): Router => ({
     refFromPathParts: async ({ asOfDate }: { asOfDate: string }) => {
       const schedule = await scheduleFetcher.fetch()
       const found = schedule.find(
@@ -114,7 +129,7 @@ export default async ({
   scheduleFetcher = emptyScheduleFetcher,
 }: {
   url: string
-  asOfDate: string
+  asOfDate?: string
   scheduleFetcher: ScheduleFetcher
 }) => {
   const hashParts = hashOf(url).split('/').slice(1)

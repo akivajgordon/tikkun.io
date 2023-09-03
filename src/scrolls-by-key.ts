@@ -5,9 +5,10 @@ import pageTitles from './data/page-titles.json'
 import _holydays from './data/holydays.json'
 import parshiyot from './data/parshiyot.json'
 import _aliyotJSON from './data/aliyot.json'
-import { Ref } from './ref'
+import { Holyday, Scroll, Ref } from './ref'
 
-const holydays: Record<string, { en: string; he: string; ref: Ref }> = _holydays
+const holydays: Record<Holyday, { en: string; he: string; ref: Ref }> =
+  _holydays
 const aliyotJSON: Record<
   string,
   Record<string, Record<string, {}>>
@@ -175,10 +176,13 @@ const EstherScroll = {
   },
 }
 
-export default {
+const scrollsByKey: Record<
+  Scroll,
+  { new: ({ startingAtRef }: { startingAtRef: Ref }) => ScrollType }
+> = {
   torah: TorahScroll,
   esther: EstherScroll,
-  ...Object.keys(holydays).reduce((result, holydayKey) => {
+  ...(Object.keys(holydays) as Holyday[]).reduce((result, holydayKey) => {
     const HolydayScroll = {
       new: ({ startingAtRef }: { startingAtRef: Ref }): ScrollType => {
         return Scroll.new({
@@ -192,5 +196,7 @@ export default {
       },
     }
     return { ...result, [holydayKey]: HolydayScroll }
-  }, {}),
+  }, {} as Record<Holyday, { new: ({ startingAtRef }: { startingAtRef: Ref }) => ScrollType }>),
 }
+
+export default scrollsByKey

@@ -19,7 +19,7 @@ const Line = ({
   lineIndex,
 }: {
   scroll: { aliyotFor: (verses: unknown) => string }
-  text: unknown[][]
+  text: string[][]
   verses: { verse: number; chapter: number }[]
   isPetucha: boolean
   lineIndex: number

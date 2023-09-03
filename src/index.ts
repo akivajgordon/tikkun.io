@@ -2,50 +2,69 @@
 
 import InfiniteScroller from './infinite-scroller'
 import urlToRef from './url-to-ref'
-import scrollsByKey from './scrolls-by-key'
-import Page from './components/Page'
+import scrollsByKey, { ScrollType } from './scrolls-by-key'
+import Page, { LineType } from './components/Page'
 import ParshaPicker from './components/ParshaPicker'
 import utils from './components/utils'
 import scheduleFetcher from './schedule'
+import { RefWithScroll } from './ref'
+
+declare function gtag(
+  name: 'event',
+  label: string,
+  payload: Record<any, any>
+): void
 
 const { htmlToElement, whenKey, purgeNode } = utils
 
-const insertBefore = (parent, child) => {
+const insertBefore = (parent: Element, child: Element) => {
   parent.insertAdjacentElement('afterbegin', child)
 }
 
-const insertAfter = (parent, child) => {
+const insertAfter = (parent: Element, child: Element) => {
   parent.insertAdjacentElement('beforeend', child)
 }
 
-let scroll
+let scroll: ScrollType
 
-const renderTitle = ({ title }) => {
+const renderTitle = ({ title }: { title: string }) => {
   document.querySelector('[data-target-id="parsha-title"]').innerHTML = title
 }
 
-const makePageNode = ({ title, pageNumber }) => {
+const makePageNode = ({
+  title,
+  pageNumber,
+}: {
+  title: string
+  pageNumber: number
+}) => {
   const node = document.createElement('div')
   node.classList.add('tikkun-page')
   node.setAttribute('data-page-title', title)
-  node.setAttribute('data-page-number', pageNumber)
+  node.setAttribute('data-page-number', pageNumber.toString(10))
 
   return node
 }
 
-const scrollToLine = ({ node, lineIndex }) => {
-  const lines = [...node.querySelectorAll('.line')]
+const scrollToLine = ({
+  node,
+  lineIndex,
+}: {
+  node: Element
+  lineIndex: number
+}) => {
+  const lines = [...node.querySelectorAll<HTMLElement>('.line')]
 
   const line = lines[lineIndex]
 
-  const book = document.querySelector('.tikkun-book')
+  const book = document.querySelector<HTMLElement>('.tikkun-book')
 
   book.scrollTop =
     line.offsetTop + line.offsetHeight / 2 - book.offsetHeight / 2
 }
 
 const app = {
-  jumpTo: ({ ref }) => {
+  jumpTo: ({ ref }: { ref: RefWithScroll }) => {
     scroll = scrollsByKey[ref.scroll].new({ startingAtRef: ref })
 
     purgeNode(document.querySelector('[data-target-id="tikkun-book"]'))
@@ -66,7 +85,13 @@ const app = {
   },
 }
 
-const setVisibility = ({ selector, visible }) => {
+const setVisibility = ({
+  selector,
+  visible,
+}: {
+  selector: string
+  visible: boolean
+}) => {
   const classList = document.querySelector(selector).classList
 
   classList[visible ? 'remove' : 'add']('u-hidden')
@@ -86,9 +111,9 @@ const showParshaPicker = () => {
     const { scroll } = ref
 
     const hashBySource = {
-      comingUp: (key) => (key === 'next' ? `#/next` : `#/p/${key}`),
-      browse: (key) => `#/${scroll === 'torah' ? 'p' : 'h'}/${key}`,
-      search: (key) => `#/${scroll === 'torah' ? 'p' : 'h'}/${key}`,
+      comingUp: (key: string) => (key === 'next' ? `#/next` : `#/p/${key}`),
+      browse: (key: string) => `#/${scroll === 'torah' ? 'p' : 'h'}/${key}`,
+      search: (key: string) => `#/${scroll === 'torah' ? 'p' : 'h'}/${key}`,
     }[source](key)
 
     window.location.hash = hashBySource
@@ -127,8 +152,10 @@ const toggleParshaPicker = () => {
   }
 }
 
-const toggleAnnotations = (getPreviousCheckedState) => {
-  const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
+const toggleAnnotations = (getPreviousCheckedState: () => boolean) => {
+  const toggle = document.querySelector<HTMLInputElement>(
+    '[data-target-id="annotations-toggle"]'
+  )
 
   toggle.checked = !getPreviousCheckedState()
 
@@ -138,7 +165,7 @@ const toggleAnnotations = (getPreviousCheckedState) => {
   book.classList.toggle('mod-annotations-off', !toggle.checked)
 }
 
-const scrollState = {
+const scrollState: { lastScrolledPosition: number; pageAtTop: HTMLElement } = {
   lastScrolledPosition: 0,
   pageAtTop: null,
 }
@@ -163,10 +190,10 @@ const rememberLastScrolledPosition = () => {
   }
 
   const pageAtTop = [
-    ...document.elementsFromPoint(
+    ...(document.elementsFromPoint(
       topOfBookRelativeToViewport.x,
       topOfBookRelativeToViewport.y
-    ),
+    ) as HTMLElement[]),
   ].find((el) => el.className.includes('tikkun-page'))
 
   if (!pageAtTop) return
@@ -199,7 +226,7 @@ const updatePageTitle = () => {
 }
 
 let lastCalled = Date.now()
-const throttle = (f) => {
+const throttle = (f: () => void) => {
   if (Date.now() - lastCalled > 300) {
     lastCalled = Date.now()
     f()
@@ -207,8 +234,20 @@ const throttle = (f) => {
 }
 
 const renderPage =
-  ({ insertStrategy: insert }) =>
-  ({ content, title, pageNumber }) => {
+  ({
+    insertStrategy: insert,
+  }: {
+    insertStrategy: (parent: Element, child: Element) => void
+  }) =>
+  ({
+    content,
+    title,
+    pageNumber,
+  }: {
+    content: LineType[]
+    title: string
+    pageNumber: number
+  }) => {
     const node = makePageNode({ title, pageNumber })
 
     insert(document.querySelector('[data-target-id="tikkun-book"]'), node)
@@ -230,8 +269,8 @@ const renderPage =
 const renderPrevious = renderPage({ insertStrategy: insertBefore })
 const renderNext = renderPage({ insertStrategy: insertAfter })
 
-const debounce = (callback, delay) => {
-  let timeout
+const debounce = (callback: () => void, delay: number) => {
+  let timeout: number
   return () => {
     clearTimeout(timeout)
     timeout = setTimeout(() => {
@@ -240,14 +279,14 @@ const debounce = (callback, delay) => {
   }
 }
 
-const listenForRevealGesture = (book) => {
+const listenForRevealGesture = (book: HTMLElement) => {
   const PULL_THRESHOLD = 30 // px
   const PULL_MAXIMUM = 100
 
   const endTouch = () => {
     book.classList.add('mod-pull-releasing')
 
-    book.style.setProperty('--pull-translation', 0)
+    book.style.setProperty('--pull-translation', `0`)
   }
 
   let startX = 0
@@ -275,9 +314,9 @@ const listenForRevealGesture = (book) => {
   book.addEventListener('touchcancel', endTouch)
 }
 
-const onSelectionEnd = (callback) => {
-  let lastMouseUpAt
-  let lastSelectionStartAt
+const onSelectionEnd = (callback: (selection: Selection) => void) => {
+  let lastMouseUpAt: number
+  let lastSelectionStartAt: number
   document.addEventListener('pointerup', () => {
     const previousLastMouseUp = lastMouseUpAt
     lastMouseUpAt = Date.now()
@@ -306,8 +345,12 @@ const setAppHeight = () => {
 document.addEventListener('resize', setAppHeight)
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const book = document.querySelector('[data-target-id="tikkun-book"]')
-  const toggle = document.querySelector('[data-target-id="annotations-toggle"]')
+  const book = document.querySelector<HTMLElement>(
+    '[data-target-id="tikkun-book"]'
+  )
+  const toggle = document.querySelector<HTMLInputElement>(
+    '[data-target-id="annotations-toggle"]'
+  )
 
   InfiniteScroller.new({
     container: book,
@@ -335,8 +378,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     resumeLastScrollPosition()
   })
 
-  toggle.addEventListener('change', (e) =>
-    toggleAnnotations(() => !e.target.checked)
+  toggle.addEventListener('change', () =>
+    toggleAnnotations(() => !toggle.checked)
   )
 
   document.addEventListener(
@@ -363,7 +406,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     })
   )
 
-  const ancestorOf = (node, options) => {
+  const ancestorOf = (
+    node: Node | HTMLElement,
+    options: { matching: (n: typeof node) => n is HTMLElement }
+  ): HTMLElement | null => {
     if (!node) return null
 
     if (options.matching(node)) return node
@@ -372,19 +418,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   onSelectionEnd((selection) => {
+    const isLine = (node: Node | HTMLElement): node is HTMLElement =>
+      'dataset' in node && node.dataset.class === 'line'
+    const isPage = (node: Node | HTMLElement): node is HTMLElement => {
+      if (!('classList' in node)) return false
+      return [...node.classList].includes('tikkun-page')
+    }
+
     const anchorLine = ancestorOf(selection.anchorNode, {
-      matching: (node) => node.dataset && node.dataset.class === 'line',
+      matching: isLine,
     })
 
     const focusLine = ancestorOf(selection.focusNode, {
-      matching: (node) => node.dataset && node.dataset.class === 'line',
+      matching: isLine,
     })
 
     const anchorPage = ancestorOf(anchorLine, {
-      matching: (node) => [...node.classList].includes('tikkun-page'),
+      matching: isPage,
     })
     const focusPage = ancestorOf(focusLine, {
-      matching: (node) => [...node.classList].includes('tikkun-page'),
+      matching: isPage,
     })
 
     const anchor = {

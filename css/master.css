@@ -43,7 +43,7 @@ ol {
 }
 
 .u-hidden {
-  display: none;
+  display: none !important;
 }
 
 .centerize {
@@ -139,4 +139,15 @@ ol {
 
 .tikkun-book.mod-pull-releasing {
   --pull-transform: 0.15s;
+}
+
+#debug {
+  position: fixed;
+  bottom: 1em;
+  left: 1em;
+  padding: 1em;
+  background: hsla(0, 0%, 100%, 0.8);
+  border-radius: 8px;
+  display: inline-block;
+  // display: none;
 }

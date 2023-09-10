@@ -8,6 +8,7 @@ import ParshaPicker from './components/ParshaPicker'
 import utils from './components/utils'
 import scheduleFetcher from './schedule'
 import { RefWithScroll } from './ref'
+import { watchForHighlighting } from './highlight'
 
 declare function gtag(
   name: 'event',
@@ -46,21 +47,11 @@ const makePageNode = ({
   return node
 }
 
-const scrollToLine = ({
-  node,
-  lineIndex,
-}: {
-  node: Element
-  lineIndex: number
-}) => {
-  const lines = [...node.querySelectorAll<HTMLElement>('.line')]
-
-  const line = lines[lineIndex]
-
+const scrollTo = ({ element }: { element: HTMLElement }) => {
   const book = document.querySelector<HTMLElement>('.tikkun-book')
 
   book.scrollTop =
-    line.offsetTop + line.offsetHeight / 2 - book.offsetHeight / 2
+    element.offsetTop + element.offsetHeight / 2 - book.offsetHeight / 2
 }
 
 const app = {
@@ -73,13 +64,18 @@ const app = {
       .fetchNext()
       .then(renderNext)
       .then((pageNode) => {
-        scrollToLine({
-          node: pageNode,
-          lineIndex: scroll.startingLineNumber - 1,
+        const lines = [...pageNode.querySelectorAll<HTMLElement>('.line')]
+        const lineIndex = scroll.startingLineNumber - 1
+
+        const line = lines[lineIndex]
+
+        scrollTo({
+          element: line,
         })
       })
-
-    hideParshaPicker()
+      .then(() => {
+        hideParshaPicker()
+      })
 
     return Promise.resolve()
   },
@@ -263,8 +259,15 @@ const renderPage =
 
     setTimeout(updatePageTitle, 0)
 
+    debug(`Rendering ${pageNumber}`)
+
     return node
   }
+
+const debug = (str: string) => {
+  const container = document.querySelector('#debug')
+  container.innerHTML = str
+}
 
 const renderPrevious = renderPage({ insertStrategy: insertBefore })
 const renderNext = renderPage({ insertStrategy: insertAfter })
@@ -314,24 +317,6 @@ const listenForRevealGesture = (book: HTMLElement) => {
   book.addEventListener('touchcancel', endTouch)
 }
 
-const onSelectionEnd = (callback: (selection: Selection) => void) => {
-  let lastMouseUpAt: number
-  let lastSelectionStartAt: number
-  document.addEventListener('pointerup', () => {
-    const previousLastMouseUp = lastMouseUpAt
-    lastMouseUpAt = Date.now()
-    if (lastSelectionStartAt > (previousLastMouseUp || 0)) {
-      const selection = window.getSelection()
-      if (selection.isCollapsed) return
-
-      callback(selection)
-    }
-  })
-  document.addEventListener('selectstart', () => {
-    lastSelectionStartAt = Date.now()
-  })
-}
-
 const setAppHeight = () => {
   // This prevents double-scroll bars from the inner "book" scrolling
   // when on browsers that have browser "chrome" (like the tab bar),
@@ -350,6 +335,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   )
   const toggle = document.querySelector<HTMLInputElement>(
     '[data-target-id="annotations-toggle"]'
+  )
+
+  book.addEventListener('mouseover', (e) => {
+    const line = document
+      .elementsFromPoint(e.x, e.y)
+      .find((e) => e.className.includes('line'))
+    console.log(line)
+  })
+
+  document.addEventListener(
+    'keydown',
+    whenKey('!', () => {
+      document.querySelector('#debug').classList.toggle('u-hidden')
+    })
   )
 
   InfiniteScroller.new({
@@ -377,6 +376,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   window.addEventListener('resize', () => {
     resumeLastScrollPosition()
   })
+
+  // watchForHighlighting()
 
   toggle.addEventListener('change', () =>
     toggleAnnotations(() => !toggle.checked)
@@ -406,70 +407,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     })
   )
 
-  const ancestorOf = (
-    node: Node | HTMLElement,
-    options: { matching: (n: typeof node) => n is HTMLElement }
-  ): HTMLElement | null => {
-    if (!node) return null
-
-    if (options.matching(node)) return node
-
-    return ancestorOf(node.parentNode, options)
-  }
-
-  onSelectionEnd((selection) => {
-    const isLine = (node: Node | HTMLElement): node is HTMLElement =>
-      'dataset' in node && node.dataset.class === 'line'
-    const isPage = (node: Node | HTMLElement): node is HTMLElement => {
-      if (!('classList' in node)) return false
-      return [...node.classList].includes('tikkun-page')
-    }
-
-    const anchorLine = ancestorOf(selection.anchorNode, {
-      matching: isLine,
-    })
-
-    const focusLine = ancestorOf(selection.focusNode, {
-      matching: isLine,
-    })
-
-    const anchorPage = ancestorOf(anchorLine, {
-      matching: isPage,
-    })
-    const focusPage = ancestorOf(focusLine, {
-      matching: isPage,
-    })
-
-    const anchor = {
-      page: (anchorPage && anchorPage.dataset['page-number']) || 0,
-      line: anchorLine.dataset['line-index'],
-      offset: selection.anchorOffset,
-    }
-    const focus = {
-      page: (focusPage && focusPage.dataset['page-number']) || 0,
-      line: focusLine.dataset['line-index'],
-      offset: selection.focusOffset,
-    }
-
-    let selectionStart = anchor
-    let selectionEnd = focus
-
-    if (
-      focus.page < anchor.page ||
-      (focus.page === anchor.page && focus.line < anchor.line) ||
-      (focus.page === anchor.page &&
-        focus.line === anchor.line &&
-        focus.offset < anchor.offset)
-    ) {
-      selectionStart = focus
-      selectionEnd = anchor
-    }
-
-    // // SEE https://developer.mozilla.org/en-US/docs/Web/API/Selection/setBaseAndExtent FOR HOW TO PROGRAMMATICALLY SELECT TO EXTEND THE SELECTION TO WORD BOUNDARIES
-    // console.log(selectionStart)
-    // console.log(selectionEnd)
-  })
-
   const startingRef = await urlToRef({
     url: window.location.href,
     scheduleFetcher,
@@ -477,5 +414,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   setAppHeight()
 
-  app.jumpTo({ ref: startingRef }).then(hideParshaPicker)
+  app.jumpTo({ ref: startingRef })
 })

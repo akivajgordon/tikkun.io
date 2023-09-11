@@ -9,6 +9,8 @@ import utils from './components/utils'
 import scheduleFetcher from './schedule'
 import { RefWithScroll } from './ref'
 import { watchForHighlighting } from './highlight'
+import { BookView } from './book-view'
+import { PageDisplay } from './page-display'
 
 declare function gtag(
   name: 'event',
@@ -221,14 +223,6 @@ const updatePageTitle = () => {
   renderTitle({ title: pageAtCenter.getAttribute('data-page-title') })
 }
 
-let lastCalled = Date.now()
-const throttle = (f: () => void) => {
-  if (Date.now() - lastCalled > 300) {
-    lastCalled = Date.now()
-    f()
-  }
-}
-
 const renderPage =
   ({
     insertStrategy: insert,
@@ -330,9 +324,17 @@ const setAppHeight = () => {
 document.addEventListener('resize', setAppHeight)
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const parshaTitle = document.querySelector<HTMLElement>(
+    '[data-target-id="parsha-title"]'
+  )
+
   const book = document.querySelector<HTMLElement>(
     '[data-target-id="tikkun-book"]'
   )
+
+  const bookView = new BookView(book)
+  new PageDisplay(parshaTitle, bookView)
+
   const toggle = document.querySelector<HTMLInputElement>(
     '[data-target-id="annotations-toggle"]'
   )
@@ -359,10 +361,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     },
     fetchNextContent: { fetch: () => scroll.fetchNext(), render: renderNext },
   }).attach()
-
-  book.addEventListener('scroll', () => {
-    throttle(() => updatePageTitle())
-  })
 
   book.addEventListener(
     'scroll',

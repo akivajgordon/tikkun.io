@@ -3,3 +3,4 @@ cypress/screenshots
 .DS_Store
 download
 dist
+.tsimp

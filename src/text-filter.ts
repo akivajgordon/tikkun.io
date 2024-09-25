@@ -29,7 +29,7 @@ const kri = (text: string) =>
     .replace('#(פ)', '')
     .replace(`(${NUN_HAFUCHA})#`, `${NUN_HAFUCHA} `)
     .replace(`#(${NUN_HAFUCHA})`, ` ${NUN_HAFUCHA}`)
-    .replace(/־/g, ' ')
+    .replace(/־/g, '\u2005')
     .replace(/#\[.+?\]/g, ' ')
     .replace(new RegExp(`[^א-ת\\s${NUN_HAFUCHA}]`, 'g'), '')
     .replace(/\s{2,}/g, ' ')

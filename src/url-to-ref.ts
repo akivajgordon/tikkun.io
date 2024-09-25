@@ -3,6 +3,12 @@ import parshiyot from './data/parshiyot.json'
 import holydays from './data/holydays.json'
 import { Holyday, Ref, RefWithScroll } from './ref.ts'
 
+// Declare this class to avoid TypeScript compiler errors when running in Node.js.
+declare class URL { 
+  hash: string 
+  constructor(url: string) 
+}
+
 const isURL = (url: string) => {
   try {
     new URL(url)
@@ -13,7 +19,7 @@ const isURL = (url: string) => {
   return true
 }
 
-const hashOf = (url: string) => {
+const hashOf = (url: string): string => {
   if (!isURL(url)) return ''
 
   return new URL(url).hash
@@ -27,7 +33,7 @@ type Router = {
     asOfDate,
   }: {
     pathParts: PathPart[]
-    asOfDate: string
+    asOfDate?: string
   }) => Promise<RefWithScroll>
 }
 
@@ -100,7 +106,7 @@ type ScheduleFetcher = {
 
 const NextRouter = {
   new: ({ scheduleFetcher }: { scheduleFetcher: ScheduleFetcher }): Router => ({
-    refFromPathParts: async ({ asOfDate }: { asOfDate: string }) => {
+    refFromPathParts: async ({ asOfDate }: { asOfDate?: string }) => {
       const schedule = await scheduleFetcher.fetch()
       const found = schedule.find(
         ({ datetime }) => new Date(datetime) > new Date(asOfDate || Date.now())
@@ -111,6 +117,7 @@ const NextRouter = {
       const parsha = parshiyot.find(
         ({ he }) => found.label.split('–')[0].trim() === he
       )
+      if (!parsha) return defaultRef()
 
       const { b, c, v } = parsha.ref
 

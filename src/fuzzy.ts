@@ -66,7 +66,7 @@ const bestMatch =
     }
   }
 
-export default <T>(
+export default <T extends object>(
   haystack: T[],
   needle: string,
   getSearchTerms: GetSearchTermsFn<T> = (x) => [x.toString()]

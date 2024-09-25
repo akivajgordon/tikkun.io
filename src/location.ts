@@ -61,7 +61,6 @@ export const resolveToValidRef = ({
   ref.v = convertToValidInt(verse, toc[ref.b][ref.c])
 
   return {
-    scroll,
     ...ref,
   }
 }

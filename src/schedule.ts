@@ -9,8 +9,7 @@ let _schedule: Schedule
 export default {
   fetch: async () => {
     if (!_schedule) {
-      const res = await fetch('/data/schedule.json')
-      _schedule = await res.json()
+      _schedule = (await import('./data/schedule.json')).default
     }
 
     return _schedule

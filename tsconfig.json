@@ -3,13 +3,12 @@
     "moduleResolution": "node",
     "outDir": "./dist",
     "allowJs": true,
+    "module": "ES2022",
     "target": "es2016",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "noImplicitAny": true,
     "sourceMap": true
   },
-  "include": [
-    "./src/**/*"
-  ]
+  "include": ["./src/**/*"]
 }

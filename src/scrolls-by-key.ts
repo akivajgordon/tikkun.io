@@ -56,19 +56,19 @@ const aliyahName = ({
   return aliyotStrings[aliyah - 1]
 }
 
-export type ScrollType = ReturnType<typeof Scroll['new']>
+export type ScrollType = ReturnType<(typeof Scroll)['new']>
 
 const Scroll = {
   new: ({
     scroll,
-    makePath,
+    loadJson,
     makeTitle,
     startingAtRef = { b: 1, c: 1, v: 1 },
     aliyotByRef,
     aliyahFinder,
   }: {
     scroll: string
-    makePath: (n: number) => string
+    loadJson: (n: number) => Promise<any>
     makeTitle: (n: number) => string
     startingAtRef: Ref
     aliyotByRef: Record<
@@ -89,22 +89,22 @@ const Scroll = {
 
     return {
       scrollName: scroll,
-      fetchPrevious: () => {
+      fetchPrevious: async () => {
         const n = iterator.previous()
         if (n <= 0) return Promise.resolve()
-        return fetchPage({
-          path: makePath(n),
+        return {
+          content: (await loadJson(n)).default,
           title: makeTitle(n),
           pageNumber: n,
-        })
+        }
       },
-      fetchNext: () => {
+      fetchNext: async () => {
         const n = iterator.next()
-        return fetchPage({
-          path: makePath(n),
+        return {
+          content: (await loadJson(n)).default,
           title: makeTitle(n),
           pageNumber: n,
-        })
+        }
       },
       startingLineNumber: lineNumber,
       aliyotFor: ({
@@ -154,7 +154,7 @@ const TorahScroll = {
   new: ({ startingAtRef }: { startingAtRef: Ref }): ScrollType => {
     return Scroll.new({
       scroll: 'torah',
-      makePath: (n) => `/data/pages/torah/${n}.json`,
+      loadJson: (n) => import(`./data/pages/torah/${n}.json`),
       makeTitle: (n) => getTitle(pageTitles[n - 1]),
       startingAtRef,
       aliyahFinder: parshiyot,
@@ -167,7 +167,7 @@ const EstherScroll = {
   new: ({ startingAtRef }: { startingAtRef: Ref }): ScrollType => {
     return Scroll.new({
       scroll: 'esther',
-      makePath: (n) => `/data/pages/esther/${n}.json`,
+      loadJson: (n) => import(`./data/pages/esther/${n}.json`),
       makeTitle: () => 'אסתר',
       startingAtRef,
       aliyahFinder: [],
@@ -187,7 +187,7 @@ const scrollsByKey: Record<
       new: ({ startingAtRef }: { startingAtRef: Ref }): ScrollType => {
         return Scroll.new({
           scroll: holydayKey,
-          makePath: (n) => `/data/pages/${holydayKey}/${n}.json`,
+          loadJson: (n) => import(`./data/pages/${holydayKey}/${n}.json`),
           makeTitle: () => holydays[holydayKey].he,
           startingAtRef,
           aliyahFinder: [holydays[holydayKey]],

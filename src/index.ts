@@ -1,5 +1,5 @@
 /* global gtag */
-
+import '/css/master.css'
 import InfiniteScroller from './infinite-scroller'
 import urlToRef from './url-to-ref'
 import scrollsByKey, { ScrollType } from './scrolls-by-key'

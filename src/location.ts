@@ -1,7 +1,7 @@
 import tocJSON from './data/table-of-contents.json'
 import estherToc from './data/table-of-contents-esther.json'
 import holydaysToc from './data/table-of-contents-holydays.json'
-import { RefWithScroll } from './ref'
+import { RefWithScroll } from './ref.ts'
 
 type AppleSauce = {
   p: number

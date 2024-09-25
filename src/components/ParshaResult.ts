@@ -1,5 +1,5 @@
-import { Token } from './ParshaPicker'
-import utils from './utils'
+import { Token } from './ParshaPicker.ts'
+import utils from './utils.ts'
 
 const { htmlToElement } = utils
 

@@ -1,7 +1,7 @@
-import { defaultRef, resolveToValidRef } from './location'
+import { defaultRef, resolveToValidRef } from './location.ts'
 import parshiyot from './data/parshiyot.json'
 import holydays from './data/holydays.json'
-import { Holyday, Ref, RefWithScroll } from './ref'
+import { Holyday, Ref, RefWithScroll } from './ref.ts'
 
 const isURL = (url: string) => {
   try {

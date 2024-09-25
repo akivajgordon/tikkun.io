@@ -1,4 +1,4 @@
-import Line from './Line'
+import Line from './Line.ts'
 import type { ScrollType } from '../scrolls-by-key'
 
 type Verse = {

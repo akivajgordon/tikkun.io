@@ -12,7 +12,7 @@ declare class URL {
 const isURL = (url: string) => {
   try {
     new URL(url)
-  } catch (e) {
+  } catch {
     return false
   }
 
@@ -40,7 +40,7 @@ type Router = {
 const RefRouter: Router = {
   refFromPathParts: async ({ pathParts }) => {
     if (!pathParts || !pathParts[0].length) return defaultRef()
-    const locationMatch = pathParts[0].match(/(\d+)\-(\d+)-(\d+)/)
+    const locationMatch = pathParts[0].match(/(\d+)-(\d+)-(\d+)/)
 
     if (!locationMatch) return defaultRef()
 

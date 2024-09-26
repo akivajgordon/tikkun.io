@@ -12,7 +12,7 @@ const holydays: Record<Holyday, { en: string; he: string; ref: Ref }> =
   _holydays
 const aliyotJSON: Record<
   string,
-  Record<string, Record<string, {}>>
+  Record<string, Record<string, object>>
 > = _aliyotJSON
 
 const aliyotStrings = [

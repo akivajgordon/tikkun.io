@@ -1,5 +1,3 @@
-/* global gtag */
-
 import _parshiyot from '../data/parshiyot.json'
 import scheduleFetcher from '../schedule'
 import _holydays from '../data/holydays.json'

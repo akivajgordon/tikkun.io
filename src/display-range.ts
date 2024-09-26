@@ -1,6 +1,6 @@
 import hebrewNumeralFromInteger from './hebrew-numeral.ts'
 
-var asRange = (strings: string[]) => {
+const asRange = (strings: string[]) => {
   if (!strings.length) {
     return ''
   }

@@ -13,4 +13,5 @@ jobs:
       - run: npm ci
       # The first run times out; probably while tsimp is still caching things
       - run: npm test > /dev/null 2>&1 || true
+      - run: npx tsc
       - run: npm test 

@@ -11,7 +11,8 @@ jobs:
           node-version: "20.x"
           cache: "npm"
       - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
       # The first run times out; probably while tsimp is still caching things
       - run: npm test > /dev/null 2>&1 || true
-      - run: npx tsc
-      - run: npm test 
+      - run: npm test

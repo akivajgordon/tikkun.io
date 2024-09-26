@@ -5,7 +5,6 @@ import scrollsByKey, { ScrollType } from './scrolls-by-key.ts'
 import Page, { LineType } from './components/Page.ts'
 import ParshaPicker from './components/ParshaPicker.ts'
 import utils from './components/utils.ts'
-import scheduleFetcher from './schedule.ts'
 import { RefWithScroll } from './ref.ts'
 import { BookView } from './book-view.ts'
 import { PageDisplay } from './page-display.ts'
@@ -405,7 +404,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const startingRef = await urlToRef({
     url: window.location.href,
-    scheduleFetcher,
+    scheduleFetcher: () => import('./schedule.ts'),
   })
 
   setAppHeight()

@@ -1,5 +1,4 @@
 import _parshiyot from '../data/parshiyot.json'
-import scheduleFetcher from '../schedule'
 import _holydays from '../data/holydays.json'
 import fuzzy from '../fuzzy'
 import slugify from '../slugify'
@@ -114,7 +113,7 @@ const parshaFromLabel = ({ label }: { label: string }) =>
   parshiyot.find(({ he }) => label.startsWith(he))
 
 const ComingUpReading = (
-  { label, date, datetime }: { label: string; date: string; datetime: string },
+  { label, date, datetime }: { label: string; date: string; datetime: Date },
   index: number,
 ) => {
   const parsha = parshaFromLabel({ label })
@@ -278,9 +277,9 @@ export default (
     </div>
   `)
 
-  scheduleFetcher.fetch().then((readingSchedule) => {
-    const comingUpReadings = readingSchedule
-      .filter((reading) => new Date(reading.datetime) > new Date())
+  import('../schedule.ts').then(({fetch}) => {
+    const comingUpReadings = fetch()
+      .filter((reading) => reading.datetime > new Date())
       .slice(0, 3)
 
     const comingUpReadingsList = document.querySelector(

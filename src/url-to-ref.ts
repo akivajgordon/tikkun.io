@@ -4,9 +4,9 @@ import holydays from './data/holydays.json'
 import { Holyday, Ref, RefWithScroll } from './ref.ts'
 
 // Declare this class to avoid TypeScript compiler errors when running in Node.js.
-declare class URL {
-  hash: string
-  constructor(url: string)
+declare class URL { 
+  hash: string 
+  constructor(url: string) 
 }
 
 const isURL = (url: string) => {
@@ -33,7 +33,7 @@ type Router = {
     asOfDate,
   }: {
     pathParts: PathPart[]
-    asOfDate?: string
+    asOfDate?: Date
   }) => Promise<RefWithScroll>
 }
 
@@ -96,20 +96,18 @@ const HolydayRouter: Router = {
 }
 
 type Schedule = {
-  datetime: string
+  datetime: Date
   label: string
 }[]
 
-type ScheduleFetcher = {
-  fetch: () => Promise<Schedule>
-}
+type ScheduleFetcher = () => Promise<{ fetch(): Schedule }>
 
 const NextRouter = {
   new: ({ scheduleFetcher }: { scheduleFetcher: ScheduleFetcher }): Router => ({
-    refFromPathParts: async ({ asOfDate }: { asOfDate?: string }) => {
-      const schedule = await scheduleFetcher.fetch()
+    refFromPathParts: async ({ asOfDate = new Date() }: { asOfDate?: Date }) => {
+      const schedule = (await scheduleFetcher()).fetch();
       const found = schedule.find(
-        ({ datetime }) => new Date(datetime) > new Date(asOfDate || Date.now()),
+        ({ datetime }) => datetime > asOfDate
       )
 
       if (!found) return defaultRef()
@@ -128,7 +126,7 @@ const NextRouter = {
 
 const DefaultRouter = { refFromPathParts: () => defaultRef() }
 
-const emptyScheduleFetcher: ScheduleFetcher = { fetch: async () => [] }
+const emptyScheduleFetcher: ScheduleFetcher = async () => ({fetch: () => []})
 
 export default async ({
   url,
@@ -136,7 +134,7 @@ export default async ({
   scheduleFetcher = emptyScheduleFetcher,
 }: {
   url: string
-  asOfDate?: string
+  asOfDate?: Date
   scheduleFetcher: ScheduleFetcher
 }) => {
   const hashParts = hashOf(url).split('/').slice(1)

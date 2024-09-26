@@ -36,6 +36,8 @@
   },
   "homepage": "https://github.com/akivajgordon/tikkun.io#readme",
   "dependencies": {
+    "@hebcal/core": "^5.5.0",
+    "@hebcal/leyning": "^8.2.3",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {

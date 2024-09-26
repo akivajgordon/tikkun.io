@@ -1,0 +1,28 @@
+name: Build, Deploy to GitHub Pages and Deploy PR Preview
+
+on:
+  # Uncomment to automatically deploy actual builds, not just previews.
+  # push:
+  #   branches: [main, master]
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency: ci-${{ github.ref }}
+
+jobs:
+  build-deploy-and-preview:
+    name: Build, Deploy to GitHub Pages and Deploy PR Preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build, Deploy to GitHub Pages and Deploy PR Preview
+        uses: chvmvd/build-deploy-and-preview-action@v1.2.0
+        with:
+          type: vite

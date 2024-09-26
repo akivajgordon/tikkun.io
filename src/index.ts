@@ -15,7 +15,7 @@ import { PageDisplay } from './page-display'
 declare function gtag(
   name: 'event',
   label: string,
-  payload: Record<any, any>
+  payload: Record<any, any>,
 ): void
 
 const { htmlToElement, whenKey, purgeNode } = utils
@@ -152,7 +152,7 @@ const toggleParshaPicker = () => {
 
 const toggleAnnotations = (getPreviousCheckedState: () => boolean) => {
   const toggle = document.querySelector<HTMLInputElement>(
-    '[data-target-id="annotations-toggle"]'
+    '[data-target-id="annotations-toggle"]',
   )
 
   toggle.checked = !getPreviousCheckedState()
@@ -190,7 +190,7 @@ const rememberLastScrolledPosition = () => {
   const pageAtTop = [
     ...(document.elementsFromPoint(
       topOfBookRelativeToViewport.x,
-      topOfBookRelativeToViewport.y
+      topOfBookRelativeToViewport.y,
     ) as HTMLElement[]),
   ].find((el) => el.className.includes('tikkun-page'))
 
@@ -214,7 +214,7 @@ const updatePageTitle = () => {
   const pageAtCenter = [
     ...document.elementsFromPoint(
       centerOfBookRelativeToViewport.x,
-      centerOfBookRelativeToViewport.y
+      centerOfBookRelativeToViewport.y,
     ),
   ].find((el) => el.className.includes('tikkun-page'))
 
@@ -302,7 +302,7 @@ const listenForRevealGesture = (book: HTMLElement) => {
 
     book.style.setProperty(
       '--pull-translation',
-      `${PULL_THRESHOLD - pullDistance}px`
+      `${PULL_THRESHOLD - pullDistance}px`,
     )
   })
 
@@ -317,7 +317,7 @@ const setAppHeight = () => {
   // especially on mobile browsers
   document.documentElement.style.setProperty(
     '--app-height',
-    `${window.innerHeight}px`
+    `${window.innerHeight}px`,
   )
 }
 
@@ -325,32 +325,33 @@ document.addEventListener('resize', setAppHeight)
 
 document.addEventListener('DOMContentLoaded', async () => {
   const parshaTitle = document.querySelector<HTMLElement>(
-    '[data-target-id="parsha-title"]'
+    '[data-target-id="parsha-title"]',
   )
 
   const book = document.querySelector<HTMLElement>(
-    '[data-target-id="tikkun-book"]'
+    '[data-target-id="tikkun-book"]',
   )
 
   const bookView = new BookView(book)
   new PageDisplay(parshaTitle, bookView)
 
   const toggle = document.querySelector<HTMLInputElement>(
-    '[data-target-id="annotations-toggle"]'
+    '[data-target-id="annotations-toggle"]',
   )
 
   book.addEventListener('mouseover', (e) => {
     const line = document
       .elementsFromPoint(e.x, e.y)
       .find((e) => e.className.includes('line'))
-    console.log(line)
+
+    line
   })
 
   document.addEventListener(
     'keydown',
     whenKey('!', () => {
       document.querySelector('#debug').classList.toggle('u-hidden')
-    })
+    }),
   )
 
   InfiniteScroller.new({
@@ -366,7 +367,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     'scroll',
     debounce(() => {
       rememberLastScrolledPosition()
-    }, 1000)
+    }, 1000),
   )
 
   listenForRevealGesture(book)
@@ -378,16 +379,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   // watchForHighlighting()
 
   toggle.addEventListener('change', () =>
-    toggleAnnotations(() => !toggle.checked)
+    toggleAnnotations(() => !toggle.checked),
   )
 
   document.addEventListener(
     'keydown',
-    whenKey('Shift', () => toggleAnnotations(() => toggle.checked))
+    whenKey('Shift', () => toggleAnnotations(() => toggle.checked)),
   )
   document.addEventListener(
     'keyup',
-    whenKey('Shift', () => toggleAnnotations(() => toggle.checked))
+    whenKey('Shift', () => toggleAnnotations(() => toggle.checked)),
   )
 
   document
@@ -402,7 +403,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         e.preventDefault()
         hideParshaPicker()
       }
-    })
+    }),
   )
 
   const startingRef = await urlToRef({
@@ -414,3 +415,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   app.jumpTo({ ref: startingRef })
 })
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/service-worker.js')
+    .then((registration) =>
+      console.log('Service Worker registered with scope:', registration.scope),
+    )
+    .catch((error) =>
+      console.error('Service Worker registration failed:', error),
+    )
+}

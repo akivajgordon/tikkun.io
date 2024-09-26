@@ -8,12 +8,24 @@ import _aliyotJSON from './data/aliyot.json'
 import { LineType } from './components/Page.ts'
 import { Holyday, Scroll, Ref } from './ref.ts'
 
+type AliyotIndex = Record<
+  string,
+  Record<
+    string,
+    Record<
+      string,
+      {
+        standard?: number[]
+        double?: number
+        special?: number
+      }
+    >
+  >
+>
+
 const holydays: Record<Holyday, { en: string; he: string; ref: Ref }> =
   _holydays
-const aliyotJSON: Record<
-  string,
-  Record<string, Record<string, object>>
-> = _aliyotJSON
+const aliyotJSON: Record<keyof typeof _aliyotJSON, AliyotIndex> = _aliyotJSON
 
 const aliyotStrings = [
   'ראשון',
@@ -55,13 +67,7 @@ const Scroll = {
     loadJson: (n: number) => Promise<{ default: LineType[] }>
     makeTitle: (n: number) => string
     startingAtRef: Ref
-    aliyotByRef: Record<
-      string,
-      Record<
-        string,
-        Record<string, { standard: number[]; double: number; special: number }>
-      >
-    >
+    aliyotByRef: AliyotIndex
     aliyahFinder: { he: string; ref: Ref }[]
   }) => {
     const { pageNumber, lineNumber } = physicalLocationFromRef({
@@ -155,7 +161,7 @@ const EstherScroll = {
       makeTitle: () => 'אסתר',
       startingAtRef,
       aliyahFinder: [],
-      aliyotByRef: aliyotJSON.esther,
+      aliyotByRef: {}, // Esther has no Aliyot and does not appear in the JSON.
     })
   },
 }

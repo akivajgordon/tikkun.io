@@ -6,6 +6,7 @@ import _holydays from './data/holydays.json'
 import parshiyot from './data/parshiyot.json'
 import _aliyotJSON from './data/aliyot.json'
 import { Holyday, Scroll, Ref } from './ref'
+import { LineType } from './components/Page'
 
 const holydays: Record<Holyday, { en: string; he: string; ref: Ref }> =
   _holydays
@@ -13,23 +14,6 @@ const aliyotJSON: Record<
   string,
   Record<string, Record<string, {}>>
 > = _aliyotJSON
-
-const fetchPage = ({
-  path,
-  title,
-  pageNumber,
-}: {
-  path: string
-  title: string
-  pageNumber: unknown
-}) =>
-  window
-    .fetch(path)
-    .then((res) => res.json())
-    .then((page) => ({ content: page, title, pageNumber }))
-    .catch((err) => {
-      console.error(err)
-    })
 
 const aliyotStrings = [
   'ראשון',
@@ -68,7 +52,7 @@ const Scroll = {
     aliyahFinder,
   }: {
     scroll: string
-    loadJson: (n: number) => Promise<any>
+    loadJson: (n: number) => Promise<{ default: LineType[] }>
     makeTitle: (n: number) => string
     startingAtRef: Ref
     aliyotByRef: Record<

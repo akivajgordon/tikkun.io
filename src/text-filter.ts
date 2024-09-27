@@ -18,7 +18,7 @@ const ketiv = (text: string) =>
           }
           return parts.slice(1)
         })
-        .join('־')
+        .join('־'),
     )
     .join(' ')
     .replace(/\[/g, '{')

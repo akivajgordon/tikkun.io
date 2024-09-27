@@ -34,7 +34,7 @@ const Search = ({
     'keydown',
     whenKey('Enter', () => {
       emitter.emit('selection', getSelected(list))
-    })
+    }),
   )
 
   const onSelect = (item: HTMLElement) => emitter.emit('selection', item)
@@ -56,8 +56,8 @@ const Search = ({
       whenKey(key, (e) => {
         e.preventDefault()
         setSelected(list, adjustment)
-      })
-    )
+      }),
+    ),
   )
 
   const searchInput = self.querySelector<HTMLInputElement>('.search-input')

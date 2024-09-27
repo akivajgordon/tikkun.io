@@ -43,13 +43,13 @@ const InfiniteScroller = {
               fetchPreviousContent.render(fetched)
 
               scrollView.scrollTop = scrollView.scrollHeight - belowHeight
-            })
+            }),
           )
         } else if (hiddenBelowHeight < 0.5 * visibleHeight) {
           oneAtATime(() =>
             fetchNextContent.fetch().then((fetched) => {
               if (fetched) fetchNextContent.render(fetched)
-            })
+            }),
           )
         }
       }),

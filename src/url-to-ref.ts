@@ -4,9 +4,9 @@ import holydays from './data/holydays.json'
 import { Holyday, Ref, RefWithScroll } from './ref.ts'
 
 // Declare this class to avoid TypeScript compiler errors when running in Node.js.
-declare class URL { 
-  hash: string 
-  constructor(url: string) 
+declare class URL {
+  hash: string
+  constructor(url: string)
 }
 
 const isURL = (url: string) => {
@@ -85,7 +85,7 @@ const HolydayRouter: Router = {
     }
 
     const isRecognizedHolyday = (
-      holyday: string
+      holyday: string,
     ): holyday is 'esther' | Holyday =>
       Object.keys(holydaysAndEsther).includes(holyday)
 
@@ -109,13 +109,13 @@ const NextRouter = {
     refFromPathParts: async ({ asOfDate }: { asOfDate?: string }) => {
       const schedule = await scheduleFetcher.fetch()
       const found = schedule.find(
-        ({ datetime }) => new Date(datetime) > new Date(asOfDate || Date.now())
+        ({ datetime }) => new Date(datetime) > new Date(asOfDate || Date.now()),
       )
 
       if (!found) return defaultRef()
 
       const parsha = parshiyot.find(
-        ({ he }) => found.label.split('–')[0].trim() === he
+        ({ he }) => found.label.split('–')[0].trim() === he,
       )
       if (!parsha) return defaultRef()
 

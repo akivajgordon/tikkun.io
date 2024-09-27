@@ -126,14 +126,14 @@ test('returns next parsha given specified date', async (t) => {
         ],
       },
     }),
-    { scroll: 'torah', b: 4, c: 16, v: 1 }
+    { scroll: 'torah', b: 4, c: 16, v: 1 },
   )
 })
 
 test('returns default ref for non-existant holyday reading', async (t) => {
   t.deepEqual(
     await urlToRef({ url: url('/#/h/not-a-special-reading') }),
-    BEREISHIT_1
+    BEREISHIT_1,
   )
 })
 

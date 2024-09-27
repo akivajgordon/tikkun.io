@@ -18,7 +18,7 @@ export class BookView extends EventEmitter<BookViewEvents> {
       'scroll',
       throttle(() => {
         this.updateCurrentPage()
-      }, 300)
+      }, 300),
     )
   }
 
@@ -51,7 +51,7 @@ export class BookView extends EventEmitter<BookViewEvents> {
           rect.top < centerOfBookRelativeToViewport.y &&
           rect.bottom > centerOfBookRelativeToViewport.y
         )
-      }
+      },
     )
 
     return pageAtCenter
@@ -85,13 +85,12 @@ type ThrottledFunction<T extends (...args: unknown[]) => unknown> = (
 
 function throttle<T extends (...args: unknown[]) => unknown>(
   func: T,
-  limit: number
+  limit: number,
 ): ThrottledFunction<T> {
   let inThrottle: boolean
   let lastResult: ReturnType<T>
 
   return function (this: unknown, ...args): ReturnType<T> {
-
     if (!inThrottle) {
       inThrottle = true
 

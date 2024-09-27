@@ -29,7 +29,7 @@ const asVersesRange = (verses: Ref[]) =>
       components.push(verse.verse)
 
       return components.map((num) => hebrewNumeralFromInteger(num)).join(':')
-    })
+    }),
   )
 
 export default { asVersesRange }

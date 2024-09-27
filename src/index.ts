@@ -13,7 +13,7 @@ import { PageDisplay } from './page-display.ts'
 declare function gtag(
   name: 'event',
   label: string,
-  payload: Record<string, unknown>
+  payload: Record<string, unknown>,
 ): void
 
 const { htmlToElement, whenKey, purgeNode } = utils

@@ -34,27 +34,27 @@ const Line = ({
             .map(
               (fragment) => `
             <span class="fragment ${setumaClass(
-              column
+              column,
             )} mod-annotations-on">${ktivKriAnnotation(
-                textFilter({ text: fragment, annotated: true })
-              )}</span>
+              textFilter({ text: fragment, annotated: true }),
+            )}</span>
             <span class="fragment ${setumaClass(
-              column
+              column,
             )} mod-annotations-off">${ktivKriAnnotation(
-                textFilter({ text: fragment, annotated: false })
-              )}</span>
-          `
+              textFilter({ text: fragment, annotated: false }),
+            )}</span>
+          `,
             )
             .join('')}
         </div>
-      `
+      `,
         )
         .join('')}
       <span class="location-indicator mod-verses">${displayRange.asVersesRange(
-        verses
+        verses,
       )}</span>
       <span class="location-indicator mod-aliyot" data-target-id="aliyot-range">${__scroll.aliyotFor(
-        { verses }
+        { verses },
       )}</span>
     </td>
   </tr>

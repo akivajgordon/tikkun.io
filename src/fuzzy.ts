@@ -38,7 +38,7 @@ const bestMatch =
       .map((term) =>
         hasEveryCharacterInOrder(needle)(term)
           ? indexScore(needle, term)
-          : Infinity
+          : Infinity,
       )
       .reduce(
         ({ minScore, index }, score, i) => {
@@ -46,7 +46,7 @@ const bestMatch =
 
           return { minScore, index }
         },
-        { minScore: Infinity, index: 0 }
+        { minScore: Infinity, index: 0 },
       )
 
     if (!isFinite(minScore))
@@ -69,7 +69,7 @@ const bestMatch =
 export default <T extends object>(
   haystack: T[],
   needle: string,
-  getSearchTerms: GetSearchTermsFn<T> = (x) => [x.toString()]
+  getSearchTerms: GetSearchTermsFn<T> = (x) => [x.toString()],
 ) =>
   haystack
     .map(bestMatch(needle, getSearchTerms))

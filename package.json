@@ -8,6 +8,7 @@
     "files": [
       "src/*.test.js"
     ],
+    "timeout": "40s",
     "nodeArguments": [
       "--import=tsimp"
     ]

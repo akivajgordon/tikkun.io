@@ -1,4 +1,4 @@
-import hebrewNumeralFromInteger from './hebrew-numeral'
+import hebrewNumeralFromInteger from './hebrew-numeral.ts'
 
 var asRange = (strings: string[]) => {
   if (!strings.length) {

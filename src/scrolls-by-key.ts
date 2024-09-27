@@ -1,12 +1,12 @@
-import IntegerIterator from './integer-iterator'
-import { physicalLocationFromRef } from './location'
-import getTitle from './title'
+import IntegerIterator from './integer-iterator.ts'
+import { physicalLocationFromRef } from './location.ts'
+import getTitle from './title.ts'
 import pageTitles from './data/page-titles.json'
 import _holydays from './data/holydays.json'
 import parshiyot from './data/parshiyot.json'
 import _aliyotJSON from './data/aliyot.json'
-import { Holyday, Scroll, Ref } from './ref'
-import { LineType } from './components/Page'
+import { LineType } from './components/Page.ts'
+import { Holyday, Scroll, Ref } from './ref.ts'
 
 const holydays: Record<Holyday, { en: string; he: string; ref: Ref }> =
   _holydays
@@ -113,8 +113,8 @@ const Scroll = {
               const found = aliyahFinder.find(({ ref }) =>
                 verses.some(
                   ({ book: b, chapter: c, verse: v }) =>
-                    ref.b === b && ref.c === c && ref.v === v
-                )
+                    ref.b === b && ref.c === c && ref.v === v,
+                ),
               )
 
               return found?.he
@@ -166,21 +166,27 @@ const scrollsByKey: Record<
 > = {
   torah: TorahScroll,
   esther: EstherScroll,
-  ...(Object.keys(holydays) as Holyday[]).reduce((result, holydayKey) => {
-    const HolydayScroll = {
-      new: ({ startingAtRef }: { startingAtRef: Ref }): ScrollType => {
-        return Scroll.new({
-          scroll: holydayKey,
-          loadJson: (n) => import(`./data/pages/${holydayKey}/${n}.json`),
-          makeTitle: () => holydays[holydayKey].he,
-          startingAtRef,
-          aliyahFinder: [holydays[holydayKey]],
-          aliyotByRef: aliyotJSON[holydayKey],
-        })
-      },
-    }
-    return { ...result, [holydayKey]: HolydayScroll }
-  }, {} as Record<Holyday, { new: ({ startingAtRef }: { startingAtRef: Ref }) => ScrollType }>),
+  ...(Object.keys(holydays) as Holyday[]).reduce(
+    (result, holydayKey) => {
+      const HolydayScroll = {
+        new: ({ startingAtRef }: { startingAtRef: Ref }): ScrollType => {
+          return Scroll.new({
+            scroll: holydayKey,
+            loadJson: (n) => import(`./data/pages/${holydayKey}/${n}.json`),
+            makeTitle: () => holydays[holydayKey].he,
+            startingAtRef,
+            aliyahFinder: [holydays[holydayKey]],
+            aliyotByRef: aliyotJSON[holydayKey],
+          })
+        },
+      }
+      return { ...result, [holydayKey]: HolydayScroll }
+    },
+    {} as Record<
+      Holyday,
+      { new: ({ startingAtRef }: { startingAtRef: Ref }) => ScrollType }
+    >,
+  ),
 }
 
 export default scrollsByKey

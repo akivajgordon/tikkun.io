@@ -1,0 +1,17 @@
+on:
+  - pull_request
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+      - run: npm ci
+      # The first run times out; probably while tsimp is still caching things
+      - run: npm test > /dev/null 2>&1 || true
+      - run: npx tsc
+      - run: npm test 

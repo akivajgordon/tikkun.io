@@ -1,4 +1,4 @@
-import { BookView } from './book-view'
+import { BookView } from './book-view.ts'
 
 export class PageDisplay {
   element: HTMLElement

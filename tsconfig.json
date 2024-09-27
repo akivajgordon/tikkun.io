@@ -2,12 +2,14 @@
   "compilerOptions": {
     "moduleResolution": "node",
     "outDir": "./dist",
+    "noEmit": true,
     "allowJs": true,
     "target": "es2016",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "noImplicitAny": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "allowImportingTsExtensions": true
   },
   "include": [
     "./src/**/*"

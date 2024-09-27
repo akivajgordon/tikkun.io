@@ -1,16 +1,16 @@
 /* global gtag */
 
-import InfiniteScroller from './infinite-scroller'
-import urlToRef from './url-to-ref'
-import scrollsByKey, { ScrollType } from './scrolls-by-key'
-import Page, { LineType } from './components/Page'
-import ParshaPicker from './components/ParshaPicker'
-import utils from './components/utils'
-import scheduleFetcher from './schedule'
-import { RefWithScroll } from './ref'
-import { watchForHighlighting } from './highlight'
-import { BookView } from './book-view'
-import { PageDisplay } from './page-display'
+import InfiniteScroller from './infinite-scroller.ts'
+import urlToRef from './url-to-ref.ts'
+import scrollsByKey, { ScrollType } from './scrolls-by-key.ts'
+import Page, { LineType } from './components/Page.ts'
+import ParshaPicker from './components/ParshaPicker.ts'
+import utils from './components/utils.ts'
+import scheduleFetcher from './schedule.ts'
+import { RefWithScroll } from './ref.ts'
+import { watchForHighlighting } from './highlight.ts'
+import { BookView } from './book-view.ts'
+import { PageDisplay } from './page-display.ts'
 
 declare function gtag(
   name: 'event',

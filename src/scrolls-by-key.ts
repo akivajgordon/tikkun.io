@@ -1,11 +1,11 @@
-import IntegerIterator from './integer-iterator'
-import { physicalLocationFromRef } from './location'
-import getTitle from './title'
+import IntegerIterator from './integer-iterator.ts'
+import { physicalLocationFromRef } from './location.ts'
+import getTitle from './title.ts'
 import pageTitles from './data/page-titles.json'
 import _holydays from './data/holydays.json'
 import parshiyot from './data/parshiyot.json'
 import _aliyotJSON from './data/aliyot.json'
-import { Holyday, Scroll, Ref } from './ref'
+import { Holyday, Scroll, Ref } from './ref.ts'
 
 const holydays: Record<Holyday, { en: string; he: string; ref: Ref }> =
   _holydays

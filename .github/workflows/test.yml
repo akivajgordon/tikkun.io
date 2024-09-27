@@ -1,3 +1,5 @@
+name: Run Lint, Type Checks, and Unit Tests
+
 on:
   - pull_request
 jobs:

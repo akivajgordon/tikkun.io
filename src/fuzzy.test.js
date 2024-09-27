@@ -28,7 +28,7 @@ test('prioritizes matches that are closer together (all same-length strings)', (
 
   t.deepEqual(
     results.map((r) => r.item),
-    matches
+    matches,
   )
 })
 
@@ -40,7 +40,7 @@ test('prioritizes matches that are closer to the start of the string', (t) => {
 
   t.deepEqual(
     results.map((r) => r.item),
-    matches
+    matches,
   )
 })
 
@@ -54,7 +54,7 @@ test('returns the match indexes', (t) => {
     [
       [2, 3, 5, 6],
       [0, 2, 4, 5],
-    ]
+    ],
   )
 })
 
@@ -72,7 +72,7 @@ test('accepts an arbitrary item and a function for how to search it', (t) => {
     [
       { lang: 'English', val: 'Hello' },
       { lang: 'French', val: 'Bonjour' },
-    ]
+    ],
   )
 })
 
@@ -81,11 +81,11 @@ test('searches case insensitively', (t) => {
 
   t.deepEqual(
     fuzzy(haystack, 'abc').map((r) => r.item),
-    ['Abcd', 'a_bcd']
+    ['Abcd', 'a_bcd'],
   )
   t.deepEqual(
     fuzzy(haystack, 'ABc').map((r) => r.item),
-    ['Abcd', 'a_bcd']
+    ['Abcd', 'a_bcd'],
   )
 })
 
@@ -103,7 +103,7 @@ test('searches multiple acceptable forms and matches the best form', (t) => {
     [
       { primary: 'if', alternative: 'perhaps' },
       { primary: 'escalator', alternative: 'lift' },
-    ]
+    ],
   )
 
   t.deepEqual(
@@ -111,6 +111,6 @@ test('searches multiple acceptable forms and matches the best form', (t) => {
     [
       { index: 0, indexes: [0, 1] },
       { index: 1, indexes: [1, 2] },
-    ]
+    ],
   )
 })

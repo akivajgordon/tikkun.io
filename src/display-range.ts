@@ -1,6 +1,6 @@
 import hebrewNumeralFromInteger from './hebrew-numeral.ts'
 
-var asRange = (strings: string[]) => {
+const asRange = (strings: string[]) => {
   if (!strings.length) {
     return ''
   }
@@ -29,7 +29,7 @@ const asVersesRange = (verses: Ref[]) =>
       components.push(verse.verse)
 
       return components.map((num) => hebrewNumeralFromInteger(num)).join(':')
-    })
+    }),
   )
 
 export default { asVersesRange }

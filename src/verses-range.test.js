@@ -26,6 +26,6 @@ test('a range of verses is the first and last separated by a hyphen', (t) => {
       { chapter: 5, verse: 11 },
       { chapter: 5, verse: 12 },
     ]),
-    'ט-יב'
+    'ט-יב',
   )
 })

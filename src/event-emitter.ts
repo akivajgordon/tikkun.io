@@ -1,6 +1,6 @@
 type Listener<T> = (payload: T) => void
 
-export class EventEmitter<T extends Record<string, any>> {
+export class EventEmitter<T> {
   private listeners: { [Name in keyof T]?: Listener<T[Name]>[] } = {}
 
   emit<Name extends keyof T>(name: Name, payload?: T[Name]): void {

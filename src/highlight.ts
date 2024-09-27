@@ -1,6 +1,6 @@
 const ancestorOf = (
   node: Node | HTMLElement,
-  options: { matching: (n: typeof node) => n is HTMLElement }
+  options: { matching: (n: typeof node) => n is HTMLElement },
 ): HTMLElement | null => {
   if (!node) return null
 
@@ -12,7 +12,7 @@ const ancestorOf = (
 // const onSelectionEnd = (callback: (selection: Selection) => void) => {
 const onHighlightIntentComplete = (
   node: Node,
-  callback: (selection: Selection) => void
+  callback: (selection: Selection) => void,
 ) => {
   let lastMouseUpAt: number
   let lastSelectionStartAt: number
@@ -84,7 +84,7 @@ export const watchForHighlighting = () =>
 
     const allLines = [
       ...startLine.parentElement.querySelectorAll<HTMLElement>(
-        '[data-class=line]'
+        '[data-class=line]',
       ),
     ]
 
@@ -92,7 +92,7 @@ export const watchForHighlighting = () =>
     const lastLineIndex = allLines.findIndex((node) => node === endLine)
 
     const selectedLines = allLines.filter(
-      (_node, index) => index >= firstLineIndex && index <= lastLineIndex
+      (_node, index) => index >= firstLineIndex && index <= lastLineIndex,
     )
 
     const isStartAndEndSameNode = selectedLines.length === 1
@@ -109,7 +109,7 @@ export const watchForHighlighting = () =>
         textContent.slice(0, start),
         `<mark style="background:orange; color:black;">${textContent.slice(
           start,
-          end
+          end,
         )}</mark>`,
         textContent.slice(end),
       ].join('')
@@ -121,7 +121,7 @@ export const watchForHighlighting = () =>
       highlight(
         selectedLines[0],
         selectionStart.offset,
-        textContentOf(selectedLines[0]).length
+        textContentOf(selectedLines[0]).length,
       )
 
       selectedLines

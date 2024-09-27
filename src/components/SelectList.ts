@@ -4,13 +4,13 @@ const { htmlToElement } = utils
 
 const setSelected = (
   list: Element,
-  adjustSelected: (index: number) => number
+  adjustSelected: (index: number) => number,
 ) => {
   const items = [...list.querySelectorAll('[data-target-class="list-item"]')]
 
   const selectedIndex = Math.max(
     items.findIndex((item) => item.getAttribute('data-selected') === 'true'),
-    0
+    0,
   )
 
   const selected = items[selectedIndex]
@@ -33,7 +33,7 @@ export { getSelected }
 const SelectList = (
   items: Element[],
   _el: Element,
-  onSelect: (el: ChildNode) => void
+  onSelect: (el: ChildNode) => void,
 ) => {
   const list = htmlToElement(`
     <ol class="list"></ol>
@@ -41,7 +41,7 @@ const SelectList = (
 
   items.forEach((item) => {
     const listItem = htmlToElement(
-      '<li class="list-item" data-target-class="list-item"></li>'
+      '<li class="list-item" data-target-class="list-item"></li>',
     )
     listItem.appendChild(item)
     listItem.addEventListener('click', () => {

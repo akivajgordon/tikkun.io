@@ -1,5 +1,3 @@
-/* global gtag */
-
 import _parshiyot from '../data/parshiyot.json'
 import scheduleFetcher from '../schedule'
 import _holydays from '../data/holydays.json'
@@ -105,7 +103,7 @@ const Book = (book: BookType) => `
     <ol class="parsha-list">
       ${book
         .map((p) =>
-          Parsha({ idx: p.idx, token: 'torah', he: p.he, key: slugify(p.en) })
+          Parsha({ idx: p.idx, token: 'torah', he: p.he, key: slugify(p.en) }),
         )
         .join('')}
     </ol>
@@ -117,7 +115,7 @@ const parshaFromLabel = ({ label }: { label: string }) =>
 
 const ComingUpReading = (
   { label, date, datetime }: { label: string; date: string; datetime: string },
-  index: number
+  index: number,
 ) => {
   const parsha = parshaFromLabel({ label })
   return `
@@ -183,7 +181,7 @@ const Browse = () => `
               .join('\n')}
           </ol>
         </li>
-      `
+      `,
         )
         .join('\n')}
     </ol>
@@ -216,7 +214,7 @@ const searchables: Searchable[] = [
       token: 'torah',
       ...p,
       key: slugify(p.en),
-    })
+    }),
   ),
   {
     idx: 'esther',
@@ -263,7 +261,7 @@ export default (
     ref: RefWithScroll
     source: 'comingUp' | 'search' | 'browse'
     key: string
-  }) => void
+  }) => void,
 ) => {
   const searchEmitter = EventEmitter.new<SearchEmitter>()
   const s = Search({ search, emitter: searchEmitter })
@@ -286,7 +284,7 @@ export default (
       .slice(0, 3)
 
     const comingUpReadingsList = document.querySelector(
-      '#coming-up-readings-list'
+      '#coming-up-readings-list',
     )
 
     comingUpReadingsList.replaceWith(
@@ -294,7 +292,7 @@ export default (
         <ol id="coming-up-readings-list" class="cluster" style="list-style: none; display: table; margin-left: auto; margin-right: auto; white-space: nowrap;">
           ${comingUpReadings.map(ComingUpReading).join('')}
         </ol>
-        `)
+        `),
     )
     ;[
       ...self.querySelectorAll('[data-target-class="coming-up-reading"]'),

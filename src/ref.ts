@@ -1,7 +1,7 @@
 import type parshiyot from './data/parshiyot.json'
 import type holydays from './data/holydays.json'
 
-export type ParshaName = typeof parshiyot[number]['en']
+export type ParshaName = (typeof parshiyot)[number]['en']
 
 export type Ref = {
   b: number

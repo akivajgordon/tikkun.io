@@ -1,4 +1,3 @@
-/* global gtag */
 import '/css/master.css'
 import InfiniteScroller from './infinite-scroller.ts'
 import urlToRef from './url-to-ref.ts'
@@ -14,7 +13,7 @@ import { PageDisplay } from './page-display.ts'
 declare function gtag(
   name: 'event',
   label: string,
-  payload: Record<any, any>,
+  payload: Record<string, unknown>,
 ): void
 
 const { htmlToElement, whenKey, purgeNode } = utils
@@ -132,7 +131,7 @@ const hideParshaPicker = () => {
     { selector: '[data-target-id="tikkun-book"]', visible: true },
   ].forEach(({ selector, visible }) => setVisibility({ selector, visible }))
 
-  document.querySelector('.parsha-picker') &&
+  if (document.querySelector('.parsha-picker'))
     document
       .querySelector('#js-app')
       .removeChild(document.querySelector('.parsha-picker'))

@@ -1,15 +1,9 @@
 name: Build, Deploy to GitHub Pages and Deploy PR Preview
 
 on:
-  # Uncomment to automatically deploy actual builds, not just previews.
-  # push:
-  #   branches: [main, master]
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
-      - closed
+  # Add 'develop' here to enable automatic deployments
+  push:
+    branches: []
 
 permissions:
   contents: write

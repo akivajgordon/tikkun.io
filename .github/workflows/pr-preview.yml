@@ -47,8 +47,6 @@ jobs:
         with:
           script: |
             const githubEventName = "${{ github.event_name }}";
-            const githubRepositoryOwner = "${{ github.repository_owner }}"; // owner
-            const githubRepositoryName = "${{ github.event.repository.name }}"; // repo
             const repositoryBaseUrl = '';
             if (githubEventName === "push") {
               const githubBranchName = "${{ github.ref_name }}"; // branch
@@ -72,6 +70,9 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -102,4 +103,4 @@ jobs:
           source-dir: ./${{ steps.folder.outputs.result }}
           preview-branch: gh-pages
           umbrella-dir: pr-preview
-        #   custom-url: ${{ inputs.custom-url }}
+          custom-url: tikkun.io

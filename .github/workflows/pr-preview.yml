@@ -1,0 +1,105 @@
+# This is a fork of https://github.com/chvmvd/build-deploy-and-preview-action/blob/v1.2.0/action.yml
+# I edited it to use the pull_request_target event to give it access to the original repo on PRs.
+# BEWARE: This is only safe because (I assume) this repo doesn't have access to anything critical.
+# See https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#pull_request_target
+# I also removed all branching to hard-code it to use npm and vite.
+name: Deploy PR previews
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency: ci-${{ github.ref }}
+
+jobs:
+  pr-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine the Folder to Deploy
+        id: folder
+        uses: actions/github-script@v6
+        with:
+          script: |
+            return 'dist';
+          result-encoding: string
+
+      - name: Determine the Production Branch
+        id: production-branch
+        uses: actions/github-script@v6
+        with:
+          script: |
+            return "develop";
+          result-encoding: string
+
+      - name: Determine the Base URL
+        id: base-url
+        env:
+          DEVELOPMENT_BRANCHES: ""
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const githubEventName = "${{ github.event_name }}";
+            const githubRepositoryOwner = "${{ github.repository_owner }}"; // owner
+            const githubRepositoryName = "${{ github.event.repository.name }}"; // repo
+            const repositoryBaseUrl = '';
+            if (githubEventName === "push") {
+              const githubBranchName = "${{ github.ref_name }}"; // branch
+              const developmentBranches = process.env.DEVELOPMENT_BRANCHES.split("\n");
+              // base URL of the production site
+              if (githubBranchName === "${{ steps.production-branch.outputs.result }}") {
+                const baseUrl = repositoryBaseUrl;
+                return baseUrl; // /<repo>
+              }
+              // base URL of the development site
+              else if (developmentBranches.includes(githubBranchName)) {
+                const baseUrl = `${repositoryBaseUrl}/${githubBranchName}`;
+                return baseUrl; // /<repo>/<branch>
+              }
+            } else if (githubEventName.startsWith("pull_request")) {
+              const prNumber = "${{ github.event.number }}"; // pr-number
+              const baseUrl = `${repositoryBaseUrl}/pr-preview/pr-${prNumber}`;
+              return baseUrl; // /<repo>/pr-preview/<pr-number>
+            }
+          result-encoding: string
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: npm
+          cache-dependency-path: ./package-lock.json
+
+      - name: Install npm Packages
+        run: npm ci
+        shell: bash
+
+      - name: Determine Executable Command
+        id: executable-command
+        uses: actions/github-script@v6
+        with:
+          script: |
+            return "npx";
+          result-encoding: string
+
+      - name: Build Vite Project
+        run: ${{ steps.executable-command.outputs.result }} vite build --base ${{ steps.base-url.outputs.result }}/
+        shell: bash
+
+      - name: Deploy PR Preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./${{ steps.folder.outputs.result }}
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+        #   custom-url: ${{ inputs.custom-url }}

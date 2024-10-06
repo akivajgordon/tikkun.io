@@ -1,7 +1,7 @@
 import tocJSON from './data/table-of-contents.json'
 import estherToc from './data/table-of-contents-esther.json'
 import holydaysToc from './data/table-of-contents-holydays.json'
-import { RefWithScroll } from './ref.ts'
+import { RefWithScroll, ScrollName } from './ref.ts'
 
 type AppleSauce = {
   p: number
@@ -12,7 +12,7 @@ type TOC = Record<string, Record<string, Record<string, AppleSauce>>>
 
 const toc: TOC = tocJSON
 
-const tocFromScroll: Record<string, TOC> = {
+const tocFromScroll: Record<ScrollName, TOC> = {
   torah: toc,
   esther: estherToc,
   ...holydaysToc,
@@ -27,12 +27,11 @@ const convertToValidInt = (val: string, validValues: object) => {
 }
 
 export const physicalLocationFromRef = ({
-  ref: { b: book, c: chapter, v: verse },
+  b: book,
+  c: chapter,
+  v: verse,
   scroll,
-}: {
-  ref: Omit<RefWithScroll, 'scroll'>
-  scroll: keyof typeof tocFromScroll
-}) => {
+}: RefWithScroll) => {
   const { p: pageNumber, l: lineNumber } =
     tocFromScroll[scroll][book][chapter][verse]
   return { pageNumber, lineNumber }

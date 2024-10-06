@@ -16,6 +16,7 @@ import {
   LeyningParshaHaShavua,
   LeyningShabbatHoliday,
 } from '@hebcal/leyning'
+import { invert, fromISODateString, toISODateString, last } from './utils'
 
 type PartialLeiningRun = Omit<LeiningRun, 'id' | 'scroll' | 'leining'>
 
@@ -227,27 +228,4 @@ function toAliyahIndex(key: string): LeiningAliyah['index'] {
 
 function isFullLeining(o: LeyningBase): o is LeyningShabbatHoliday {
   return 'fullkriyah' in o
-}
-
-function toISODateString(date: Date) {
-  const minutesOffset = date.getTimezoneOffset()
-  const millisecondsOffset = minutesOffset * 60 * 1000
-  const local = new Date(+date - millisecondsOffset)
-  return local.toISOString().substring(0, 10)
-}
-function fromISODateString(str: string) {
-  const date = new Date(str)
-  const minutesOffset = date.getTimezoneOffset()
-  const millisecondsOffset = minutesOffset * 60 * 1000
-  return new Date(+date + millisecondsOffset)
-}
-
-function last<T>(array: T[]) {
-  return array[array.length - 1]
-}
-
-function invert<K extends string, V extends string>(
-  obj: Record<K, V>
-): Record<V, K> {
-  return Object.fromEntries(Object.entries(obj).map(([k, v]) => [v, k]))
 }

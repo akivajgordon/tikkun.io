@@ -17,6 +17,8 @@ import {
   LeyningShabbatHoliday,
 } from '@hebcal/leyning'
 import { invert, fromISODateString, toISODateString, last } from './utils'
+import { RefWithScroll } from '../ref'
+import { physicalLocationFromRef } from '../location'
 
 type PartialLeiningRun = Omit<LeiningRun, 'id' | 'scroll' | 'leining'>
 
@@ -132,7 +134,8 @@ export class LeiningGenerator {
     leining: LeiningInstance
   ): LeiningRun {
     return this.createRun({
-      aliyot: [haftara].flat(),
+      // Do not pass an index here.
+      aliyot: [haftara].flat().map((a) => toLeiningAliyah(a)),
       leining,
       type: LeiningRunType.Haftarah,
     })
@@ -151,7 +154,7 @@ export class LeiningGenerator {
       id: LeiningInstanceId.Megillah,
       runs: [
         {
-          aliyot: [{ ...aliyot[0], e: last(aliyot).e }],
+          aliyot: [toLeiningAliyah({ ...aliyot[0], e: last(aliyot).e })],
           type: LeiningRunType.Megillah,
         },
       ],
@@ -163,10 +166,11 @@ export class LeiningGenerator {
     let currentRun: PartialLeiningRun | undefined
     for (const key in aliyot) {
       if (!Object.prototype.hasOwnProperty.call(aliyot, key)) continue
-      const aliyah: LeiningAliyah = {
-        ...aliyot[key],
-        index: toAliyahIndex(key),
-      }
+      const aliyah: LeiningAliyah = toLeiningAliyah(
+        aliyot[key],
+        toAliyahIndex(key)
+      )
+
       if (currentRun && isSameRun(last(currentRun.aliyot), aliyah)) {
         currentRun.aliyot.push(aliyah)
         continue
@@ -204,21 +208,22 @@ export class LeiningGenerator {
       id: `${run.leining.date.id}:${instanceIdtoUrlParam[run.leining.id]},${
         runTypetoUrlParam[run.type]
       }`,
-      scroll: run.aliyot[0].k,
+      scroll: run.aliyot[0].start.scroll,
     }
   }
 }
 
-function chapter(b: string) {
-  return b.substring(0, b.indexOf(':'))
-}
-
-function isSameRun(existing: Aliyah, next: Aliyah) {
+/** Returns true if the next עלייה is far enough away to need a second ספר תורה. */
+function isSameRun(existing: LeiningAliyah, next: LeiningAliyah) {
   // TODO: Ignore תרי עשר
-  if (existing.k !== next.k) return false
-  if (chapter(existing.b) === chapter(next.b)) return true
-  // TODO: Check proximity
-  return false
+  if (existing.end.b !== next.start.b) return false
+  // If they're in the same פרק, they're definitely close.
+  if (existing.end.c === next.start.c) return true
+
+  const existingLocation = physicalLocationFromRef(existing.end)
+  const nextLocation = physicalLocationFromRef(next.start)
+
+  return Math.abs(nextLocation.pageNumber - existingLocation.pageNumber) < 3
 }
 
 function toAliyahIndex(key: string): LeiningAliyah['index'] {
@@ -228,4 +233,36 @@ function toAliyahIndex(key: string): LeiningAliyah['index'] {
 
 function isFullLeining(o: LeyningBase): o is LeyningShabbatHoliday {
   return 'fullkriyah' in o
+}
+
+// TODO(later): Change the JSON to use these names and get rid of this array.
+const bookNames = [
+  '',
+  'Genesis',
+  'Exodus',
+  'Leviticus',
+  'Numbers',
+  'Deuteronomy',
+]
+function toLeiningAliyah(
+  a: Aliyah,
+  index?: LeiningAliyah['index']
+): LeiningAliyah {
+  return {
+    start: toRef(a.b),
+    end: toRef(a.e),
+    index,
+  }
+
+  function toRef(verse: string): RefWithScroll {
+    const [c, v] = verse.split(':')
+    const torahIndex = bookNames.indexOf(a.k)
+    return {
+      // TODO(later): Expand this once we add more scrolls.
+      scroll: torahIndex ? 'torah' : 'esther',
+      b: torahIndex,
+      c: parseInt(c),
+      v: parseInt(v),
+    }
+  }
 }

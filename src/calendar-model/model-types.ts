@@ -1,4 +1,4 @@
-import { Aliyah } from '@hebcal/leyning'
+import { RefWithScroll } from '../ref'
 
 /**
  * Describes a single date that contains one or more leinings (in separate davenings).
@@ -97,10 +97,12 @@ export interface LeiningRun {
   aliyot: LeiningAliyah[]
 }
 
-export interface LeiningAliyah extends Aliyah {
+export interface LeiningAliyah {
   /**
    * The index of this Aliyah.
    * Unset in leinings that consist of one Aliyah (הפטרה or מגילה).
    */
   index?: number | 'Maftir'
+  start: RefWithScroll
+  end: RefWithScroll
 }

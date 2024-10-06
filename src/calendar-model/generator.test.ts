@@ -10,7 +10,7 @@ const testSettings: UserSettings = {
 
 const generator = new LeiningGenerator(testSettings)
 
-for (let year = 5783; year < 5784; year++) {
+for (let year = 5780; year < 5800; year++) {
   test(`runs round-trip via ID for ${year}`, (t) => {
     const calendar = generator.generateCalendar(year)
     calendar
@@ -36,4 +36,8 @@ test('generates פורים', (t) => {
 
 test('generates תשעה באב', (t) => {
   t.snapshot(generator.createLeiningDate(new HDate(9, months.AV, 5784)))
+})
+
+test('generates שבת ראש חודש חנוכה', (t) => {
+  t.snapshot(generator.createLeiningDate(new HDate(30, months.KISLEV, 5782)))
 })

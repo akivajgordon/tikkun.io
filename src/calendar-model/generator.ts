@@ -99,7 +99,7 @@ export class LeiningGenerator {
     }
     resultDate.leinings = leinings.flatMap((o) => {
       const results: LeiningInstance[] = []
-      if (!isFullLeining(o)) return results
+      if (!isNotPlainWeekday(o)) return results
       if (o.megillah)
         results.push(this.instanceFromMegillah(o.megillah, resultDate))
 
@@ -233,8 +233,8 @@ function toAliyahIndex(key: string): LeiningAliyah['index'] {
   return parseInt(key)
 }
 
-function isFullLeining(o: LeyningBase): o is LeyningShabbatHoliday {
-  return 'fullkriyah' in o
+function isNotPlainWeekday(o: LeyningBase): o is LeyningShabbatHoliday {
+  return 'fullkriyah' in o || 'megillah' in o
 }
 
 // TODO(later): Change the JSON to use these names and get rid of this array.

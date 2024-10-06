@@ -30,8 +30,16 @@ test('generates שמחת תורה', (t) => {
   t.snapshot(generator.createLeiningDate(new HDate(23, months.TISHREI, 5784)))
 })
 
+test('generates תענית אסתר', (t) => {
+  t.snapshot(generator.createLeiningDate(new HDate(13, months.ADAR_II, 5785)))
+})
+
 test('generates פורים', (t) => {
   t.snapshot(generator.createLeiningDate(new HDate(14, months.ADAR_II, 5784)))
+})
+
+test('generates ערב תשעה באב', (t) => {
+  t.snapshot(generator.createLeiningDate(new HDate(8, months.AV, 5784)))
 })
 
 test('generates תשעה באב', (t) => {

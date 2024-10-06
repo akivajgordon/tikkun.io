@@ -13,7 +13,7 @@ import { PageDisplay } from './page-display.ts'
 declare function gtag(
   name: 'event',
   label: string,
-  payload: Record<string, unknown>,
+  payload: Record<string, unknown>
 ): void
 
 const { htmlToElement, whenKey, purgeNode } = utils
@@ -150,7 +150,7 @@ const toggleParshaPicker = () => {
 
 const toggleAnnotations = (getPreviousCheckedState: () => boolean) => {
   const toggle = document.querySelector<HTMLInputElement>(
-    '[data-target-id="annotations-toggle"]',
+    '[data-target-id="annotations-toggle"]'
   )
 
   toggle.checked = !getPreviousCheckedState()
@@ -188,7 +188,7 @@ const rememberLastScrolledPosition = () => {
   const pageAtTop = [
     ...(document.elementsFromPoint(
       topOfBookRelativeToViewport.x,
-      topOfBookRelativeToViewport.y,
+      topOfBookRelativeToViewport.y
     ) as HTMLElement[]),
   ].find((el) => el.className.includes('tikkun-page'))
 
@@ -212,7 +212,7 @@ const updatePageTitle = () => {
   const pageAtCenter = [
     ...document.elementsFromPoint(
       centerOfBookRelativeToViewport.x,
-      centerOfBookRelativeToViewport.y,
+      centerOfBookRelativeToViewport.y
     ),
   ].find((el) => el.className.includes('tikkun-page'))
 
@@ -265,7 +265,7 @@ const renderPrevious = renderPage({ insertStrategy: insertBefore })
 const renderNext = renderPage({ insertStrategy: insertAfter })
 
 const debounce = (callback: () => void, delay: number) => {
-  let timeout: number
+  let timeout: ReturnType<typeof setTimeout>
   return () => {
     clearTimeout(timeout)
     timeout = setTimeout(() => {
@@ -300,7 +300,7 @@ const listenForRevealGesture = (book: HTMLElement) => {
 
     book.style.setProperty(
       '--pull-translation',
-      `${PULL_THRESHOLD - pullDistance}px`,
+      `${PULL_THRESHOLD - pullDistance}px`
     )
   })
 
@@ -315,7 +315,7 @@ const setAppHeight = () => {
   // especially on mobile browsers
   document.documentElement.style.setProperty(
     '--app-height',
-    `${window.innerHeight}px`,
+    `${window.innerHeight}px`
   )
 }
 
@@ -323,18 +323,18 @@ document.addEventListener('resize', setAppHeight)
 
 document.addEventListener('DOMContentLoaded', async () => {
   const parshaTitle = document.querySelector<HTMLElement>(
-    '[data-target-id="parsha-title"]',
+    '[data-target-id="parsha-title"]'
   )
 
   const book = document.querySelector<HTMLElement>(
-    '[data-target-id="tikkun-book"]',
+    '[data-target-id="tikkun-book"]'
   )
 
   const bookView = new BookView(book)
   new PageDisplay(parshaTitle, bookView)
 
   const toggle = document.querySelector<HTMLInputElement>(
-    '[data-target-id="annotations-toggle"]',
+    '[data-target-id="annotations-toggle"]'
   )
 
   book.addEventListener('mouseover', (e) => {
@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     'keydown',
     whenKey('!', () => {
       document.querySelector('#debug').classList.toggle('u-hidden')
-    }),
+    })
   )
 
   InfiniteScroller.new({
@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     'scroll',
     debounce(() => {
       rememberLastScrolledPosition()
-    }, 1000),
+    }, 1000)
   )
 
   listenForRevealGesture(book)
@@ -376,16 +376,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   // watchForHighlighting()
 
   toggle.addEventListener('change', () =>
-    toggleAnnotations(() => !toggle.checked),
+    toggleAnnotations(() => !toggle.checked)
   )
 
   document.addEventListener(
     'keydown',
-    whenKey('Shift', () => toggleAnnotations(() => toggle.checked)),
+    whenKey('Shift', () => toggleAnnotations(() => toggle.checked))
   )
   document.addEventListener(
     'keyup',
-    whenKey('Shift', () => toggleAnnotations(() => toggle.checked)),
+    whenKey('Shift', () => toggleAnnotations(() => toggle.checked))
   )
 
   document
@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         e.preventDefault()
         hideParshaPicker()
       }
-    }),
+    })
   )
 
   const startingRef = await urlToRef({

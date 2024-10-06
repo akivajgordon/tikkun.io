@@ -29,7 +29,6 @@ export interface LeiningDate {
 
 /**
  * The minyan that contains a leining.
- * The enum names are used in URLs (and cannot change).
  * The enum values are used in UI.
  */
 export enum LeiningInstanceId {
@@ -62,7 +61,6 @@ export interface LeiningInstance {
 
 /**
  * The עלייה or context that a leining run is leined as.
- * The enum names are used in URLs (and cannot change).
  * The enum values are used in UI.
  */
 export enum LeiningRunType {

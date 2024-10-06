@@ -88,8 +88,6 @@ export class LeiningGenerator {
     if (!Array.isArray(leinings)) return null
     leinings = leinings.filter((o) => !o.weekday)
     if (!leinings.length) return null
-    // TODO: Delete after https://github.com/hebcal/hebcal-leyning/issues/430 is fixed.
-    if (leinings[0].parsha) leinings.length = 1
 
     const resultDate: LeiningDate = {
       date: date.greg(),
@@ -217,7 +215,6 @@ export class LeiningGenerator {
 
 /** Returns true if the next עלייה is far enough away to need a second ספר תורה. */
 function isSameRun(existing: LeiningAliyah, next: LeiningAliyah) {
-  // TODO: Ignore תרי עשר
   if (existing.end.b !== next.start.b) return false
   // If they're in the same פרק, they're definitely close.
   if (existing.end.c === next.start.c) return true

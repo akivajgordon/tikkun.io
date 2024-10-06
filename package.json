@@ -17,7 +17,7 @@
     ]
   },
   "scripts": {
-    "test": "ava",
+    "test": "set TSIMP_DIAG=ignore&& ava",
     "test:watch": "npm test -- --watch",
     "dev": "vite",
     "build": "vite build",

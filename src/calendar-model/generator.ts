@@ -6,8 +6,8 @@ import {
   LeiningInstanceId,
   LeiningRun,
   LeiningRunType,
-} from './model-types'
-import { UserSettings } from './user-settings'
+} from './model-types.ts'
+import { UserSettings } from './user-settings.ts'
 import {
   Aliyah,
   AliyotMap,
@@ -16,9 +16,9 @@ import {
   LeyningParshaHaShavua,
   LeyningShabbatHoliday,
 } from '@hebcal/leyning'
-import { invert, fromISODateString, toISODateString, last } from './utils'
-import { RefWithScroll } from '../ref'
-import { physicalLocationFromRef } from '../location'
+import { invert, fromISODateString, toISODateString, last } from './utils.ts'
+import { RefWithScroll } from '../ref.ts'
+import { physicalLocationFromRef } from '../location.ts'
 
 type PartialLeiningRun = Omit<LeiningRun, 'id' | 'scroll' | 'leining'>
 

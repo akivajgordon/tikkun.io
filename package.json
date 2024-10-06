@@ -5,10 +5,13 @@
   "main": "index.js",
   "type": "module",
   "ava": {
+    "extensions": {
+      "js": true,
+      "ts": "module"
+    },
     "files": [
-      "src/*.test.js"
+      "src/**/*.test.*"
     ],
-    "timeout": "40s",
     "nodeArguments": [
       "--import=tsimp"
     ]

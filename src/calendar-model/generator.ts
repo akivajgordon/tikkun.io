@@ -88,6 +88,8 @@ export class LeiningGenerator {
     if (!Array.isArray(leinings)) return null
     leinings = leinings.filter((o) => !o.weekday)
     if (!leinings.length) return null
+    // TODO: Delete after https://github.com/hebcal/hebcal-leyning/issues/430 is fixed.
+    if (leinings[0].parsha) leinings.length = 1
 
     const resultDate: LeiningDate = {
       date: date.greg(),

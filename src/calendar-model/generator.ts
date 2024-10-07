@@ -76,7 +76,9 @@ export class LeiningGenerator {
         flags.CHOL_HAMOED | // For שבת חול המועד
         flags.PARSHA_HASHAVUA,
     })
-    return calendar.map((e) => this.createLeiningDate(e.date))
+    return calendar
+      .map((e) => this.createLeiningDate(e.date))
+      .filter((d): d is LeiningDate => !!d)
   }
 
   createLeiningDate(date: HDate): LeiningDate | null {

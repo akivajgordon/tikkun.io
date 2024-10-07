@@ -17,7 +17,7 @@
     ]
   },
   "scripts": {
-    "test": "set TSIMP_DIAG=ignore&& ava",
+    "test": "ava",
     "test:watch": "npm test -- --watch",
     "dev": "vite",
     "build": "vite build",
@@ -40,7 +40,7 @@
   "homepage": "https://github.com/akivajgordon/tikkun.io#readme",
   "dependencies": {
     "@hebcal/core": "^5.5.0",
-    "@hebcal/leyning": "^8.2.5",
+    "@hebcal/leyning": "^8.2.6",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {

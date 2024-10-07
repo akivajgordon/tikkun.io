@@ -70,7 +70,10 @@ test('generates שבת ראש חודש חנוכה', (t) => {
  * This makes the recorded snapshot consistent across timezones.
  * You can see the date from the `id` property.
  */
-function stripDate(o: LeiningDate): unknown {
+function stripDate(
+  o: (Omit<LeiningDate, 'date'> & { date?: Date }) | null
+): unknown {
+  if (!o) return o
   delete o.date
   return o
 }

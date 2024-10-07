@@ -84,11 +84,11 @@ export interface LeiningRun {
   /** The URL-safe string that uniquely identifies this instance, including date, minyan, and index. */
   id: string
 
-  /** The ספר being leined from (either חומש or a נביא). */
+  /** The ספר being leined from (either `torah` or a נביא). */
   scroll: string
 
   /**
-   * The עליוות contained within this run.
+   * The עליות contained within this run.
    *  - For `Main`, this can have any length between 3 and 8.
    *  - For `Haftarah`, this can have multiple entries when there are skips.
    *  - For all other types, this will have exactly 1 entry.
@@ -99,7 +99,7 @@ export interface LeiningRun {
 
 export interface LeiningAliyah {
   /**
-   * The index of this Aliyah.
+   * The index of this Aliyah (1 through 7).
    * Unset in leinings that consist of one Aliyah (הפטרה or מגילה).
    */
   index?: number | 'Maftir'

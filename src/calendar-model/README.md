@@ -16,3 +16,11 @@ We represent leinings as a hierarchical structure:
   - For example, we use a separate `LeiningRun` for מפטיר (when not the end of the פרשה), for שביעי when three ספרי תורה are used, and for the הפטרה.
   - But we don't declare a separate `LeiningRun` for minor skips like תענית ציבור.
   - In particular, a הפטרה is _always_ a single `LeiningRun` (even שבת שובה).
+
+## View Model
+
+`ScrollViewModel` wraps the above model objects and calculates exactly what the scroll (the main view) should display.
+
+This code takes the page URL (specifying a single `LeiningRun`) as input calculates the pages (different for יום טוב) and עלייות to display in the scroll.
+
+The UI layer consumes the output of this class to render UI.

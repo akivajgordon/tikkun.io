@@ -1,10 +1,11 @@
 import { LineType } from '../components/Page'
 import { Ref } from '../ref'
 import { LeiningGenerator } from './generator'
-import { LeiningAliyah, LeiningRun, LeiningRunType } from './model-types'
+import { LeiningAliyah, LeiningRun } from './model-types'
 import IntegerIterator from '../integer-iterator.ts'
 import { physicalLocationFromRef } from '../location.ts'
 import { HDate } from '@hebcal/core'
+import { numVersesBetween } from './hebcal-conversions.ts'
 
 /** The current state exposed by the view model. */
 export interface ViewModelState {
@@ -19,7 +20,7 @@ export interface RenderedPageInfo {
   /**
    * The LeiningRun containing the first פסוק that begins in this page.
    * This is used to render the header UI as the user scrolls.
-   * TODO(later): What about pages of נביא outside a הפטרה?
+   * TODO(haftara): What about pages of נביא outside a הפטרה?
    */
   run: LeiningRun
 }
@@ -86,7 +87,7 @@ export class ScrollViewModel {
   private calculateRuns(run: LeiningRun): LeiningRun[] {
     let relatedRuns: LeiningRun[]
     if (!run.leining.isParsha) {
-      // TODO: Should this include the whole LeiningDate?
+      // TODO(decide): Should this include the whole LeiningDate?
       relatedRuns = run.leining.runs
     } else {
       const hdate = new HDate(run.leining.date.date)
@@ -180,10 +181,6 @@ function aliyahName(index: LeiningAliyah['index'], run: LeiningRun) {
   if (index === 1) return run.leining.date.title
   // TODO: Special case for שמחת תורה
   return aliyahStrings[index - 1]
-}
-
-function numVersesBetween(start: Ref, end: Ref): number {
-  return 0 // TODO
 }
 
 function containsRef(o: LeiningAliyah | LeiningRun, ref: Ref): boolean {

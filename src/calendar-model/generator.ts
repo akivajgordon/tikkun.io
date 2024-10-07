@@ -17,8 +17,8 @@ import {
   LeyningShabbatHoliday,
 } from '@hebcal/leyning'
 import { invert, fromISODateString, toISODateString, last } from './utils.ts'
-import { RefWithScroll } from '../ref.ts'
 import { physicalLocationFromRef } from '../location.ts'
+import { toLeiningAliyah, toAliyahIndex } from './hebcal-conversions.ts'
 
 type PartialLeiningRun = Omit<LeiningRun, 'id' | 'scroll' | 'leining'>
 
@@ -227,43 +227,6 @@ function isSameRun(existing: LeiningAliyah, next: LeiningAliyah) {
   return Math.abs(nextLocation.pageNumber - existingLocation.pageNumber) < 3
 }
 
-function toAliyahIndex(key: string): LeiningAliyah['index'] {
-  if (key === 'M') return 'Maftir'
-  return parseInt(key)
-}
-
 function isNotPlainWeekday(o: LeyningBase): o is LeyningShabbatHoliday {
   return 'fullkriyah' in o || 'megillah' in o
-}
-
-// TODO(later): Change the JSON to use these names and get rid of this array.
-const bookNames = [
-  '',
-  'Genesis',
-  'Exodus',
-  'Leviticus',
-  'Numbers',
-  'Deuteronomy',
-]
-function toLeiningAliyah(
-  a: Aliyah,
-  index?: LeiningAliyah['index']
-): LeiningAliyah {
-  return {
-    start: toRef(a.b),
-    end: toRef(a.e),
-    index,
-  }
-
-  function toRef(verse: string): RefWithScroll {
-    const [c, v] = verse.split(':')
-    const torahIndex = bookNames.indexOf(a.k)
-    return {
-      // TODO(later): Expand this once we add more scrolls.
-      scroll: torahIndex ? 'torah' : 'esther',
-      b: torahIndex,
-      c: parseInt(c),
-      v: parseInt(v),
-    }
-  }
 }

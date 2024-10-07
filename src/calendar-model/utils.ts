@@ -1,3 +1,5 @@
+/** @fileoverview Contains generic helper functions (not related to hebcal or leining types) */
+
 export function toISODateString(date: Date) {
   const minutesOffset = date.getTimezoneOffset()
   const millisecondsOffset = minutesOffset * 60 * 1000

@@ -17,8 +17,8 @@ import {
   LeyningShabbatHoliday,
 } from '@hebcal/leyning'
 import { invert, fromISODateString, toISODateString, last } from './utils.ts'
-import { physicalLocationFromRef } from '../location.ts'
 import { toLeiningAliyah, toAliyahIndex } from './hebcal-conversions.ts'
+import { isSameRun } from './display.ts'
 
 type PartialLeiningRun = Omit<LeiningRun, 'id' | 'scroll' | 'leining'>
 
@@ -214,18 +214,6 @@ export class LeiningGenerator {
       scroll: run.aliyot[0].start.scroll,
     }
   }
-}
-
-/** Returns true if the next עלייה is far enough away to need a second ספר תורה. */
-function isSameRun(existing: LeiningAliyah, next: LeiningAliyah) {
-  if (existing.end.b !== next.start.b) return false
-  // If they're in the same פרק, they're definitely close.
-  if (existing.end.c === next.start.c) return true
-
-  const existingLocation = physicalLocationFromRef(existing.end)
-  const nextLocation = physicalLocationFromRef(next.start)
-
-  return Math.abs(nextLocation.pageNumber - existingLocation.pageNumber) < 3
 }
 
 function isNotPlainWeekday(o: LeyningBase): o is LeyningShabbatHoliday {

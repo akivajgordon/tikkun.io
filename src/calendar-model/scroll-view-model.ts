@@ -179,7 +179,10 @@ function aliyahName(index: LeiningAliyah['index'], run: LeiningRun) {
   if (index < 1 || index > aliyahStrings.length) return null
 
   if (index === 1) return run.leining.date.title
-  // TODO: Special case for שמחת תורה
+  if (run.leining.date.title === 'שמחת תורה') {
+    if (index === 6) return `חתן תורה`
+    if (index === 7) return `חתן בראשית`
+  }
   return aliyahStrings[index - 1]
 }
 

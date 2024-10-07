@@ -1,4 +1,4 @@
-import { flags, HDate, HebrewCalendar } from '@hebcal/core'
+import { flags, HDate, HebrewCalendar, Locale } from '@hebcal/core'
 import {
   LeiningAliyah,
   LeiningDate,
@@ -94,9 +94,10 @@ export class LeiningGenerator {
     const resultDate: LeiningDate = {
       date: date.greg(),
       id: toISODateString(date.greg()),
-      title: 'TODO',
+      title: Locale.hebrewStripNikkud(leinings[0].name.he ?? 'TODO: unknown'),
       leinings: [],
     }
+    if (leinings[0].parsha) resultDate.title = `פרשת ${resultDate.title}`
     resultDate.leinings = leinings.flatMap((o) => {
       const results: LeiningInstance[] = []
       if (!isNotPlainWeekday(o)) return results

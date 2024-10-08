@@ -106,7 +106,7 @@ test('returns next parsha given specified date', async (t) => {
     await urlToRef({
       url: url('/#/next'),
       asOfDate: BEFORE_KORACH_5781,
-      scheduleFetcher: {
+      scheduleFetcher: async () => ({
         fetch: () => [
           {
             label: 'שלח',
@@ -124,7 +124,7 @@ test('returns next parsha given specified date', async (t) => {
             date: 'Jun 19',
           },
         ],
-      },
+      }),
     }),
     { scroll: 'torah', b: 4, c: 16, v: 1 },
   )

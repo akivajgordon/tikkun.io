@@ -1,7 +1,7 @@
 import { LineType } from '../components/Page'
-import { Ref } from '../ref'
+import { Ref, RefWithScroll } from '../ref'
 import { LeiningGenerator } from './generator'
-import { LeiningRun } from './model-types'
+import { LeiningRun, LeiningRunType } from './model-types'
 import IntegerIterator from '../integer-iterator.ts'
 import { physicalLocationFromRef } from '../location.ts'
 import { HDate } from '@hebcal/core'
@@ -54,25 +54,37 @@ export interface RenderedLineInfo {
   run?: LeiningRun
 }
 
+/** Tracks scrolling through a single "view" of a scroll, associated with one or more LeiningRuns. */
 export class ScrollViewModel {
-  private currentPage: ReturnType<typeof IntegerIterator.new>
-  /** All runs rendered in this view and scroll. */
-  private allRuns: LeiningRun[] = []
-
-  constructor(private readonly generator: LeiningGenerator) {}
-
-  async goToId(
-    runId: string
-  ): Promise<{ page: RenderedPageInfo; lineNumber: number } | null> {
-    const run = this.generator.parseId(runId)
-    if (!run) return null
-    this.allRuns = this.calculateRuns(run)
-    const { pageNumber, lineNumber } = physicalLocationFromRef(
-      run.aliyot[0].start
-    )
+  private readonly currentPage: ReturnType<typeof IntegerIterator.new>
+  readonly startingLocation: Promise<{
+    page: RenderedPageInfo
+    lineNumber: number
+  }>
+  protected constructor(
+    /** The "view" (set of runs and contained עליות) that the user can scroll through. */
+    private readonly allRuns: LeiningRun[],
+    initialRef: RefWithScroll
+  ) {
+    // TODO(later): Load TOCs lazily.
+    // This means converting currentPage to a promise and awaiting it everywhere.
+    const { pageNumber, lineNumber } = physicalLocationFromRef(initialRef)
     this.currentPage = IntegerIterator.new({ startingAt: pageNumber })
-    const page = await this.fetchPage(pageNumber)
-    return { page, lineNumber }
+    this.startingLocation = this.fetchPage(pageNumber).then((page) => ({
+      page,
+      lineNumber,
+    }))
+  }
+
+  static forId(
+    generator: LeiningGenerator,
+    runId: string
+  ): ScrollViewModel | null {
+    const run = generator.parseId(runId)
+    if (!run) return null
+    if (run.leining.isParsha || run.type === LeiningRunType.Megillah)
+      return new FullScrollViewModel(generator, run)
+    return new HolidayViewModel(generator, run)
   }
 
   fetchPreviousPage(): Promise<RenderedPageInfo> {
@@ -81,23 +93,6 @@ export class ScrollViewModel {
 
   fetchNextPage(): Promise<RenderedPageInfo> {
     return this.fetchPage(this.currentPage.next())
-  }
-
-  /** Calculates the "view" (set of runs and contained עליות) that the user can scroll through. */
-  private calculateRuns(run: LeiningRun): LeiningRun[] {
-    let relatedRuns: LeiningRun[]
-    if (!run.leining.isParsha) {
-      // TODO(decide): Should this include the whole LeiningDate?
-      relatedRuns = run.leining.runs
-    } else {
-      const hdate = new HDate(run.leining.date.date)
-      relatedRuns = this.generator
-        .generateCalendar(hdate.getFullYear())
-        .flatMap((d) => d.leinings)
-        .filter((i) => i.isParsha)
-        .flatMap((i) => i.runs)
-    }
-    return relatedRuns.filter((r) => r.scroll === run.scroll)
   }
 
   private async fetchPage(index: number): Promise<RenderedPageInfo> {
@@ -126,6 +121,37 @@ export class ScrollViewModel {
       }
     })
     return { lines, run: lines.find((o) => o.run)!.run! }
+  }
+}
+
+/** A view that includes the entire scroll.  Used for regular פרשיות and any מגילה. */
+class FullScrollViewModel extends ScrollViewModel {
+  constructor(generator: LeiningGenerator, run: LeiningRun) {
+    super(
+      FullScrollViewModel.calculateRuns(generator, run),
+      run.aliyot[0].start
+    )
+  }
+
+  private static calculateRuns(
+    generator: LeiningGenerator,
+    run: LeiningRun
+  ): LeiningRun[] {
+    const hdate = new HDate(run.leining.date.date)
+    return generator
+      .generateCalendar(hdate.getFullYear())
+      .flatMap((d) => d.leinings)
+      .filter((i) => i.isParsha)
+      .flatMap((i) => i.runs)
+      .filter((r) => r.scroll === run.scroll)
+  }
+}
+
+/** A view that only renders pages containing the actual leinings.  Used for יום טוב. */
+class HolidayViewModel extends ScrollViewModel {
+  constructor(generator: LeiningGenerator, run: LeiningRun) {
+    // TODO(decide): Should this include the whole LeiningDate?
+    super(run.leining.runs, run.aliyot[0].start)
   }
 }
 

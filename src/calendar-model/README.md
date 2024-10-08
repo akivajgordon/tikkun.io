@@ -21,6 +21,15 @@ We represent leinings as a hierarchical structure:
 
 `ScrollViewModel` wraps the above model objects and calculates exactly what the scroll (the main view) should display.
 
-This code takes the page URL (specifying a single `LeiningRun`) as input calculates the pages (different for יום טוב) and עלייות to display in the scroll.
+This code takes the page URL (specifying a single `LeiningRun`) as input and calculates the pages (different for יום טוב) and עלייות to display in the scroll.
+
+This class is mostly immutable (jumping to a new run requires creating a new instance), but tracks loaded pages internally to load more pages as the user scrolls.
 
 The UI layer consumes the output of this class to render UI.
+
+This class (and associated helper functions) has several purposes:
+
+- Select the set of pages to render
+- Fetch pages as the user scrolls
+- Generate titles and navigation links for the header UI
+- Calculate עלייה labels to show alongside the scroll

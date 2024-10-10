@@ -22,3 +22,7 @@ export function invert<K extends string, V extends string>(
 ): Record<V, K> {
   return Object.fromEntries(Object.entries(obj).map(([k, v]) => [v, k]))
 }
+
+export function range(first: number, last: number) {
+  return Array.from({ length: last - first + 1 }, (_, i) => first + i)
+}

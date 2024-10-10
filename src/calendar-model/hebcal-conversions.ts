@@ -29,7 +29,7 @@ export function toLeiningAliyah(
     const torahIndex = bookNames.indexOf(a.k)
     return {
       // TODO(haftara): Expand this once we add more scrolls.
-      scroll: torahIndex ? 'torah' : 'esther',
+      scroll: torahIndex >= 0 ? 'torah' : 'esther',
       b: torahIndex,
       c: parseInt(c),
       v: parseInt(v),

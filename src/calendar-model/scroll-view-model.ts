@@ -6,6 +6,7 @@ import IntegerIterator from '../integer-iterator.ts'
 import { physicalLocationFromRef } from '../location.ts'
 import { HDate } from '@hebcal/core'
 import { containsRef, getLabels } from './display.ts'
+import { last } from './utils.ts'
 
 /** The current state exposed by the view model. */
 export interface ViewModelState {
@@ -90,6 +91,7 @@ export class ScrollViewModel {
     }))
   }
 
+  /** Creates the appropriate `ScrollViewModel` subclass for a particular `LeiningRun` */
   static forId(
     generator: LeiningGenerator,
     runId: string
@@ -99,6 +101,28 @@ export class ScrollViewModel {
     if (run.leining.isParsha || run.type === LeiningRunType.Megillah)
       return new FullScrollViewModel(generator, run)
     return new HolidayViewModel(generator, run)
+  }
+
+  /** Creates the appropriate `ScrollViewModel` subclass for the first leining on or after a date. */
+  static forDate(generator: LeiningGenerator, date: Date) {
+    // Collect all main leinings in the year containing the date.
+    const allDates = generator.generateCalendar(new HDate(date).getFullYear())
+    const targetDate = allDates.find((d) => d.date >= date) ?? last(allDates)
+    return ScrollViewModel.forId(generator, targetDate.leinings[0].runs[0].id)
+  }
+
+  /** Creates the appropriate `ScrollViewModel` subclass for the first leining containing a פסוק. */
+  static forRef(generator: LeiningGenerator, ref: RefWithScroll) {
+    // Use this year's calendar.
+    const allRuns = generator
+      .generateCalendar(new HDate(new Date()).getFullYear())
+      .flatMap((d) => d.leinings)
+      .flatMap((i) => i.runs)
+    const run =
+      allRuns.find((r) => r.scroll === ref.scroll && containsRef(r, ref)) ??
+      allRuns[0]
+
+    return ScrollViewModel.forId(generator, run.id)
   }
 
   fetchPreviousPage(): Promise<RenderedEntry> {

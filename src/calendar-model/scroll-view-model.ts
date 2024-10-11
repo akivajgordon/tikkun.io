@@ -25,8 +25,10 @@ export interface RenderedPageInfo {
    * The LeiningRun containing the first פסוק that begins in this page.
    * This is used to render the header UI as the user scrolls.
    * TODO(haftara): What about pages of נביא outside a הפטרה?
+   * This will be unset for a תענית ציבור, which can contain an entire
+   * page that is between runs.
    */
-  run: LeiningRun
+  run?: LeiningRun
 }
 
 /** Information to render a message between `RenderedPageInfo`s. */
@@ -45,7 +47,8 @@ export type RenderedEntry = RenderedPageInfo | RenderedMessageInfo
 export interface RenderedLineInfo {
   /**
    * Whitespace-separated spans of text.
-   * This will have multiple entries at a פרשה סתומה and in a שירה.
+   * The outer array has one entry per span in a שירה.
+   * The inner array separates a פרשה סתומה.
    */
   text: string[][]
   /** The פסוקים that begin in this line, if any. */
@@ -76,7 +79,7 @@ export class ScrollViewModel {
   }>
   protected constructor(
     /** The "view" (set of runs and contained עליות) that the user can scroll through. */
-    protected readonly relevantRuns: LeiningRun[],
+    readonly relevantRuns: LeiningRun[],
     initialRef: RefWithScroll
   ) {
     // TODO(later): Load TOCs lazily.
@@ -106,8 +109,13 @@ export class ScrollViewModel {
   ): ScrollViewModel | null {
     const run = generator.parseId(runId)
     if (!run) return null
-    if (run.leining.isParsha || run.type === LeiningRunType.Megillah)
+    // Always render the full מגילה.
+    if (run.type === LeiningRunType.Megillah)
       return new FullScrollViewModel(generator, run)
+    // For the פרשה itself, render all of חומש.
+    if (run.leining.isParsha && run.type === LeiningRunType.Main)
+      return new FullScrollViewModel(generator, run)
+    // For any part of יום טוב, special מפטיר, or הפתרה, only render relevant parts.
     return new HolidayViewModel(run)
   }
 
@@ -186,7 +194,7 @@ export class ScrollViewModel {
         labels: labeller.getLabelsForLine(run, verses),
       }
     })
-    return { type: 'page', lines, run: lines.find((o) => o.run)!.run! }
+    return { type: 'page', lines, run: lines.find((o) => o.run)?.run }
   }
 }
 

@@ -1,8 +1,8 @@
 /** @fileoverview Contains logic to build strings for display. */
 
-import { physicalLocationFromRef } from '../location'
-import { Ref } from '../ref'
-import { LeiningRun, LeiningAliyah } from './model-types'
+import { physicalLocationFromRef } from '../location.ts'
+import { Ref } from '../ref.ts'
+import { LeiningRun, LeiningAliyah } from './model-types.ts'
 
 /** Returns true if the next עלייה is far enough away to need a second ספר תורה. */
 export function isSameRun(existing: LeiningAliyah, next: LeiningAliyah) {

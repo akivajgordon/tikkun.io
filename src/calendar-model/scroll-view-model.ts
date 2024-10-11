@@ -1,7 +1,7 @@
-import { LineType } from '../components/Page'
-import { Ref, RefWithScroll } from '../ref'
-import { LeiningGenerator } from './generator'
-import { LeiningRun, LeiningRunType } from './model-types'
+import { LineType } from '../components/Page.ts'
+import { Ref, RefWithScroll } from '../ref.ts'
+import { LeiningGenerator } from './generator.ts'
+import { LeiningRun, LeiningRunType } from './model-types.ts'
 import IntegerIterator from '../integer-iterator.ts'
 import { physicalLocationFromRef } from '../location.ts'
 import { HDate } from '@hebcal/core'
@@ -88,10 +88,14 @@ export class ScrollViewModel {
       startingAt: startingContentIndex,
     })
     this.startingLocation = this.fetchPage(startingContentIndex).then(
-      (page) => ({
-        page,
-        lineNumber,
-      })
+      (page) => {
+        if (!page)
+          throw new Error(`First page ${startingContentIndex} must exist`)
+        return {
+          page,
+          lineNumber,
+        }
+      }
     )
   }
 
@@ -129,11 +133,11 @@ export class ScrollViewModel {
     return ScrollViewModel.forId(generator, run.id)
   }
 
-  fetchPreviousPage(): Promise<RenderedEntry> {
+  fetchPreviousPage(): Promise<RenderedEntry | null> {
     return this.fetchPage(this.currentContentIndex.previous())
   }
 
-  fetchNextPage(): Promise<RenderedEntry> {
+  fetchNextPage(): Promise<RenderedEntry | null> {
     return this.fetchPage(this.currentContentIndex.next())
   }
 
@@ -145,9 +149,7 @@ export class ScrollViewModel {
    *
    * See the Readme for more background.
    */
-  protected pageNumberFromContentIndex(
-    contentIndex: number
-  ): number | RenderedMessageInfo {
+  protected pageNumberFromContentIndex(contentIndex: number): ContentPageEntry {
     // Page numbers in the JSON are 1-based
     return contentIndex + 1
   }
@@ -211,18 +213,20 @@ class FullScrollViewModel extends ScrollViewModel {
   }
 }
 
+/** The type passed from derived classes to `fetchPage()`. */
+type ContentPageEntry = number | RenderedMessageInfo
+
 /** A view that only renders pages containing the actual leinings.  Used for יום טוב. */
 class HolidayViewModel extends ScrollViewModel {
-  private pages: Array<number | RenderedMessageInfo>
-  // Ugly hack: This is read from the base constructor, before our constructor runs.
-  private getPages() {
+  private pages?: ContentPageEntry[]
+  private getPages(): ContentPageEntry[] {
     if (this.pages) return this.pages
     let lastEndPage = 0
     this.pages = this.relevantRuns.flatMap((r) => {
       const start = physicalLocationFromRef(r.aliyot[0].start)
       const end = physicalLocationFromRef(last(r.aliyot).end)
 
-      const extraEntries: typeof this.pages = []
+      const extraEntries: ContentPageEntry[] = []
       if (lastEndPage) {
         const skipCount = start.pageNumber - lastEndPage
         extraEntries.push({
@@ -247,8 +251,8 @@ class HolidayViewModel extends ScrollViewModel {
 
   protected override pageNumberFromContentIndex(
     index: number
-  ): number | RenderedMessageInfo {
-    return this.pages[index]
+  ): ContentPageEntry {
+    return this.getPages()[index]
   }
   protected override contentIndexFromPageNumber(pageNumber: number): number {
     return this.getPages().indexOf(pageNumber)

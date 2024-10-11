@@ -1,8 +1,8 @@
 /** @fileoverview Contains generic helpers to convert between @hebcal types and our model types. */
 
 import { Aliyah, calculateNumVerses } from '@hebcal/leyning'
-import { Ref, RefWithScroll } from '../ref'
-import { LeiningAliyah } from './model-types'
+import { Ref, RefWithScroll } from '../ref.ts'
+import { LeiningAliyah } from './model-types.ts'
 
 // TODO(later): Change the JSON to use these names and get rid of this array.
 const bookNames = [

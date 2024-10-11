@@ -3,6 +3,7 @@ import { UserSettings } from './user-settings.ts'
 import { LeiningGenerator } from './generator.ts'
 import { HDate, months } from '@hebcal/core'
 import { LeiningDate } from './model-types.ts'
+
 const testSettings: UserSettings = {
   ashkenazi: true,
   includeModernHolidays: false,

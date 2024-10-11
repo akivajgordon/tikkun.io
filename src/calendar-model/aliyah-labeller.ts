@@ -1,6 +1,6 @@
-import { Ref } from '../ref'
-import { compareRefs } from './display'
-import { LeiningRun, LeiningAliyah } from './model-types'
+import { Ref } from '../ref.ts'
+import { compareRefs } from './display.ts'
+import { LeiningRun, LeiningAliyah } from './model-types.ts'
 
 export class AliyahLabeller {
   /**
@@ -22,7 +22,7 @@ export class AliyahLabeller {
    *    In that case, we will still want to label the end of the last עלליה from the previous line.
    * @param verses The פסוקים that begin in this line, if any.
    */
-  getLabelsForLine(run: LeiningRun | null, verses: Ref[]): string[] {
+  getLabelsForLine(run: LeiningRun | undefined, verses: Ref[]): string[] {
     if (!verses.length) return []
     if (!run && !this.previousEndLabel) return []
     const labels: string[] = []
@@ -31,7 +31,9 @@ export class AliyahLabeller {
       // First, look for an עלייה in the containing run.
       const starts =
         run?.aliyot.filter((a) => a.index && refEquals(a.start, v)) ?? []
-      labels.push(...starts.map((a) => aliyahName(a.index, run)))
+      labels.push(
+        ...starts.map((a) => aliyahName(a.index, run!)).filter((x) => x)
+      )
 
       // If there is no label here, and the previous פסוק ended an עלייה,
       // add its label here.
@@ -56,8 +58,9 @@ const aliyahStrings = [
 ]
 
 function aliyahName(index: LeiningAliyah['index'], run?: LeiningRun) {
+  if (!index) return ''
   if (index === 'Maftir') return 'מפטיר'
-  if (index < 1 || index > aliyahStrings.length) return null
+  if (index < 1 || index > aliyahStrings.length) return ''
 
   if (run && index === 1) return run.leining.date.title
   if (run?.leining.date.title === 'שמחת תורה') {

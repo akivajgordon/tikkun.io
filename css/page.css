@@ -44,6 +44,7 @@
 }
 
 .tikkun-message {
+  color: var(--page-ink-color);
   font-style: italic;
   text-align: center;
   margin-top: -0.7em;

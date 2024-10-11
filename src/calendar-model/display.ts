@@ -2,7 +2,6 @@
 
 import { physicalLocationFromRef } from '../location'
 import { Ref } from '../ref'
-import { numVersesBetween } from './hebcal-conversions'
 import { LeiningRun, LeiningAliyah } from './model-types'
 
 /** Returns true if the next עלייה is far enough away to need a second ספר תורה. */
@@ -17,39 +16,47 @@ export function isSameRun(existing: LeiningAliyah, next: LeiningAliyah) {
   return Math.abs(nextLocation.pageNumber - existingLocation.pageNumber) < 3
 }
 
-/**
- * Computes the set of עלייה labels to display for a line:
- *  - If one or (for מפטיר and שביעי) more עליות begin in this line, return them.
- *  - If an עלייה ends at this line, but a new עלייה or פרשה begins in the next פסוק, return nothing.
- *  - If an עלייה ends at this line, and a new עלייה does not begin in the vicinity, return `סוף`.
- * @param runs The run containing the פסוקים, as well as the next run in the scroll.
- * @param verses The פסוקים that begin in this line, if any.
- */
-export function getLabels(runs: LeiningRun[], verses: Ref[]): string[] {
-  if (!runs.length || !verses.length) return []
-  const labels: string[] = []
-  const allAliyot = runs.flatMap((r) => r.aliyot)
-  for (const v of verses) {
-    const myAliyot = runs[0].aliyot
-    // First, look for an עלייה in the containing run.
-    const starts = myAliyot.filter((a) => a.index && refEquals(a.start, v))
-    labels.push(...starts.map((a) => aliyahName(a.index, runs[0])))
-    // If we already have labels, we're done.
-    if (starts.length) continue
+export class AliyahLabeller {
+  /**
+   * The label (if any) for the end of an עלייה from the previous פסוק.
+   * This is stored to be applied to the following פסוק, if it does not
+   * already have some other label.
+   *
+   * This is stored in a class field to persist across labelled lines.
+   */
+  previousEndLabel: string | null = null
 
-    const ends = myAliyot.filter((a) => refEquals(a.end, v))
-    // If no עלייה ends here, there is nothing to label.
-    if (!ends.length) continue
+  /**
+   * Computes the set of עלייה labels to display for a line:
+   *  - If one or (for מפטיר and שביעי) more עליות begin in this line, return them.
+   *  - If an עלייה ends at this line, but a new עלייה or פרשה begins in the next פסוק, return nothing.
+   *  - If an עלייה ends at this line, and a new עלייה does not begin in the vicinity, return `סוף`.
+   * @param runs The run containing the פסוקים.
+   *    This will be null for פסוקים that come after the end of the run.
+   *    In that case, we will still want to label the end of the last עלליה from the previous line.
+   * @param verses The פסוקים that begin in this line, if any.
+   */
+  getLabelsForLine(run: LeiningRun | null, verses: Ref[]): string[] {
+    if (!verses.length) return []
+    if (!run && !this.previousEndLabel) return []
+    const labels: string[] = []
 
-    const followUpStarts = allAliyot.some(
-      (a) => numVersesBetween(v, a.start) === 1
-    )
-    // If another עלייה (in this run or another run) starts in the next פסוק,
-    // we don't need to label the end.
-    if (followUpStarts) continue
-    labels.push(`סוף ${aliyahName(ends[0].index, runs[0])}`)
+    for (const v of verses) {
+      // First, look for an עלייה in the containing run.
+      const starts =
+        run?.aliyot.filter((a) => a.index && refEquals(a.start, v)) ?? []
+      labels.push(...starts.map((a) => aliyahName(a.index, run)))
+
+      // If there is no label here, and the previous פסוק ended an עלייה,
+      // add its label here.
+      if (!starts.length && this.previousEndLabel)
+        labels.push(this.previousEndLabel)
+
+      const end = run?.aliyot.find((a) => refEquals(a.end, v))
+      this.previousEndLabel = end ? `סוף ${aliyahName(end.index)}` : null
+    }
+    return labels
   }
-  return labels
 }
 
 const aliyahStrings = [
@@ -62,12 +69,12 @@ const aliyahStrings = [
   'שביעי',
 ]
 
-function aliyahName(index: LeiningAliyah['index'], run: LeiningRun) {
+function aliyahName(index: LeiningAliyah['index'], run?: LeiningRun) {
   if (index === 'Maftir') return 'מפטיר'
   if (index < 1 || index > aliyahStrings.length) return null
 
-  if (index === 1) return run.leining.date.title
-  if (run.leining.date.title === 'שמחת תורה') {
+  if (run && index === 1) return run.leining.date.title
+  if (run?.leining.date.title === 'שמחת תורה') {
     if (index === 6) return `חתן תורה`
     if (index === 7) return `חתן בראשית`
   }

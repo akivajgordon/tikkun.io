@@ -5,7 +5,7 @@ import { LeiningRun, LeiningRunType } from './model-types'
 import IntegerIterator from '../integer-iterator.ts'
 import { physicalLocationFromRef } from '../location.ts'
 import { HDate } from '@hebcal/core'
-import { containsRef, getLabels } from './display.ts'
+import { AliyahLabeller, containsRef } from './display.ts'
 import { last, range } from './utils.ts'
 
 /** The current state exposed by the view model. */
@@ -166,25 +166,21 @@ export class ScrollViewModel {
         `../data/pages/${this.relevantRuns[0].scroll}/${pageNumber}.json`
       )
     ).default
+
     let run: LeiningRun | undefined
-    let relevantRuns: LeiningRun[] = []
+    const labeller = new AliyahLabeller()
     const lines: RenderedLineInfo[] = page.map((rawLine) => {
       const verses = rawLine.verses.map(toRef)
 
       // TODO(later): Optimize this slow search?
-      if (verses.length && (!run || !containsRef(run, verses[0]))) {
-        const runIndex = this.relevantRuns.findIndex((run) =>
-          containsRef(run, verses[0])
-        )
-        run = this.relevantRuns[runIndex]
-        relevantRuns = [run, this.relevantRuns[runIndex + 1]].filter(Boolean)
-      }
+      if (verses.length && (!run || !containsRef(run, verses[0])))
+        run = this.relevantRuns.find((run) => containsRef(run, verses[0]))
 
       return {
         ...rawLine,
         verses,
         run,
-        labels: getLabels(relevantRuns, verses),
+        labels: labeller.getLabels(run, verses),
       }
     })
     return { type: 'page', lines, run: lines.find((o) => o.run)!.run! }

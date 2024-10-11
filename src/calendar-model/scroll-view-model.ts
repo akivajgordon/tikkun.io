@@ -5,8 +5,9 @@ import { LeiningRun, LeiningRunType } from './model-types'
 import IntegerIterator from '../integer-iterator.ts'
 import { physicalLocationFromRef } from '../location.ts'
 import { HDate } from '@hebcal/core'
-import { AliyahLabeller, containsRef } from './display.ts'
+import { containsRef } from './display.ts'
 import { last, range } from './utils.ts'
+import { AliyahLabeller } from './aliyah-labeller.ts'
 
 /** The current state exposed by the view model. */
 export interface ViewModelState {

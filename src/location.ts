@@ -26,6 +26,14 @@ const convertToValidInt = (val: string, validValues: object) => {
   return val && val in validValues ? parseInt(val) : 1
 }
 
+export function getPageCount(scroll: ScrollName) {
+  const toc = tocFromScroll[scroll]
+  const b = Math.max(...Object.keys(toc).map(Number))
+  const c = Math.max(...Object.keys(toc[b]).map(Number))
+  const v = Math.max(...Object.keys(toc[b][c]).map(Number))
+  return toc[b][c][v].p
+}
+
 export const physicalLocationFromRef = ({
   b: book,
   c: chapter,

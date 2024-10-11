@@ -3,7 +3,7 @@ import { Ref, RefWithScroll } from '../ref.ts'
 import { LeiningGenerator } from './generator.ts'
 import { LeiningRun, LeiningRunType } from './model-types.ts'
 import IntegerIterator from '../integer-iterator.ts'
-import { physicalLocationFromRef } from '../location.ts'
+import { getPageCount, physicalLocationFromRef } from '../location.ts'
 import { HDate } from '@hebcal/core'
 import { containsRef } from './display.ts'
 import { last, range } from './utils.ts'
@@ -71,7 +71,7 @@ export interface RenderedLineInfo {
 }
 
 /** Tracks scrolling through a single "view" of a scroll, associated with one or more LeiningRuns. */
-export class ScrollViewModel {
+export abstract class ScrollViewModel {
   private readonly currentContentIndex: ReturnType<typeof IntegerIterator.new>
   readonly startingLocation: Promise<{
     page: RenderedEntry
@@ -157,15 +157,11 @@ export class ScrollViewModel {
    *
    * See the Readme for more background.
    */
-  protected pageNumberFromContentIndex(contentIndex: number): ContentPageEntry {
-    // Page numbers in the JSON are 1-based
-    return contentIndex + 1
-  }
+  protected abstract pageNumberFromContentIndex(
+    contentIndex: number
+  ): ContentPageEntry
   /** Returns the (contiguous) index at which the given page is rendered. */
-  protected contentIndexFromPageNumber(pageNumber: number): number {
-    // Content indices are 0-based.
-    return pageNumber - 1
-  }
+  protected abstract contentIndexFromPageNumber(pageNumber: number): number
 
   private async fetchPage(contentIndex: number): Promise<RenderedEntry | null> {
     const pageNumber = this.pageNumberFromContentIndex(contentIndex)
@@ -200,11 +196,26 @@ export class ScrollViewModel {
 
 /** A view that includes the entire scroll.  Used for regular פרשיות and any מגילה. */
 class FullScrollViewModel extends ScrollViewModel {
+  private readonly pageCount
   constructor(generator: LeiningGenerator, run: LeiningRun) {
     super(
       FullScrollViewModel.calculateRuns(generator, run),
       run.aliyot[0].start
     )
+    this.pageCount = getPageCount(run.scroll)
+  }
+
+  protected override pageNumberFromContentIndex(
+    contentIndex: number
+  ): ContentPageEntry {
+    if (contentIndex + 1 > this.pageCount) return -1
+    // Page numbers in the JSON are 1-based
+    return contentIndex + 1
+  }
+  /** Returns the (contiguous) index at which the given page is rendered. */
+  protected override contentIndexFromPageNumber(pageNumber: number): number {
+    // Content indices are 0-based.
+    return pageNumber - 1
   }
 
   private static calculateRuns(

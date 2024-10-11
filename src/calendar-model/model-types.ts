@@ -1,4 +1,4 @@
-import { RefWithScroll } from '../ref.ts'
+import { RefWithScroll, ScrollName } from '../ref.ts'
 
 /**
  * Describes a single date that contains one or more leinings (in separate davenings).
@@ -85,7 +85,7 @@ export interface LeiningRun {
   id: string
 
   /** The ספר being leined from (either `torah` or a נביא). */
-  scroll: string
+  scroll: ScrollName
 
   /**
    * The עליות contained within this run.

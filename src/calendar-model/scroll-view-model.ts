@@ -159,7 +159,7 @@ export class ScrollViewModel {
   private async fetchPage(contentIndex: number): Promise<RenderedEntry | null> {
     const pageNumber = this.pageNumberFromContentIndex(contentIndex)
     if (typeof pageNumber === 'object') return pageNumber
-    if (pageNumber <= 0) return null
+    if (!pageNumber || pageNumber <= 0) return null
 
     const page: LineType[] = (
       await import(
@@ -180,7 +180,7 @@ export class ScrollViewModel {
         ...rawLine,
         verses,
         run,
-        labels: labeller.getLabels(run, verses),
+        labels: labeller.getLabelsForLine(run, verses),
       }
     })
     return { type: 'page', lines, run: lines.find((o) => o.run)!.run! }

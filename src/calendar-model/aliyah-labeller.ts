@@ -17,9 +17,9 @@ export class AliyahLabeller {
    *  - If one or (for מפטיר and שביעי) more עליות begin in this line, return them.
    *  - If an עלייה ends at this line, but a new עלייה or פרשה begins in the next פסוק, return nothing.
    *  - If an עלייה ends at this line, and a new עלייה does not begin in the vicinity, return `סוף`.
-   * @param runs The run containing the פסוקים.
+   * @param run The run containing the פסוקים.
    *    This will be null for פסוקים that come after the end of the run.
-   *    In that case, we will still want to label the end of the last עלליה from the previous line.
+   *    In that case, we may still want to label the end of the last עלליה from the previous line.
    * @param verses The פסוקים that begin in this line, if any.
    */
   getLabelsForLine(run: LeiningRun | undefined, verses: Ref[]): string[] {
@@ -27,6 +27,7 @@ export class AliyahLabeller {
     if (!run && !this.previousEndLabel) return []
     const labels: string[] = []
 
+    // TODO(haftara): Decide how to label skips
     for (const v of verses) {
       // First, look for an עלייה in the containing run.
       const starts =
@@ -41,7 +42,11 @@ export class AliyahLabeller {
         labels.push(this.previousEndLabel)
 
       const end = run?.aliyot.find((a) => refEquals(a.end, v))
-      this.previousEndLabel = end ? `סוף ${aliyahName(end.index)}` : null
+      this.previousEndLabel = end
+        ? `סוף ${aliyahName(end.index, run!, {
+            isEnd: true,
+          })}`
+        : null
     }
     return labels
   }
@@ -57,13 +62,17 @@ const aliyahStrings = [
   'שביעי',
 ]
 
-function aliyahName(index: LeiningAliyah['index'], run?: LeiningRun) {
+function aliyahName(
+  index: LeiningAliyah['index'],
+  run: LeiningRun,
+  { isEnd }: { isEnd?: boolean } = {}
+) {
   if (!index) return ''
   if (index === 'Maftir') return 'מפטיר'
   if (index < 1 || index > aliyahStrings.length) return ''
 
-  if (run && index === 1) return run.leining.date.title
-  if (run?.leining.date.title === 'שמחת תורה') {
+  if (!isEnd && index === 1) return run.leining.date.title
+  if (run.leining.date.title === 'שמחת תורה') {
     if (index === 6) return `חתן תורה`
     if (index === 7) return `חתן בראשית`
   }

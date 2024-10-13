@@ -62,7 +62,7 @@ const aliyahStrings = [
   'שביעי',
 ]
 
-function aliyahName(
+export function aliyahName(
   index: LeiningAliyah['index'],
   run: LeiningRun,
   { isEnd }: { isEnd?: boolean } = {}

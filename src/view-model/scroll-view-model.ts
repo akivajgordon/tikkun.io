@@ -71,6 +71,7 @@ export abstract class ScrollViewModel {
     lineNumber: number
   }>
   protected constructor(
+    readonly generator: LeiningGenerator,
     /** The "view" (set of runs and contained עליות) that the user can scroll through. */
     readonly relevantRuns: LeiningRun[],
     initialRef: RefWithScroll
@@ -109,7 +110,7 @@ export abstract class ScrollViewModel {
     if (run.leining.isParsha && run.type === LeiningRunType.Main)
       return new FullScrollViewModel(generator, run)
     // For any part of יום טוב, special מפטיר, or הפתרה, only render relevant parts.
-    return new HolidayViewModel(run)
+    return new HolidayViewModel(generator, run)
   }
 
   /** Creates the appropriate `ScrollViewModel` subclass for the first leining on or after a date. */
@@ -192,6 +193,7 @@ class FullScrollViewModel extends ScrollViewModel {
   private readonly pageCount
   constructor(generator: LeiningGenerator, run: LeiningRun) {
     super(
+      generator,
       FullScrollViewModel.calculateRuns(generator, run),
       run.aliyot[0].start
     )
@@ -255,9 +257,10 @@ class HolidayViewModel extends ScrollViewModel {
     return this.pages
   }
 
-  constructor(run: LeiningRun) {
+  constructor(generator: LeiningGenerator, run: LeiningRun) {
     // TODO(decide): Should this include the whole LeiningDate?
     super(
+      generator,
       run.leining.runs.filter((r) => r.scroll === run.scroll),
       run.aliyot[0].start
     )

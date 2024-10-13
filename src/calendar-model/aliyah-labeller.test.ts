@@ -33,6 +33,14 @@ test(`פרשת האזינו`, async (t) => {
   t.snapshot(await dumpAliyot('2024-10-05:shacharis,main'))
 })
 
+test(`חנוכה`, async (t) => {
+  t.snapshot(await dumpAliyot('2024-12-26:shacharis,main'))
+})
+
+test(`ראש חודש חנוכה`, async (t) => {
+  t.snapshot(await dumpAliyot('2024-12-31:shacharis,main'))
+})
+
 test(`שקלים / ראש חודש as פרשה`, async (t) => {
   // Fetch the main run so that we get a FullScrollViewModel
   t.snapshot(await dumpAliyot('2025-03-01:shacharis,main'))
@@ -40,6 +48,10 @@ test(`שקלים / ראש חודש as פרשה`, async (t) => {
 
 test(`Weekday ראש חודש`, async (t) => {
   t.snapshot(await dumpAliyot('2025-02-28:shacharis,main'))
+})
+
+test(`אסתר`, async (t) => {
+  t.snapshot(await dumpAliyot('2025-03-14:megillah,megillah'))
 })
 
 test(`שקלים / ראש חודש as מפטיר`, async (t) => {

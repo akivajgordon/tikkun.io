@@ -30,7 +30,7 @@ export function toLeiningAliyah(
     return {
       // TODO(haftara): Expand this once we add more scrolls.
       scroll: torahIndex >= 0 ? 'torah' : 'esther',
-      b: torahIndex,
+      b: Math.max(torahIndex, 1),
       c: parseInt(c),
       v: parseInt(v),
     }

@@ -1,5 +1,3 @@
-/** @fileoverview Contains logic to build strings for display. */
-
 import { physicalLocationFromRef } from '../location.ts'
 import { Ref } from '../ref.ts'
 import { LeiningRun, LeiningAliyah } from './model-types.ts'

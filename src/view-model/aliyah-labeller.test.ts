@@ -1,8 +1,8 @@
 /** @fileoverview This file tests both Aliyah labelling and run calculation in HolidayViewModel. */
 
 import test from 'ava'
-import { LeiningGenerator } from './generator.ts'
-import { UserSettings } from './user-settings.ts'
+import { LeiningGenerator } from '../calendar-model/generator.ts'
+import { UserSettings } from '../calendar-model/user-settings.ts'
 import { RenderedEntry, ScrollViewModel } from './scroll-view-model.ts'
 import { renderLine } from './test-utils.ts'
 

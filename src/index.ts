@@ -12,7 +12,7 @@ import {
   RenderedMessageInfo,
   RenderedPageInfo,
   ScrollViewModel,
-} from './calendar-model/scroll-view-model.ts'
+} from './view-model/scroll-view-model.ts'
 import { LeiningGenerator } from './calendar-model/generator.ts'
 
 declare function gtag(

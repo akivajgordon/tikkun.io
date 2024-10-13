@@ -1,12 +1,12 @@
 import { LineType } from '../components/Page.ts'
 import { Ref, RefWithScroll } from '../ref.ts'
-import { LeiningGenerator } from './generator.ts'
-import { LeiningRun, LeiningRunType } from './model-types.ts'
+import { LeiningGenerator } from '../calendar-model/generator.ts'
+import { LeiningRun, LeiningRunType } from '../calendar-model/model-types.ts'
 import IntegerIterator from '../integer-iterator.ts'
 import { getPageCount, physicalLocationFromRef } from '../location.ts'
 import { HDate } from '@hebcal/core'
-import { containsRef } from './display.ts'
-import { last, range } from './utils.ts'
+import { containsRef } from '../calendar-model/ref-utils.ts'
+import { last, range } from '../calendar-model/utils.ts'
 import { AliyahLabeller } from './aliyah-labeller.ts'
 
 /** Information to render a single page from a scroll. */

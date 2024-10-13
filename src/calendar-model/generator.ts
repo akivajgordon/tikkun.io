@@ -18,7 +18,7 @@ import {
 } from '@hebcal/leyning'
 import { invert, fromISODateString, toISODateString, last } from './utils.ts'
 import { toLeiningAliyah, toAliyahIndex } from './hebcal-conversions.ts'
-import { isSameRun } from './display.ts'
+import { isSameRun } from './ref-utils.ts'
 
 type PartialLeiningRun = Omit<LeiningRun, 'id' | 'scroll' | 'leining'>
 

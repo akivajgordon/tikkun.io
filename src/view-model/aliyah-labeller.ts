@@ -1,6 +1,6 @@
 import { Ref } from '../ref.ts'
-import { compareRefs } from './display.ts'
-import { LeiningRun, LeiningAliyah } from './model-types.ts'
+import { compareRefs } from '../calendar-model/ref-utils.ts'
+import { LeiningRun, LeiningAliyah } from '../calendar-model/model-types.ts'
 
 export class AliyahLabeller {
   /**

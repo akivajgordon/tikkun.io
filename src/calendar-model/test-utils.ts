@@ -1,4 +1,4 @@
-import { RenderedLineInfo } from './scroll-view-model'
+import { RenderedLineInfo } from './scroll-view-model.ts'
 
 export function renderLine(line: RenderedLineInfo): string {
   return `${line.labels}: ${line.text

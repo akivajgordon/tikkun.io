@@ -9,13 +9,6 @@ import { containsRef } from './display.ts'
 import { last, range } from './utils.ts'
 import { AliyahLabeller } from './aliyah-labeller.ts'
 
-/** The current state exposed by the view model. */
-export interface ViewModelState {
-  readonly currentRun: LeiningRun
-  readonly prevRun: LeiningRun
-  readonly nextRun: LeiningRun
-}
-
 /** Information to render a single page from a scroll. */
 export interface RenderedPageInfo {
   type: 'page'

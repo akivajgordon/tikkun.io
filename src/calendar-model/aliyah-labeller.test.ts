@@ -4,6 +4,7 @@ import test from 'ava'
 import { LeiningGenerator } from './generator.ts'
 import { UserSettings } from './user-settings.ts'
 import { RenderedEntry, ScrollViewModel } from './scroll-view-model.ts'
+import { renderLine } from './test-utils.ts'
 
 const testSettings: UserSettings = {
   ashkenazi: true,
@@ -65,8 +66,6 @@ async function dumpAliyot(runId: string) {
   if (!model) throw new Error(`ID ${runId} not found`)
 
   const pages: RenderedEntry[] = [(await model.startingLocation).page]
-  if (pages[0].type !== 'page') throw new Error('First page should be a page')
-
   const targetDate = generator.parseId(runId)!.leining.date
 
   // If this is a HolidayViewModel, fetch the previous runs as well.
@@ -93,13 +92,6 @@ async function dumpAliyot(runId: string) {
 
   return pages.flatMap((e) => {
     if (e.type === 'message') return [e.text]
-    return e.lines
-      .filter((line) => line.labels.length)
-      .map(
-        (line) =>
-          `${line.labels}: ${line.text
-            .map((spans) => spans.join(' '))
-            .join('\t')}`
-      )
+    return e.lines.filter((line) => line.labels.length).map(renderLine)
   })
 }

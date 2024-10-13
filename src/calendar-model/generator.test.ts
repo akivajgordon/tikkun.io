@@ -17,7 +17,7 @@ const generator = new LeiningGenerator(testSettings)
 
 for (let year = 5780; year < 5800; year++) {
   test(`runs round-trip via ID for ${year}`, (t) => {
-    const calendar = generator.generateCalendar(year)
+    const calendar = generator.forHebrewYear(year)
     calendar
       .flatMap((d) => d.leinings)
       .flatMap((o) => o.runs)
@@ -56,6 +56,16 @@ test('generates תשעה באב', (t) => {
 
 test('generates שבת ראש חודש חנוכה', (t) => {
   t.snapshot(dumpLeiningDate(new HDate(30, months.KISLEV, 5782)))
+})
+
+test('generates leinings surrounding פרשת וירא', (t) => {
+  const results = generator.aroundDate(new Date(2024, 10, 16))
+  t.snapshot(results.map((ld) => `${ld.id}: ${ld.title}`))
+})
+
+test('generates leinings surrounding שבת שובה', (t) => {
+  const results = generator.aroundDate(new Date(2024, 9, 5))
+  t.snapshot(results.map((ld) => `${ld.id}: ${ld.title}`))
 })
 
 /** Prints the information in a `LeiningDate`, to be easily readable in the Markdown snapshot. */

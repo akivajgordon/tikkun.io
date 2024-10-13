@@ -115,7 +115,7 @@ export abstract class ScrollViewModel {
   /** Creates the appropriate `ScrollViewModel` subclass for the first leining on or after a date. */
   static forDate(generator: LeiningGenerator, date: Date) {
     // Collect all main leinings in the year containing the date.
-    const allDates = generator.generateCalendar(new HDate(date).getFullYear())
+    const allDates = generator.forHebrewYear(new HDate(date).getFullYear())
     const targetDate = allDates.find((d) => d.date >= date) ?? last(allDates)
     return ScrollViewModel.forId(generator, targetDate.leinings[0].runs[0].id)
   }
@@ -124,7 +124,7 @@ export abstract class ScrollViewModel {
   static forRef(generator: LeiningGenerator, ref: RefWithScroll) {
     // Use this year's calendar.
     const allRuns = generator
-      .generateCalendar(new HDate(new Date()).getFullYear())
+      .forHebrewYear(new HDate(new Date()).getFullYear())
       .flatMap((d) => d.leinings)
       .flatMap((i) => i.runs)
     const run =
@@ -219,7 +219,7 @@ class FullScrollViewModel extends ScrollViewModel {
     if (run.scroll !== 'torah') return [run]
     const hdate = new HDate(run.leining.date.date)
     return generator
-      .generateCalendar(hdate.getFullYear())
+      .forHebrewYear(hdate.getFullYear())
       .flatMap((d) => d.leinings)
       .filter((i) => i.isParsha)
       .flatMap((i) => i.runs)

@@ -1,4 +1,4 @@
-import { flags, HDate, HebrewCalendar, Locale } from '@hebcal/core'
+import { CalOptions, flags, HDate, HebrewCalendar, Locale } from '@hebcal/core'
 import {
   LeiningAliyah,
   LeiningDate,
@@ -60,17 +60,30 @@ export class LeiningGenerator {
   }
 
   /** Creates all leinings in a Hebrew year. */
-  generateCalendar(year: number): LeiningDate[] {
+  forHebrewYear(year: number): LeiningDate[] {
+    return this.generateCalendar({ year, isHebrewYear: true, numYears: 1 })
+  }
+
+  /**
+   * Returns at least one LeiningDate before and after the specified date.
+   * Use this to generate previous and next links.
+   */
+  aroundDate(date: Date): LeiningDate[] {
+    return this.generateCalendar({
+      start: new Date(+date - 8 * 24 * 60 * 60 * 1000),
+      end: new Date(+date + 8 * 24 * 60 * 60 * 1000),
+    })
+  }
+
+  private generateCalendar(opts: Partial<CalOptions>): LeiningDate[] {
     const calendar = HebrewCalendar.calendar({
+      ...opts,
       sedrot: true,
       ashkenazi: this.settings.ashkenazi,
       il: this.settings.israel,
       noModern: !this.settings.includeModernHolidays,
 
       locale: 'he',
-      isHebrewYear: true,
-      numYears: 1,
-      year,
       mask:
         flags.CHAG |
         flags.CHOL_HAMOED | // For שבת חול המועד

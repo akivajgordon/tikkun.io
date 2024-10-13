@@ -52,7 +52,10 @@ test(`Weekday ראש חודש`, async (t) => {
 })
 
 test(`אסתר`, async (t) => {
-  t.snapshot(await dumpAliyot('2025-03-14:megillah,megillah'))
+  // There are no labels to apply for a מגילה.
+  // However, we should verify that it renders and scrolls correctly.
+  // This test catchs #134.
+  t.deepEqual(await dumpAliyot('2025-03-14:megillah,megillah'), [])
 })
 
 test(`שקלים / ראש חודש as מפטיר`, async (t) => {

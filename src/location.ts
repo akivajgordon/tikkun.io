@@ -27,6 +27,8 @@ const convertToValidInt = (val: string, validValues: object) => {
 }
 
 export function getPageCount(scroll: ScrollName) {
+  // TODO(#134): Delete this workaround once table-of-contents-esther.json is accurate.
+  if (scroll === 'esther') return 17
   const toc = tocFromScroll[scroll]
   const b = Math.max(...Object.keys(toc).map(Number))
   const c = Math.max(...Object.keys(toc[b]).map(Number))

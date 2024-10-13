@@ -215,6 +215,8 @@ class FullScrollViewModel extends ScrollViewModel {
     generator: LeiningGenerator,
     run: LeiningRun
   ): LeiningRun[] {
+    // When used for a מגילה, just include this run.
+    if (run.scroll !== 'torah') return [run]
     const hdate = new HDate(run.leining.date.date)
     return generator
       .generateCalendar(hdate.getFullYear())

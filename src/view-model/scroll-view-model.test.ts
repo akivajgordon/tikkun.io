@@ -38,12 +38,35 @@ test('forDate on שבת', async (t) => {
     )
   )
 })
-test('forDate before  שבת', async (t) => {
+test('forDate before שבת', async (t) => {
   t.deepEqual(
     await renderScroll(
-      ScrollViewModel.forId(generator, '2025-01-11:shacharis,main')
+      ScrollViewModel.forId(generator, '2025-01-18:shacharis,main')
     ),
-    await renderScroll(ScrollViewModel.forDate(generator, new Date(2025, 0, 5)))
+    await renderScroll(
+      ScrollViewModel.forDate(generator, new Date(2025, 0, 14))
+    )
+  )
+})
+
+test('forDate on צום גדליה', async (t) => {
+  t.deepEqual(
+    await renderScroll(
+      ScrollViewModel.forId(generator, '2024-10-06:shacharis,main')
+    ),
+    await renderScroll(ScrollViewModel.forDate(generator, new Date(2024, 9, 6)))
+  )
+})
+
+// TODO(haftara): Enable after this can read איכה.
+test.skip('forDate before תשעה באב', async (t) => {
+  t.deepEqual(
+    await renderScroll(
+      ScrollViewModel.forId(generator, '2024-8-13:shacharis,main')
+    ),
+    await renderScroll(
+      ScrollViewModel.forDate(generator, new Date(2024, 7, 11))
+    )
   )
 })
 

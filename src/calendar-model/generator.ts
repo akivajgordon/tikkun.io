@@ -64,6 +64,8 @@ export class LeiningGenerator {
     return this.generateCalendar({ year, isHebrewYear: true, numYears: 1 })
   }
 
+  // TODO: Add option for בראשית - וזאת הברכה to include וילך in 5785
+
   /**
    * Returns at least one LeiningDate before and after the specified date.
    * Use this to generate previous and next links.
@@ -86,7 +88,10 @@ export class LeiningGenerator {
       locale: 'he',
       mask:
         flags.CHAG |
-        flags.CHOL_HAMOED | // For שבת חול המועד
+        flags.MINOR_FAST |
+        flags.MAJOR_FAST |
+        flags.ROSH_CHODESH |
+        flags.CHOL_HAMOED |
         flags.PARSHA_HASHAVUA,
     })
     return calendar

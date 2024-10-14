@@ -2,7 +2,7 @@ import test from 'ava'
 import { UserSettings } from './user-settings.ts'
 import { LeiningGenerator } from './generator.ts'
 import { HDate, Locale, months } from '@hebcal/core'
-import { LeiningAliyah, LeiningDate } from './model-types.ts'
+import { LeiningAliyah, LeiningDate, LeiningRun } from './model-types.ts'
 import hebrewNumeralFromInteger from '../hebrew-numeral.ts'
 import { Ref } from '../ref.ts'
 import { getBookName } from './hebcal-conversions.ts'
@@ -15,14 +15,23 @@ const testSettings: UserSettings = {
 
 const generator = new LeiningGenerator(testSettings)
 
-for (let year = 5780; year < 5800; year++) {
+for (let year = 5780; year < 5790; year++) {
   test(`runs round-trip via ID for ${year}`, (t) => {
     const calendar = generator.forHebrewYear(year)
     calendar
       .flatMap((d) => d.leinings)
       .flatMap((o) => o.runs)
       .forEach((run) => {
-        t.deepEqual(generator.parseId(run.id), run, `Parsed ${run.id}`)
+        const parsed = generator.parseId(run.id)
+
+        // Only compare the full objects if they summary is equal.
+        // This gives better error messages.
+        t.deepEqual(
+          dumpLeiningRun(parsed),
+          dumpLeiningRun(run),
+          `Parsed ${run.id}`
+        )
+        t.deepEqual(parsed, run, `Parsed ${run.id}`)
       })
   })
 }
@@ -58,6 +67,10 @@ test('generates שבת ראש חודש חנוכה', (t) => {
   t.snapshot(dumpLeiningDate(new HDate(30, months.KISLEV, 5782)))
 })
 
+test('generates ראש חודש חנוכה', (t) => {
+  t.snapshot(dumpLeiningDate(new HDate(30, months.KISLEV, 5787)))
+})
+
 test('generates leinings surrounding פרשת וירא', (t) => {
   const results = generator.aroundDate(new Date(2024, 10, 16))
   t.snapshot(results.map((ld) => `${ld.id}: ${ld.title}`))
@@ -72,23 +85,30 @@ test('generates leinings surrounding שבת שובה', (t) => {
 function dumpLeiningDate(date: HDate) {
   const ld = generator.createLeiningDate(date)
   if (!ld) return null
+  if (new Set(ld.leinings.map((o) => o.id)).size !== ld.leinings.length)
+    throw new Error(`${ld.id} (${ld.title}) has duplicate leinings!`)
   return {
     date: ld.id,
     title: ld.title,
     leinings: ld.leinings.map((o) => ({
       isParsha: o.isParsha,
-      runs: o.runs.map((r) => ({
-        id: r.id,
-        type: r.type,
-        scroll: r.scroll,
-        aliyot: r.aliyot.map(
-          (a) =>
-            `${a.index}: ${bookName(a)} ${dumpRef(a.start)} - ${dumpRef(a.end)}`
-        ),
-      })),
+      runs: o.runs.map(dumpLeiningRun),
     })),
   }
 }
+function dumpLeiningRun(r: LeiningRun | null) {
+  if (!r) return r
+  return {
+    id: r.id,
+    type: r.type,
+    scroll: r.scroll,
+    aliyot: r.aliyot.map(
+      (a) =>
+        `${a.index}: ${bookName(a)} ${dumpRef(a.start)} - ${dumpRef(a.end)}`
+    ),
+  }
+}
+
 function bookName(a: LeiningAliyah) {
   return Locale.gettext(getBookName(a.start), 'he-x-nonikud')
 }

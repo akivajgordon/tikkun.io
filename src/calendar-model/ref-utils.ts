@@ -14,8 +14,12 @@ export function isSameRun(existing: LeiningAliyah, next: LeiningAliyah) {
   return Math.abs(nextLocation.pageNumber - existingLocation.pageNumber) < 3
 }
 
-/** Checks whether a run or single עלייה contains a פסוק. */
-export function containsRef(o: LeiningAliyah | LeiningRun, ref: Ref): boolean {
+/** Checks whether a run or single עלייה contains a פסוק, or any פסוק in an array. */
+export function containsRef(
+  o: LeiningAliyah | LeiningRun,
+  ref: Ref | Ref[]
+): boolean {
+  if (Array.isArray(ref)) return ref.some((r) => containsRef(o, r))
   if (isRun(o)) return o.aliyot.some((a) => containsRef(a, ref))
   return compareRefs(o.start, ref) <= 0 && compareRefs(o.end, ref) >= 0
 }

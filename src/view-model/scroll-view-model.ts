@@ -1,7 +1,11 @@
 import { LineType } from '../components/Page.ts'
 import { Ref, RefWithScroll } from '../ref.ts'
 import { LeiningGenerator } from '../calendar-model/generator.ts'
-import { LeiningRun, LeiningRunType } from '../calendar-model/model-types.ts'
+import {
+  LeiningAliyah,
+  LeiningRun,
+  LeiningRunType,
+} from '../calendar-model/model-types.ts'
 import IntegerIterator from '../integer-iterator.ts'
 import { getPageCount, physicalLocationFromRef } from '../location.ts'
 import { HDate } from '@hebcal/core'
@@ -20,6 +24,7 @@ export interface RenderedPageInfo {
    * TODO(haftara): What about pages of נביא outside a הפטרה?
    * This will be unset for a תענית ציבור, which can contain an entire
    * page that is between runs.
+   * TODO: This should probably be deleted.
    */
   run?: LeiningRun
 }
@@ -57,10 +62,20 @@ export interface RenderedLineInfo {
   labels: string[]
   /**
    * The LeiningRun containing the first פסוק that begins in this line.
-   * May be null for lines that are entirely contained within a פסוק.
+   * May be null for the first lines on a page, if they are part of the
+   * last פסוק from the previous page.
+   * Will also be null for פסוקים that are outside the run (this cannot
+   * happen when rendering all of  חומש).
+   *
    * This is used to render the header UI as the user scrolls.
    */
   run?: LeiningRun
+  /**
+   * The עליות that contain this line.
+   * This will be empty iff `run` is unset, following the same rules.
+   * This can have multiple elements for מפטיר and חול המועד סוכות.
+   */
+  aliyot: LeiningAliyah[]
 }
 
 /** Tracks scrolling through a single "view" of a scroll, associated with one or more LeiningRuns. */
@@ -169,22 +184,38 @@ export abstract class ScrollViewModel {
     ).default
 
     let run: LeiningRun | undefined
+    let aliyot: LeiningAliyah[] = []
     const labeller = new AliyahLabeller()
     const lines: RenderedLineInfo[] = page.map((rawLine) => {
       const verses = rawLine.verses.map(toRef)
 
-      // TODO(later): Optimize this slow search?
-      if (verses.length && (!run || !containsRef(run, verses[0])))
-        run = this.relevantRuns.find((run) => containsRef(run, verses[0]))
+      if (verses.length) [run, aliyot] = this.findContainingAliyot(verses, run)
 
       return {
         ...rawLine,
         verses,
         run,
+        aliyot,
         labels: labeller.getLabelsForLine(run, verses),
       }
     })
     return { type: 'page', lines, run: lines.find((o) => o.run)?.run }
+  }
+
+  private findContainingAliyot(
+    verses: Ref[],
+    candidateRun?: LeiningRun
+  ): [LeiningRun | undefined, LeiningAliyah[]] {
+    if (candidateRun) {
+      const aliyot = candidateRun.aliyot.filter((a) => containsRef(a, verses))
+      if (aliyot.length) return [candidateRun, aliyot]
+    }
+    // TODO(later): Try the next run first?
+    for (const run of this.relevantRuns) {
+      const aliyot = run.aliyot.filter((a) => containsRef(a, verses))
+      if (aliyot.length) return [run, aliyot]
+    }
+    return [undefined, []]
   }
 }
 

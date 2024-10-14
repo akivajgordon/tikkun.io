@@ -101,19 +101,31 @@ test('includes context in בראשית', async (t) => {
   const runId = '2024-10-26:shacharis,main'
   const model = ScrollViewModel.forId(generator, runId)
   // This is rendering src/data/pages/torah/1.json.
-  const pages = await fetchPages(model, { fetchPreviousPages: false, count: 2 })
+  const pages = await fetchPages(model, { fetchPreviousPages: false, count: 6 })
   if (pages?.[0].type !== 'page') throw new Error('First page should be a page')
 
   // First line begins a פסוק and עלייה.
   t.deepEqual(dumpContext(t, pages[0].lines[0]), runId)
-  // First line begins a פסוק but not an עלייה.
+  t.deepEqual(dumpAliyot(pages[0].lines[0]), [1])
+  // Second line begins a פסוק but not an עלייה.
   t.deepEqual(dumpContext(t, pages[0].lines[1]), runId)
+  t.deepEqual(dumpAliyot(pages[0].lines[1]), [1])
 
   // This line is entirely within a פסוק.
   t.deepEqual(pages[0].lines[5].verses, [])
   t.deepEqual(dumpContext(t, pages[0].lines[5]), runId)
+  t.deepEqual(dumpAliyot(pages[0].lines[5]), [1])
 
-  // TODO: Test מפטיר
+  // This is rendering src/data/pages/torah/6.json.
+  const maftir = pages[5]
+  for (const line of getLinesInRange(maftir, { first: '5:25', until: '6:5' })) {
+    t.deepEqual(dumpContext(t, line), runId, renderLine(line))
+    t.deepEqual(dumpAliyot(line), [7], renderLine(line))
+  }
+  for (const line of getLinesInRange(maftir, { first: '6:5', until: '6:9' })) {
+    t.deepEqual(dumpContext(t, line), runId, renderLine(line))
+    t.deepEqual(dumpAliyot(line), [7, 'Maftir'], renderLine(line))
+  }
 })
 
 test('includes context in ראש השנה', async (t) => {
@@ -210,6 +222,10 @@ test('includes context in תענית ציבור', async (t) => {
   }
 })
 
+function dumpAliyot(line: RenderedLineInfo) {
+  return line.aliyot.map((a) => a.index)
+}
+
 function dumpContext(t: ExecutionContext, line: RenderedLineInfo) {
   if (!line.run) return null
   if (line.verses.length) {
@@ -217,6 +233,8 @@ function dumpContext(t: ExecutionContext, line: RenderedLineInfo) {
       line.verses.some((v) => containsRef(line.run!, v)),
       `Line "${renderLine(line)} is not in run "${line.run!.id}"`
     )
+    t.notDeepEqual(line.aliyot, [])
+    t.true(line.aliyot.every((a) => containsRef(a, line.verses)))
   }
 
   // TODO: Include and check aliyot

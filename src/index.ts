@@ -46,7 +46,8 @@ const renderTitle = ({ title }: { title: string }) => {
 const renderPageNode = (page: RenderedPageInfo) => {
   const node = document.createElement('div')
   node.classList.add('tikkun-page')
-  node.setAttribute('data-page-title', page.run.leining.date.title)
+  if (page.run)
+    node.setAttribute('data-page-title', page.run.leining.date.title)
   // TODO: Confirm safe to delete
   // node.setAttribute('data-page-number', pageNumber.toString(10))
   const el = htmlToElement(Page(page))

@@ -116,7 +116,7 @@ export abstract class ScrollViewModel {
   /** Creates the appropriate `ScrollViewModel` subclass for the first leining on or after a date. */
   static forDate(generator: LeiningGenerator, date: Date) {
     // Collect all main leinings in the year containing the date.
-    const allDates = generator.forHebrewYear(new HDate(date).getFullYear())
+    const allDates = generator.aroundDate(date)
     const targetDate = allDates.find((d) => d.date >= date) ?? last(allDates)
     return ScrollViewModel.forId(generator, targetDate.leinings[0].runs[0].id)
   }

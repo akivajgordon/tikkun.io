@@ -42,6 +42,8 @@ export const physicalLocationFromRef = ({
   v: verse,
   scroll,
 }: RefWithScroll) => {
+  if (!tocFromScroll[scroll]?.[book])
+    throw new Error(`Unknown book ${scroll} #${book}`)
   const { p: pageNumber, l: lineNumber } =
     tocFromScroll[scroll][book][chapter][verse]
   return { pageNumber, lineNumber }

@@ -1,4 +1,4 @@
-# Snapshot report for `src/calendar-model/aliyah-labeller.test.ts`
+# Snapshot report for `src/view-model/aliyah-labeller.test.ts`
 
 The actual snapshot is saved in `aliyah-labeller.test.ts.snap`.
 

@@ -1,4 +1,4 @@
-# Snapshot report for `src/calendar-model/scroll-view-model.test.ts`
+# Snapshot report for `src/view-model/scroll-view-model.test.ts`
 
 The actual snapshot is saved in `scroll-view-model.test.ts.snap`.
 

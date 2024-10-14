@@ -1,8 +1,14 @@
-import test from 'ava'
+import test, { ExecutionContext } from 'ava'
 import { LeiningGenerator } from '../calendar-model/generator.ts'
 import { UserSettings } from '../calendar-model/user-settings.ts'
-import { RenderedEntry, ScrollViewModel } from './scroll-view-model.ts'
+import {
+  RenderedEntry,
+  RenderedLineInfo,
+  ScrollViewModel,
+} from './scroll-view-model.ts'
+import { last } from '../calendar-model/utils.ts'
 import { renderLine } from './test-utils.ts'
+import { containsRef } from '../calendar-model/ref-utils.ts'
 
 const testSettings: UserSettings = {
   ashkenazi: true,
@@ -91,20 +97,192 @@ test('forDate before סוכות', async (t) => {
   )
 })
 
-/** Renders enough properties of a scroll to make `deepEqual()` work with useful failures. */
-async function renderScroll(model: ScrollViewModel | null) {
-  if (!model) return model
+test('includes context in בראשית', async (t) => {
+  const runId = '2024-10-26:shacharis,main'
+  const model = ScrollViewModel.forId(generator, runId)
+  // This is rendering src/data/pages/torah/1.json.
+  const pages = await fetchPages(model, { fetchPreviousPages: false, count: 2 })
+  if (pages?.[0].type !== 'page') throw new Error('First page should be a page')
+
+  // First line begins a פסוק and עלייה.
+  t.deepEqual(dumpContext(t, pages[0].lines[0]), runId)
+  // First line begins a פסוק but not an עלייה.
+  t.deepEqual(dumpContext(t, pages[0].lines[1]), runId)
+
+  // This line is entirely within a פסוק.
+  t.deepEqual(pages[0].lines[5].verses, [])
+  t.deepEqual(dumpContext(t, pages[0].lines[5]), runId)
+
+  // TODO: Test מפטיר
+})
+
+test('includes context in ראש השנה', async (t) => {
+  let runId = '2024-10-03:shacharis,main'
+  const model = ScrollViewModel.forId(generator, runId)
+
+  // This is rendering src/data/pages/torah/20.json.
+  const pages = await fetchPages(model, { fetchPreviousPages: false, count: 9 })
+
+  getLinesInRange(pages[0], {
+    first: null,
+    until: '21:1',
+  }).forEach(assertNoRun)
+  getLinesInRange(pages[0], {
+    first: '21:1',
+    until: null,
+  }).forEach(assertLineInRun)
+
+  if (pages[1].type !== 'page') throw new Error('Second page should be a page')
+  pages[1].lines.forEach(assertLineInRun)
+
+  getLinesInRange(pages[2], {
+    first: null,
+    until: '22:1',
+  }).forEach(assertLineInRun)
+  getLinesInRange(pages[2], {
+    first: '22:1',
+    until: null,
+  }).forEach(assertNoRun)
+
+  // Set the variable used by assertLineInRun().
+  runId = '2024-10-03:shacharis,maftir'
+  const maftirPage = last(pages)
+
+  getLinesInRange(maftirPage, {
+    first: null,
+    until: '29:1',
+  }).forEach(assertNoRun)
+  getLinesInRange(maftirPage, {
+    first: '29:1',
+    until: '29:7',
+  }).forEach(assertLineInRun)
+  getLinesInRange(maftirPage, {
+    first: '29:7',
+    until: null,
+  }).forEach(assertNoRun)
+
+  function assertLineInRun(line: RenderedLineInfo) {
+    t.deepEqual(dumpContext(t, line), runId, renderLine(line))
+  }
+  function assertNoRun(line: RenderedLineInfo) {
+    t.falsy(line.run, renderLine(line))
+  }
+})
+
+test('includes context in תענית ציבור', async (t) => {
+  const runId = '2024-10-06:shacharis,main'
+  const model = ScrollViewModel.forId(generator, runId)
+
+  // This is rendering src/data/pages/torah/99.json.
+  const pages = await fetchPages(model, { fetchPreviousPages: false, count: 9 })
+  t.is(pages.length, 3)
+
+  getLinesInRange(pages[0], {
+    first: null,
+    until: '32:11',
+  }).forEach(assertNoRun)
+  getLinesInRange(pages[0], {
+    first: '32:11',
+    until: '32:15',
+  }).forEach(assertLineInRun)
+  getLinesInRange(pages[0], {
+    first: '32:15',
+    until: null,
+  }).forEach(assertNoRun)
+
+  if (pages[1].type !== 'page') throw new Error('Second page should be a page')
+  pages[1].lines.forEach(assertNoRun)
+
+  getLinesInRange(pages[2], {
+    first: null,
+    until: '34:1',
+  }).forEach(assertNoRun)
+  getLinesInRange(pages[2], {
+    first: '34:1',
+    until: null, // The last עלייה ends at the end of the page.
+  }).forEach(assertLineInRun)
+
+  function assertLineInRun(line: RenderedLineInfo) {
+    t.deepEqual(dumpContext(t, line), runId, renderLine(line))
+  }
+  function assertNoRun(line: RenderedLineInfo) {
+    t.falsy(line.run, renderLine(line))
+  }
+})
+
+function dumpContext(t: ExecutionContext, line: RenderedLineInfo) {
+  if (!line.run) return null
+  if (line.verses.length) {
+    t.true(
+      line.verses.some((v) => containsRef(line.run!, v)),
+      `Line "${renderLine(line)} is not in run "${line.run!.id}"`
+    )
+  }
+
+  // TODO: Include and check aliyot
+  return line.run.id
+}
+
+/**
+ * Gets all lines between the line at which the first פסוק begins
+ * and the line at which the last פסוק begins.  This includes the
+ * line that begins the first פסוק, and will NOT include the line
+ * that begins the `until` פסוק.
+ *
+ * Pass null to include all lines from/until the top/bottom of the
+ * page.
+ */
+function getLinesInRange(
+  page: RenderedEntry,
+  range: { first: string | null; until: string | null }
+): RenderedLineInfo[] {
+  if (page.type !== 'page')
+    throw new Error(`Cannot get lines from message ${page.text}`)
+  const first = range.first?.split(':').map(Number)
+  const until = range.until?.split(':').map(Number)
+  if (!first && !until) throw new Error('Please pass a range')
+
+  const results: RenderedLineInfo[] = []
+  let foundFirst = !first
+  for (const line of page.lines) {
+    if (!foundFirst && lineContains(line, first)) foundFirst = true
+
+    if (!foundFirst) continue
+
+    if (lineContains(line, until)) break
+    results.push(line)
+  }
+  if (!results.length) throw new Error('Found no lines')
+  return results
+}
+
+function lineContains(line: RenderedLineInfo, range: number[] | undefined) {
+  if (!range) return false
+  return line.verses.some(({ c, v }) => c === range[0] && v === range[1])
+}
+
+async function fetchPages(
+  model: ScrollViewModel | null,
+  { count, fetchPreviousPages }: { count: number; fetchPreviousPages: boolean }
+): Promise<RenderedEntry[]> {
+  if (!model) throw new Error('No model')
   const pages: RenderedEntry[] = [(await model.startingLocation).page]
 
-  // Render 5 pages on each side of the start.
-  for (let i = 0; i < 5; i++) {
+  if (fetchPreviousPages) count /= 2
+  for (let i = 0; i < count; i++) {
     const previousPage = await model.fetchPreviousPage()
     if (previousPage) pages.unshift(previousPage)
     const nextPage = await model.fetchNextPage()
     if (nextPage) pages.push(nextPage)
   }
+  return pages
+}
 
-  return pages.map((e) => {
+/** Renders enough properties of a scroll to make `deepEqual()` work with useful failures. */
+async function renderScroll(model: ScrollViewModel | null) {
+  return (
+    await fetchPages(model, { count: 10, fetchPreviousPages: true })
+  )?.map((e) => {
     if (e.type === 'message') return e.text
     return renderLine(e.lines[0])
   })

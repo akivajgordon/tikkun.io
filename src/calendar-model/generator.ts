@@ -1,4 +1,11 @@
-import { CalOptions, flags, HDate, HebrewCalendar, Locale } from '@hebcal/core'
+import {
+  CalOptions,
+  flags,
+  HDate,
+  HebrewCalendar,
+  Locale,
+  months,
+} from '@hebcal/core'
 import {
   LeiningAliyah,
   LeiningDate,
@@ -62,6 +69,26 @@ export class LeiningGenerator {
   /** Creates all leinings in a Hebrew year. */
   forHebrewYear(year: number): LeiningDate[] {
     return this.generateCalendar({ year, isHebrewYear: true, numYears: 1 })
+  }
+
+  /** Creates all leinings, from בראשית until שמחת תורה, containing a date. */
+  forEntireChumash(containing: HDate): LeiningDate[] {
+    const endDay = this.settings.israel ? 22 : 23
+    let end = new HDate(endDay, months.TISHREI, containing.getFullYear())
+
+    // If the user's date is after שמחת תורה, add one year.
+    if (end.greg() <= containing.greg())
+      end = new HDate(endDay, months.TISHREI, 1 + containing.getFullYear())
+
+    // Get בראשית from the previous year.
+    const parshaFinder = HebrewCalendar.getSedra(
+      end.getFullYear() - 1,
+      this.settings.israel
+    )
+    return this.generateCalendar({
+      start: parshaFinder.find('Bereshit')!,
+      end,
+    })
   }
 
   // TODO: Add option for בראשית - וזאת הברכה to include וילך in 5785

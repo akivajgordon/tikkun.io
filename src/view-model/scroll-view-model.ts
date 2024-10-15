@@ -252,12 +252,16 @@ class FullScrollViewModel extends ScrollViewModel {
     if (run.scroll !== 'torah') return [run]
     const hdate = new HDate(run.leining.date.date)
     return generator
-      .forHebrewYear(hdate.getFullYear())
+      .forEntireChumash(hdate)
       .flatMap((d) => d.leinings)
-      .filter((i) => i.isParsha)
+      .filter((i) => i.isParsha || i.runs.some(isVezosHabracha))
       .flatMap((i) => i.runs)
       .filter((r) => r.scroll === run.scroll)
   }
+}
+
+function isVezosHabracha(r: LeiningRun): boolean {
+  return r.aliyot[0]?.start.b === 5 && r.aliyot[0]?.start.c === 33
 }
 
 /** The type passed from derived classes to `fetchPage()`. */

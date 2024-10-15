@@ -6,6 +6,7 @@ import { LeiningAliyah, LeiningDate, LeiningRun } from './model-types.ts'
 import hebrewNumeralFromInteger from '../hebrew-numeral.ts'
 import { Ref } from '../ref.ts'
 import { getBookName } from './hebcal-conversions.ts'
+import { last } from './utils.ts'
 
 const testSettings: UserSettings = {
   ashkenazi: true,
@@ -35,6 +36,32 @@ for (let year = 5780; year < 5790; year++) {
       })
   })
 }
+
+const testForEntireChumash = test.macro({
+  async exec(t, date: HDate) {
+    const dates = generator.forEntireChumash(date)
+    t.is(dates[0].title, 'פרשת בראשית')
+    t.is(last(dates).title, 'שמחת תורה')
+    t.true(
+      dates.some((d) => d.date.toDateString() === date.greg().toDateString())
+    )
+  },
+  title(providedTitle, date) {
+    return `forEntireChumash returns everything from בראשית to שמחת תורה ${providedTitle} on ${date}`
+  },
+})
+
+test('before סוכות', testForEntireChumash, new HDate(1, months.TISHREI, 5785))
+test(
+  'on פרשת בראשית',
+  testForEntireChumash,
+  new HDate(24, months.TISHREI, 5785)
+)
+test(
+  'after פרשת בראשית',
+  testForEntireChumash,
+  new HDate(30, months.TISHREI, 5785)
+)
 
 test('generates יום כיפור', (t) => {
   t.snapshot(

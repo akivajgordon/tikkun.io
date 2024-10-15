@@ -97,6 +97,35 @@ test('forDate before סוכות', async (t) => {
   )
 })
 
+test('assigns a run and aliyah to every verse in full torah', async (t) => {
+  // Start from a random regular פרשה, in a Hebrew calendar year that does
+  // not contain וילך.
+  const model = ScrollViewModel.forId(generator, '2025-05-24:shacharis,main')
+
+  const pages = await fetchPages(model, {
+    fetchPreviousPages: false,
+    count: 500,
+  })
+
+  for (const page of pages) {
+    if (page.type !== 'page')
+      throw new Error(`Unexpected message "${page.text}" in plain חומש`)
+    for (const line of page.lines) {
+      // Lines that continue the previous page's פסוק are unlabelled.
+      // This is fine.
+      if (!line.verses.length) continue
+      const message = renderLine(line)
+      t.truthy(line.run, message)
+      t.notDeepEqual(line.aliyot, [], message)
+      t.truthy(
+        line.aliyot.every((a) => containsRef(a, line.verses)),
+        `Aliyot ${dumpAliyot(line)} don't match line ${message}`
+      )
+      t.truthy(line.aliyot.every((a) => line.run?.aliyot.includes(a)))
+    }
+  }
+})
+
 test('includes context in בראשית', async (t) => {
   const runId = '2024-10-26:shacharis,main'
   const model = ScrollViewModel.forId(generator, runId)

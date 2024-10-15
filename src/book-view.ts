@@ -1,7 +1,8 @@
 import { EventEmitter } from './event-emitter.ts'
+import { RenderedLineInfo } from './view-model/scroll-view-model.ts'
 
 type BookViewEvents = {
-  'page-updated': Page
+  'viewport-updated': RenderedLineInfo[]
 }
 
 export class BookView extends EventEmitter<BookViewEvents> {
@@ -18,7 +19,7 @@ export class BookView extends EventEmitter<BookViewEvents> {
       'scroll',
       throttle(() => {
         this.updateCurrentPage()
-      }, 300),
+      }, 300)
     )
   }
 
@@ -51,7 +52,7 @@ export class BookView extends EventEmitter<BookViewEvents> {
           rect.top < centerOfBookRelativeToViewport.y &&
           rect.bottom > centerOfBookRelativeToViewport.y
         )
-      },
+      }
     )
 
     return pageAtCenter
@@ -78,19 +79,14 @@ class Page {
     return this.id === other.id
   }
 }
-
-type ThrottledFunction<T extends (...args: unknown[]) => unknown> = (
-  ...args: Parameters<T>
-) => ReturnType<T>
-
-function throttle<T extends (...args: unknown[]) => unknown>(
-  func: T,
-  limit: number,
-): ThrottledFunction<T> {
+function throttle<TReturn, TArgs extends unknown[]>(
+  func: (...args: TArgs) => TReturn,
+  limit: number
+): (...args: TArgs) => TReturn {
   let inThrottle: boolean
-  let lastResult: ReturnType<T>
+  let lastResult: TReturn
 
-  return function (this: unknown, ...args): ReturnType<T> {
+  return function (this: unknown, ...args): TReturn {
     if (!inThrottle) {
       inThrottle = true
 

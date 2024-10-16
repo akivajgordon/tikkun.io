@@ -10,7 +10,7 @@ export default {
       },
       next: () => {
         nextCount += 1
-        return startingAt + nextCount - 1
+        return startingAt + nextCount
       },
     }
   },

@@ -1,19 +1,24 @@
 import '/css/master.css'
 import InfiniteScroller from './infinite-scroller.ts'
 import urlToRef from './url-to-ref.ts'
-import scrollsByKey, { ScrollType } from './scrolls-by-key.ts'
-import Page, { LineType } from './components/Page.ts'
+import Page from './components/Page.ts'
 import ParshaPicker from './components/ParshaPicker.ts'
 import utils from './components/utils.ts'
 import scheduleFetcher from './schedule.ts'
-import { RefWithScroll } from './ref.ts'
 import { BookView } from './book-view.ts'
 import { PageDisplay } from './page-display.ts'
+import {
+  RenderedEntry,
+  RenderedMessageInfo,
+  RenderedPageInfo,
+  ScrollViewModel,
+} from './view-model/scroll-view-model.ts'
+import { LeiningGenerator } from './calendar-model/generator.ts'
 
 declare function gtag(
   name: 'event',
   label: string,
-  payload: Record<string, unknown>,
+  payload: Record<string, unknown>
 ): void
 
 const { htmlToElement, whenKey, purgeNode } = utils
@@ -26,24 +31,40 @@ const insertAfter = (parent: Element, child: Element) => {
   parent.insertAdjacentElement('beforeend', child)
 }
 
-let scroll: ScrollType
+// TODO(later): Add settings UI
+const generator = new LeiningGenerator({
+  ashkenazi: true,
+  includeModernHolidays: false,
+  israel: true,
+})
+let viewModel: ScrollViewModel
 
 const renderTitle = ({ title }: { title: string }) => {
   document.querySelector('[data-target-id="parsha-title"]').innerHTML = title
 }
 
-const makePageNode = ({
-  title,
-  pageNumber,
-}: {
-  title: string
-  pageNumber: number
-}) => {
+const renderPageNode = (page: RenderedPageInfo) => {
   const node = document.createElement('div')
   node.classList.add('tikkun-page')
-  node.setAttribute('data-page-title', title)
-  node.setAttribute('data-page-number', pageNumber.toString(10))
+  if (page.run)
+    node.setAttribute('data-page-title', page.run.leining.date.title)
+  // TODO: Confirm safe to delete
+  // node.setAttribute('data-page-number', pageNumber.toString(10))
+  const el = htmlToElement(Page(page))
 
+  node.appendChild(el)
+
+  setTimeout(updatePageTitle, 0)
+
+  return node
+}
+function renderMessageNode(entry: RenderedMessageInfo) {
+  const node = document.createElement('div')
+  node.classList.add('tikkun-message')
+  const span = document.createElement('span')
+  span.classList.add('tikkun-message-text')
+  node.appendChild(span)
+  span.textContent = entry.text
   return node
 }
 
@@ -55,17 +76,16 @@ const scrollTo = ({ element }: { element: HTMLElement }) => {
 }
 
 const app = {
-  jumpTo: ({ ref }: { ref: RefWithScroll }) => {
-    scroll = scrollsByKey[ref.scroll].new({ startingAtRef: ref })
+  jumpTo: (target: ScrollViewModel) => {
+    viewModel = target
 
     purgeNode(document.querySelector('[data-target-id="tikkun-book"]'))
 
-    scroll
-      .fetchNext()
-      .then(renderNext)
-      .then((pageNode) => {
+    viewModel.startingLocation
+      .then(async ({ page, lineNumber }) => {
+        const pageNode = await renderNext(page)
         const lines = [...pageNode.querySelectorAll<HTMLElement>('.line')]
-        const lineIndex = scroll.startingLineNumber - 1
+        const lineIndex = lineNumber - 1
 
         const line = lines[lineIndex]
 
@@ -102,7 +122,7 @@ const showParshaPicker = () => {
   ].forEach(({ selector, visible }) => setVisibility({ selector, visible }))
 
   const jumper = ParshaPicker(({ ref, key, source }) => {
-    app.jumpTo({ ref })
+    app.jumpTo(ScrollViewModel.forRef(generator, ref))
 
     const { scroll } = ref
 
@@ -150,7 +170,7 @@ const toggleParshaPicker = () => {
 
 const toggleAnnotations = (getPreviousCheckedState: () => boolean) => {
   const toggle = document.querySelector<HTMLInputElement>(
-    '[data-target-id="annotations-toggle"]',
+    '[data-target-id="annotations-toggle"]'
   )
 
   toggle.checked = !getPreviousCheckedState()
@@ -188,7 +208,7 @@ const rememberLastScrolledPosition = () => {
   const pageAtTop = [
     ...(document.elementsFromPoint(
       topOfBookRelativeToViewport.x,
-      topOfBookRelativeToViewport.y,
+      topOfBookRelativeToViewport.y
     ) as HTMLElement[]),
   ].find((el) => el.className.includes('tikkun-page'))
 
@@ -212,12 +232,13 @@ const updatePageTitle = () => {
   const pageAtCenter = [
     ...document.elementsFromPoint(
       centerOfBookRelativeToViewport.x,
-      centerOfBookRelativeToViewport.y,
+      centerOfBookRelativeToViewport.y
     ),
   ].find((el) => el.className.includes('tikkun-page'))
 
   if (!pageAtCenter) return
 
+  // TODO: Update new navigation UI instead
   renderTitle({ title: pageAtCenter.getAttribute('data-page-title') })
 }
 
@@ -227,45 +248,23 @@ const renderPage =
   }: {
     insertStrategy: (parent: Element, child: Element) => void
   }) =>
-  ({
-    content,
-    title,
-    pageNumber,
-  }: {
-    content: LineType[]
-    title: string
-    pageNumber: number
-  }) => {
-    const node = makePageNode({ title, pageNumber })
-
-    insert(document.querySelector('[data-target-id="tikkun-book"]'), node)
-
-    const el = htmlToElement(Page({ scroll, lines: content }))
-
-    const firstChild = node.firstChild
-    if (firstChild) {
-      node.replaceChild(el, firstChild)
+  (entry: RenderedEntry) => {
+    let node: Element
+    if (entry.type === 'message') {
+      node = renderMessageNode(entry)
     } else {
-      node.appendChild(el)
+      node = renderPageNode(entry)
     }
-
-    setTimeout(updatePageTitle, 0)
-
-    debug(`Rendering ${pageNumber}`)
+    insert(document.querySelector('[data-target-id="tikkun-book"]'), node)
 
     return node
   }
-
-const debug = (str: string) => {
-  const container = document.querySelector('#debug')
-  container.innerHTML = str
-}
 
 const renderPrevious = renderPage({ insertStrategy: insertBefore })
 const renderNext = renderPage({ insertStrategy: insertAfter })
 
 const debounce = (callback: () => void, delay: number) => {
-  let timeout: number
+  let timeout: ReturnType<typeof setTimeout>
   return () => {
     clearTimeout(timeout)
     timeout = setTimeout(() => {
@@ -300,7 +299,7 @@ const listenForRevealGesture = (book: HTMLElement) => {
 
     book.style.setProperty(
       '--pull-translation',
-      `${PULL_THRESHOLD - pullDistance}px`,
+      `${PULL_THRESHOLD - pullDistance}px`
     )
   })
 
@@ -315,7 +314,7 @@ const setAppHeight = () => {
   // especially on mobile browsers
   document.documentElement.style.setProperty(
     '--app-height',
-    `${window.innerHeight}px`,
+    `${window.innerHeight}px`
   )
 }
 
@@ -323,18 +322,18 @@ document.addEventListener('resize', setAppHeight)
 
 document.addEventListener('DOMContentLoaded', async () => {
   const parshaTitle = document.querySelector<HTMLElement>(
-    '[data-target-id="parsha-title"]',
+    '[data-target-id="parsha-title"]'
   )
 
   const book = document.querySelector<HTMLElement>(
-    '[data-target-id="tikkun-book"]',
+    '[data-target-id="tikkun-book"]'
   )
 
   const bookView = new BookView(book)
   new PageDisplay(parshaTitle, bookView)
 
   const toggle = document.querySelector<HTMLInputElement>(
-    '[data-target-id="annotations-toggle"]',
+    '[data-target-id="annotations-toggle"]'
   )
 
   book.addEventListener('mouseover', (e) => {
@@ -344,27 +343,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log(line)
   })
 
-  document.addEventListener(
-    'keydown',
-    whenKey('!', () => {
-      document.querySelector('#debug').classList.toggle('u-hidden')
-    }),
-  )
-
   InfiniteScroller.new({
     container: book,
     fetchPreviousContent: {
-      fetch: () => scroll.fetchPrevious(),
+      fetch: () => viewModel.fetchPreviousPage(),
       render: renderPrevious,
     },
-    fetchNextContent: { fetch: () => scroll.fetchNext(), render: renderNext },
+    fetchNextContent: {
+      fetch: () => viewModel.fetchNextPage(),
+      render: renderNext,
+    },
   }).attach()
 
   book.addEventListener(
     'scroll',
     debounce(() => {
       rememberLastScrolledPosition()
-    }, 1000),
+    }, 1000)
   )
 
   listenForRevealGesture(book)
@@ -376,16 +371,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   // watchForHighlighting()
 
   toggle.addEventListener('change', () =>
-    toggleAnnotations(() => !toggle.checked),
+    toggleAnnotations(() => !toggle.checked)
   )
 
   document.addEventListener(
     'keydown',
-    whenKey('Shift', () => toggleAnnotations(() => toggle.checked)),
+    whenKey('Shift', () => toggleAnnotations(() => toggle.checked))
   )
   document.addEventListener(
     'keyup',
-    whenKey('Shift', () => toggleAnnotations(() => toggle.checked)),
+    whenKey('Shift', () => toggleAnnotations(() => toggle.checked))
   )
 
   document
@@ -400,15 +395,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         e.preventDefault()
         hideParshaPicker()
       }
-    }),
+    })
   )
 
-  const startingRef = await urlToRef({
+  // TODO: Rewrite this logic to parse new and old URLs.
+  await urlToRef({
     url: window.location.href,
     scheduleFetcher,
   })
 
   setAppHeight()
 
-  app.jumpTo({ ref: startingRef })
+  app.jumpTo(ScrollViewModel.forDate(generator, new Date()))
 })

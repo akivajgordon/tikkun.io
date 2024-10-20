@@ -1,12 +1,12 @@
 import test from 'ava'
 import { UserSettings } from './user-settings.ts'
 import { LeiningGenerator } from './generator.ts'
-import { HDate, Locale, months } from '@hebcal/core'
+import { flags, HDate, HebrewCalendar, Locale, months } from '@hebcal/core'
 import { LeiningAliyah, LeiningDate, LeiningRun } from './model-types.ts'
 import hebrewNumeralFromInteger from '../hebrew-numeral.ts'
 import { Ref } from '../ref.ts'
 import { getBookName } from './hebcal-conversions.ts'
-import { last } from './utils.ts'
+import { last, toISODateString } from './utils.ts'
 
 const testSettings: UserSettings = {
   ashkenazi: true,
@@ -36,6 +36,29 @@ for (let year = 5780; year < 5790; year++) {
       })
   })
 }
+
+const fourParshaDescriptions = [
+  'Shabbat Shekalim',
+  'Shabbat Zachor',
+  'Shabbat Parah',
+  'Shabbat HaChodesh',
+]
+test('4 פרשיות always get separate runs', (t) => {
+  for (const d of HebrewCalendar.calendar({
+    year: 5785,
+    numYears: 20,
+    isHebrewYear: true,
+    mask: flags.SPECIAL_SHABBAT,
+  })) {
+    if (!fourParshaDescriptions.includes(d.desc)) continue
+    const isRoshChodesh = [1, 30].includes(d.date.getDate())
+    const run = generator.parseId(
+      `${toISODateString(d.date.greg())}:shacharis,maftir`
+    )
+    t.true(run?.leining.isParsha)
+    t.is(run?.leining.runs.length, isRoshChodesh ? 4 : 3, run?.id)
+  }
+})
 
 const testForEntireChumash = test.macro({
   async exec(t, date: HDate) {

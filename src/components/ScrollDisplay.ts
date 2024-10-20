@@ -16,11 +16,9 @@ const { htmlToElement, purgeNode } = utils
  */
 export class ScrollDisplay {
   /** Renders an entry (from the view model) to the top of the scroll. */
-  readonly renderPrevious = this.generateRender({
-    insertStrategy: insertBefore,
-  })
+  readonly renderPrevious = this.generateRender('afterbegin')
   /** Renders an entry (from the view model) to the bottom of the scroll. */
-  readonly renderNext = this.generateRender({ insertStrategy: insertAfter })
+  readonly renderNext = this.generateRender('beforeend')
 
   // TODO(later): Remove after rewriting picker?
   readonly rendered: Promise<void>
@@ -50,11 +48,7 @@ export class ScrollDisplay {
       element.offsetTop + element.offsetHeight / 2 - this.root.offsetHeight / 2
   }
 
-  private generateRender({
-    insertStrategy: insert,
-  }: {
-    insertStrategy: (parent: Element, child: Element) => void
-  }) {
+  private generateRender(insertPosition: InsertPosition) {
     return (entry: RenderedEntry) => {
       let node: Element
       if (entry.type === 'message') {
@@ -62,7 +56,7 @@ export class ScrollDisplay {
       } else {
         node = renderPageNode(entry)
       }
-      insert(this.root, node)
+      this.root.insertAdjacentElement(insertPosition, node)
 
       return node
     }
@@ -72,13 +66,8 @@ export class ScrollDisplay {
 function renderPageNode(page: RenderedPageInfo) {
   const node = document.createElement('div')
   node.classList.add('tikkun-page')
-  if (page.run)
-    node.setAttribute('data-page-title', page.run.leining.date.title)
-  // TODO: Confirm safe to delete
-  // node.setAttribute('data-page-number', pageNumber.toString(10))
-  const el = htmlToElement(Page(page))
 
-  node.appendChild(el)
+  node.appendChild(htmlToElement(Page(page)))
 
   return node
 }
@@ -86,17 +75,11 @@ function renderPageNode(page: RenderedPageInfo) {
 function renderMessageNode(entry: RenderedMessageInfo) {
   const node = document.createElement('div')
   node.classList.add('tikkun-message')
+
   const span = document.createElement('span')
   span.classList.add('tikkun-message-text')
-  node.appendChild(span)
   span.textContent = entry.text
+
+  node.appendChild(span)
   return node
-}
-
-const insertBefore = (parent: Element, child: Element) => {
-  parent.insertAdjacentElement('afterbegin', child)
-}
-
-const insertAfter = (parent: Element, child: Element) => {
-  parent.insertAdjacentElement('beforeend', child)
 }

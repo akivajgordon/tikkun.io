@@ -46,8 +46,8 @@ const setVisibility = ({
 }) => {
   const classList = document.querySelector(selector).classList
 
-  classList[visible ? 'remove' : 'add']('u-hidden')
-  classList[visible ? 'remove' : 'add']('mod-animated')
+  classList.toggle('u-hidden', !visible)
+  classList.toggle('mod-animated', !visible)
 }
 
 const showParshaPicker = () => {

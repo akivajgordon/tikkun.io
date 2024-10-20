@@ -2,7 +2,9 @@ const htmlToElement = (html: string) => {
   const template = document.createElement('template')
   html = html.trim() // Never return a text node of whitespace as the result
   template.innerHTML = html
-  return template.content.firstElementChild
+  if (template.content.childElementCount !== 1)
+    throw new Error('Should render exactly one node')
+  return template.content.firstElementChild!
 }
 
 type KeyType = string | { key: string; ctrl: boolean }

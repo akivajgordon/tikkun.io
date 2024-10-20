@@ -7,20 +7,20 @@ const oneAtATime = async (promise: () => Promise<unknown>) => {
   return val
 }
 
-type Fetcher = {
-  fetch: () => Promise<unknown>
-  render: (content: unknown) => void
+interface Fetcher<T> {
+  fetch: () => Promise<T>
+  render: (content: T) => void
 }
 
 const InfiniteScroller = {
-  new: ({
+  new: <T>({
     container,
     fetchPreviousContent,
     fetchNextContent,
   }: {
     container: HTMLElement
-    fetchPreviousContent: Fetcher
-    fetchNextContent: Fetcher
+    fetchPreviousContent: Fetcher<T>
+    fetchNextContent: Fetcher<T>
   }) => ({
     attach: () =>
       container.addEventListener('scroll', () => {
@@ -43,13 +43,13 @@ const InfiniteScroller = {
               fetchPreviousContent.render(fetched)
 
               scrollView.scrollTop = scrollView.scrollHeight - belowHeight
-            }),
+            })
           )
         } else if (hiddenBelowHeight < 0.5 * visibleHeight) {
           oneAtATime(() =>
             fetchNextContent.fetch().then((fetched) => {
               if (fetched) fetchNextContent.render(fetched)
-            }),
+            })
           )
         }
       }),

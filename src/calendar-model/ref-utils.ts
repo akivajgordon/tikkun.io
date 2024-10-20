@@ -1,17 +1,17 @@
-import { physicalLocationFromRef } from '../location.ts'
 import { Ref } from '../ref.ts'
+import { numVersesBetween } from './hebcal-conversions.ts'
 import { LeiningRun, LeiningAliyah } from './model-types.ts'
 
 /** Returns true if the next עלייה is far enough away to need a second ספר תורה. */
 export function isSameRun(existing: LeiningAliyah, next: LeiningAliyah) {
   if (existing.end.b !== next.start.b) return false
   // If they're in the same פרק, they're definitely close.
+  // This also covers rewinding one פסוק on ראש חודש.
   if (existing.end.c === next.start.c) return true
 
-  const existingLocation = physicalLocationFromRef(existing.end)
-  const nextLocation = physicalLocationFromRef(next.start)
-
-  return Math.abs(nextLocation.pageNumber - existingLocation.pageNumber) < 3
+  // Backwards jumps across a פרק are never in the same run.
+  if (existing.end.c > next.start.c) return false
+  return numVersesBetween(existing.end, next.start) < 50
 }
 
 /** Checks whether a run or single עלייה contains a פסוק, or any פסוק in an array. */

@@ -266,7 +266,6 @@ function dumpContext(t: ExecutionContext, line: RenderedLineInfo) {
     t.true(line.aliyot.every((a) => containsRef(a, line.verses)))
   }
 
-  // TODO: Include and check aliyot
   return line.run.id
 }
 

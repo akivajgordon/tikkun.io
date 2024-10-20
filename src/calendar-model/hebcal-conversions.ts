@@ -1,12 +1,12 @@
 /** @fileoverview Contains generic helpers to convert between @hebcal types and our model types. */
 
-import { Aliyah, calculateNumVerses } from '@hebcal/leyning'
+import { Aliyah, BOOK, calculateNumVerses } from '@hebcal/leyning'
 import { RefWithScroll, ScrollName } from '../ref.ts'
 import { LeiningAliyah } from './model-types.ts'
 
 /** Maps scrolls with multiple books to their book names as used in @hebcal. */
 const bookNames: Partial<Record<ScrollName, string[]>> = {
-  torah: ['', 'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'],
+  torah: BOOK,
   // TODO(haftara): Add Trei Asar, Shmuel, Melachim
   // TODO(haftara): Add any other differences between ScrollName and @hebcal's parameters.
 }
@@ -54,7 +54,7 @@ export function numVersesBetween(
 
   // Construct a fake Aliyah to pass to hebcal's utility function.
   const aliyah: Aliyah = {
-    b: `${start.v}:${start.c}`,
+    b: `${start.c}:${start.v}`,
     e: `${end.c}:${end.v}`,
     // If the book isn't in our map, convert our lowercase name to @hebcal's title-case name
     k: getBookName(start),

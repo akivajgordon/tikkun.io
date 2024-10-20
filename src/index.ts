@@ -1,17 +1,12 @@
 import '/css/master.css'
 import InfiniteScroller from './infinite-scroller.ts'
 import urlToRef from './url-to-ref.ts'
-import Page from './components/Page.ts'
 import ParshaPicker from './components/ParshaPicker.ts'
 import utils from './components/utils.ts'
 import scheduleFetcher from './schedule.ts'
-import {
-  RenderedEntry,
-  RenderedMessageInfo,
-  RenderedPageInfo,
-  ScrollViewModel,
-} from './view-model/scroll-view-model.ts'
+import { ScrollViewModel } from './view-model/scroll-view-model.ts'
 import { LeiningGenerator } from './calendar-model/generator.ts'
+import { ScrollDisplay } from './components/ScrollDisplay.ts'
 
 declare function gtag(
   name: 'event',
@@ -19,83 +14,26 @@ declare function gtag(
   payload: Record<string, unknown>
 ): void
 
-const { htmlToElement, whenKey, purgeNode } = utils
-
-const insertBefore = (parent: Element, child: Element) => {
-  parent.insertAdjacentElement('afterbegin', child)
-}
-
-const insertAfter = (parent: Element, child: Element) => {
-  parent.insertAdjacentElement('beforeend', child)
-}
+const { whenKey } = utils
 
 // TODO(later): Add settings UI
 const generator = new LeiningGenerator({
   ashkenazi: true,
   includeModernHolidays: false,
-  israel: true,
+  israel: false,
 })
-let viewModel: ScrollViewModel
-
-const renderTitle = ({ title }: { title: string }) => {
-  document.querySelector('[data-target-id="parsha-title"]').innerHTML = title
-}
-
-const renderPageNode = (page: RenderedPageInfo) => {
-  const node = document.createElement('div')
-  node.classList.add('tikkun-page')
-  if (page.run)
-    node.setAttribute('data-page-title', page.run.leining.date.title)
-  // TODO: Confirm safe to delete
-  // node.setAttribute('data-page-number', pageNumber.toString(10))
-  const el = htmlToElement(Page(page))
-
-  node.appendChild(el)
-
-  setTimeout(updatePageTitle, 0)
-
-  return node
-}
-function renderMessageNode(entry: RenderedMessageInfo) {
-  const node = document.createElement('div')
-  node.classList.add('tikkun-message')
-  const span = document.createElement('span')
-  span.classList.add('tikkun-message-text')
-  node.appendChild(span)
-  span.textContent = entry.text
-  return node
-}
-
-const scrollTo = ({ element }: { element: HTMLElement }) => {
-  const book = document.querySelector<HTMLElement>('.tikkun-book')
-
-  book.scrollTop =
-    element.offsetTop + element.offsetHeight / 2 - book.offsetHeight / 2
-}
+let display: ScrollDisplay
 
 const app = {
   jumpTo: (target: ScrollViewModel) => {
-    viewModel = target
+    display = new ScrollDisplay(
+      target,
+      document.querySelector('[data-target-id="tikkun-book"]')
+    )
 
-    purgeNode(document.querySelector('[data-target-id="tikkun-book"]'))
-
-    viewModel.startingLocation
-      .then(async ({ page, lineNumber }) => {
-        const pageNode = await renderNext(page)
-        const lines = [...pageNode.querySelectorAll<HTMLElement>('.line')]
-        const lineIndex = lineNumber - 1
-
-        const line = lines[lineIndex]
-
-        scrollTo({
-          element: line,
-        })
-      })
-      .then(() => {
-        hideParshaPicker()
-      })
-
-    return Promise.resolve()
+    display.rendered.then(() => {
+      hideParshaPicker()
+    })
   },
 }
 
@@ -217,50 +155,6 @@ const rememberLastScrolledPosition = () => {
     (book.scrollTop - pageAtTop.offsetTop) / pageAtTop.clientHeight
 }
 
-const updatePageTitle = () => {
-  const bookBoundingRect = document
-    .querySelector('.tikkun-book')
-    .getBoundingClientRect()
-
-  const centerOfBookRelativeToViewport = {
-    x: bookBoundingRect.left + bookBoundingRect.width / 2,
-    y: bookBoundingRect.top + bookBoundingRect.height / 2,
-  }
-
-  const pageAtCenter = [
-    ...document.elementsFromPoint(
-      centerOfBookRelativeToViewport.x,
-      centerOfBookRelativeToViewport.y
-    ),
-  ].find((el) => el.className.includes('tikkun-page'))
-
-  if (!pageAtCenter) return
-
-  // TODO: Update new navigation UI instead
-  renderTitle({ title: pageAtCenter.getAttribute('data-page-title') })
-}
-
-const renderPage =
-  ({
-    insertStrategy: insert,
-  }: {
-    insertStrategy: (parent: Element, child: Element) => void
-  }) =>
-  (entry: RenderedEntry) => {
-    let node: Element
-    if (entry.type === 'message') {
-      node = renderMessageNode(entry)
-    } else {
-      node = renderPageNode(entry)
-    }
-    insert(document.querySelector('[data-target-id="tikkun-book"]'), node)
-
-    return node
-  }
-
-const renderPrevious = renderPage({ insertStrategy: insertBefore })
-const renderNext = renderPage({ insertStrategy: insertAfter })
-
 const debounce = (callback: () => void, delay: number) => {
   let timeout: ReturnType<typeof setTimeout>
   return () => {
@@ -319,10 +213,6 @@ const setAppHeight = () => {
 document.addEventListener('resize', setAppHeight)
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const parshaTitle = document.querySelector<HTMLElement>(
-    '[data-target-id="parsha-title"]'
-  )
-
   const book = document.querySelector<HTMLElement>(
     '[data-target-id="tikkun-book"]'
   )
@@ -341,12 +231,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   InfiniteScroller.new({
     container: book,
     fetchPreviousContent: {
-      fetch: () => viewModel.fetchPreviousPage(),
-      render: renderPrevious,
+      fetch: () => display.viewModel.fetchPreviousPage(),
+      render: (entry) => display.renderPrevious(entry),
     },
     fetchNextContent: {
-      fetch: () => viewModel.fetchNextPage(),
-      render: renderNext,
+      fetch: () => display.viewModel.fetchNextPage(),
+      render: (entry) => display.renderNext(entry),
     },
   }).attach()
 

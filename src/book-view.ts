@@ -23,9 +23,9 @@ type BookViewEvents = {
 export class BookView extends EventEmitter<BookViewEvents> {
   private book: HTMLElement
   private readonly lineTrackers: {
-    first: ViewportTracker
-    center: ViewportTracker
-    last: ViewportTracker
+    first: LineViewportTracker
+    center: LineViewportTracker
+    last: LineViewportTracker
   }
 
   constructor(book: HTMLElement) {
@@ -33,9 +33,9 @@ export class BookView extends EventEmitter<BookViewEvents> {
 
     this.book = book
     this.lineTrackers = {
-      first: new ViewportTracker(book),
-      center: new ViewportTracker(book),
-      last: new ViewportTracker(book),
+      first: new LineViewportTracker(ElementSearchDirection.Down, book),
+      center: new LineViewportTracker(ElementSearchDirection.Down, book),
+      last: new LineViewportTracker(ElementSearchDirection.Up, book),
     }
     this.update()
 
@@ -92,24 +92,27 @@ type KeysOfType<TObject, TType> = {
   [TKey in keyof TObject]: TObject[TKey] extends TType ? TKey : never
 }[keyof TObject]
 
+interface ElementSearchDirection {
+  coordinate: KeysOfType<DOMRect, number>
+  /** The direction to walk to find a line that contains an עלייה. */
+  nextElement: KeysOfType<TreeWalker, () => Node | null>
+}
+
 const ElementSearchDirection = {
   Down: { coordinate: 'top', nextElement: 'nextNode' },
   Up: { coordinate: 'bottom', nextElement: 'previousNode' },
-} satisfies Record<
-  string,
-  {
-    coordinate: keyof DOMRect
-    nextElement: KeysOfType<TreeWalker, () => Node | null>
-  }
->
+} satisfies Record<string, ElementSearchDirection>
 
 /**
  * Efficiently locates the closest RenderedLineInfo to a point on the screen.
  * Updates as the user scrolls.
  */
-class ViewportTracker {
+class LineViewportTracker {
   private readonly walker: TreeWalker
-  constructor(root: Element) {
+  constructor(
+    private readonly direction: ElementSearchDirection,
+    private readonly root: Element
+  ) {
     this.walker = document.createTreeWalker(
       root,
       NodeFilter.SHOW_ELEMENT,
@@ -126,10 +129,42 @@ class ViewportTracker {
     return getLineInfo(this.walker.currentNode)
   }
 
+  /** Moves the current node to a nearby element. */
+  private resetWalker(targetY: number) {
+    this.walker.currentNode =
+      document.elementFromPoint(
+        targetY,
+        document.documentElement.clientWidth / 2
+      ) ?? this.root
+  }
+
   /** Updates the current element.  Returns false if it did not change. */
   update(targetY: number): boolean {
-    // TODO: Actually locate, then track, walker.currentNode.
-    return true
+    const current = this.current
+    this.maybeUpdate(targetY)
+    return current !== this.current
+  }
+  private maybeUpdate(targetY: number) {
+    if (this.walker.currentNode === this.root) this.resetWalker(targetY)
+
+    if (!(this.walker.currentNode instanceof Element))
+      throw new Error('Not an element?')
+
+    while (true) {
+      const bounds = this.walker.currentNode.getBoundingClientRect()
+      if (
+        Math.abs(bounds[this.direction.coordinate] - targetY) <
+        1.5 * this.walker.currentNode.clientHeight
+      )
+        break
+      if (bounds[this.direction.coordinate] < targetY) this.walker.nextNode()
+      else this.walker.previousNode()
+    }
+
+    let attemptCount = 0
+    while (!getLineInfo(this.walker.currentNode) && ++attemptCount < 10) {
+      this.walker[this.direction.nextElement]()
+    }
   }
 }
 

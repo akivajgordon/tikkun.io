@@ -3,6 +3,7 @@ import { Ref, RefWithScroll } from '../ref.ts'
 import { LeiningGenerator } from '../calendar-model/generator.ts'
 import {
   LeiningAliyah,
+  LeiningInstanceId,
   LeiningRun,
   LeiningRunType,
 } from '../calendar-model/model-types.ts'
@@ -140,8 +141,12 @@ export abstract class ScrollViewModel {
   static forRef(generator: LeiningGenerator, ref: RefWithScroll) {
     // Use this year's calendar.
     const allRuns = generator
-      .forHebrewYear(new HDate(new Date()).getFullYear())
+      .forEntireChumash(new HDate(new Date()))
       .flatMap((d) => d.leinings)
+      .filter(
+        (i) =>
+          i.isParsha || ref.scroll !== 'torah' || i.runs.some(isVezosHabracha)
+      )
       .flatMap((i) => i.runs)
     const run =
       allRuns.find((r) => r.scroll === ref.scroll && containsRef(r, ref)) ??
@@ -261,7 +266,11 @@ class FullScrollViewModel extends ScrollViewModel {
 }
 
 function isVezosHabracha(r: LeiningRun): boolean {
-  return r.aliyot[0]?.start.b === 5 && r.aliyot[0]?.start.c === 33
+  return (
+    r.leining.id === LeiningInstanceId.Shacharis &&
+    r.aliyot[0]?.start.b === 5 &&
+    r.aliyot[0]?.start.c === 33
+  )
 }
 
 /** The type passed from derived classes to `fetchPage()`. */

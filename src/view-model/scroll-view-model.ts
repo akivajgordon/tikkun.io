@@ -18,16 +18,6 @@ import { AliyahLabeller } from './aliyah-labeller.ts'
 export interface RenderedPageInfo {
   type: 'page'
   lines: RenderedLineInfo[]
-
-  /**
-   * The LeiningRun containing the first פסוק that begins in this page.
-   * This is used to render the header UI as the user scrolls.
-   * TODO(haftara): What about pages of נביא outside a הפטרה?
-   * This will be unset for a תענית ציבור, which can contain an entire
-   * page that is between runs.
-   * TODO: This should probably be deleted.
-   */
-  run?: LeiningRun
 }
 
 /** Information to render a message between `RenderedPageInfo`s. */
@@ -204,7 +194,7 @@ export abstract class ScrollViewModel {
         labels: labeller.getLabelsForLine(run, verses),
       }
     })
-    return { type: 'page', lines, run: lines.find((o) => o.run)?.run }
+    return { type: 'page', lines }
   }
 
   private findContainingAliyot(

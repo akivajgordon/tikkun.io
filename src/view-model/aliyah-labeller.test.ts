@@ -87,7 +87,8 @@ async function dumpAliyot(runId: string) {
     if (nextPage.type === 'page') {
       // If a page does not have a run, keep going
       // (pass over the skipped page for תענית ציבור).
-      const nextPageRun = nextPage.run?.leining.date ?? targetDate
+      const nextPageRun =
+        nextPage.lines.find((o) => o.run)?.run?.leining.date ?? targetDate
       if (nextPageRun.date > targetDate.date) break
     }
     pages.push(nextPage)

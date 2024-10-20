@@ -16,11 +16,11 @@ declare global {
   }
 }
 
-type BookViewEvents = {
+type ViewportTrackerEvents = {
   'viewport-updated': ViewportRange
 }
 
-export class BookView extends EventEmitter<BookViewEvents> {
+export class ViewportTracker extends EventEmitter<ViewportTrackerEvents> {
   private book: HTMLElement
   private readonly lineTrackers: {
     first: LineViewportTracker

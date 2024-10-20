@@ -5,8 +5,6 @@ import Page from './components/Page.ts'
 import ParshaPicker from './components/ParshaPicker.ts'
 import utils from './components/utils.ts'
 import scheduleFetcher from './schedule.ts'
-import { BookView } from './book-view.ts'
-import { PageDisplay } from './page-display.ts'
 import {
   RenderedEntry,
   RenderedMessageInfo,
@@ -328,9 +326,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const book = document.querySelector<HTMLElement>(
     '[data-target-id="tikkun-book"]'
   )
-
-  const bookView = new BookView(book)
-  new PageDisplay(parshaTitle, bookView)
 
   const toggle = document.querySelector<HTMLInputElement>(
     '[data-target-id="annotations-toggle"]'

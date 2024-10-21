@@ -11,7 +11,12 @@ import IntegerIterator from '../integer-iterator.ts'
 import { getPageCount, physicalLocationFromRef } from '../location.ts'
 import { HDate } from '@hebcal/core'
 import { containsRef } from '../calendar-model/ref-utils.ts'
-import { last, range } from '../calendar-model/utils.ts'
+import {
+  fromISODateString,
+  last,
+  range,
+  toISODateString,
+} from '../calendar-model/utils.ts'
 import { AliyahLabeller } from './aliyah-labeller.ts'
 
 /** Information to render a single page from a scroll. */
@@ -123,6 +128,9 @@ export abstract class ScrollViewModel {
   static forDate(generator: LeiningGenerator, date: Date) {
     // Collect all main leinings in the year containing the date.
     const allDates = generator.aroundDate(date)
+
+    // Strip the time component so we can find today's leining.
+    date = fromISODateString(toISODateString(date))
     const targetDate = allDates.find((d) => d.date >= date) ?? last(allDates)
     return ScrollViewModel.forId(generator, targetDate.leinings[0].runs[0].id)
   }

@@ -115,7 +115,11 @@ export class TopBarTracker {
       const allInstances = model.generator
         .aroundDate(newInfo.currentRun.leining.date.date)
         .flatMap((d) => d.leinings)
-      const instanceIndex = allInstances.indexOf(newInfo.currentRun.leining)
+      const instanceIndex = allInstances.findIndex(
+        (o) =>
+          o.date.id === newInfo.currentRun?.leining.date.id &&
+          o.id === newInfo.currentRun?.leining.id
+      )
       newInfo.previousLink = createInstanceLink(
         allInstances[instanceIndex - 1],
         newInfo.currentRun
@@ -151,6 +155,8 @@ export class TopBarTracker {
         }
       }
     }
+
+    this.currentInfo = newInfo
   }
 
   private generateAliyahRange(currentRun: LeiningRun): string[] {
@@ -161,7 +167,8 @@ export class TopBarTracker {
     )
       .filter((a) => a != null)
       .map((a) => {
-        const label = aliyahName(a.aliyah.index, a.run)
+        // Pass isEnd to label ראשון instead of repeating the leining name.
+        const label = aliyahName(a.aliyah.index, a.run, { isEnd: true })
         return a.run === currentRun
           ? label
           : `${a.run.leining.date.title} ${label}`

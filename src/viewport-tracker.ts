@@ -50,9 +50,10 @@ export class ViewportTracker extends EventEmitter<ViewportTrackerEvents> {
 
     // We cannot use ||  because we always need to update all trackers.
     const height = document.documentElement.clientHeight
-    if (this.lineTrackers.first.update(0)) updated = true
+    // TODO: Get actual height of new top bar.
+    if (this.lineTrackers.first.update(64)) updated = true
     if (this.lineTrackers.center.update(height / 2)) updated = true
-    if (this.lineTrackers.last.update(height)) updated = true
+    if (this.lineTrackers.last.update(height - 1)) updated = true
 
     if (updated) {
       this.emit('viewport-updated', {
@@ -78,6 +79,15 @@ const ElementSearchDirection = {
   Down: { coordinate: 'top', nextElement: 'nextNode' },
   Up: { coordinate: 'bottom', nextElement: 'previousNode' },
 } satisfies Record<string, ElementSearchDirection>
+
+const IterateDirection = {
+  // If current < target, move up
+  [-1]: ElementSearchDirection.Up,
+  // If current > target, move down
+  1: ElementSearchDirection.Down,
+}
+
+const sign = Math.sign as (arg: number) => -1 | 0 | 1
 
 /**
  * Efficiently locates the closest RenderedLineInfo to a point on the screen.
@@ -109,8 +119,8 @@ class LineViewportTracker {
   private resetWalker(targetY: number) {
     this.walker.currentNode =
       document.elementFromPoint(
-        targetY,
-        document.documentElement.clientWidth / 2
+        document.documentElement.clientWidth / 2,
+        targetY
       ) ?? this.root
   }
 
@@ -122,23 +132,46 @@ class LineViewportTracker {
   }
   private maybeUpdate(targetY: number) {
     if (this.walker.currentNode === this.root) this.resetWalker(targetY)
+    if (!this.walker.currentNode.isConnected) this.resetWalker(targetY)
 
     if (!(this.walker.currentNode instanceof Element))
       throw new Error('Not an element?')
 
+    let isFirstIteration = true
+    let iterateDir = sign(0)
     while (true) {
       const bounds = this.walker.currentNode.getBoundingClientRect()
-      if (
-        Math.abs(bounds[this.direction.coordinate] - targetY) <
-        1.5 * this.walker.currentNode.clientHeight
-      )
-        break
-      if (bounds[this.direction.coordinate] < targetY) this.walker.nextNode()
-      else this.walker.previousNode()
+
+      const delta = targetY - bounds[this.direction.coordinate]
+      if (Math.abs(delta) < 0.5 * this.walker.currentNode.clientHeight) break
+
+      // On the first iteration only, if we're too far, reset the search.
+      if (isFirstIteration && Math.abs(delta) > 100) {
+        this.resetWalker(targetY)
+        isFirstIteration = false
+        continue
+      }
+      isFirstIteration = false
+
+      // If we overshot, stop immediately.
+      if (iterateDir && iterateDir !== sign(delta)) break
+      iterateDir = sign(delta)
+      if (!iterateDir) break
+
+      const prev: Element = this.walker.currentNode
+      this.walker[IterateDirection[iterateDir].nextElement]()
+      // If we ran out of nodes, stop.
+      if (this.walker.currentNode === prev) break
     }
 
     let attemptCount = 0
-    while (!getLineInfo(this.walker.currentNode) && ++attemptCount < 10) {
+    // If the line we found has no עלייה, search for a nearby one that does.
+    // But don't look too far.
+    // TODO: Move this to a separately cached layer for performance.
+    while (
+      !getLineInfo(this.walker.currentNode)?.aliyot.length &&
+      ++attemptCount < 40
+    ) {
       this.walker[this.direction.nextElement]()
     }
   }

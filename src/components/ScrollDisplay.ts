@@ -66,6 +66,7 @@ export class ScrollDisplay {
 function renderPageNode(page: RenderedPageInfo) {
   const node = document.createElement('div')
   node.classList.add('tikkun-page')
+  node.tikkunPage = page
 
   node.appendChild(htmlToElement(Page(page)))
 

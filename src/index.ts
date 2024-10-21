@@ -7,6 +7,8 @@ import scheduleFetcher from './schedule.ts'
 import { ScrollViewModel } from './view-model/scroll-view-model.ts'
 import { LeiningGenerator } from './calendar-model/generator.ts'
 import { ScrollDisplay } from './components/ScrollDisplay.ts'
+import { ViewportTracker } from './viewport-tracker.ts'
+import { TopBarTracker } from './view-model/navigation/top-bar-model.ts'
 
 declare function gtag(
   name: 'event',
@@ -215,11 +217,26 @@ document.addEventListener('resize', setAppHeight)
 document.addEventListener('DOMContentLoaded', async () => {
   const book = document.querySelector<HTMLElement>(
     '[data-target-id="tikkun-book"]'
-  )
+  )!
 
   const toggle = document.querySelector<HTMLInputElement>(
     '[data-target-id="annotations-toggle"]'
-  )
+  )!
+
+  const viewportTracker = new ViewportTracker(book)
+  const topBarModel = new TopBarTracker()
+  const titleEl = document.querySelector('[data-target-id="parsha-title"]')!
+  viewportTracker.on('viewport-updated', (range) => {
+    if (!display.viewModel) return
+    // TODO: Noop if nothing changed?
+    topBarModel.setLine(display.viewModel, range)
+
+    // TODO: Render actual top bar.
+    const run = topBarModel.info.currentRun
+    titleEl.textContent = `${run?.leining.date.title} ${
+      run?.leining.id
+    }: ${topBarModel.info.aliyahRange.join(' – ')}`
+  })
 
   book.addEventListener('mouseover', (e) => {
     const line = document

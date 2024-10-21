@@ -80,6 +80,10 @@ export class TopBarTracker {
   private firstAliyah: AliyahReference | null = null
   private lastAliyah: AliyahReference | null = null
 
+  get info() {
+    return this.currentInfo
+  }
+
   setLine(
     model: ScrollViewModel,
     lines: {

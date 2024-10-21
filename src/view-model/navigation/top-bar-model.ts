@@ -3,9 +3,6 @@ import {
   LeiningInstance,
   LeiningRun,
 } from '../../calendar-model/model-types'
-import { containsRef } from '../../calendar-model/ref-utils'
-import { last } from '../../calendar-model/utils'
-import { Ref } from '../../ref'
 import { aliyahName } from '../aliyah-labeller'
 import { RenderedLineInfo, ScrollViewModel } from '../scroll-view-model'
 
@@ -62,7 +59,15 @@ interface AliyahReference {
   aliyah: LeiningAliyah
 }
 
-/** Generates a `TopBarInfo` as the user scrolls. */
+/**
+ * Generates a `TopBarInfo` as the user scrolls.
+ *
+ * This class caches all computed information to minimize work
+ * triggered by scroll events.
+ *
+ * The class state is only used as a cache; it can be reused
+ * across ScrollViewModel instances.
+ */
 export class TopBarTracker {
   private currentInfo: Readonly<TopBarInfo> = {
     aliyahRange: [],
@@ -74,36 +79,23 @@ export class TopBarTracker {
   // These are only used as a cache.
   private firstAliyah: AliyahReference | null = null
   private lastAliyah: AliyahReference | null = null
-  constructor(readonly model: ScrollViewModel) {}
 
-  setLine(lines: {
-    first: RenderedLineInfo
-    center: RenderedLineInfo
-    last: RenderedLineInfo
-  }) {
+  setLine(
+    model: ScrollViewModel,
+    lines: {
+      first: RenderedLineInfo | null
+      center: RenderedLineInfo | null
+      last: RenderedLineInfo | null
+    }
+  ) {
     const newInfo = { ...this.currentInfo }
 
-    const firstAliyah = this.findAliyah(lines.first.verses[0], this.firstAliyah)
-    const lastAliyah = this.findAliyah(
-      last(lines.last.verses),
-      this.lastAliyah ?? firstAliyah
-    )
+    const firstAliyah = lines.first?.aliyot[0] ?? lines.center?.aliyot[0]
+    const lastAliyah = lines.last?.aliyot[0] ?? lines.center?.aliyot[0]
 
-    // Optimization: Try the already-found runs first, before searching all of חומש.
-    const candidateRuns = [
-      newInfo.currentRun,
-      firstAliyah?.run,
-      lastAliyah?.run,
-      ...this.model.relevantRuns,
-    ]
-    newInfo.currentRun =
-      candidateRuns.find(
-        (run) => run && containsRef(run, lines.center.verses[0])
-      ) ??
-      // If the center line wasn't found, try each end.
-      lastAliyah?.run ??
-      firstAliyah?.run ??
-      newInfo.currentRun
+    const run = lines.center?.run ?? lines.last?.run ?? lines.first?.run
+    if (!run) return
+    newInfo.currentRun = run
 
     if (
       newInfo.currentRun !== this.currentInfo.currentRun &&
@@ -116,7 +108,7 @@ export class TopBarTracker {
         targetRun: run,
       }))
 
-      const allInstances = this.model.generator
+      const allInstances = model.generator
         .aroundDate(newInfo.currentRun.leining.date.date)
         .flatMap((d) => d.leinings)
       const instanceIndex = allInstances.indexOf(newInfo.currentRun.leining)
@@ -135,13 +127,24 @@ export class TopBarTracker {
       newInfo.aliyahRange = []
     } else if (
       // If the עלייה range didn't change, don't recompute.
-      firstAliyah !== this.firstAliyah ||
-      lastAliyah !== this.lastAliyah
+      firstAliyah !== this.firstAliyah?.aliyah ||
+      lastAliyah !== this.lastAliyah?.aliyah
     ) {
-      this.firstAliyah = firstAliyah
-      this.lastAliyah = lastAliyah
+      this.firstAliyah = toTuple(firstAliyah)
+      this.lastAliyah = toTuple(lastAliyah)
       if (firstAliyah || lastAliyah) {
         newInfo.aliyahRange = this.generateAliyahRange(newInfo.currentRun)
+      }
+
+      function toTuple(
+        aliyah: LeiningAliyah | undefined
+      ): AliyahReference | null {
+        if (!aliyah) return null
+        return {
+          aliyah,
+          run: Object.values(lines).find((l) => l?.aliyot.includes(aliyah))!
+            .run!,
+        }
       }
     }
   }
@@ -159,24 +162,6 @@ export class TopBarTracker {
           ? label
           : `${a.run.leining.date.title} ${label}`
       })
-  }
-
-  /**
-   * Finds the עלייה containing a פסוק.
-   * As an optimization, checks a possible candidate before search all of חומש.
-   */
-  private findAliyah(
-    ref: Ref,
-    previousResult: AliyahReference | null
-  ): AliyahReference | null {
-    if (previousResult && containsRef(previousResult.aliyah, ref)) {
-      return previousResult
-    }
-    for (const run of this.model.relevantRuns) {
-      const aliyah = run.aliyot.find((a) => containsRef(a, ref))
-      if (aliyah) return { run, aliyah }
-    }
-    return null
   }
 }
 

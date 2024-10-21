@@ -9,7 +9,7 @@ const oneAtATime = async (promise: () => Promise<unknown>) => {
 
 interface Fetcher<T> {
   fetch: () => Promise<T>
-  render: (content: T) => void
+  render: (content: NonNullable<T>) => void
 }
 
 const InfiniteScroller = {

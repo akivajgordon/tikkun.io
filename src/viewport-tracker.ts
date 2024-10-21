@@ -41,9 +41,7 @@ export class ViewportTracker extends EventEmitter<ViewportTrackerEvents> {
 
     book.addEventListener(
       'scroll',
-      throttle(() => {
-        this.update()
-      }, 300)
+      throttle(() => this.update(), 300)
     )
   }
 
@@ -63,28 +61,6 @@ export class ViewportTracker extends EventEmitter<ViewportTrackerEvents> {
         last: this.lineTrackers.last.current,
       })
     }
-  }
-
-  private pageAtCenter(book: HTMLElement) {
-    const bookBoundingRect = book.getBoundingClientRect()
-
-    const centerOfBookRelativeToViewport = {
-      x: bookBoundingRect.left + bookBoundingRect.width / 2,
-      y: bookBoundingRect.top + bookBoundingRect.height / 2,
-    }
-
-    const pageAtCenter = [...book.querySelectorAll('.tikkun-page')].find(
-      (page) => {
-        const rect = page.getBoundingClientRect()
-
-        return (
-          rect.top < centerOfBookRelativeToViewport.y &&
-          rect.bottom > centerOfBookRelativeToViewport.y
-        )
-      }
-    )
-
-    return pageAtCenter
   }
 }
 

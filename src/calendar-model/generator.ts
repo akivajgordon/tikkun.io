@@ -115,6 +115,7 @@ export class LeiningGenerator {
         flags.CHAG |
         flags.MINOR_FAST |
         flags.MAJOR_FAST |
+        flags.MINOR_HOLIDAY |
         flags.ROSH_CHODESH |
         flags.CHOL_HAMOED |
         flags.PARSHA_HASHAVUA,

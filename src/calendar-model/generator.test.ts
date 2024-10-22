@@ -147,6 +147,11 @@ test('generates leinings surrounding חנוכה', (t) => {
   )
 })
 
+test('generates leinings surrounding פורים', (t) => {
+  const results = generator.aroundDate(new Date(2025, 2, 13))
+  t.snapshot(results.map((ld) => `${ld.id}: ${ld.title}`))
+})
+
 /** Prints the information in a `LeiningDate`, to be easily readable in the Markdown snapshot. */
 function dumpLeiningDate(date: HDate) {
   const ld = generator.createLeiningDate(date)

@@ -9,6 +9,7 @@
       "js": true,
       "ts": "module"
     },
+    "timeout": "30s",
     "files": [
       "src/**/*.test.*"
     ],

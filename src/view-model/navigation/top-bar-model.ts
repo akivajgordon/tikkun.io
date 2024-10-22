@@ -2,9 +2,9 @@ import {
   LeiningAliyah,
   LeiningInstance,
   LeiningRun,
-} from '../../calendar-model/model-types'
-import { aliyahName } from '../aliyah-labeller'
-import { RenderedLineInfo, ScrollViewModel } from '../scroll-view-model'
+} from '../../calendar-model/model-types.ts'
+import { aliyahName } from '../aliyah-labeller.ts'
+import { RenderedLineInfo, ScrollViewModel } from '../scroll-view-model.ts'
 
 /** The information and link targets displayed in the top navigation bar. */
 export interface TopBarInfo {
@@ -48,7 +48,7 @@ export interface TopBarInfo {
   relatedRuns: Link[]
 }
 
-interface Link {
+export interface Link {
   targetRun: LeiningRun
   /** Will omit context if the same as the current run. */
   label: string
@@ -98,7 +98,7 @@ export class TopBarTracker {
     const lastAliyah = lines.last?.aliyot[0] ?? lines.center?.aliyot[0]
 
     const run = lines.center?.run ?? lines.last?.run ?? lines.first?.run
-    if (!run) return
+    if (!run) return this.currentInfo
     newInfo.currentRun = run
 
     if (
@@ -108,7 +108,7 @@ export class TopBarTracker {
       newInfo.relatedRuns = newInfo.currentRun.leining.runs.map((run) => ({
         // Use aliyahName() to turn שביעי into חתן בראשית.
         // Use `run.type` to label הפטרות.
-        label: aliyahName(run.aliyot[0].index, run) ?? run.type,
+        label: aliyahName(run.aliyot[0].index, run) || run.type,
         targetRun: run,
       }))
 
@@ -136,7 +136,9 @@ export class TopBarTracker {
     } else if (
       // If the עלייה range didn't change, don't recompute.
       firstAliyah !== this.firstAliyah?.aliyah ||
-      lastAliyah !== this.lastAliyah?.aliyah
+      lastAliyah !== this.lastAliyah?.aliyah ||
+      // If the run changed, update labels for עליות in the other run.
+      newInfo.currentRun !== this.currentInfo.currentRun
     ) {
       this.firstAliyah = toTuple(firstAliyah)
       this.lastAliyah = toTuple(lastAliyah)
@@ -157,6 +159,7 @@ export class TopBarTracker {
     }
 
     this.currentInfo = newInfo
+    return this.currentInfo
   }
 
   private generateAliyahRange(currentRun: LeiningRun): string[] {
@@ -165,7 +168,7 @@ export class TopBarTracker {
         ? [this.firstAliyah]
         : [this.firstAliyah, this.lastAliyah]
     )
-      .filter((a) => a != null)
+      .filter((a): a is NonNullable<typeof a> => a != null)
       .map((a) => {
         // Pass isEnd to label ראשון instead of repeating the leining name.
         const label = aliyahName(a.aliyah.index, a.run, { isEnd: true })

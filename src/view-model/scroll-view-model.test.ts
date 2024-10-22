@@ -7,7 +7,7 @@ import {
   ScrollViewModel,
 } from './scroll-view-model.ts'
 import { last } from '../calendar-model/utils.ts'
-import { renderLine } from './test-utils.ts'
+import { fetchPages, renderLine } from './test-utils.ts'
 import { containsRef } from '../calendar-model/ref-utils.ts'
 
 const testSettings: UserSettings = {
@@ -305,23 +305,6 @@ function getLinesInRange(
 function lineContains(line: RenderedLineInfo, range: number[] | undefined) {
   if (!range) return false
   return line.verses.some(({ c, v }) => c === range[0] && v === range[1])
-}
-
-async function fetchPages(
-  model: ScrollViewModel | null,
-  { count, fetchPreviousPages }: { count: number; fetchPreviousPages: boolean }
-): Promise<RenderedEntry[]> {
-  if (!model) throw new Error('No model')
-  const pages: RenderedEntry[] = [(await model.startingLocation).page]
-
-  if (fetchPreviousPages) count /= 2
-  for (let i = 0; i < count; i++) {
-    const previousPage = await model.fetchPreviousPage()
-    if (previousPage) pages.unshift(previousPage)
-    const nextPage = await model.fetchNextPage()
-    if (nextPage) pages.push(nextPage)
-  }
-  return pages
 }
 
 /** Renders enough properties of a scroll to make `deepEqual()` work with useful failures. */

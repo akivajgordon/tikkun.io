@@ -91,8 +91,6 @@ export class LeiningGenerator {
     })
   }
 
-  // TODO: Add option for בראשית - וזאת הברכה to include וילך in 5785
-
   /**
    * Returns at least one LeiningDate before and after the specified date.
    * Use this to generate previous and next links.
@@ -121,7 +119,16 @@ export class LeiningGenerator {
         flags.CHOL_HAMOED |
         flags.PARSHA_HASHAVUA,
     })
+    // calendar() can return multiple Events on the same date for שבת ראש חודש.
+    // Filter out duplicates.
+    const foundDates = new Set<string>()
     return calendar
+      .filter((e) => {
+        const str = e.date.toString()
+        if (foundDates.has(str)) return false
+        foundDates.add(str)
+        return true
+      })
       .map((e) => this.createLeiningDate(e.date))
       .filter((d): d is LeiningDate => !!d)
   }

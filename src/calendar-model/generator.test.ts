@@ -131,6 +131,22 @@ test('generates leinings surrounding שבת שובה', (t) => {
   t.snapshot(results.map((ld) => `${ld.id}: ${ld.title}`))
 })
 
+test('generates leinings surrounding שקלים / ראש חודש as פרשה', (t) => {
+  const results = generator.aroundDate(new Date(2025, 2, 1))
+  t.snapshot(
+    results.map((ld) => `${ld.id}: ${ld.title}`),
+    'Warning: These must be unique!'
+  )
+})
+
+test('generates leinings surrounding חנוכה', (t) => {
+  const results = generator.aroundDate(new Date(2025, 11, 19))
+  t.snapshot(
+    results.map((ld) => `${ld.id}: ${ld.title}`),
+    'Warning: These must be unique!'
+  )
+})
+
 /** Prints the information in a `LeiningDate`, to be easily readable in the Markdown snapshot. */
 function dumpLeiningDate(date: HDate) {
   const ld = generator.createLeiningDate(date)

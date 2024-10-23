@@ -27,6 +27,15 @@ export function range(first: number, last: number) {
   return Array.from({ length: last - first + 1 }, (_, i) => first + i)
 }
 
+export function arrayEquals<T>(
+  a: T[],
+  b: T[],
+  compare: (a: T, b: T) => boolean
+) {
+  if (a.length !== b.length) return false
+  return a.every((v, i) => compare(v, b[i]))
+}
+
 export function isArrayOf<T>(
   array: unknown[],
   check: (v: unknown) => v is T

@@ -1,3 +1,4 @@
+import { isSameLeiningDate } from '../../calendar-model/generator.ts'
 import {
   LeiningAliyah,
   LeiningInstance,
@@ -112,12 +113,18 @@ export class TopBarTracker {
         targetRun: run,
       }))
 
+      const currentDate = newInfo.currentRun.leining.date
       const allInstances = model.generator
-        .aroundDate(newInfo.currentRun.leining.date.date)
+        .aroundDate(currentDate.date)
+        .filter(
+          // Skip the other day of ראש חודש.
+          // Include the current day for indexOf().
+          (d) => d.id === currentDate.id || !isSameLeiningDate(d, currentDate)
+        )
         .flatMap((d) => d.leinings)
       const instanceIndex = allInstances.findIndex(
         (o) =>
-          o.date.id === newInfo.currentRun?.leining.date.id &&
+          o.date.id === currentDate.id &&
           o.id === newInfo.currentRun?.leining.id
       )
       newInfo.previousLink = createInstanceLink(

@@ -23,9 +23,29 @@ import {
   LeyningParshaHaShavua,
   LeyningShabbatHoliday,
 } from '@hebcal/leyning'
-import { invert, fromISODateString, toISODateString, last } from './utils.ts'
+import {
+  invert,
+  fromISODateString,
+  toISODateString,
+  last,
+  arrayEquals,
+} from './utils.ts'
 import { toLeiningAliyah, toAliyahIndex } from './hebcal-conversions.ts'
 import { isSameRun } from './ref-utils.ts'
+
+export function isSameLeiningDate(a: LeiningDate, b: LeiningDate) {
+  return arrayEquals(a.leinings, b.leinings, isSameLeiningInstance)
+}
+export function isSameLeiningInstance(a: LeiningInstance, b: LeiningInstance) {
+  return arrayEquals(a.runs, b.runs, isSameLeiningRun)
+}
+export function isSameLeiningRun(a: LeiningRun, b: LeiningRun) {
+  return arrayEquals(
+    a.aliyot,
+    b.aliyot,
+    (a, b) => JSON.stringify(a) === JSON.stringify(b)
+  )
+}
 
 type PartialLeiningRun = Omit<LeiningRun, 'id' | 'scroll' | 'leining'>
 

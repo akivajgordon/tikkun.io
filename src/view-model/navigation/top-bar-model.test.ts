@@ -95,6 +95,55 @@ test.serial('renders across runs for שמיני עצרת', async (t) => {
   )
 })
 
+function renderRoshCodesh(t: ExecutionContext) {
+  return renderResult(t, {
+    first: getLine(
+      'וְאָמַרְתָּ֖ אֲלֵהֶ֑ם אֶת־קׇרְבָּנִ֨י לַחְמִ֜י לְאִשַּׁ֗י רֵ֚יחַ נִֽיחֹחִ֔י'
+    ),
+    center: getLine(
+      'הַשֵּׁנִ֔י תַּעֲשֶׂ֖ה בֵּ֣ין הָֽעַרְבָּ֑יִם כְּמִנְחַ֨ת הַבֹּ֤קֶר וּכְנִסְכּוֹ֙'
+    ),
+    last: getLine(
+      'זֹ֣את עֹלַ֥ת חֹ֙דֶשׁ֙ בְּחׇדְשׁ֔וֹ לְחׇדְשֵׁ֖י הַשָּׁנָֽה׃ וּשְׂעִ֨יר'
+    ),
+  })
+}
+
+test.serial('collapses adjacent days of ראש חודש', async (t) => {
+  await createModel('2024-09-03:shacharis,main', {
+    count: 2,
+    fetchPreviousPages: false,
+  })
+  const firstDay = renderRoshCodesh(t)
+
+  await createModel('2024-09-04:shacharis,main', {
+    count: 2,
+    fetchPreviousPages: false,
+  })
+  const secondDay = renderRoshCodesh(t)
+
+  t.deepEqual(firstDay.previousLink, secondDay.previousLink)
+  t.deepEqual(firstDay.nextLink, secondDay.nextLink)
+})
+
+test.serial('preserves unequal days of ראש חודש', async (t) => {
+  await createModel('2024-11-01:shacharis,main', {
+    count: 2,
+    fetchPreviousPages: false,
+  })
+  const firstDay = renderRoshCodesh(t)
+
+  await createModel('2024-11-02:shacharis,maftir', {
+    count: 5,
+    fetchPreviousPages: false,
+  })
+  const secondDay = renderRoshCodesh(t)
+
+  t.notDeepEqual(firstDay.previousLink, secondDay.previousLink)
+  t.deepEqual(firstDay.currentRun?.id, secondDay.previousLink?.targetRun)
+  t.deepEqual(firstDay.nextLink?.targetRun, secondDay.relatedRuns[0]?.targetRun)
+})
+
 test.serial('renders from only one line', async (t) => {
   await createModel('2024-09-28:shacharis,main', {
     count: 5,

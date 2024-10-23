@@ -26,3 +26,10 @@ export function invert<K extends string, V extends string>(
 export function range(first: number, last: number) {
   return Array.from({ length: last - first + 1 }, (_, i) => first + i)
 }
+
+export function isArrayOf<T>(
+  array: unknown[],
+  check: (v: unknown) => v is T
+): array is T[] {
+  return Array.isArray(array) && array.every(check)
+}

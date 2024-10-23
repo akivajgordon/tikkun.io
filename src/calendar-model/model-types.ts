@@ -27,6 +27,12 @@ export interface LeiningDate {
   leinings: LeiningInstance[]
 }
 
+export function isLeiningDate(obj: unknown): obj is LeiningDate {
+  if (typeof obj !== 'object' || !obj) return false
+  const { date, leinings } = obj as LeiningDate
+  return date instanceof Date && Array.isArray(leinings)
+}
+
 /**
  * The minyan that contains a leining.
  * The enum values are used in UI.
@@ -57,6 +63,14 @@ export interface LeiningInstance {
 
   /** The near-contiguous runs within this ספר.  This will usually have exactly 1 entry. */
   runs: LeiningRun[]
+}
+
+export function isLeiningInstance(obj: unknown): obj is LeiningInstance {
+  if (typeof obj !== 'object' || !obj) return false
+  const { date, id, runs } = obj as LeiningInstance
+  return (
+    typeof date === 'object' && typeof id === 'string' && Array.isArray(runs)
+  )
 }
 
 /**
@@ -95,6 +109,16 @@ export interface LeiningRun {
    * The entries may overlap (eg, ראש חודש), or have gaps (eg, תענית).
    */
   aliyot: LeiningAliyah[]
+}
+
+export function isLeiningRun(obj: unknown): obj is LeiningRun {
+  if (typeof obj !== 'object' || !obj) return false
+  const { leining, type, aliyot } = obj as LeiningRun
+  return (
+    typeof leining === 'object' &&
+    typeof type === 'string' &&
+    Array.isArray(aliyot)
+  )
 }
 
 export interface LeiningAliyah {

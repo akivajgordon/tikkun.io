@@ -43,6 +43,18 @@
   border-bottom: 1px solid var(--heavy-accent-color);
 }
 
+.tikkun-message {
+  color: var(--page-ink-color);
+  font-style: italic;
+  text-align: center;
+  margin-top: -0.7em;
+}
+
+.tikkun-message-text {
+  background-color: var(--paper-color, white);
+  padding: 0 16px;
+}
+
 .line {
   position: relative;
   text-align: justify;

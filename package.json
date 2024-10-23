@@ -5,10 +5,14 @@
   "main": "index.js",
   "type": "module",
   "ava": {
+    "extensions": {
+      "js": true,
+      "ts": "module"
+    },
+    "timeout": "30s",
     "files": [
-      "src/*.test.js"
+      "src/**/*.test.*"
     ],
-    "timeout": "40s",
     "nodeArguments": [
       "--import=tsimp"
     ]
@@ -36,6 +40,8 @@
   },
   "homepage": "https://github.com/akivajgordon/tikkun.io#readme",
   "dependencies": {
+    "@hebcal/core": "^5.5.0",
+    "@hebcal/leyning": "^8.2.7",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {

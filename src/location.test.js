@@ -2,17 +2,17 @@ import test from 'ava'
 import { physicalLocationFromRef, resolveToValidRef } from './location'
 
 test('Bereshit 1:1 starts on { page 1, line 1 }', (t) => {
-  t.deepEqual(
-    physicalLocationFromRef({ ref: { b: 1, c: 1, v: 1 }, scroll: 'torah' }),
-    { pageNumber: 1, lineNumber: 1 },
-  )
+  t.deepEqual(physicalLocationFromRef({ b: 1, c: 1, v: 1, scroll: 'torah' }), {
+    pageNumber: 1,
+    lineNumber: 1,
+  })
 })
 
 test('Noach starts on { page 6, line 32 }', (t) => {
-  t.deepEqual(
-    physicalLocationFromRef({ ref: { b: 1, c: 6, v: 9 }, scroll: 'torah' }),
-    { pageNumber: 6, lineNumber: 32 },
-  )
+  t.deepEqual(physicalLocationFromRef({ b: 1, c: 6, v: 9, scroll: 'torah' }), {
+    pageNumber: 6,
+    lineNumber: 32,
+  })
 })
 
 test('No params starts at Bereishit 1', (t) => {
@@ -85,6 +85,6 @@ test('Invalid verse defaults to 1', (t) => {
 test('Location selection unsupported yet for Esther', (t) => {
   t.deepEqual(
     resolveToValidRef({ scroll: 'esther', chapter: '11', verse: '2' }),
-    { scroll: 'torah', b: 1, c: 1, v: 1 },
+    { scroll: 'torah', b: 1, c: 1, v: 1 }
   )
 })

@@ -7,7 +7,7 @@ import utils from './utils.ts'
 import ParshaResult, { NoResults } from './ParshaResult.ts'
 import Search, { SearchEmitter } from './Search.ts'
 import EventEmitter from '../event-emitter'
-import { Ref, RefWithScroll, Scroll } from '../ref'
+import { Ref, RefWithScroll, ScrollName } from '../ref'
 
 type Reading = {
   en: string
@@ -103,7 +103,7 @@ const Book = (book: BookType) => `
     <ol class="parsha-list">
       ${book
         .map((p) =>
-          Parsha({ idx: p.idx, token: 'torah', he: p.he, key: slugify(p.en) }),
+          Parsha({ idx: p.idx, token: 'torah', he: p.he, key: slugify(p.en) })
         )
         .join('')}
     </ol>
@@ -115,7 +115,7 @@ const parshaFromLabel = ({ label }: { label: string }) =>
 
 const ComingUpReading = (
   { label, date, datetime }: { label: string; date: string; datetime: string },
-  index: number,
+  index: number
 ) => {
   const parsha = parshaFromLabel({ label })
   return `
@@ -181,7 +181,7 @@ const Browse = () => `
               .join('\n')}
           </ol>
         </li>
-      `,
+      `
         )
         .join('\n')}
     </ol>
@@ -214,7 +214,7 @@ const searchables: Searchable[] = [
       token: 'torah',
       ...p,
       key: slugify(p.en),
-    }),
+    })
   ),
   {
     idx: 'esther',
@@ -261,7 +261,7 @@ export default (
     ref: RefWithScroll
     source: 'comingUp' | 'search' | 'browse'
     key: string
-  }) => void,
+  }) => void
 ) => {
   const searchEmitter = EventEmitter.new<SearchEmitter>()
   const s = Search({ search, emitter: searchEmitter })
@@ -284,7 +284,7 @@ export default (
       .slice(0, 3)
 
     const comingUpReadingsList = document.querySelector(
-      '#coming-up-readings-list',
+      '#coming-up-readings-list'
     )
 
     comingUpReadingsList.replaceWith(
@@ -292,7 +292,7 @@ export default (
         <ol id="coming-up-readings-list" class="cluster" style="list-style: none; display: table; margin-left: auto; margin-right: auto; white-space: nowrap;">
           ${comingUpReadings.map(ComingUpReading).join('')}
         </ol>
-        `),
+        `)
     )
     ;[
       ...self.querySelectorAll('[data-target-class="coming-up-reading"]'),
@@ -317,7 +317,7 @@ export default (
               key: idx === 0 ? 'next' : slugify(parsha.en),
             }
           },
-          holydays: (idx: Scroll) => ({
+          holydays: (idx: ScrollName) => ({
             ref: { ...holydays[idx].ref, scroll: idx },
             key: idx,
           }),
@@ -342,7 +342,7 @@ export default (
 
     const result = selected.querySelector('[data-target-class="parsha-result"]')
 
-    const idx = result.getAttribute(`data-idx`) as Scroll
+    const idx = result.getAttribute(`data-idx`) as ScrollName
     const token = result.getAttribute(`data-token`) as
       | 'torah'
       | 'holydays'
@@ -357,7 +357,7 @@ export default (
           key: slugify(parsha.en),
         }
       },
-      holydays: (idx: Scroll) => ({
+      holydays: (idx: ScrollName) => ({
         ref: { ...holydays[idx].ref, scroll: idx },
         key: idx,
       }),
@@ -396,7 +396,7 @@ export default (
         event_label: target.textContent.trim(),
       })
 
-      const idx = target.getAttribute(`data-idx`) as Scroll
+      const idx = target.getAttribute(`data-idx`) as ScrollName
       const token = target.getAttribute(`data-token`) as Token
 
       const { ref, key } = {
@@ -408,7 +408,7 @@ export default (
             key: slugify(parsha.en),
           }
         },
-        holydays: (idx: Scroll) => ({
+        holydays: (idx: ScrollName) => ({
           ref: { ...holydays[idx].ref, scroll: idx },
           key: idx,
         }),

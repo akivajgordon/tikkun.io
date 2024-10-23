@@ -1,5 +1,5 @@
 import Line from './Line.ts'
-import type { ScrollType } from '../scrolls-by-key'
+import { RenderedPageInfo } from '../view-model/scroll-view-model.ts'
 
 type Verse = {
   book: number
@@ -14,17 +14,9 @@ export type LineType = {
   isPetucha: boolean
 }
 
-const Page = ({
-  scroll: _scroll,
-  lines,
-}: {
-  scroll: ScrollType
-  lines: LineType[]
-}) => `
+const Page = (page: RenderedPageInfo) => `
   <table>
-    ${lines
-      .map((line, idx) => Line({ scroll: _scroll, lineIndex: idx, ...line }))
-      .join('')}
+    ${page.lines.map((line, idx) => Line({ lineIndex: idx, ...line })).join('')}
   </table>
 `
 

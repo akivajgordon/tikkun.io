@@ -1,7 +1,7 @@
 import tocJSON from './data/table-of-contents.json'
 import estherToc from './data/table-of-contents-esther.json'
 import holydaysToc from './data/table-of-contents-holydays.json'
-import { RefWithScroll } from './ref.ts'
+import { RefWithScroll, ScrollName } from './ref.ts'
 
 type AppleSauce = {
   p: number
@@ -12,7 +12,7 @@ type TOC = Record<string, Record<string, Record<string, AppleSauce>>>
 
 const toc: TOC = tocJSON
 
-const tocFromScroll: Record<string, TOC> = {
+const tocFromScroll: Record<ScrollName, TOC> = {
   torah: toc,
   esther: estherToc,
   ...holydaysToc,
@@ -26,13 +26,24 @@ const convertToValidInt = (val: string, validValues: object) => {
   return val && val in validValues ? parseInt(val) : 1
 }
 
+export function getPageCount(scroll: ScrollName) {
+  // TODO(#134): Delete this workaround once table-of-contents-esther.json is accurate.
+  if (scroll === 'esther') return 17
+  const toc = tocFromScroll[scroll]
+  const b = Math.max(...Object.keys(toc).map(Number))
+  const c = Math.max(...Object.keys(toc[b]).map(Number))
+  const v = Math.max(...Object.keys(toc[b][c]).map(Number))
+  return toc[b][c][v].p
+}
+
 export const physicalLocationFromRef = ({
-  ref: { b: book, c: chapter, v: verse },
+  b: book,
+  c: chapter,
+  v: verse,
   scroll,
-}: {
-  ref: Omit<RefWithScroll, 'scroll'>
-  scroll: keyof typeof tocFromScroll
-}) => {
+}: RefWithScroll) => {
+  if (!tocFromScroll[scroll]?.[book])
+    throw new Error(`Unknown book ${scroll} #${book}`)
   const { p: pageNumber, l: lineNumber } =
     tocFromScroll[scroll][book][chapter][verse]
   return { pageNumber, lineNumber }

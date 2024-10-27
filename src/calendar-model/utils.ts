@@ -17,6 +17,11 @@ export function last<T>(array: T[]) {
   return array[array.length - 1]
 }
 
+export function findLastIndex<T>(array: T[], cb: (v: T) => boolean) {
+  for (let i = array.length - 1; i >= 0; i--) if (cb(array[i])) return i
+  return -1
+}
+
 export function invert<K extends string, V extends string>(
   obj: Record<K, V>
 ): Record<V, K> {

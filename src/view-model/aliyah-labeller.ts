@@ -1,16 +1,20 @@
 import { Ref } from '../ref.ts'
 import { compareRefs } from '../calendar-model/ref-utils.ts'
 import { LeiningRun, LeiningAliyah } from '../calendar-model/model-types.ts'
+import { findLastIndex } from '../calendar-model/utils.ts'
 
 export class AliyahLabeller {
   /**
-   * The label (if any) for the end of an עלייה from the previous פסוק.
+   * The index (if any) for the end of an עלייה from the previous פסוק.
    * This is stored to be applied to the following פסוק, if it does not
-   * already have some other label.
+   * already have some other label, and if it's also the end of another
+   * עלייה (on חול המועד סוכות).
    *
    * This is stored in a class field to persist across labelled lines.
    */
-  previousEndLabel: string | null = null
+  previousEndIndex = -1
+  /** When this changes, we discard the above field. */
+  previousRun?: LeiningRun
 
   /**
    * Computes the set of עלייה labels to display for a line:
@@ -23,8 +27,12 @@ export class AliyahLabeller {
    * @param verses The פסוקים that begin in this line, if any.
    */
   getLabelsForLine(run: LeiningRun | undefined, verses: Ref[]): string[] {
+    if (run && run !== this.previousRun) {
+      this.previousEndIndex = -1
+    }
+
     if (!verses.length) return []
-    if (!run && !this.previousEndLabel) return []
+    if (!run && this.previousEndIndex < 0) return []
     const labels: string[] = []
 
     // TODO(haftara): Decide how to label skips
@@ -36,18 +44,32 @@ export class AliyahLabeller {
         ...starts.map((a) => aliyahName(a.index, run!)).filter((x) => x)
       )
 
-      // If there is no label here, and the previous פסוק ended an עלייה,
-      // add its label here.
-      if (!starts.length && this.previousEndLabel)
-        labels.push(this.previousEndLabel)
+      if (this.previousEndIndex >= 0) {
+        const previousEndLabel = `סוף ${aliyahName(
+          this.previousRun!.aliyot[this.previousEndIndex].index,
+          this.previousRun!,
+          { isEnd: true }
+        )}`
 
-      const end = run?.aliyot.find((a) => refEquals(a.end, v))
-      this.previousEndLabel = end
-        ? `סוף ${aliyahName(end.index, run!, {
-            isEnd: true,
-          })}`
-        : null
+        // If there is no label here, and the previous פסוק ended an עלייה,
+        // add its label here.
+        if (!starts.length) labels.push(previousEndLabel)
+        // If the previous פסוק is the end of a different עלייה, label that.
+        else if (
+          run &&
+          !starts.includes(run?.aliyot[this.previousEndIndex + 1])
+        )
+          labels.push(previousEndLabel)
+      }
+
+      this.previousEndIndex = run
+        ? findLastIndex(run.aliyot, (a) => refEquals(a.end, v))
+        : -1
     }
+    // We can only set this after we consume this field above.
+    // This lets us render a label, even when the current line
+    // has no run.
+    this.previousRun = run
     return labels
   }
 }

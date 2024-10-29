@@ -1,14 +1,13 @@
 import '/css/master.css'
 import InfiniteScroller from './infinite-scroller.ts'
-import urlToRef from './url-to-ref.ts'
 import ParshaPicker from './components/ParshaPicker.ts'
 import utils from './components/utils.ts'
-import scheduleFetcher from './schedule.ts'
 import { ScrollViewModel } from './view-model/scroll-view-model.ts'
 import { LeiningGenerator } from './calendar-model/generator.ts'
 import { ScrollDisplay } from './components/ScrollDisplay.ts'
 import { ViewportTracker } from './viewport-tracker.ts'
 import { TopBarTracker } from './view-model/navigation/top-bar-model.ts'
+import { parseUrl } from './view-model/navigation/url-parser.ts'
 
 declare function gtag(
   name: 'event',
@@ -300,13 +299,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     })
   )
 
-  // TODO: Rewrite this logic to parse new and old URLs.
-  await urlToRef({
-    url: window.location.href,
-    scheduleFetcher,
-  })
-
   setAppHeight()
 
-  app.jumpTo(ScrollViewModel.forDate(generator, new Date()))
+  window.addEventListener('hashchange', () => {
+    const newVM = parseCurrentUrl()
+    if (newVM) app.jumpTo(newVM)
+  })
+
+  app.jumpTo(
+    parseCurrentUrl() ??
+      // If the URL is invalid, default to the next leining.
+      ScrollViewModel.forDate(generator, new Date())
+  )
 })
+function parseCurrentUrl(): ScrollViewModel | null {
+  return parseUrl(generator, location.hash.replace(/^#/, ''))
+}

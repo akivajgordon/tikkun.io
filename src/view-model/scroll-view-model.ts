@@ -132,7 +132,7 @@ export abstract class ScrollViewModel {
     // Strip the time component so we can find today's leining.
     date = fromISODateString(toISODateString(date))
     const targetDate = allDates.find((d) => d.date >= date) ?? last(allDates)
-    return ScrollViewModel.forId(generator, targetDate.leinings[0].runs[0].id)
+    return ScrollViewModel.forId(generator, targetDate.leinings[0].runs[0].id)!
   }
 
   /** Creates the appropriate `ScrollViewModel` subclass for the first leining containing a פסוק. */

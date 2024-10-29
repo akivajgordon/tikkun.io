@@ -7,7 +7,7 @@ import utils from './utils.ts'
 import ParshaResult, { NoResults } from './ParshaResult.ts'
 import Search, { SearchEmitter } from './Search.ts'
 import EventEmitter from '../event-emitter'
-import { Ref, RefWithScroll, ScrollName } from '../ref'
+import { Ref } from '../ref'
 
 type Reading = {
   en: string
@@ -68,32 +68,20 @@ const holydaysLayout = [
 
 export type Token = 'torah' | 'esther' | 'holydays'
 
-const Parsha = ({
-  idx,
-  token,
-  he,
-  key,
-}: {
-  idx: unknown
-  token: Token
-  he: string
-  key: unknown
-}) => `
-  <li><button
+const Parsha = ({ he, ref, href }: { he: string; ref: Ref; href?: string }) => `
+  <li><a
     class="parsha"
-    data-idx="${idx}"
-    data-token="${token}"
-    data-target-id="parsha"
-    data-key="${key}"
+    href="${href ?? `#/r/${ref.b}-${ref.c}-${ref.v}`}"
   >
     ${he}
-  </button></li>
+  </a></li>
   `
 
 type Parsha = {
   idx: number | string
   he: string
   en: string
+  ref: Ref
 }
 
 type BookType = Parsha[]
@@ -101,11 +89,7 @@ type BookType = Parsha[]
 const Book = (book: BookType) => `
   <li class="parsha-book">
     <ol class="parsha-list">
-      ${book
-        .map((p) =>
-          Parsha({ idx: p.idx, token: 'torah', he: p.he, key: slugify(p.en) })
-        )
-        .join('')}
+      ${book.map((p) => Parsha({ he: p.he, ref: p.ref })).join('')}
     </ol>
   </li>
 `
@@ -172,10 +156,8 @@ const Browse = () => `
                 const holyday = holydays[holydayKey]
 
                 return Parsha({
-                  idx: holydayKey,
-                  token: 'holydays',
                   he: holyday.he,
-                  key: holydayKey,
+                  ref: holyday.ref,
                 })
               })
               .join('\n')}
@@ -191,10 +173,9 @@ const Browse = () => `
       <li class="parsha-book">
         <ol class="parsha-list">
           ${Parsha({
-            idx: 'esther',
-            token: 'esther',
             he: 'אסתר',
-            key: 'esther',
+            ref: { b: 1, c: 1, v: 1 },
+            href: '#/run/2025-03-14:megillah,megillah',
           })}
         </ol>
       </li>
@@ -219,6 +200,7 @@ const searchables: Searchable[] = [
   {
     idx: 'esther',
     token: 'esther',
+    ref: { b: 1, c: 1, v: 1 },
     he: 'אסתר',
     en: 'Esther',
     key: 'esther',
@@ -226,11 +208,12 @@ const searchables: Searchable[] = [
   ...Object.keys(holydays).map((holydayKey): Searchable => {
     const holyday = holydays[holydayKey]
 
-    const { he, en } = holyday
+    const { he, en, ref } = holyday
 
     return {
       idx: holydayKey,
       token: 'holydays',
+      ref,
       en,
       he,
       key: holydayKey,
@@ -254,15 +237,7 @@ const search = (query: string) => {
 
 declare function gtag(type: 'event', eventName: string, payload: unknown): void
 
-export default (
-  jumpToRef: ({
-    ref,
-  }: {
-    ref: RefWithScroll
-    source: 'comingUp' | 'search' | 'browse'
-    key: string
-  }) => void
-) => {
+export default () => {
   const searchEmitter = EventEmitter.new<SearchEmitter>()
   const s = Search({ search, emitter: searchEmitter })
 
@@ -297,37 +272,11 @@ export default (
     ;[
       ...self.querySelectorAll('[data-target-class="coming-up-reading"]'),
     ].forEach((comingUpReading, index) => {
-      comingUpReading.addEventListener('click', (e) => {
+      comingUpReading.addEventListener('click', () => {
         gtag('event', 'coming_up_selection', {
           event_category: 'navigation',
           event_label: ['due up', 'on deck', 'in the hole'][index],
         })
-
-        const idx = Number((e.target as Element).getAttribute(`data-idx`))
-        const token = 'torah' // e.getAttribute(`data-token`)
-
-        const { ref, key } = {
-          torah: (idx: number) => {
-            const label = comingUpReading.textContent
-
-            const parsha = parshaFromLabel({ label })
-
-            return {
-              ref: { ...parsha.ref, scroll: 'torah' as const },
-              key: idx === 0 ? 'next' : slugify(parsha.en),
-            }
-          },
-          holydays: (idx: ScrollName) => ({
-            ref: { ...holydays[idx].ref, scroll: idx },
-            key: idx,
-          }),
-          esther: () => ({
-            ref: { b: 1, c: 1, v: 1, scroll: 'esther' as const },
-            key: 'esther',
-          }),
-        }[token](idx)
-
-        jumpToRef({ ref, source: 'comingUp', key })
       })
     })
   })
@@ -339,35 +288,6 @@ export default (
         .querySelector('[data-target-class="result-hebrew"]')
         .textContent.trim(),
     })
-
-    const result = selected.querySelector('[data-target-class="parsha-result"]')
-
-    const idx = result.getAttribute(`data-idx`) as ScrollName
-    const token = result.getAttribute(`data-token`) as
-      | 'torah'
-      | 'holydays'
-      | 'esther'
-
-    const { ref, key } = {
-      torah: (idx: number | string) => {
-        const parsha = parshiyot[Number(idx)]
-
-        return {
-          ref: { ...parsha.ref, scroll: 'torah' as const },
-          key: slugify(parsha.en),
-        }
-      },
-      holydays: (idx: ScrollName) => ({
-        ref: { ...holydays[idx].ref, scroll: idx },
-        key: idx,
-      }),
-      esther: () => ({
-        ref: { b: 1, c: 1, v: 1, scroll: 'esther' as const },
-        key: 'esther',
-      }),
-    }[token](idx)
-
-    jumpToRef({ ref, source: 'search', key })
   })
 
   searchEmitter.on('search', (query) => {
@@ -395,30 +315,6 @@ export default (
         event_category: 'navigation',
         event_label: target.textContent.trim(),
       })
-
-      const idx = target.getAttribute(`data-idx`) as ScrollName
-      const token = target.getAttribute(`data-token`) as Token
-
-      const { ref, key } = {
-        torah: (idx: number | string) => {
-          const parsha = parshiyot[Number(idx)]
-
-          return {
-            ref: { ...parsha.ref, scroll: 'torah' as const },
-            key: slugify(parsha.en),
-          }
-        },
-        holydays: (idx: ScrollName) => ({
-          ref: { ...holydays[idx].ref, scroll: idx },
-          key: idx,
-        }),
-        esther: () => ({
-          ref: { b: 1, c: 1, v: 1, scroll: 'esther' as const },
-          key: 'esther',
-        }),
-      }[token](idx)
-
-      jumpToRef({ ref, source: 'browse', key })
     })
   })
 

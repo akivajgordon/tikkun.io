@@ -58,19 +58,7 @@ const showParshaPicker = () => {
     { selector: '[data-target-id="tikkun-book"]', visible: false },
   ].forEach(({ selector, visible }) => setVisibility({ selector, visible }))
 
-  const jumper = ParshaPicker(({ ref, key, source }) => {
-    app.jumpTo(ScrollViewModel.forRef(generator, ref))
-
-    const { scroll } = ref
-
-    const hashBySource = {
-      comingUp: (key: string) => (key === 'next' ? `#/next` : `#/p/${key}`),
-      browse: (key: string) => `#/${scroll === 'torah' ? 'p' : 'h'}/${key}`,
-      search: (key: string) => `#/${scroll === 'torah' ? 'p' : 'h'}/${key}`,
-    }[source](key)
-
-    window.location.hash = hashBySource
-  })
+  const jumper = ParshaPicker()
 
   document.querySelector('#js-app').appendChild(jumper.node)
 

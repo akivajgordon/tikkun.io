@@ -132,6 +132,8 @@
 }
 
 .parsha {
+  display: block;
+  text-decoration: none;
   padding: 1em;
   color: var(--text-color);
   background-color: transparent;

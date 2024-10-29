@@ -32,6 +32,16 @@ export class ScrollDisplay {
         const lines = [...pageNode.querySelectorAll<HTMLElement>('.line')]
         const lineIndex = lineNumber - 1
 
+        // If the target is in the top half of the page, render the previous page
+        // so that we can scroll down to center the target.
+        if (lineIndex < lines.length / 2) {
+          const previousPage = await viewModel.fetchPreviousPage()
+          if (previousPage) await this.renderPrevious(previousPage)
+        } else {
+          const nextPage = await viewModel.fetchNextPage()
+          if (nextPage) await this.renderNext(nextPage)
+        }
+
         const line = lines[lineIndex]
         // Wait for parsha picker to close so that we become measurable.
         requestAnimationFrame(() => {
@@ -44,8 +54,14 @@ export class ScrollDisplay {
   }
 
   private scrollTo({ element }: { element: HTMLElement }) {
+    // offsetTop is the <table>.  If we just rendered
+    // the previous page, we must add its top.
+    const relativeTop =
+      element.offsetTop + (element.offsetParent as HTMLElement).offsetTop
     this.root.scrollTop =
-      element.offsetTop + element.offsetHeight / 2 - this.root.offsetHeight / 2
+      relativeTop + element.offsetHeight / 2 - this.root.offsetHeight / 2
+    // Raise an event so that the title updates.
+    this.root.dispatchEvent(new Event('scroll'))
   }
 
   private generateRender(insertPosition: InsertPosition) {

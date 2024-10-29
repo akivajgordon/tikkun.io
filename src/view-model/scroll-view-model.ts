@@ -138,14 +138,16 @@ export abstract class ScrollViewModel {
   /** Creates the appropriate `ScrollViewModel` subclass for the first leining containing a פסוק. */
   static forRef(generator: LeiningGenerator, ref: RefWithScroll) {
     // Use this year's calendar.
-    const allRuns = generator
-      .forEntireChumash(new HDate(new Date()))
-      .flatMap((d) => d.leinings)
-      .filter(
-        (i) =>
-          i.isParsha || ref.scroll !== 'torah' || i.runs.some(isVezosHabracha)
-      )
-      .flatMap((i) => i.runs)
+
+    let allRuns
+    if (ref.scroll === 'torah') {
+      allRuns = getParshaRuns(generator, new Date())
+    } else {
+      allRuns = generator
+        .forEntireChumash(new HDate(new Date()))
+        .flatMap((d) => d.leinings)
+        .flatMap((i) => i.runs)
+    }
     const run =
       allRuns.find((r) => r.scroll === ref.scroll && containsRef(r, ref)) ??
       allRuns[0]
@@ -253,14 +255,18 @@ class FullScrollViewModel extends ScrollViewModel {
   ): LeiningRun[] {
     // When used for a מגילה, just include this run.
     if (run.scroll !== 'torah') return [run]
-    const hdate = new HDate(run.leining.date.date)
-    return generator
-      .forEntireChumash(hdate)
-      .flatMap((d) => d.leinings)
-      .filter((i) => i.isParsha || i.runs.some(isVezosHabracha))
-      .flatMap((i) => i.runs)
-      .filter((r) => r.scroll === run.scroll)
+    return getParshaRuns(generator, run.leining.date.date)
   }
+}
+
+/** Gets all LeiningRuns that should appear in the חומש-only view. */
+function getParshaRuns(generator: LeiningGenerator, hdate: Date) {
+  // Ignore separate מפטיר runs so that we don't label them as מפטיר out of context.
+  return generator
+    .forEntireChumash(new HDate(hdate))
+    .flatMap((d) => d.leinings)
+    .filter((i) => i.isParsha || i.runs.some(isVezosHabracha))
+    .map((i) => i.runs[0])
 }
 
 function isVezosHabracha(r: LeiningRun): boolean {

@@ -34,6 +34,11 @@ test('selects first line of פרשת ויחי', async (t) => {
   t.snapshot(await renderFirstLine('2025-01-11:shacharis,main'))
 })
 
+test(`ignores פרשת פרה when labelling פרשת חקת`, async (t) => {
+  // Make sure we don't label this as מפטיר from פרה, which appears first in the array of runs.
+  t.regex(await renderFirstLine('2025-07-05:shacharis,main'), /פרשת חקת/)
+})
+
 test('forDate on שבת', async (t) => {
   t.deepEqual(
     await renderScroll(

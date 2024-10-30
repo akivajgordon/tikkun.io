@@ -68,7 +68,7 @@ export function getBookName(end: RefWithScroll): string {
   return bookNames[end.scroll]?.[end.b] ?? toTitleCase(end.scroll)
 }
 
-function toTitleCase(str: string) {
+export function toTitleCase(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 

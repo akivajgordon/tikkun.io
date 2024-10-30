@@ -4,7 +4,7 @@ import ParshaResult, { NoResults } from './ParshaResult.ts'
 import Search, { SearchEmitter } from './Search.ts'
 import EventEmitter from '../event-emitter'
 import { LeiningGenerator } from '../calendar-model/generator.ts'
-import { HDate } from '@hebcal/core'
+import { HDate, Locale } from '@hebcal/core'
 import {
   LeiningInstance,
   LeiningInstanceId,
@@ -12,6 +12,7 @@ import {
 import { generateUrl } from '../view-model/navigation/url-parser.ts'
 import { isVezosHabracha } from '../view-model/scroll-view-model.ts'
 import { last } from '../calendar-model/utils.ts'
+import { toTitleCase } from '../calendar-model/hebcal-conversions.ts'
 
 const { htmlToElement } = utils
 
@@ -40,7 +41,7 @@ const ComingUpReading = (obj: LeiningInstance, index: number) => {
       <a
         href="${index === 0 ? '#/next' : generateUrl(obj.runs[0])}"
         class="coming-up-button"
-      >${renderTitle(obj)}</a>
+      >${renderTitle(obj, { forCalendar: true })}</a>
       <time class="coming-up-date">${dateFormat.format(obj.date.date)}</time>
     </div>
   </li>
@@ -134,9 +135,17 @@ const search = (leinings: LeiningInstance[], query: string) => {
   return results.filter(top(5)).map((result) => ParshaResult(result))
 }
 
-function renderTitle(obj: LeiningInstance) {
+function renderTitle(obj: LeiningInstance, opts?: { forCalendar?: boolean }) {
+  if (obj.id === LeiningInstanceId.Megillah)
+    return Locale.gettext(toTitleCase(obj.runs[0].scroll), 'he-x-nonikud')
+
   let title = obj.date.title.he.replace('פרשת ', '')
   if (obj.id !== LeiningInstanceId.Shacharis) title += `: ${obj.id}`
+
+  // In the holiday listing, don't include the month name.
+  // In the Upcoming section, do include it.
+  if (!opts?.forCalendar && title.startsWith('ראש חודש')) return 'ראש חודש'
+
   return title
 }
 

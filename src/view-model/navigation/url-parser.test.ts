@@ -68,7 +68,10 @@ test('Generated URLs round-trip', async (t) => {
     await renderStartingLine(
       parseUrl(
         generator,
-        generateUrl(generator.parseId('2025-09-20:shacharis,main')!)
+        generateUrl(generator.parseId('2025-09-20:shacharis,main')!).replace(
+          /^#/,
+          ''
+        )
       )
     ),
     await renderStartingLine(

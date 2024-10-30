@@ -5,7 +5,7 @@ import { ScrollViewModel } from '../scroll-view-model.ts'
 
 /** Generates a URL that points to the beginning of a specific run. */
 export function generateUrl(run: LeiningRun) {
-  return `/run/${run.id}`
+  return `#/run/${run.id}`
 }
 
 // TODO(decide): Should we support links to a specific עלייה in a run?

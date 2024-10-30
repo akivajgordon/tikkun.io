@@ -269,7 +269,7 @@ function getParshaRuns(generator: LeiningGenerator, hdate: Date) {
     .map((i) => i.runs[0])
 }
 
-function isVezosHabracha(r: LeiningRun): boolean {
+export function isVezosHabracha(r: LeiningRun): boolean {
   return (
     r.leining.id === LeiningInstanceId.Shacharis &&
     r.aliyot[0]?.start.b === 5 &&

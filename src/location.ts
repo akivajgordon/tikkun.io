@@ -1,7 +1,8 @@
 import tocJSON from './data/table-of-contents.json'
 import estherToc from './data/table-of-contents-esther.json'
-import holydaysToc from './data/table-of-contents-holydays.json'
 import { RefWithScroll, ScrollName } from './ref.ts'
+
+// TODO: Rewrite this to lazily load TOC files.
 
 type AppleSauce = {
   p: number
@@ -15,7 +16,6 @@ const toc: TOC = tocJSON
 const tocFromScroll: Record<ScrollName, TOC> = {
   torah: toc,
   esther: estherToc,
-  ...holydaysToc,
 }
 
 export const defaultRef = (): RefWithScroll => {

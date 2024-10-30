@@ -163,6 +163,7 @@ function dumpLeiningDate(date: HDate) {
     title: ld.title,
     leinings: ld.leinings.map((o) => ({
       isParsha: o.isParsha,
+      id: o.id,
       runs: o.runs.map(dumpLeiningRun),
     })),
   }

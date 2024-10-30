@@ -181,7 +181,9 @@ export class LeiningGenerator {
     resultDate.leinings = leinings.flatMap((o) => {
       const results: LeiningInstance[] = []
       if (!isNotPlainWeekday(o)) return results
-      if (o.megillah)
+      // Skip the first instance of אסתר, since it's
+      // immediately followed by the second instance.
+      if (o.megillah && o.name.en !== 'Erev Purim')
         results.push(this.instanceFromMegillah(o.megillah, resultDate))
 
       // When מעריב only has מגילה, this will be empty.

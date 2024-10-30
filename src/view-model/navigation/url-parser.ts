@@ -1,6 +1,5 @@
 import { LeiningGenerator } from '../../calendar-model/generator.ts'
 import { LeiningRun } from '../../calendar-model/model-types.ts'
-import { resolveToValidRef } from '../../location.ts'
 import { ScrollViewModel } from '../scroll-view-model.ts'
 
 /** Generates a URL that points to the beginning of a specific run. */
@@ -27,11 +26,12 @@ const pathHandlers: Record<
 
     if (!book || !chapter || !verse) return null
 
-    // TODO(later): This depends on the TOC.  Consider dropping it.
-    return ScrollViewModel.forRef(
-      generator,
-      resolveToValidRef({ scroll: 'torah', book, chapter, verse })
-    )
+    return ScrollViewModel.forRef(generator, {
+      scroll: 'torah',
+      b: Number(book),
+      c: Number(chapter),
+      v: Number(verse),
+    })
   },
   /** Legacy URL: The next leining. */
   next(generator) {

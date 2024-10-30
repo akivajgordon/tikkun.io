@@ -80,13 +80,6 @@ test('Generated URLs round-trip', async (t) => {
   )
 })
 
-test('Location references default to 1 if out of bounds', async (t) => {
-  t.is(
-    await renderStartingLine(parseUrl(generator, '/r/4-999-99/')),
-    await renderStartingLine(parseUrl(generator, '/r/4-1-1'))
-  )
-})
-
 async function renderStartingLine(model: ScrollViewModel | null) {
   if (!model) throw new Error(`URL did not parse.`)
 

@@ -18,14 +18,6 @@ const tocFromScroll: Record<ScrollName, TOC> = {
   esther: estherToc,
 }
 
-export const defaultRef = (): RefWithScroll => {
-  return { scroll: 'torah', b: 1, c: 1, v: 1 }
-}
-
-const convertToValidInt = (val: string, validValues: object) => {
-  return val && val in validValues ? parseInt(val) : 1
-}
-
 export function getPageCount(scroll: ScrollName) {
   // TODO(#134): Delete this workaround once table-of-contents-esther.json is accurate.
   if (scroll === 'esther') return 17
@@ -47,31 +39,4 @@ export const physicalLocationFromRef = ({
   const { p: pageNumber, l: lineNumber } =
     tocFromScroll[scroll][book][chapter][verse]
   return { pageNumber, lineNumber }
-}
-
-export const resolveToValidRef = ({
-  scroll = 'torah',
-  book,
-  chapter,
-  verse,
-}: {
-  scroll: string
-  book: string
-  chapter: string
-  verse: string
-}) => {
-  const ref = defaultRef()
-  if (scroll !== 'torah') {
-    return ref
-  }
-
-  const toc = tocFromScroll.torah
-
-  ref.b = convertToValidInt(book, toc)
-  ref.c = convertToValidInt(chapter, toc[ref.b])
-  ref.v = convertToValidInt(verse, toc[ref.b][ref.c])
-
-  return {
-    ...ref,
-  }
 }

@@ -1,5 +1,5 @@
-import tocJSON from './data/table-of-contents.json'
-import estherToc from './data/table-of-contents-esther.json'
+import tocJSON from './data/tables-of-contents/torah.json'
+import estherToc from './data/tables-of-contents/esther.json'
 import { RefWithScroll, ScrollName } from './ref.ts'
 
 // TODO: Rewrite this to lazily load TOC files.

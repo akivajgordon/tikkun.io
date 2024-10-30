@@ -18,10 +18,15 @@ const generator = new LeiningGenerator(testSettings)
 
 for (let year = 5780; year < 5790; year++) {
   test(`runs round-trip via ID for ${year}`, (t) => {
+    function assertNotEmpty<T>(arr: T[], message: string) {
+      t.notDeepEqual(arr, [], message)
+      return arr
+    }
+
     const calendar = generator.forHebrewYear(year)
     calendar
-      .flatMap((d) => d.leinings)
-      .flatMap((o) => o.runs)
+      .flatMap((d) => assertNotEmpty(d.leinings, d.title))
+      .flatMap((o) => assertNotEmpty(o.runs, `${o.date.title}: ${o.id}`))
       .forEach((run) => {
         const parsed = generator.parseId(run.id)
 

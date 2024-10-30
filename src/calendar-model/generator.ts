@@ -177,8 +177,9 @@ export class LeiningGenerator {
       if (o.megillah)
         results.push(this.instanceFromMegillah(o.megillah, resultDate))
 
+      // When מעריב only has מגילה, this will be empty.
       const mainLeining = this.instanceFromMainLeining(resultDate, o)
-      results.push(mainLeining)
+      if (mainLeining.runs.length) results.push(mainLeining)
 
       const haftara = this.settings.ashkenazi ? o.haft : o.seph
       if (haftara)

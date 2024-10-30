@@ -66,10 +66,10 @@ const groupHolidays = (leinings: LeiningInstance[]) => {
   for (const leining of leinings) {
     if (leining.isParsha) continue
     // Only include the first ראש חודש
-    if (last(groups).length && leining.date.title.startsWith('ראש חודש'))
+    if (last(groups).length && leining.date.title.he.startsWith('ראש חודש'))
       continue
-    if (leining.date.title.startsWith('תענית אסתר')) continue
-    if (holidayGroupStarts.includes(leining.date.title)) groups.push([])
+    if (leining.date.title.he.startsWith('תענית אסתר')) continue
+    if (holidayGroupStarts.includes(leining.date.title.he)) groups.push([])
     last(groups).push(leining)
   }
   return groups
@@ -141,7 +141,7 @@ const search = (query: string) => {
 }
 
 function renderTitle(obj: LeiningInstance) {
-  let title = obj.date.title.replace('פרשת ', '')
+  let title = obj.date.title.he.replace('פרשת ', '')
   if (obj.id !== LeiningInstanceId.Shacharis) title += `: ${obj.id}`
   return title
 }

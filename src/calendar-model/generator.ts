@@ -167,10 +167,17 @@ export class LeiningGenerator {
     const resultDate: LeiningDate = {
       date: date.greg(),
       id: toISODateString(date.greg()),
-      title: Locale.hebrewStripNikkud(leinings[0].name.he ?? 'TODO: unknown'),
+      title: {
+        en: leinings[0].name.en ?? 'TODO: unknown',
+        he: Locale.hebrewStripNikkud(leinings[0].name.he ?? 'TODO: unknown'),
+      },
       leinings: [],
     }
-    if (leinings[0].parsha) resultDate.title = `פרשת ${resultDate.title}`
+    if (leinings[0].parsha)
+      resultDate.title = {
+        en: `Parshat ${resultDate.title.en}`,
+        he: `פרשת ${resultDate.title.he}`,
+      }
     resultDate.leinings = leinings.flatMap((o) => {
       const results: LeiningInstance[] = []
       if (!isNotPlainWeekday(o)) return results

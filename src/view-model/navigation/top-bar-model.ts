@@ -181,7 +181,7 @@ export class TopBarTracker {
         const label = aliyahName(a.aliyah.index, a.run, { isEnd: true })
         return a.run === currentRun
           ? label
-          : `${a.run.leining.date.title} ${label}`
+          : `${a.run.leining.date.title.he} ${label}`
       })
   }
 }
@@ -193,7 +193,7 @@ function createInstanceLink(
   return {
     targetRun: target.runs[0],
     label: [
-      target.date.id === currentRun.leining.date.id ? '' : target.date.title,
+      target.date.id === currentRun.leining.date.id ? '' : target.date.title.he,
       target.id,
     ]
       .join(' ')

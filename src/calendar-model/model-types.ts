@@ -21,7 +21,7 @@ export interface LeiningDate {
   id: string
 
   /** The user-friendly title displayed in the picker UI. */
-  title: string
+  title: { en: string; he: string }
 
   /** The ordered list of leinings on this date. */
   leinings: LeiningInstance[]

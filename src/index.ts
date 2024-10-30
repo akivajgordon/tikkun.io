@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // TODO: Render actual top bar.
     const run = topBarModel.info.currentRun
-    titleEl.textContent = `${run?.leining.date.title} ${
+    titleEl.textContent = `${run?.leining.date.title.he} ${
       run?.leining.id
     }: ${topBarModel.info.aliyahRange.join(' – ')}`
   })

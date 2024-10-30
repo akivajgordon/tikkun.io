@@ -296,7 +296,7 @@ function renderResult(
     currentRun: cachedResult.currentRun && {
       id: cachedResult.currentRun?.id,
       title: [
-        cachedResult.currentRun.leining.date.title,
+        cachedResult.currentRun.leining.date.title.he,
         cachedResult.currentRun.leining.id,
         cachedResult.currentRun.type,
       ].join(' '),

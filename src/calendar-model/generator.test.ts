@@ -25,8 +25,8 @@ for (let year = 5780; year < 5790; year++) {
 
     const calendar = generator.forHebrewYear(year)
     calendar
-      .flatMap((d) => assertNotEmpty(d.leinings, d.title))
-      .flatMap((o) => assertNotEmpty(o.runs, `${o.date.title}: ${o.id}`))
+      .flatMap((d) => assertNotEmpty(d.leinings, d.title.he))
+      .flatMap((o) => assertNotEmpty(o.runs, `${o.date.title.he}: ${o.id}`))
       .forEach((run) => {
         const parsed = generator.parseId(run.id)
 
@@ -68,8 +68,8 @@ test('4 פרשיות always get separate runs', (t) => {
 const testForEntireChumash = test.macro({
   async exec(t, date: HDate) {
     const dates = generator.forEntireChumash(date)
-    t.is(dates[0].title, 'פרשת בראשית')
-    t.is(last(dates).title, 'שמחת תורה')
+    t.is(dates[0].title.he, 'פרשת בראשית')
+    t.is(last(dates).title.he, 'שמחת תורה')
     t.true(
       dates.some((d) => d.date.toDateString() === date.greg().toDateString())
     )
@@ -128,18 +128,18 @@ test('generates ראש חודש חנוכה', (t) => {
 
 test('generates leinings surrounding פרשת וירא', (t) => {
   const results = generator.aroundDate(new Date(2024, 10, 16))
-  t.snapshot(results.map((ld) => `${ld.id}: ${ld.title}`))
+  t.snapshot(results.map((ld) => `${ld.id}: ${ld.title.he}`))
 })
 
 test('generates leinings surrounding שבת שובה', (t) => {
   const results = generator.aroundDate(new Date(2024, 9, 5))
-  t.snapshot(results.map((ld) => `${ld.id}: ${ld.title}`))
+  t.snapshot(results.map((ld) => `${ld.id}: ${ld.title.he}`))
 })
 
 test('generates leinings surrounding שקלים / ראש חודש as פרשה', (t) => {
   const results = generator.aroundDate(new Date(2025, 2, 1))
   t.snapshot(
-    results.map((ld) => `${ld.id}: ${ld.title}`),
+    results.map((ld) => `${ld.id}: ${ld.title.he}`),
     'Warning: These must be unique!'
   )
 })
@@ -147,14 +147,14 @@ test('generates leinings surrounding שקלים / ראש חודש as פרשה', 
 test('generates leinings surrounding חנוכה', (t) => {
   const results = generator.aroundDate(new Date(2025, 11, 19))
   t.snapshot(
-    results.map((ld) => `${ld.id}: ${ld.title}`),
+    results.map((ld) => `${ld.id}: ${ld.title.he}`),
     'Warning: These must be unique!'
   )
 })
 
 test('generates leinings surrounding פורים', (t) => {
   const results = generator.aroundDate(new Date(2025, 2, 13))
-  t.snapshot(results.map((ld) => `${ld.id}: ${ld.title}`))
+  t.snapshot(results.map((ld) => `${ld.id}: ${ld.title.he}`))
 })
 
 /** Prints the information in a `LeiningDate`, to be easily readable in the Markdown snapshot. */
@@ -162,10 +162,10 @@ function dumpLeiningDate(date: HDate) {
   const ld = generator.createLeiningDate(date)
   if (!ld) return null
   if (new Set(ld.leinings.map((o) => o.id)).size !== ld.leinings.length)
-    throw new Error(`${ld.id} (${ld.title}) has duplicate leinings!`)
+    throw new Error(`${ld.id} (${ld.title.he}) has duplicate leinings!`)
   return {
     date: ld.id,
-    title: ld.title,
+    title: ld.title.he,
     leinings: ld.leinings.map((o) => ({
       isParsha: o.isParsha,
       id: o.id,

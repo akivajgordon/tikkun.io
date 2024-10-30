@@ -63,6 +63,11 @@
   color: inherit;
 }
 
+.search-results a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .search-results {
   border-top: 1px solid var(--heavy-accent-color);
 }

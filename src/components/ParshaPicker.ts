@@ -121,19 +121,13 @@ const Browse = (leinings: LeiningInstance[]) => `
   </div>
 `
 
-type Searchable = Parsha & {
-  token: Token
-  key: string
-}
-
-const searchResults = (query: string) => {
-  return fuzzy(searchables, query, (parsha) => [parsha.he, parsha.en])
-}
-
 const top = (n: number) => (_: unknown, i: number) => i < n
 
-const search = (query: string) => {
-  const results = searchResults(query)
+const search = (leinings: LeiningInstance[], query: string) => {
+  const results = fuzzy(leinings, query, (o) => [
+    o.date.title.he,
+    o.date.title.en,
+  ])
 
   if (!results.length) return [NoResults()]
 
@@ -154,7 +148,10 @@ export default (generator: LeiningGenerator) => {
     .flatMap((ld) => ld.leinings)
 
   const searchEmitter = EventEmitter.new<SearchEmitter>()
-  const s = Search({ search, emitter: searchEmitter })
+  const s = Search({
+    search: search.bind(null, leinings),
+    emitter: searchEmitter,
+  })
 
   const comingUpReadings = leinings
     .filter((ld) => ld.date.date > new Date())

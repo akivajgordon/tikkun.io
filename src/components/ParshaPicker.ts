@@ -105,12 +105,14 @@ const ComingUpReading = (
   return `
   <li style="display: table-cell; width: calc(100% / 3); padding: 0 0.5em;">
     <div class="stack small" style="display: flex; flex-direction: column; align-items: center;">
-      <button
-        data-target-class="coming-up-reading"
-        data-idx="${index}"
-        data-key="${index === 0 ? 'next' : slugify(parsha.en)}"
+      <a
+        href="#${
+          index === 0
+            ? '/next'
+            : `/r/${parsha.ref.b}-${parsha.ref.c}-${parsha.ref.v}`
+        }"
         class="coming-up-button"
-      >${label}</button>
+      >${label}</a>
       <time class="coming-up-date" datetime="${datetime}">${date}</time>
     </div>
   </li>

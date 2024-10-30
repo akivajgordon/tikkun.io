@@ -173,6 +173,9 @@
 }
 
 .coming-up-button {
+  display: block;
+  text-decoration: none;
+  text-align: center;
   background-color: var(--light-accent-color);
   padding: 0.5em 1em;
   width: 100%;

@@ -58,7 +58,7 @@ const showParshaPicker = () => {
     { selector: '[data-target-id="tikkun-book"]', visible: false },
   ].forEach(({ selector, visible }) => setVisibility({ selector, visible }))
 
-  const jumper = ParshaPicker()
+  const jumper = ParshaPicker(generator)
 
   document.querySelector('#js-app').appendChild(jumper.node)
 

@@ -8,7 +8,6 @@ import {
   LeiningRunType,
 } from '../calendar-model/model-types.ts'
 import IntegerIterator from '../integer-iterator.ts'
-import { getPageCount, physicalLocationFromRef } from '../location.ts'
 import { HDate } from '@hebcal/core'
 import { containsRef } from '../calendar-model/ref-utils.ts'
 import {
@@ -18,6 +17,7 @@ import {
   toISODateString,
 } from '../calendar-model/utils.ts'
 import { AliyahLabeller } from './aliyah-labeller.ts'
+import { loadScroll, ScrollResolver } from '../location.ts'
 
 /** Information to render a single page from a scroll. */
 export interface RenderedPageInfo {
@@ -76,35 +76,47 @@ export interface RenderedLineInfo {
 
 /** Tracks scrolling through a single "view" of a scroll, associated with one or more LeiningRuns. */
 export abstract class ScrollViewModel {
-  private readonly currentContentIndex: ReturnType<typeof IntegerIterator.new>
+  private readonly currentContentIndex: Promise<
+    ReturnType<typeof IntegerIterator.new>
+  >
   readonly startingLocation: Promise<{
     page: RenderedEntry
     lineNumber: number
   }>
+  readonly resolver: Promise<ScrollResolver>
+
   protected constructor(
     readonly generator: LeiningGenerator,
     /** The "view" (set of runs and contained עליות) that the user can scroll through. */
     readonly relevantRuns: LeiningRun[],
     initialRef: RefWithScroll
   ) {
-    // TODO(later): Load TOCs lazily.
-    // This means converting currentPage to a promise and awaiting it everywhere.
-    const { pageNumber, lineNumber } = physicalLocationFromRef(initialRef)
-
-    const startingContentIndex = this.contentIndexFromPageNumber(pageNumber)
-    this.currentContentIndex = IntegerIterator.new({
-      startingAt: startingContentIndex,
-    })
-    this.startingLocation = this.fetchPage(startingContentIndex).then(
-      (page) => {
-        if (!page)
-          throw new Error(`First page ${startingContentIndex} must exist`)
-        return {
-          page,
-          lineNumber,
-        }
-      }
+    this.resolver = loadScroll(initialRef.scroll)
+    const startingInfo = this.loadAndConsumeScroll(initialRef)
+    this.currentContentIndex = startingInfo.then(
+      ({ currentIndex }) => currentIndex
     )
+    this.startingLocation = startingInfo.then(({ location }) => location)
+  }
+  private async loadAndConsumeScroll(initialRef: RefWithScroll) {
+    const scrollResolver = await this.resolver
+    const { pageNumber, lineNumber } =
+      await scrollResolver.physicalLocationFromRef(initialRef)
+
+    const startingContentIndex = await this.contentIndexFromPageNumber(
+      pageNumber
+    )
+    const page = await this.fetchPage(startingContentIndex)
+    if (!page) throw new Error(`First page ${startingContentIndex} must exist`)
+    return {
+      location: {
+        page,
+        lineNumber,
+      },
+      currentIndex: IntegerIterator.new({
+        startingAt: startingContentIndex,
+      }),
+    }
   }
 
   /** Creates the appropriate `ScrollViewModel` subclass for a particular `LeiningRun` */
@@ -155,12 +167,12 @@ export abstract class ScrollViewModel {
     return ScrollViewModel.forId(generator, run.id)
   }
 
-  fetchPreviousPage(): Promise<RenderedEntry | null> {
-    return this.fetchPage(this.currentContentIndex.previous())
+  async fetchPreviousPage(): Promise<RenderedEntry | null> {
+    return this.fetchPage((await this.currentContentIndex).previous())
   }
 
-  fetchNextPage(): Promise<RenderedEntry | null> {
-    return this.fetchPage(this.currentContentIndex.next())
+  async fetchNextPage(): Promise<RenderedEntry | null> {
+    return this.fetchPage((await this.currentContentIndex).next())
   }
 
   /**
@@ -173,12 +185,14 @@ export abstract class ScrollViewModel {
    */
   protected abstract pageNumberFromContentIndex(
     contentIndex: number
-  ): ContentPageEntry
+  ): Promise<ContentPageEntry>
   /** Returns the (contiguous) index at which the given page is rendered. */
-  protected abstract contentIndexFromPageNumber(pageNumber: number): number
+  protected abstract contentIndexFromPageNumber(
+    pageNumber: number
+  ): Promise<number>
 
   private async fetchPage(contentIndex: number): Promise<RenderedEntry | null> {
-    const pageNumber = this.pageNumberFromContentIndex(contentIndex)
+    const pageNumber = await this.pageNumberFromContentIndex(contentIndex)
     if (typeof pageNumber === 'object') return pageNumber
     if (!pageNumber || pageNumber <= 0) return null
 
@@ -226,25 +240,27 @@ export abstract class ScrollViewModel {
 
 /** A view that includes the entire scroll.  Used for regular פרשיות and any מגילה. */
 class FullScrollViewModel extends ScrollViewModel {
-  private readonly pageCount
+  private readonly pageCount: Promise<number>
   constructor(generator: LeiningGenerator, run: LeiningRun) {
     super(
       generator,
       FullScrollViewModel.calculateRuns(generator, run),
       run.aliyot[0].start
     )
-    this.pageCount = getPageCount(run.scroll)
+    this.pageCount = this.resolver.then((r) => r.getPageCount())
   }
 
-  protected override pageNumberFromContentIndex(
+  protected override async pageNumberFromContentIndex(
     contentIndex: number
-  ): ContentPageEntry {
-    if (contentIndex + 1 > this.pageCount) return -1
+  ): Promise<ContentPageEntry> {
+    if (contentIndex + 1 > (await this.pageCount)) return -1
     // Page numbers in the JSON are 1-based
     return contentIndex + 1
   }
   /** Returns the (contiguous) index at which the given page is rendered. */
-  protected override contentIndexFromPageNumber(pageNumber: number): number {
+  protected override async contentIndexFromPageNumber(
+    pageNumber: number
+  ): Promise<number> {
     // Content indices are 0-based.
     return pageNumber - 1
   }
@@ -282,13 +298,24 @@ type ContentPageEntry = number | RenderedMessageInfo
 
 /** A view that only renders pages containing the actual leinings.  Used for יום טוב. */
 class HolidayViewModel extends ScrollViewModel {
-  private pages?: ContentPageEntry[]
-  private getPages(): ContentPageEntry[] {
-    if (this.pages) return this.pages
+  private readonly pages: Promise<ContentPageEntry[]>
+
+  constructor(generator: LeiningGenerator, run: LeiningRun) {
+    // TODO(decide): Should this include the whole LeiningDate?
+    super(
+      generator,
+      run.leining.runs.filter((r) => r.scroll === run.scroll),
+      run.aliyot[0].start
+    )
+    this.pages = this.fetchPages()
+  }
+
+  private async fetchPages(): Promise<ContentPageEntry[]> {
     let lastEndPage = 0
-    this.pages = this.relevantRuns.flatMap((r) => {
-      const start = physicalLocationFromRef(r.aliyot[0].start)
-      const end = physicalLocationFromRef(last(r.aliyot).end)
+    const resolver = await this.resolver
+    return this.relevantRuns.flatMap((r) => {
+      const start = resolver.physicalLocationFromRef(r.aliyot[0].start)
+      const end = resolver.physicalLocationFromRef(last(r.aliyot).end)
 
       const extraEntries: ContentPageEntry[] = []
       if (lastEndPage) {
@@ -302,25 +329,17 @@ class HolidayViewModel extends ScrollViewModel {
 
       return extraEntries.concat(range(start.pageNumber, end.pageNumber))
     })
-    return this.pages
   }
 
-  constructor(generator: LeiningGenerator, run: LeiningRun) {
-    // TODO(decide): Should this include the whole LeiningDate?
-    super(
-      generator,
-      run.leining.runs.filter((r) => r.scroll === run.scroll),
-      run.aliyot[0].start
-    )
-  }
-
-  protected override pageNumberFromContentIndex(
+  protected override async pageNumberFromContentIndex(
     index: number
-  ): ContentPageEntry {
-    return this.getPages()[index]
+  ): Promise<ContentPageEntry> {
+    return (await this.pages)[index]
   }
-  protected override contentIndexFromPageNumber(pageNumber: number): number {
-    return this.getPages().indexOf(pageNumber)
+  protected override async contentIndexFromPageNumber(
+    pageNumber: number
+  ): Promise<number> {
+    return (await this.pages).indexOf(pageNumber)
   }
 }
 

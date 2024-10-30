@@ -35,8 +35,6 @@ test.afterEach('reset state', () => {
   pages = []
 })
 
-// TODO: Test collapsing ראש חודש
-
 test.serial('renders across runs for שמיני עצרת', async (t) => {
   await createModel('2024-10-24:shacharis,main', {
     count: 5,

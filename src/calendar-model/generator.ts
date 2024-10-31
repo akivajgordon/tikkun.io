@@ -160,7 +160,6 @@ export class LeiningGenerator {
       this.settings.israel,
       /* wantarray */ true
     )
-    if (!Array.isArray(leinings)) return null
     leinings = leinings.filter((o) => !o.weekday)
     if (!leinings.length) return null
 

@@ -5,7 +5,7 @@ import { RefWithScroll, ScrollName } from '../ref.ts'
 import { LeiningAliyah } from './model-types.ts'
 
 /** Maps scrolls with multiple books to their book names as used in @hebcal. */
-const bookNames: Partial<Record<ScrollName, string[]>> = {
+const bookNames: Partial<Record<ScrollName, readonly string[]>> = {
   torah: BOOK,
   // TODO(haftara): Add Trei Asar, Shmuel, Melachim
   // TODO(haftara): Add any other differences between ScrollName and @hebcal's parameters.

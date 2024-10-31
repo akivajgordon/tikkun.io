@@ -24,6 +24,13 @@ for (let year = 5780; year < 5790; year++) {
     }
 
     const calendar = generator.forHebrewYear(year)
+
+    calendar.forEach((ld) => {
+      t.notRegex(ld.title.en, /TODO/, ld.id)
+      // Catch missing translations
+      t.notRegex(ld.title.he, /TODO/, `${ld.id}: ${ld.title.en}`)
+    })
+
     calendar
       .flatMap((d) => assertNotEmpty(d.leinings, d.title.he))
       .flatMap((o) => assertNotEmpty(o.runs, `${o.date.title.he}: ${o.id}`))

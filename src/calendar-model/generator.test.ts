@@ -28,7 +28,7 @@ for (let year = 5780; year < 5790; year++) {
     calendar.forEach((ld) => {
       t.notRegex(ld.title.en, /TODO/, ld.id)
       // Catch missing translations
-      t.notRegex(ld.title.he, /TODO/, `${ld.id}: ${ld.title.en}`)
+      t.notRegex(ld.title.he, /[a-z]/i, `${ld.id}: ${ld.title.en}`)
     })
 
     calendar

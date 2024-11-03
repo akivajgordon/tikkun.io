@@ -69,7 +69,7 @@ export function getBookName(end: RefWithScroll): string {
 }
 
 export function toTitleCase(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
+  return str.charAt(0).toUpperCase() + str.slice(1).replace(/songs/, 'Songs')
 }
 
 /** Converts a hebcal index string (from `AliyahMap`) to our `index` property value. */

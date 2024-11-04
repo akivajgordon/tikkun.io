@@ -1,11 +1,4 @@
-import {
-  CalOptions,
-  flags,
-  HDate,
-  HebrewCalendar,
-  Locale,
-  months,
-} from '@hebcal/core'
+import { HDate, HebrewCalendar, Locale, months } from '@hebcal/core'
 import {
   LeiningAliyah,
   LeiningDate,
@@ -88,26 +81,30 @@ export class LeiningGenerator {
 
   /** Creates all leinings in a Hebrew year. */
   forHebrewYear(year: number): LeiningDate[] {
-    return this.generateCalendar({ year, isHebrewYear: true, numYears: 1 })
+    return this.generateCalendar({
+      start: new HDate(1, months.TISHREI, year),
+      until: new HDate(1, months.TISHREI, year + 1),
+    })
   }
 
   /** Creates all leinings, from בראשית until שמחת תורה, containing a date. */
   forEntireChumash(containing: HDate): LeiningDate[] {
-    const endDay = this.settings.israel ? 22 : 23
-    let end = new HDate(endDay, months.TISHREI, containing.getFullYear())
+    // Select one day after שמחת תורה
+    const untilDay = this.settings.israel ? 23 : 24
+    let until = new HDate(untilDay, months.TISHREI, containing.getFullYear())
 
     // If the user's date is after שמחת תורה, add one year.
-    if (end.greg() <= containing.greg())
-      end = new HDate(endDay, months.TISHREI, 1 + containing.getFullYear())
+    if (until.greg() <= containing.greg())
+      until = new HDate(untilDay, months.TISHREI, 1 + containing.getFullYear())
 
     // Get בראשית from the previous year.
     const parshaFinder = HebrewCalendar.getSedra(
-      end.getFullYear() - 1,
+      until.getFullYear() - 1,
       this.settings.israel
     )
     return this.generateCalendar({
       start: parshaFinder.find('Bereshit')!,
-      end,
+      until,
     })
   }
 
@@ -116,42 +113,30 @@ export class LeiningGenerator {
    * Use this to generate previous and next links.
    */
   aroundDate(date: Date): LeiningDate[] {
+    const hdate = new HDate(date)
     return this.generateCalendar({
-      start: new Date(+date - 8 * 24 * 60 * 60 * 1000),
-      end: new Date(+date + 8 * 24 * 60 * 60 * 1000),
+      start: hdate.subtract(8, 'day'),
+      until: hdate.add(9, 'day'),
     })
   }
 
-  private generateCalendar(opts: Partial<CalOptions>): LeiningDate[] {
-    const calendar = HebrewCalendar.calendar({
-      ...opts,
-      sedrot: true,
-      ashkenazi: this.settings.ashkenazi,
-      il: this.settings.israel,
-      noModern: !this.settings.includeModernHolidays,
-
-      locale: 'he',
-      mask:
-        flags.CHAG |
-        flags.MINOR_FAST |
-        flags.MAJOR_FAST |
-        flags.MINOR_HOLIDAY |
-        flags.ROSH_CHODESH |
-        flags.CHOL_HAMOED |
-        flags.PARSHA_HASHAVUA,
-    })
-    // calendar() can return multiple Events on the same date for שבת ראש חודש.
-    // Filter out duplicates.
-    const foundDates = new Set<string>()
-    return calendar
-      .filter((e) => {
-        const str = e.date.toString()
-        if (foundDates.has(str)) return false
-        foundDates.add(str)
-        return true
-      })
-      .map((e) => this.createLeiningDate(e.date))
-      .filter((d): d is LeiningDate => !!d)
+  private generateCalendar({
+    start,
+    until,
+  }: {
+    start: HDate
+    until: HDate
+  }): LeiningDate[] {
+    const result: LeiningDate[] = []
+    for (
+      let date = start;
+      date.abs() < until.abs();
+      date = date.add(1, 'day')
+    ) {
+      const leining = this.createLeiningDate(date)
+      if (leining) result.push(leining)
+    }
+    return result
   }
 
   createLeiningDate(date: HDate): LeiningDate | null {

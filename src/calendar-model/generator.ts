@@ -1,4 +1,4 @@
-import { HDate, HebrewCalendar, Locale, months } from '@hebcal/core'
+import { HDate, months } from '@hebcal/hdate'
 import type {
   LeiningAliyah,
   LeiningDate,
@@ -7,14 +7,13 @@ import type {
 } from './model-types.ts'
 import { LeiningInstanceId, LeiningRunType } from './model-types.ts'
 import type { UserSettings } from './user-settings.ts'
-import {
+import type {
   Aliyah,
   AliyotMap,
-  getLeyningOnDate,
   LeyningBase,
   LeyningParshaHaShavua,
   LeyningShabbatHoliday,
-} from '@hebcal/leyning'
+} from '@hebcal/leyning/dist/types.d.ts'
 import {
   invert,
   fromISODateString,
@@ -24,6 +23,9 @@ import {
 } from './utils.ts'
 import { toLeiningAliyah, toAliyahIndex } from './hebcal-conversions.ts'
 import { isSameRun } from './ref-utils.ts'
+import { getSedra } from '@hebcal/core/dist/esm/sedra'
+import { getLeyningOnDate } from '@hebcal/leyning/dist/esm/getLeyningOnDate'
+import { Locale } from '@hebcal/leyning/dist/esm/locale'
 
 export function isSameLeiningDate(a: LeiningDate, b: LeiningDate) {
   return arrayEquals(a.leinings, b.leinings, isSameLeiningInstance)
@@ -97,10 +99,7 @@ export class LeiningGenerator {
       until = new HDate(untilDay, months.TISHREI, 1 + containing.getFullYear())
 
     // Get בראשית from the previous year.
-    const parshaFinder = HebrewCalendar.getSedra(
-      until.getFullYear() - 1,
-      this.settings.israel
-    )
+    const parshaFinder = getSedra(until.getFullYear() - 1, this.settings.israel)
     return this.generateCalendar({
       start: parshaFinder.find('Bereshit')!,
       until,

@@ -10,7 +10,7 @@ import {
   LeiningRunType,
 } from '../calendar-model/model-types.ts'
 import IntegerIterator from '../integer-iterator.ts'
-import { HDate } from '@hebcal/core'
+import { HDate } from '@hebcal/hdate'
 import { containsRef } from '../calendar-model/ref-utils.ts'
 import {
   fromISODateString,

@@ -1,12 +1,14 @@
 import test from 'ava'
 import type { UserSettings } from './user-settings.ts'
 import { LeiningGenerator } from './generator.ts'
-import { HDate, HebrewCalendar, Locale, months } from '@hebcal/core'
+import { Locale } from '@hebcal/leyning/dist/esm/locale'
+import { HDate, months } from '@hebcal/hdate'
 import type { LeiningAliyah, LeiningDate, LeiningRun } from './model-types.ts'
 import hebrewNumeralFromInteger from '../hebrew-numeral.ts'
 import type { Ref } from '../ref.ts'
 import { getBookName } from './hebcal-conversions.ts'
 import { last, toISODateString } from './utils.ts'
+import { getHolidaysOnDate } from '@hebcal/core/dist/esm/holidays'
 
 const testSettings: UserSettings = {
   ashkenazi: true,
@@ -60,7 +62,7 @@ test('4 פרשיות always get separate runs', (t) => {
     const start = new HDate(20, months.SHVAT, year)
     for (let day = 0; day < 100; day++) {
       const date = start.add(day, 'days')
-      const events = HebrewCalendar.getHolidaysOnDate(date)
+      const events = getHolidaysOnDate(date)
       if (!events?.some((d) => fourParshaDescriptions.includes(d.desc)))
         continue
 

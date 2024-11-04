@@ -1,6 +1,7 @@
 /** @fileoverview Contains generic helpers to convert between @hebcal types and our model types. */
 
-import { Aliyah, BOOK, calculateNumVerses } from '@hebcal/leyning'
+import type { Aliyah } from '@hebcal/leyning/dist/esm/types'
+import { BOOK, calculateNumVerses } from '@hebcal/leyning/dist/esm/common'
 import type { RefWithScroll, ScrollName } from '../ref.ts'
 import type { LeiningAliyah } from './model-types.ts'
 

@@ -1,7 +1,7 @@
 import test from 'ava'
 import { UserSettings } from './user-settings.ts'
 import { LeiningGenerator } from './generator.ts'
-import { flags, HDate, HebrewCalendar, Locale, months } from '@hebcal/core'
+import { HDate, HebrewCalendar, Locale, months } from '@hebcal/core'
 import { LeiningAliyah, LeiningDate, LeiningRun } from './model-types.ts'
 import hebrewNumeralFromInteger from '../hebrew-numeral.ts'
 import { Ref } from '../ref.ts'
@@ -56,19 +56,21 @@ const fourParshaDescriptions = [
   'Shabbat HaChodesh',
 ]
 test('4 פרשיות always get separate runs', (t) => {
-  for (const d of HebrewCalendar.calendar({
-    year: 5785,
-    numYears: 20,
-    isHebrewYear: true,
-    mask: flags.SPECIAL_SHABBAT,
-  })) {
-    if (!fourParshaDescriptions.includes(d.desc)) continue
-    const isRoshChodesh = [1, 30].includes(d.date.getDate())
-    const run = generator.parseId(
-      `${toISODateString(d.date.greg())}:shacharis,maftir`
-    )
-    t.true(run?.leining.isParsha)
-    t.is(run?.leining.runs.length, isRoshChodesh ? 4 : 3, run?.id)
+  for (let year = 5785; year < 5805; year++) {
+    const start = new HDate(20, months.SHVAT, year)
+    for (let day = 0; day < 100; day++) {
+      const date = start.add(day, 'days')
+      const events = HebrewCalendar.getHolidaysOnDate(date)
+      if (!events?.some((d) => fourParshaDescriptions.includes(d.desc)))
+        continue
+
+      const isRoshChodesh = [1, 30].includes(date.getDate())
+      const run = generator.parseId(
+        `${toISODateString(date.greg())}:shacharis,maftir`
+      )
+      t.true(run?.leining.isParsha)
+      t.is(run?.leining.runs.length, isRoshChodesh ? 4 : 3, run?.id)
+    }
   }
 })
 

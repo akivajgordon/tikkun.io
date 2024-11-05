@@ -1,8 +1,8 @@
-import fuzzy from '../fuzzy'
+import fuzzy from '../fuzzy.ts'
 import utils from './utils.ts'
 import ParshaResult, { NoResults } from './ParshaResult.ts'
 import Search, { SearchEmitter } from './Search.ts'
-import EventEmitter from '../event-emitter'
+import EventEmitter from '../event-emitter.ts'
 import { LeiningGenerator } from '../calendar-model/generator.ts'
 import { HDate, Locale } from '@hebcal/core'
 import {

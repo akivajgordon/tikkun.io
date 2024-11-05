@@ -1,5 +1,5 @@
 import test from 'ava'
-import { loadScroll } from './location'
+import { loadScroll } from './location.ts'
 
 test('page count for torah', async (t) => {
   const resolver = await loadScroll('torah')

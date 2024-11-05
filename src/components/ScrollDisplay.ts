@@ -4,8 +4,8 @@ import {
   RenderedPageInfo,
   ScrollViewModel,
 } from '../view-model/scroll-view-model'
-import Page from './Page'
-import utils from './utils'
+import Page from './Page.ts'
+import utils from './utils.ts'
 
 const { htmlToElement, purgeNode } = utils
 

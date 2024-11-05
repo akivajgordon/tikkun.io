@@ -1,6 +1,6 @@
-import type { RenderedLineInfo } from '../view-model/scroll-view-model'
-import displayRange from '../display-range'
-import textFilter from '../text-filter'
+import type { RenderedLineInfo } from '../view-model/scroll-view-model.ts'
+import displayRange from '../display-range.ts'
+import textFilter from '../text-filter.ts'
 
 const ktivKriAnnotation = (text: string) =>
   text

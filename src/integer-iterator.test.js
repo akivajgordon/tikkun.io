@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import IntegerIterator from './integer-iterator'
+import IntegerIterator from './integer-iterator.ts'
 
 test('previous once returns 1 less than the start', (t) => {
   const sut = IntegerIterator.new({ startingAt: 0 })

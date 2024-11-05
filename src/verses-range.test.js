@@ -1,5 +1,5 @@
 import test from 'ava'
-import hebrewNumeral from './hebrew-numeral'
+import hebrewNumeral from './hebrew-numeral.ts'
 
 const versesRange = (verses) => {
   if (verses.length === 1) return hebrewNumeral(verses[0].verse)

@@ -9,7 +9,7 @@ type TOC = Record<string, Record<string, Record<string, AppleSauce>>>
 
 export async function loadScroll(name: ScrollName) {
   const toc = await import(`./data/tables-of-contents/${name}.json`, {
-    assert: { type: 'json' },
+    with: { type: 'json' },
   })
   return new ScrollResolver(name, toc.default)
 }

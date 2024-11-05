@@ -14,7 +14,7 @@
       "src/**/*.test.*"
     ],
     "nodeArguments": [
-      "--import=tsimp"
+      "--experimental-transform-types"
     ]
   },
   "scripts": {
@@ -52,7 +52,6 @@
     "globals": "^15.9.0",
     "jiti": "^2.0.0",
     "postcss-import": "^16.1.0",
-    "tsimp": "^2.0.11",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.7.0",
     "vite": "^5.4.7"

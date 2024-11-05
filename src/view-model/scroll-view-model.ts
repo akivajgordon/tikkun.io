@@ -200,7 +200,8 @@ export abstract class ScrollViewModel {
 
     const page: LineType[] = (
       await import(
-        `../data/pages/${this.relevantRuns[0].scroll}/${pageNumber}.json`
+        `../data/pages/${this.relevantRuns[0].scroll}/${pageNumber}.json`,
+        { with: { type: 'json' } }
       )
     ).default
 

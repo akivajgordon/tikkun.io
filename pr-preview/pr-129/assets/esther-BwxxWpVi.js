@@ -1,1 +1,0 @@
-const e={1:{1:{1:{p:1,l:1}},10:{3:{p:17,l:28}}}};export{e as default};

@@ -1,5 +1,5 @@
 import hebrewNumeralFromInteger from './hebrew-numeral.ts'
-import { Ref } from './ref.ts'
+import type { Ref } from './ref.ts'
 
 const asRange = (strings: string[]) => {
   if (!strings.length) {

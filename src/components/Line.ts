@@ -1,4 +1,4 @@
-import { RenderedLineInfo } from '../view-model/scroll-view-model'
+import type { RenderedLineInfo } from '../view-model/scroll-view-model'
 import displayRange from '../display-range'
 import textFilter from '../text-filter'
 

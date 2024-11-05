@@ -1,5 +1,5 @@
 import { LeiningGenerator } from '../../calendar-model/generator.ts'
-import { LeiningRun } from '../../calendar-model/model-types.ts'
+import type { LeiningRun } from '../../calendar-model/model-types.ts'
 import { ScrollViewModel } from '../scroll-view-model.ts'
 
 /** Generates a URL that points to the beginning of a specific run. */

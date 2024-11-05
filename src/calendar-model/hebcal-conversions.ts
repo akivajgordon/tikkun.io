@@ -1,8 +1,8 @@
 /** @fileoverview Contains generic helpers to convert between @hebcal types and our model types. */
 
 import { Aliyah, BOOK, calculateNumVerses } from '@hebcal/leyning'
-import { RefWithScroll, ScrollName } from '../ref.ts'
-import { LeiningAliyah } from './model-types.ts'
+import type { RefWithScroll, ScrollName } from '../ref.ts'
+import type { LeiningAliyah } from './model-types.ts'
 
 /** Maps scrolls with multiple books to their book names as used in @hebcal. */
 const bookNames: Partial<Record<ScrollName, readonly string[]>> = {

@@ -1,10 +1,10 @@
 import test from 'ava'
-import { UserSettings } from './user-settings.ts'
+import type { UserSettings } from './user-settings.ts'
 import { LeiningGenerator } from './generator.ts'
 import { HDate, HebrewCalendar, Locale, months } from '@hebcal/core'
-import { LeiningAliyah, LeiningDate, LeiningRun } from './model-types.ts'
+import type { LeiningAliyah, LeiningDate, LeiningRun } from './model-types.ts'
 import hebrewNumeralFromInteger from '../hebrew-numeral.ts'
-import { Ref } from '../ref.ts'
+import type { Ref } from '../ref.ts'
 import { getBookName } from './hebcal-conversions.ts'
 import { last, toISODateString } from './utils.ts'
 

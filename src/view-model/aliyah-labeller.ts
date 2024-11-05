@@ -1,6 +1,9 @@
-import { Ref } from '../ref.ts'
+import type { Ref } from '../ref.ts'
 import { compareRefs } from '../calendar-model/ref-utils.ts'
-import { LeiningRun, LeiningAliyah } from '../calendar-model/model-types.ts'
+import type {
+  LeiningRun,
+  LeiningAliyah,
+} from '../calendar-model/model-types.ts'
 import { findLastIndex } from '../calendar-model/utils.ts'
 
 export class AliyahLabeller {

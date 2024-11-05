@@ -1,13 +1,13 @@
-import test, { ExecutionContext } from 'ava'
+import test, { type ExecutionContext } from 'ava'
 import {
-  RenderedEntry,
-  RenderedLineInfo,
+  type RenderedEntry,
+  type RenderedLineInfo,
   ScrollViewModel,
 } from '../scroll-view-model.ts'
 import { LeiningGenerator } from '../../calendar-model/generator.ts'
-import { UserSettings } from '../../calendar-model/user-settings.ts'
+import type { UserSettings } from '../../calendar-model/user-settings.ts'
 import { fetchPages, renderLine } from '../test-utils.ts'
-import { Link, TopBarTracker } from './top-bar-model.ts'
+import { type Link, TopBarTracker } from './top-bar-model.ts'
 
 const testSettings: UserSettings = {
   ashkenazi: true,

@@ -1,13 +1,12 @@
 import { HDate, HebrewCalendar, Locale, months } from '@hebcal/core'
-import {
+import type {
   LeiningAliyah,
   LeiningDate,
   LeiningInstance,
-  LeiningInstanceId,
   LeiningRun,
-  LeiningRunType,
 } from './model-types.ts'
-import { UserSettings } from './user-settings.ts'
+import { LeiningInstanceId, LeiningRunType } from './model-types.ts'
+import type { UserSettings } from './user-settings.ts'
 import {
   Aliyah,
   AliyotMap,

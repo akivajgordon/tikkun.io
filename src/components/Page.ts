@@ -1,5 +1,5 @@
 import Line from './Line.ts'
-import { RenderedPageInfo } from '../view-model/scroll-view-model.ts'
+import type { RenderedPageInfo } from '../view-model/scroll-view-model.ts'
 
 type Verse = {
   book: number

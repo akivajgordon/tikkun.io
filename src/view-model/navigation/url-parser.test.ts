@@ -3,7 +3,7 @@ import { generateUrl, parseUrl } from './url-parser.ts'
 import { ScrollViewModel } from '../scroll-view-model.ts'
 import { renderLine } from '../test-utils.ts'
 import { LeiningGenerator } from '../../calendar-model/generator.ts'
-import { UserSettings } from '../../calendar-model/user-settings.ts'
+import type { UserSettings } from '../../calendar-model/user-settings.ts'
 
 const testSettings: UserSettings = {
   ashkenazi: true,

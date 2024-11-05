@@ -1,10 +1,12 @@
-import { LineType } from '../components/Page.ts'
-import { Ref, RefWithScroll } from '../ref.ts'
+import type { LineType } from '../components/Page.ts'
+import type { Ref, RefWithScroll } from '../ref.ts'
 import { LeiningGenerator } from '../calendar-model/generator.ts'
-import {
+import type {
   LeiningAliyah,
-  LeiningInstanceId,
   LeiningRun,
+} from '../calendar-model/model-types.ts'
+import {
+  LeiningInstanceId,
   LeiningRunType,
 } from '../calendar-model/model-types.ts'
 import IntegerIterator from '../integer-iterator.ts'

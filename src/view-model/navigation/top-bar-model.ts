@@ -1,11 +1,11 @@
 import { isSameLeiningDate } from '../../calendar-model/generator.ts'
-import {
+import type {
   LeiningAliyah,
   LeiningInstance,
   LeiningRun,
 } from '../../calendar-model/model-types.ts'
 import { aliyahName } from '../aliyah-labeller.ts'
-import { RenderedLineInfo, ScrollViewModel } from '../scroll-view-model.ts'
+import type { RenderedLineInfo, ScrollViewModel } from '../scroll-view-model.ts'
 
 /** The information and link targets displayed in the top navigation bar. */
 export interface TopBarInfo {

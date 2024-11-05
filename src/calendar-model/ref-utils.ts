@@ -1,6 +1,6 @@
-import { Ref } from '../ref.ts'
+import type { Ref } from '../ref.ts'
 import { numVersesBetween } from './hebcal-conversions.ts'
-import { LeiningRun, LeiningAliyah } from './model-types.ts'
+import type { LeiningRun, LeiningAliyah } from './model-types.ts'
 
 /** Returns true if the next עלייה is far enough away to need a second ספר תורה. */
 export function isSameRun(existing: LeiningAliyah, next: LeiningAliyah) {

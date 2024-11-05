@@ -2,8 +2,8 @@
 
 import test from 'ava'
 import { LeiningGenerator } from '../calendar-model/generator.ts'
-import { UserSettings } from '../calendar-model/user-settings.ts'
-import { RenderedEntry, ScrollViewModel } from './scroll-view-model.ts'
+import type { UserSettings } from '../calendar-model/user-settings.ts'
+import { type RenderedEntry, ScrollViewModel } from './scroll-view-model.ts'
 import { renderLine } from './test-utils.ts'
 
 const testSettings: UserSettings = {

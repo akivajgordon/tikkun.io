@@ -1,4 +1,4 @@
-import { RefWithScroll, ScrollName } from '../ref.ts'
+import type { RefWithScroll, ScrollName } from '../ref.ts'
 
 /**
  * Describes a single date that contains one or more leinings (in separate davenings).

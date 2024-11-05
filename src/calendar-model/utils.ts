@@ -13,7 +13,7 @@ export function fromISODateString(str: string) {
   return new Date(+date + millisecondsOffset)
 }
 
-export function last<T>(array: T[]) {
+export function last<T>(array: ArrayLike<T>) {
   return array[array.length - 1]
 }
 

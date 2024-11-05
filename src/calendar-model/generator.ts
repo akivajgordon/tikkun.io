@@ -13,7 +13,7 @@ import type {
   LeyningBase,
   LeyningParshaHaShavua,
   LeyningShabbatHoliday,
-} from '@hebcal/leyning/dist/types.d.ts'
+} from '@hebcal/leyning/dist/esm/types'
 import {
   invert,
   fromISODateString,

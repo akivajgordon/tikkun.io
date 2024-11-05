@@ -20,8 +20,10 @@ export class ScrollDisplay {
   /** Renders an entry (from the view model) to the bottom of the scroll. */
   readonly renderNext = this.generateRender('beforeend')
 
-  // TODO(later): Remove after rewriting picker?
-  readonly rendered: Promise<void>
+  /** Resolves to the starting line after all initial pages have been rendered on the root. */
+  readonly rendered: Promise<HTMLElement>
+  /** Resolves after we scroll to the starting line. */
+  readonly scrolled: Promise<void>
 
   constructor(readonly viewModel: ScrollViewModel, readonly root: HTMLElement) {
     purgeNode(root)
@@ -42,15 +44,15 @@ export class ScrollDisplay {
           if (nextPage) await this.renderNext(nextPage)
         }
 
-        const line = lines[lineIndex]
-        // Wait for parsha picker to close so that we become measurable.
-        requestAnimationFrame(() => {
-          this.scrollTo({
-            element: line,
-          })
-        })
+        return lines[lineIndex]
       }
     )
+    this.scrolled = this.rendered.then(async (line) => {
+      // Wait for parsha picker to close (from `this.rendered`)
+      // so that we become measurable.
+      await new Promise(requestAnimationFrame)
+      this.scrollTo({ element: line })
+    })
   }
 
   private scrollTo({ element }: { element: HTMLElement }) {

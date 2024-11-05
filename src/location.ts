@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import type { RefWithScroll, ScrollName } from './ref.ts'
 
 type AppleSauce = {
@@ -8,9 +9,16 @@ type AppleSauce = {
 type TOC = Record<string, Record<string, Record<string, AppleSauce>>>
 
 export async function loadScroll(name: ScrollName) {
-  const toc = await import(`./data/tables-of-contents/${name}.json`, {
-    with: { type: 'json' },
-  })
+  // TODO(https://github.com/vitejs/vite/issues/18582): Delete this workaround.
+  let toc
+  if (import.meta.env?.MODE)
+    // Vite dynamic imports doesn't support the second parameter
+    toc = await import(`./data/tables-of-contents/${name}.json`)
+  else
+    toc = await import(`./data/tables-of-contents/${name}.json`, {
+      // Node.js requires the second parameter.
+      with: { type: 'json' },
+    })
   return new ScrollResolver(name, toc.default)
 }
 

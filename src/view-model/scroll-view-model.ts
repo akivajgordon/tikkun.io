@@ -198,17 +198,24 @@ export abstract class ScrollViewModel {
     if (typeof pageNumber === 'object') return pageNumber
     if (!pageNumber || pageNumber <= 0) return null
 
-    const page: LineType[] = (
-      await import(
+
+    let page: { default: LineType[] }
+    if (import.meta.env?.MODE)
+      // Vite dynamic imports doesn't support the second parameter
+      page = await import(
+        `../data/pages/${this.relevantRuns[0].scroll}/${pageNumber}.json`
+      )
+    else
+      page = await import(
         `../data/pages/${this.relevantRuns[0].scroll}/${pageNumber}.json`,
+        // Node.js requires the second parameter.
         { with: { type: 'json' } }
       )
-    ).default
 
     let run: LeiningRun | undefined
     let aliyot: LeiningAliyah[] = []
     const labeller = new AliyahLabeller()
-    const lines: RenderedLineInfo[] = page.map((rawLine) => {
+    const lines: RenderedLineInfo[] = page.default.map((rawLine) => {
       const verses = rawLine.verses.map(toRef)
 
       if (verses.length) [run, aliyot] = this.findContainingAliyot(verses, run)

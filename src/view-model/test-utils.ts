@@ -4,7 +4,8 @@ import type {
   ScrollViewModel,
 } from './scroll-view-model.ts'
 
-export function renderLine(line: RenderedLineInfo): string {
+export function renderLine(line: RenderedLineInfo | null): string | null {
+  if (!line) return null
   return `${line.labels}: ${line.text
     .map((spans) => spans.join(' '))
     .join('\t')}`

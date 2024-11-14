@@ -4,7 +4,7 @@ import {
   RenderedPageInfo,
 } from './view-model/scroll-view-model.ts'
 
-interface ViewportRange {
+export interface ViewportRange {
   first: RenderedLineInfo | null
   center: RenderedLineInfo | null
   last: RenderedLineInfo | null
@@ -27,11 +27,15 @@ export class ViewportTracker extends EventEmitter<ViewportTrackerEvents> {
     center: LineViewportTracker
     last: LineViewportTracker
   }
+  private readonly top: number
 
   constructor(book: HTMLElement) {
     super()
 
     this.book = book
+    this.top =
+      book.getBoundingClientRect().y +
+      parseFloat(getComputedStyle(book).paddingTop)
     this.lineTrackers = {
       first: new LineViewportTracker(ElementSearchDirection.Down, book),
       center: new LineViewportTracker(ElementSearchDirection.Down, book),
@@ -51,7 +55,7 @@ export class ViewportTracker extends EventEmitter<ViewportTrackerEvents> {
     // We cannot use ||  because we always need to update all trackers.
     const height = document.documentElement.clientHeight
     // TODO: Get actual height of new top bar.
-    if (this.lineTrackers.first.update(64)) updated = true
+    if (this.lineTrackers.first.update(this.top)) updated = true
     if (this.lineTrackers.center.update(height / 2)) updated = true
     if (this.lineTrackers.last.update(height - 1)) updated = true
 
@@ -117,11 +121,12 @@ class LineViewportTracker {
 
   /** Moves the current node to a nearby element. */
   private resetWalker(targetY: number) {
+    const target = document.elementFromPoint(
+      document.documentElement.clientWidth / 2,
+      targetY
+    )
     this.walker.currentNode =
-      document.elementFromPoint(
-        document.documentElement.clientWidth / 2,
-        targetY
-      ) ?? this.root
+      target?.closest('[data-line-index]') ?? target ?? this.root
   }
 
   /** Updates the current element.  Returns false if it did not change. */
@@ -143,7 +148,7 @@ class LineViewportTracker {
       const bounds = this.walker.currentNode.getBoundingClientRect()
 
       const delta = targetY - bounds[this.direction.coordinate]
-      if (Math.abs(delta) < 0.5 * this.walker.currentNode.clientHeight) break
+      if (Math.abs(delta) < 0.8 * this.walker.currentNode.clientHeight) break
 
       // On the first iteration only, if we're too far, reset the search.
       if (isFirstIteration && Math.abs(delta) > 100) {

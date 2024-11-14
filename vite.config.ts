@@ -7,5 +7,6 @@ export default defineConfig({
     // *.test.ts runs on Ava in Node.
     include: ['**/*.vitest.ts?(x)'],
     includeTaskLocation: true,
+    mockReset: true,
   },
 })

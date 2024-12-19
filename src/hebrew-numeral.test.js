@@ -1,5 +1,5 @@
 import test from 'ava'
-import hebrewNumeralFromInteger from './hebrew-numeral'
+import hebrewNumeralFromInteger from './hebrew-numeral.ts'
 
 test('exact value returns the letter', (t) => {
   t.is(hebrewNumeralFromInteger(4), 'ד')

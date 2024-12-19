@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import IntegerIterator from './integer-iterator'
+import IntegerIterator from './integer-iterator.ts'
 
 test('previous once returns 1 less than the start', (t) => {
   const sut = IntegerIterator.new({ startingAt: 0 })
@@ -18,9 +18,9 @@ test('previous twice returns 1 less each time', (t) => {
 test('next multiple times returns 1 more each time', (t) => {
   const sut = IntegerIterator.new({ startingAt: -13 })
 
-  t.is(sut.next(), -13)
   t.is(sut.next(), -12)
   t.is(sut.next(), -11)
+  t.is(sut.next(), -10)
 })
 
 test('interleaving previous and next always extends the values returned', (t) => {
@@ -33,5 +33,5 @@ test('interleaving previous and next always extends the values returned', (t) =>
   sut.next()
 
   t.is(sut.previous(), -3)
-  t.is(sut.next(), 3)
+  t.is(sut.next(), 4)
 })

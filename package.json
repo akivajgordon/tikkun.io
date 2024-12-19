@@ -5,16 +5,21 @@
   "main": "index.js",
   "type": "module",
   "ava": {
+    "extensions": {
+      "js": true,
+      "ts": "module"
+    },
+    "timeout": "30s",
     "files": [
-      "src/*.test.js"
+      "src/**/*.test.*"
     ],
-    "timeout": "40s",
     "nodeArguments": [
-      "--import=tsimp"
+      "--experimental-transform-types"
     ]
   },
   "scripts": {
     "test": "ava",
+    "vitest": "vitest",
     "test:watch": "npm test -- --watch",
     "dev": "vite",
     "build": "vite build",
@@ -23,7 +28,8 @@
     "lint": "eslint --flag unstable_ts_config",
     "typecheck": "tsc",
     "checks": "npm run lint && npm run typecheck",
-    "deploy": "npm run clean && npm run checks && npm run build && cp -R static/ dist && echo 'tikkun.io\nwww.tikkun.io' > dist/CNAME && gh-pages -d dist"
+    "deploy": "npm run clean && npm run checks && npm run build && cp -R static/ dist && echo 'tikkun.io\nwww.tikkun.io' > dist/CNAME && gh-pages -d dist",
+    "test:browser": "vitest --workspace=vitest.workspace.ts"
   },
   "repository": {
     "type": "git",
@@ -36,19 +42,26 @@
   },
   "homepage": "https://github.com/akivajgordon/tikkun.io#readme",
   "dependencies": {
+    "@hebcal/core": "^5.7.7",
+    "@hebcal/hdate": "^0.12.0",
+    "@hebcal/leyning": "^9.0.1",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "@vitest/browser": "^2.1.4",
     "ava": "^5.3.1",
     "eslint": "^9.11.1",
     "gh-pages": "^5.0.0",
     "globals": "^15.9.0",
     "jiti": "^2.0.0",
+    "playwright": "^1.48.2",
     "postcss-import": "^16.1.0",
-    "tsimp": "^2.0.11",
-    "typescript": "^5.1.6",
+    "typescript": "^5.6.3",
     "typescript-eslint": "^8.7.0",
-    "vite": "^5.4.7"
+    "vite": "^5.4.7",
+    "vitest": "^2.1.4",
+    "vitest-browser-react": "^0.0.3"
   }
 }

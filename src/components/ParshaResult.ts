@@ -1,4 +1,5 @@
-import { Token } from './ParshaPicker.ts'
+import { LeiningInstance } from '../calendar-model/model-types.ts'
+import { generateUrl } from '../view-model/navigation/url-parser.ts'
 import utils from './utils.ts'
 
 const { htmlToElement } = utils
@@ -31,33 +32,31 @@ const ParshaResult = ({
   item,
 }: {
   match: { index: number; indexes: number[] }
-  item: { idx: unknown; token: Token; key: string; he: string; en: string }
+  item: LeiningInstance
 }) =>
   htmlToElement(`
-  <div data-target-class="parsha-result" data-idx="${item.idx}" data-token="${
-    item.token
-  }" data-key="${item.key}">
+  <a data-target-class="parsha-result" href="${generateUrl(item.runs[0])}">
     <p class="search-result-tag mod-hebrew" data-target-class="result-hebrew">${
       match.index === 0
         ? decorateString({
-            string: item.he,
+            string: item.date.title.he,
             atIndexes: match.indexes,
             withDecoration: strongify,
           })
-        : item.he
-    }
+        : item.date.title.he
+    }: ${item.id}
     </p>
     <p class="search-result-tag">${
       match.index === 1
         ? decorateString({
-            string: item.en,
+            string: item.date.title.en,
             atIndexes: match.indexes,
             withDecoration: strongify,
           })
-        : item.en
+        : item.date.title.en
     }
     </p>
-  </div>
+  </a>
 `)
 
 export default ParshaResult

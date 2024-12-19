@@ -1,6 +1,6 @@
 import utils from './utils.ts'
 import SelectList, { setSelected, getSelected } from './SelectList.ts'
-import { EventEmitter } from '../event-emitter'
+import { EventEmitter } from '../event-emitter.ts'
 
 const { htmlToElement: html, whenKey, purgeNode } = utils
 

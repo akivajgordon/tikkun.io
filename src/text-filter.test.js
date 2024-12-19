@@ -1,5 +1,5 @@
 import test from 'ava'
-import textFilter from './text-filter'
+import textFilter from './text-filter.ts'
 
 test('simple annotated text remains untouched', (t) => {
   t.is(

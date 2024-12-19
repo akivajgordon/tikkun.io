@@ -1,5 +1,5 @@
 import test from 'ava'
-import slugify from './slugify'
+import slugify from './slugify.ts'
 
 test('slugify lowercases all letters', (t) => {
   t.assert(slugify('HelLo') === 'hello')

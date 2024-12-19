@@ -1,5 +1,5 @@
 import test from 'ava'
-import fuzzy from './fuzzy'
+import fuzzy from './fuzzy.ts'
 
 test('only matches if all characters are present in order', (t) => {
   const haystack = [

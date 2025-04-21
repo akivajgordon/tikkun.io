@@ -22,6 +22,11 @@ test(`חול המוד סוכות`, async (t) => {
   t.snapshot(await dumpAliyot('2024-10-20:shacharis,main'))
 })
 
+
+test(`end of עלייה on top of עמוד`, async (t) => {
+  t.snapshot(await dumpAliyot('2025-04-18:shacharis,main'))
+})
+
 test(`שמחת תורה`, async (t) => {
   t.snapshot(await dumpAliyot('2024-10-25:shacharis,main'))
 })

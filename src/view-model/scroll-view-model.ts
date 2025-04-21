@@ -325,7 +325,7 @@ class HolidayViewModel extends ScrollViewModel {
     const resolver = await this.resolver
     return this.relevantRuns.flatMap((r) => {
       const start = resolver.physicalLocationFromRef(r.aliyot[0].start)
-      const end = resolver.physicalLocationFromRef(last(r.aliyot).end)
+      const end = resolver.physicalLocationAfterRef(last(r.aliyot).end)
 
       const extraEntries: ContentPageEntry[] = []
       if (lastEndPage) {

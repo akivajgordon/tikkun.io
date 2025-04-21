@@ -1,5 +1,8 @@
 /// <reference types="vite/client" />
+import { addVerses } from '@hebcal/leyning'
 import type { RefWithScroll, ScrollName } from './ref.ts'
+import { getBookName } from './calendar-model/hebcal-conversions.ts'
+
 
 type AppleSauce = {
   p: number
@@ -45,5 +48,19 @@ export class ScrollResolver {
     if (!this.toc[book]) throw new Error(`Unknown book ${scroll} #${book}`)
     const { p: pageNumber, l: lineNumber } = this.toc[book][chapter][verse]
     return { pageNumber, lineNumber }
+  }
+
+  /** Returns the location in this scroll that contains the _end_ of a verse. */
+  physicalLocationAfterRef(ref: RefWithScroll) {
+    const loc = `${ref.c}:${ref.v}`
+    // This returns null if we were passed the last verse of the book.
+    // In that case, use the original verse.
+    const nextVerse = addVerses(getBookName(ref), loc, 1) || loc
+    const [c, v] = nextVerse.split(':')
+    return this.physicalLocationFromRef({
+      ...ref,
+      c: parseInt(c),
+      v: parseInt(v),
+    })
   }
 }

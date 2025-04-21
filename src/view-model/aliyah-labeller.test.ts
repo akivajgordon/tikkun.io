@@ -22,7 +22,6 @@ test(`חול המוד סוכות`, async (t) => {
   t.snapshot(await dumpAliyot('2024-10-20:shacharis,main'))
 })
 
-
 test(`end of עלייה on top of עמוד`, async (t) => {
   t.snapshot(await dumpAliyot('2025-04-18:shacharis,main'))
 })
@@ -54,6 +53,22 @@ test(`שקלים / ראש חודש as פרשה`, async (t) => {
 
 test(`Weekday ראש חודש`, async (t) => {
   t.snapshot(await dumpAliyot('2025-02-28:shacharis,main'))
+})
+
+test('labels the end of every יום טוב', async (t) => {
+  // TODO(haftara): Delete torah check once we can load Navi.
+  const calendar = generator.forHebrewYear(5785)
+  for (const run of calendar
+    .flatMap((o) => o.leinings)
+    .flatMap((o) => o.runs)) {
+    if (run.scroll !== 'torah') continue
+    const vm = ScrollViewModel.forId(generator, run.id)
+    // Only look at HolidayViewModels.
+    if (vm.relevantRuns.length > 10) continue
+    const aliyot = await dumpAliyot(run.id)
+    const lastLine = aliyot[aliyot.length - 1]
+    t.regex(lastLine, /^סוף /)
+  }
 })
 
 test(`אסתר`, async (t) => {

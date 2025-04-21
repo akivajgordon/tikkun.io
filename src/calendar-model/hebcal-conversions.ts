@@ -1,7 +1,7 @@
 /** @fileoverview Contains generic helpers to convert between @hebcal types and our model types. */
 
 import type { Aliyah } from '@hebcal/leyning/dist/esm/types'
-import { BOOK, calculateNumVerses } from '@hebcal/leyning/dist/esm/common'
+import { BOOK, subtractVerses } from '@hebcal/leyning/dist/esm/common'
 import type { RefWithScroll, ScrollName } from '../ref.ts'
 import type { LeiningAliyah } from './model-types.ts'
 
@@ -53,20 +53,17 @@ export function numVersesBetween(
 ): number {
   // Note that this is currently only used in חומש.
 
-  // Construct a fake Aliyah to pass to hebcal's utility function.
-  const aliyah: Aliyah = {
-    b: `${start.c}:${start.v}`,
-    e: `${end.c}:${end.v}`,
-    // If the book isn't in our map, convert our lowercase name to @hebcal's title-case name
-    k: getBookName(start),
-  }
-  // This helper includes the ending verse, which is not what we want here.
-  return calculateNumVerses(aliyah) - 1
+  return subtractVerses(
+    getBookName(start),
+    `${start.c}:${start.v}`,
+    `${end.c}:${end.v}`
+  )
 }
 
 /** Gets a @hebcal-compatible book name. */
-export function getBookName(end: RefWithScroll): string {
-  return bookNames[end.scroll]?.[end.b] ?? toTitleCase(end.scroll)
+export function getBookName(ref: RefWithScroll): string {
+  // If the book isn't in our map, convert our lowercase name to @hebcal's title-case name
+  return bookNames[ref.scroll]?.[ref.b] ?? toTitleCase(ref.scroll)
 }
 
 export function toTitleCase(str: string) {

@@ -86,6 +86,7 @@ export abstract class ScrollViewModel {
     lineNumber: number
   }>
   readonly resolver: Promise<ScrollResolver>
+  private readonly labeller = new AliyahLabeller()
 
   protected constructor(
     readonly generator: LeiningGenerator,
@@ -198,7 +199,6 @@ export abstract class ScrollViewModel {
     if (typeof pageNumber === 'object') return pageNumber
     if (!pageNumber || pageNumber <= 0) return null
 
-
     let page: { default: LineType[] }
     if (import.meta.env?.MODE)
       // Vite dynamic imports doesn't support the second parameter
@@ -214,7 +214,6 @@ export abstract class ScrollViewModel {
 
     let run: LeiningRun | undefined
     let aliyot: LeiningAliyah[] = []
-    const labeller = new AliyahLabeller()
     const lines: RenderedLineInfo[] = page.default.map((rawLine) => {
       const verses = rawLine.verses.map(toRef)
 
@@ -225,7 +224,7 @@ export abstract class ScrollViewModel {
         verses,
         run,
         aliyot,
-        labels: labeller.getLabelsForLine(run, verses),
+        labels: this.labeller.getLabelsForLine(run, verses),
       }
     })
     return { type: 'page', lines }
@@ -325,7 +324,7 @@ class HolidayViewModel extends ScrollViewModel {
     const resolver = await this.resolver
     return this.relevantRuns.flatMap((r) => {
       const start = resolver.physicalLocationFromRef(r.aliyot[0].start)
-      const end = resolver.physicalLocationFromRef(last(r.aliyot).end)
+      const end = resolver.physicalLocationAfterRef(last(r.aliyot).end)
 
       const extraEntries: ContentPageEntry[] = []
       if (lastEndPage) {

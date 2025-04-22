@@ -221,7 +221,7 @@ test('includes context in תענית ציבור', async (t) => {
 
   // This is rendering src/data/pages/torah/99.json.
   const pages = await fetchPages(model, { fetchPreviousPages: false, count: 9 })
-  t.is(pages.length, 3)
+  t.is(pages.length, 4)
 
   getLinesInRange(pages[0], {
     first: null,

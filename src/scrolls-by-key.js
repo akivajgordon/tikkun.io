@@ -9,10 +9,18 @@ import aliyotJSON from './data/aliyot.json'
 const fetchPage = ({ path, title, pageNumber }) =>
   window
     .fetch(path)
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`Failed to fetch ${path}: ${res.status} ${res.statusText}`)
+      }
+      return res.json()
+    })
     .then((page) => ({ content: page, title, pageNumber }))
     .catch((err) => {
-      console.error(err)
+      console.error(`Error loading page: ${err.message}`)
+      // Return null to indicate page load failure
+      // This allows the app to continue functioning
+      return null
     })
 
 const aliyotStrings = [

@@ -215,6 +215,18 @@
       }
     }
   },
+  "chanukah-6": {
+    "en": "Chanukah (Day 6)",
+    "he": "חנוכה ו׳",
+    "ref": {
+      "b": 4,
+      "c": 7,
+      "v": 42,
+      "a": {
+        "standard": 1
+      }
+    }
+  },
   "chanukah-7": {
     "en": "Chanukah (Day 7)",
     "he": "חנוכה ז׳",

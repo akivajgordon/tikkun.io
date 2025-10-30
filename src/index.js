@@ -391,9 +391,41 @@ document.addEventListener('DOMContentLoaded', async () => {
       selectionEnd = anchor
     }
 
-    // // SEE https://developer.mozilla.org/en-US/docs/Web/API/Selection/setBaseAndExtent FOR HOW TO PROGRAMMATICALLY SELECT TO EXTEND THE SELECTION TO WORD BOUNDARIES
-    // console.log(selectionStart)
-    // console.log(selectionEnd)
+    // Extend selection to word boundaries
+    const extendToWordBoundaries = () => {
+      const { anchorNode, anchorOffset, focusNode, focusOffset } = selection
+      if (!anchorNode || !focusNode) return
+
+      // Word boundary regex (matches spaces, punctuation, and combining marks)
+      const wordBoundary = /[\s\u0591-\u05C7\u05F3\u05F4.,;:!?()[\]{}]/
+
+      // Find start of word at anchor
+      const anchorText = anchorNode.textContent || ''
+      let startOffset = anchorOffset
+      while (startOffset > 0 && !wordBoundary.test(anchorText[startOffset - 1])) {
+        startOffset--
+      }
+
+      // Find end of word at focus
+      const focusText = focusNode.textContent || ''
+      let endOffset = focusOffset
+      while (endOffset < focusText.length && !wordBoundary.test(focusText[endOffset])) {
+        endOffset++
+      }
+
+      // Update selection if boundaries changed
+      if (startOffset !== anchorOffset || endOffset !== focusOffset) {
+        try {
+          selection.setBaseAndExtent(anchorNode, startOffset, focusNode, endOffset)
+        } catch (e) {
+          // Silently fail if selection update fails
+          console.debug('Could not extend selection to word boundaries:', e)
+        }
+      }
+    }
+
+    // Extend selection after a short delay to allow browser selection to stabilize
+    setTimeout(extendToWordBoundaries, 10)
   })
 
   const startingRef = await urlToRef({

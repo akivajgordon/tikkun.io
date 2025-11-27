@@ -19,17 +19,18 @@
   },
   "scripts": {
     "test": "ava",
-    "vitest": "vitest",
+    "vitest": "vitest --run",
+    "vitest:watch": "vitest --watch",
     "test:watch": "npm test -- --watch",
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --host",
     "clean": "rm -rf dist",
     "lint": "eslint --flag unstable_ts_config",
     "typecheck": "tsc",
     "checks": "npm run lint && npm run typecheck",
     "deploy": "npm run clean && npm run checks && npm run build && cp -R static/ dist && echo 'tikkun.io\nwww.tikkun.io' > dist/CNAME && gh-pages -d dist",
-    "test:browser": "vitest --workspace=vitest.workspace.ts"
+    "test:browser": "vitest --workspace=vitest.browser.workspace.ts"
   },
   "repository": {
     "type": "git",

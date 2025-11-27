@@ -4,7 +4,7 @@ This directory contains the configuration for developing tikkun.io in a containe
 
 ## What's Included
 
-- **Node.js 20** - LTS version for modern JavaScript/TypeScript development
+- **Node.js 22** - Matches CI environment for consistent testing
 - **Git** - Version control
 - **GitHub CLI** - For GitHub integration
 - **VS Code Extensions** - Pre-configured with ESLint, Prettier, and TypeScript support

@@ -1,5 +1,6 @@
 node_modules
 cypress/screenshots
+__screenshots__
 .DS_Store
 download
 dist

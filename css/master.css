@@ -19,6 +19,31 @@
   padding: 0;
 }
 
+/* Accessibility: Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Accessibility: Visible focus indicators for all interactive elements */
+a:focus,
+button:focus,
+input:focus,
+[tabindex]:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
 body {
   height: 100vh;
   background-color: var(--paper-color, white);
@@ -134,4 +159,20 @@ ol {
 
 .tikkun-book.mod-pull-releasing {
   --pull-transform: 0.15s;
+}
+
+/* Accessibility: Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .tikkun-book.mod-pull-releasing {
+    --pull-transform: 0s;
+  }
 }

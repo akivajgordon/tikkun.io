@@ -10,10 +10,12 @@ const setSelected = (list, adjustSelected) => {
   const selected = items[selectedIndex]
 
   selected.removeAttribute('data-selected')
+  selected.setAttribute('aria-selected', 'false')
 
   const nextIndex = (adjustSelected(selectedIndex) + items.length) % items.length
 
   items[nextIndex].setAttribute('data-selected', 'true')
+  items[nextIndex].setAttribute('aria-selected', 'true')
 }
 
 export { setSelected }
@@ -28,7 +30,7 @@ const SelectList = (items, el, onSelect) => {
   `)
 
   items.forEach(item => {
-    const listItem = htmlToElement('<li class="list-item" data-target-class="list-item"></li>')
+    const listItem = htmlToElement('<li class="list-item" data-target-class="list-item" role="option" aria-selected="false"></li>')
     listItem.appendChild(item)
     listItem.addEventListener('click', () => {
       onSelect(listItem)
@@ -36,9 +38,9 @@ const SelectList = (items, el, onSelect) => {
     list.appendChild(listItem)
   })
 
-  list
-    .querySelector('[data-target-class="list-item"]')
-    .setAttribute('data-selected', 'true')
+  const firstItem = list.querySelector('[data-target-class="list-item"]')
+  firstItem.setAttribute('data-selected', 'true')
+  firstItem.setAttribute('aria-selected', 'true')
 
   return list
 }

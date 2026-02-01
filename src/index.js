@@ -337,9 +337,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     whenKey('Shift', () => toggleAnnotations(() => toggle.checked))
   )
 
-  document
-    .querySelector('[data-target-id="parsha-title"]')
-    .addEventListener('click', toggleParshaPicker)
+  const parshaTitle = document.querySelector('[data-target-id="parsha-title"]')
+  parshaTitle.addEventListener('click', toggleParshaPicker)
+  parshaTitle.addEventListener('keydown', whenKey('Enter', toggleParshaPicker))
+  parshaTitle.addEventListener('keydown', whenKey(' ', (e) => {
+    e.preventDefault()
+    toggleParshaPicker()
+  }))
   document.addEventListener('keydown', whenKey('/', toggleParshaPicker))
 
   const ancestorOf = (node, options) => {

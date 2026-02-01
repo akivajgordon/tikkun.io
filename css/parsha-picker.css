@@ -59,8 +59,12 @@
 .search-input {
   border: none;
   background-color: transparent;
-  outline: none;
   color: inherit;
+}
+
+.search-input:focus {
+  outline: 2px solid var(--medium-accent-color);
+  outline-offset: 2px;
 }
 
 .search-results {

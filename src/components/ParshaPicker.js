@@ -104,7 +104,7 @@ const ComingUpReading = ({ label, date, datetime }, index) => {
 const ComingUp = () => `
   <section dir="ltr" id="coming-up" class="section mod-alternate mod-padding">
     <div class="stack medium">
-      <label class="section-label">Coming up</label>
+      <h2 class="section-label">Coming up</h2>
       <div style="overflow-x: auto;">
         <ol id="coming-up-readings-list" class="cluster" style="list-style: none; display: table; margin-left: auto; margin-right: auto; white-space: nowrap;">
         </ol>
@@ -226,8 +226,9 @@ export default (jumpToRef) => {
   const s = Search({ search, emitter: searchEmitter })
 
   const self = htmlToElement(`
-    <div class="parsha-picker">
+    <div class="parsha-picker" role="dialog" aria-modal="true" aria-label="Select Torah portion">
       <div class="stack xlarge">
+        <h1 class="u-hidden">Torah Portion Selection</h1>
         <div class="centerize">
           <div id="search" style="display: inline-block;"></div>
         </div>

@@ -9,10 +9,10 @@ const Search = ({ search, emitter }) => {
   const self = html(`
     <div class="search">
       <div class="search-bar">
-        <span class="search-icon">⚲</span>
-        <input class="search-input" placeholder="Search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <span class="search-icon" aria-hidden="true">⚲</span>
+        <input class="search-input" placeholder="Search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Search Torah portions" />
       </div>
-      <div class="search-results u-hidden">
+      <div class="search-results u-hidden" role="listbox" aria-label="Search results">
       </div>
     </div>
   `)

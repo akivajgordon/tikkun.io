@@ -1,0 +1,137 @@
+@charset "UTF-8";
+@import 'normalize.css';
+
+@import './app-layout.css';
+@import './tooltip.css';
+@import './page.css';
+@import './parsha-picker.css';
+@import './toggle.css';
+@import './toolbar.css';
+
+@font-face {
+  font-family: 'ShlomosemiStam';
+  src: url(../fonts/ShlomosemiStam.ttf);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  background-color: var(--paper-color, white);
+}
+
+body,
+input {
+  font-family: -apple-system, sans-serif;
+}
+
+ol {
+  padding: 0;
+}
+
+.u-page-wrap {
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.u-hidden {
+  display: none;
+}
+
+.centerize {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+.u-hidden.mod-animated {
+  animation: fade-out 0.2s;
+}
+
+.stack.xsmall > * + * {
+  margin-top: 0.35em;
+}
+.stack.small > * + * {
+  margin-top: 0.5em;
+}
+.stack.medium > * + * {
+  margin-top: 1em;
+}
+.stack.large > * + * {
+  margin-top: 1.5em;
+}
+.stack.xlarge > * + * {
+  margin-top: 2em;
+}
+
+.cluster {
+  display: inline-flex;
+  align-items: center;
+}
+.cluster > * + * {
+  margin-left: 1em;
+}
+
+:root {
+  /* HACK: I don't like that I have to specify the header height
+     here, but I don't know how else to use flexbox to say that
+     the header's height should fit to content, and the body's
+     height should fill the rest of the container (in this case
+     the screen), regardless of overflow */
+  --header-height: 45px;
+
+  --paper-color: hsl(0, 0%, 98%);
+  --page-ink-color: hsla(0, 0%, 0%, 0.8);
+  --annotations-toggle-active-color: black;
+  --verses-color: hsla(0, 0%, 0%, 0.35);
+  --light-accent-color: hsla(0, 0%, 0%, 0.05);
+  --medium-accent-color: hsla(0, 0%, 0%, 0.1);
+  --heavy-accent-color: hsla(0, 0%, 0%, 0.2);
+  --text-color: hsla(0, 0%, 0%, 0.7);
+  --light-text-color: hsla(0, 0%, 0%, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    --paper-color: #222;
+    --page-ink-color: hsla(0, 0%, 100%, 0.8);
+    --annotations-toggle-active-color: hsla(0, 0%, 100%, 0.8);
+    --verses-color: hsla(0, 0%, 100%, 0.35);
+    --light-accent-color: hsla(0, 0%, 100%, 0.05);
+    --medium-accent-color: hsla(0, 0%, 100%, 0.1);
+    --heavy-accent-color: hsla(0, 0%, 100%, 0.2);
+    --text-color: hsla(0, 0%, 100%, 0.7);
+    --light-text-color: hsla(0, 0%, 100%, 0.5);
+
+    color-scheme: dark;
+  }
+}
+
+.tikkun-book {
+  padding-top: 1em;
+  padding-bottom: 5em; /* basically some scroll overflow so that when you get to the end of a Scroll, you can scroll past the annotations toggle so that it doesn't block the last few lines of text */
+  font-size: 1.5em;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; /*https://css-tricks.com/snippets/css/momentum-scrolling-on-ios-overflow-elements/*/
+  box-sizing: border-box;
+
+  --pull-transform: 0s;
+  --pull-translation: 0;
+}
+
+.tikkun-book.mod-pull-releasing {
+  --pull-transform: 0.15s;
+}

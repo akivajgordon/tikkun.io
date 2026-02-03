@@ -10,9 +10,32 @@ const ktivKriAnnotation = (text) =>
 const petuchaClass = (isPetucha) => (isPetucha ? 'mod-petucha' : '')
 const setumaClass = (column) => (column.length > 1 ? 'mod-setuma' : '')
 
+const renderTextColumn = (text, annotated, isPetucha) => `
+  <td class="line ${petuchaClass(isPetucha)} ${annotated ? 'mod-with-annotations' : 'mod-without-annotations'}">
+    ${text
+      .map(
+        (column) => `
+      <div class="column">
+        ${column
+          .map(
+            (fragment) => `
+          <span class="fragment ${setumaClass(column)}">${ktivKriAnnotation(
+              textFilter({ text: fragment, annotated })
+            )}</span>
+        `
+          )
+          .join('')}
+      </div>
+    `
+      )
+      .join('')}
+  </td>
+`
+
 const Line = ({ scroll: __scroll, text, verses, isPetucha, lineIndex }) => `
   <tr data-class="line" data-line-index="${lineIndex}">
-    <td class="line ${petuchaClass(isPetucha)}">
+    <!-- Single column view (original) -->
+    <td class="line ${petuchaClass(isPetucha)} mod-single-column">
       ${text
         .map(
           (column) => `
@@ -37,6 +60,21 @@ const Line = ({ scroll: __scroll, text, verses, isPetucha, lineIndex }) => `
       `
         )
         .join('')}
+      <span class="location-indicator mod-verses">${displayRange.asVersesRange(
+        verses
+      )}</span>
+      <span class="location-indicator mod-aliyot" data-target-id="aliyot-range">${__scroll.aliyotFor(
+        { verses }
+      )}</span>
+    </td>
+
+    <!-- Side-by-side view: column with annotations -->
+    ${renderTextColumn(text, true, isPetucha)}
+    <td class="line-divider"></td>
+
+    <!-- Side-by-side view: column without annotations -->
+    ${renderTextColumn(text, false, isPetucha)}
+    <td class="line-indicators">
       <span class="location-indicator mod-verses">${displayRange.asVersesRange(
         verses
       )}</span>

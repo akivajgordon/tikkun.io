@@ -126,3 +126,55 @@
   border-radius: 4px;
   position: relative;
 }
+
+/* Side-by-side view styles */
+/* By default, hide side-by-side columns and show single column */
+.line.mod-with-annotations,
+.line.mod-without-annotations,
+.line-divider,
+.line-indicators {
+  display: none;
+}
+
+/* When in side-by-side mode, show dual columns and hide single column */
+.tikkun-book.mod-side-by-side .line.mod-single-column {
+  display: none;
+}
+
+.tikkun-book.mod-side-by-side .line.mod-with-annotations,
+.tikkun-book.mod-side-by-side .line.mod-without-annotations {
+  display: table-cell;
+  width: 45%;
+  padding: 0 1em;
+}
+
+.tikkun-book.mod-side-by-side .line-divider {
+  display: table-cell;
+  width: 2px;
+  background-color: var(--medium-accent-color);
+  padding: 0;
+}
+
+.tikkun-book.mod-side-by-side .line-indicators {
+  display: table-cell;
+  width: 10%;
+  position: relative;
+  padding: 0 0.5em;
+}
+
+.tikkun-book.mod-side-by-side .line-indicators .location-indicator {
+  position: static;
+  display: block;
+  text-align: left;
+  transform: none;
+  max-width: none;
+}
+
+.tikkun-book.mod-side-by-side .line-indicators .location-indicator.mod-verses {
+  margin-bottom: 0.5em;
+}
+
+/* In side-by-side mode, always show location indicators */
+.tikkun-book.mod-side-by-side.mod-annotations-off .line-indicators .location-indicator {
+  display: block;
+}

@@ -139,6 +139,11 @@ const toggleAnnotations = (getPreviousCheckedState) => {
   book.classList.toggle('mod-annotations-off', !toggle.checked)
 }
 
+const toggleViewMode = () => {
+  const book = document.querySelector('[data-target-id=tikkun-book]')
+  book.classList.toggle('mod-side-by-side')
+}
+
 const scrollState = {
   lastScrolledPosition: 0,
   pageAtTop: null,
@@ -327,6 +332,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   toggle.addEventListener('change', (e) =>
     toggleAnnotations(() => !e.target.checked)
   )
+
+  // View mode toggle button
+  const viewModeToggle = document.querySelector('[data-target-id="view-mode-toggle"]')
+  if (viewModeToggle) {
+    viewModeToggle.addEventListener('click', toggleViewMode)
+  }
 
   document.addEventListener(
     'keydown',

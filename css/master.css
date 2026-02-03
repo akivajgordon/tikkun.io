@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: 'ShlomosemiStam';
-  src: url(/assets/fonts/ShlomosemiStam.ttf);
+  src: url(../fonts/ShlomosemiStam.ttf);
 }
 
 * {

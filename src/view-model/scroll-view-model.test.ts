@@ -39,6 +39,38 @@ test(`ignores פרשת פרה when labelling פרשת חקת`, async (t) => {
   t.regex(await renderFirstLine('2025-07-05:shacharis,main'), /פרשת חקת/)
 })
 
+test('prefers Torah order over calendar order for Mishpatim verses', async (t) => {
+  // Verses in Mishpatim (Exodus 21-24) are also read during holidays like Pesach/Sukkot.
+  // When viewing the full scroll, those verses should be labeled as Mishpatim,
+  // not as a holiday reading that appears later in the calendar year.
+  const model = ScrollViewModel.forRef(generator, {
+    scroll: 'torah',
+    b: 2,
+    c: 21,
+    v: 20,
+  })
+  const pages = await fetchPages(model, { fetchPreviousPages: false, count: 10 })
+
+  // Find lines containing Exodus 21:20 and nearby verses
+  for (const page of pages) {
+    if (page.type !== 'page') continue
+    for (const line of page.lines) {
+      // Check verses in the Exodus 21-24 range (Mishpatim)
+      const mishpatimVerses = line.verses.filter(
+        (v) => v.b === 2 && v.c >= 21 && v.c <= 24
+      )
+      if (mishpatimVerses.length && line.run) {
+        // Ensure the run is Mishpatim, not a holiday reading
+        t.regex(
+          line.run.id,
+          /mishpatim/i,
+          `Verse ${mishpatimVerses[0].b}:${mishpatimVerses[0].c}:${mishpatimVerses[0].v} should be in Mishpatim, not ${line.run.id}`
+        )
+      }
+    }
+  }
+})
+
 test('forDate on שבת', async (t) => {
   t.deepEqual(
     await renderScroll(

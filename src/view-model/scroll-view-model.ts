@@ -11,7 +11,7 @@ import {
 } from '../calendar-model/model-types.ts'
 import IntegerIterator from '../integer-iterator.ts'
 import { HDate } from '@hebcal/hdate'
-import { containsRef } from '../calendar-model/ref-utils.ts'
+import { compareRefs, containsRef } from '../calendar-model/ref-utils.ts'
 import {
   fromISODateString,
   last,
@@ -239,8 +239,14 @@ export abstract class ScrollViewModel {
       const aliyot = candidateRun.aliyot.filter((a) => containsRef(a, verses))
       if (aliyot.length) return [candidateRun, aliyot]
     }
-    // TODO(later): Try the next run first?
-    for (const run of this.relevantRuns) {
+    // Search runs in Torah order, not calendar order.
+    // This ensures we match the parsha that comes first in the actual scroll,
+    // rather than a holiday reading that appears earlier in the calendar year
+    // but later in the Torah text.
+    const runsByTorahOrder = this.relevantRuns.slice().sort((a, b) => {
+      return compareRefs(a.aliyot[0].start, b.aliyot[0].start)
+    })
+    for (const run of runsByTorahOrder) {
       const aliyot = run.aliyot.filter((a) => containsRef(a, verses))
       if (aliyot.length) return [run, aliyot]
     }

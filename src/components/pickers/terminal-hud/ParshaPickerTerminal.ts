@@ -1,6 +1,6 @@
 import { LeiningGenerator } from '../../../calendar-model/generator.ts'
 import { HDate } from '@hebcal/hdate'
-import { LeiningDate, LeiningInstance, LeiningRun, LeiningInstanceId, LeiningRunType } from '../../../calendar-model/model-types.ts'
+import { LeiningDate, LeiningInstance, LeiningInstanceId } from '../../../calendar-model/model-types.ts'
 import { getReadingShortcuts, formatEnglishDate, cleanReadingTitle, formatHebrewDateString } from '../utils.ts'
 
 export default (generator: LeiningGenerator) => {
@@ -142,7 +142,7 @@ export default (generator: LeiningGenerator) => {
   outerContainer.style.flexDirection = 'column'
 
   let currentHebrewYear = new HDate().getFullYear()
-  let commandHistory: string[] = []
+  const commandHistory: string[] = []
   let historyIndex = -1
 
   const render = () => {
@@ -223,10 +223,6 @@ export default (generator: LeiningGenerator) => {
     const getYearData = () => generator.forHebrewYear(currentHebrewYear)
 
     const bookNamesHeb = ['בראשית', 'שמות', 'ויקרא', 'במדבר', 'דברים']
-    const monthNamesHeb: Record<number, string> = {
-      7: 'תשרי', 8: 'חשון', 9: 'כסלו', 10: 'טבת', 11: 'שבט', 12: 'אדר', 13: 'אדר ב׳',
-      1: 'ניסן', 2: 'אייר', 3: 'סיון', 4: 'תמוז', 5: 'אב', 6: 'אלול'
-    }
     const seasonNames = ['ימים נוראים', 'סוכות ושמיני עצרת', 'חנוכה ופורים', 'פסח', 'שבועות', 'תעניות', 'ראש חודש']
 
     // Execute command logic

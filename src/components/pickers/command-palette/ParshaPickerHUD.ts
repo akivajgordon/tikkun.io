@@ -1,6 +1,6 @@
 import { LeiningGenerator } from '../../../calendar-model/generator.ts'
 import { HDate } from '@hebcal/hdate'
-import { LeiningDate, LeiningInstance, LeiningRun, LeiningInstanceId } from '../../../calendar-model/model-types.ts'
+import { LeiningDate, LeiningInstance, LeiningInstanceId } from '../../../calendar-model/model-types.ts'
 import { getReadingShortcuts, formatEnglishDate, cleanReadingTitle, formatHebrewDateString } from '../utils.ts'
 import fuzzy from '../../../fuzzy.ts'
 
@@ -246,7 +246,6 @@ export default (generator: LeiningGenerator) => {
   const allReadings: FlattenedReading[] = []
   leiningDates.forEach((ld) => {
     ld.leinings.forEach((inst) => {
-      const hDate = new HDate(ld.date)
       let type: 'torah' | 'holiday' | 'megillah' = 'holiday'
       if (inst.isParsha) type = 'torah'
       else if (inst.id === LeiningInstanceId.Megillah) type = 'megillah'
@@ -281,7 +280,7 @@ export default (generator: LeiningGenerator) => {
     const grid = document.createElement('div')
     grid.className = 'hud-quickjumps-grid'
 
-    const appendQuickCard = (title: string, reading: FlattenedReading | undefined, desc: string) => {
+    const appendQuickCard = (title: string, reading: FlattenedReading | undefined) => {
       if (!reading) return
       const card = document.createElement('a')
       card.className = 'hud-quick-card'
@@ -294,9 +293,9 @@ export default (generator: LeiningGenerator) => {
       grid.appendChild(card)
     }
 
-    appendQuickCard('השבת הקרובה', thisShabbatItem, 'שבת הקרובה')
-    appendQuickCard('השבת הבאה', nextShabbatItem, 'שבת הבאה')
-    appendQuickCard('החג הקרוב', upcomingHolidayItem, 'החג הקרוב')
+    appendQuickCard('השבת הקרובה', thisShabbatItem)
+    appendQuickCard('השבת הבאה', nextShabbatItem)
+    appendQuickCard('החג הקרוב', upcomingHolidayItem)
 
     quickJumps.appendChild(grid)
   }

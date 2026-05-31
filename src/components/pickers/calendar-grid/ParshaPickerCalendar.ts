@@ -1,6 +1,6 @@
 import { LeiningGenerator } from '../../../calendar-model/generator.ts'
 import { HDate } from '@hebcal/hdate'
-import { LeiningDate, LeiningInstance, LeiningRun, LeiningRunType } from '../../../calendar-model/model-types.ts'
+import { LeiningDate, LeiningInstance, LeiningRunType } from '../../../calendar-model/model-types.ts'
 import { getReadingShortcuts, formatEnglishDate, cleanReadingTitle, formatHebrewDateString } from '../utils.ts'
 
 const isLeapYear = (year: number): boolean => {
@@ -397,7 +397,6 @@ export default (generator: LeiningGenerator) => {
     dTitle.textContent = cleanReadingTitle(inst)
 
     const dMeta = drawer.querySelector('.cal-drawer-meta')!
-    const hDate = new HDate(ld.date)
     dMeta.innerHTML = `
       <span><strong>תאריך עברי:</strong> ${formatHebrewDateString(ld.date)} ${currentHebrewYear}</span>
       <span><strong>תאריך לועזי:</strong> ${formatEnglishDate(ld.date)}</span>

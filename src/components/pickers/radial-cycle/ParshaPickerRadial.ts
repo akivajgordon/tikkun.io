@@ -1,6 +1,6 @@
 import { LeiningGenerator } from '../../../calendar-model/generator.ts'
 import { HDate } from '@hebcal/hdate'
-import { LeiningDate, LeiningInstance, LeiningRun, LeiningInstanceId, LeiningRunType } from '../../../calendar-model/model-types.ts'
+import { LeiningDate, LeiningInstance, LeiningRunType } from '../../../calendar-model/model-types.ts'
 import { getReadingShortcuts, formatEnglishDate, cleanReadingTitle, formatHebrewDateString } from '../utils.ts'
 
 export default (generator: LeiningGenerator) => {
@@ -684,7 +684,6 @@ export default (generator: LeiningGenerator) => {
       title.className = 'radial-details-title'
       title.textContent = cleanReadingTitle(inst)
 
-      const hDate = new HDate(ld.date)
       const meta = document.createElement('div')
       meta.className = 'radial-details-meta'
       meta.innerHTML = `

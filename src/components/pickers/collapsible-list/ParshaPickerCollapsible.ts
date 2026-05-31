@@ -152,7 +152,7 @@ export default (generator: LeiningGenerator) => {
   container.className = 'parsha-picker collapsible-container'
 
   let currentHebrewYear = new HDate().getFullYear()
-  let collapsedStates: Record<string, boolean> = {
+  const collapsedStates: Record<string, boolean> = {
     'book-1': false, // Open Genesis by default
     'book-2': true,
     'book-3': true,

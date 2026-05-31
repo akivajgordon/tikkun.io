@@ -1,4 +1,4 @@
-import { LeiningInstance, LeiningRun } from '../../calendar-model/model-types.ts'
+import { LeiningInstance } from '../../calendar-model/model-types.ts'
 import { LeiningRunType, LeiningInstanceId } from '../../calendar-model/model-types.ts'
 import { Locale } from '@hebcal/hdate'
 import { HDate } from '@hebcal/hdate'

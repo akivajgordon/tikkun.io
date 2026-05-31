@@ -1,6 +1,5 @@
 import '/css/master.css'
 import InfiniteScroller from './infinite-scroller.ts'
-import ParshaPicker from './components/ParshaPicker.ts'
 import utils from './components/utils.ts'
 import { ScrollViewModel } from './view-model/scroll-view-model.ts'
 import { LeiningGenerator } from './calendar-model/generator.ts'

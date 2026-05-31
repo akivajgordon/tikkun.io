@@ -1,6 +1,6 @@
 import { LeiningGenerator } from '../../../calendar-model/generator.ts'
 import { HDate } from '@hebcal/hdate'
-import { LeiningDate, LeiningInstance, LeiningRun, LeiningInstanceId, LeiningRunType } from '../../../calendar-model/model-types.ts'
+import { LeiningDate, LeiningInstance, LeiningInstanceId, LeiningRunType } from '../../../calendar-model/model-types.ts'
 import { getReadingShortcuts, formatEnglishDate, cleanReadingTitle, formatHebrewDateString } from '../utils.ts'
 
 export default (generator: LeiningGenerator) => {
@@ -276,7 +276,6 @@ export default (generator: LeiningGenerator) => {
       title.className = 'miller-details-title'
       title.textContent = cleanReadingTitle(inst)
 
-      const hDate = new HDate(ld.date)
       const meta = document.createElement('div')
       meta.className = 'miller-details-meta'
       meta.innerHTML = `
@@ -387,7 +386,7 @@ export default (generator: LeiningGenerator) => {
     }
 
     // Render Column 1 (Root categories)
-    const categories = [
+    const categories: { id: 'torah' | 'holiday' | 'megillah'; name: string }[] = [
       { id: 'torah', name: 'תורה וחומשים' },
       { id: 'holiday', name: 'מועדים וחגים' },
       { id: 'megillah', name: 'מגילות המועדים' }
@@ -403,7 +402,7 @@ export default (generator: LeiningGenerator) => {
       item.addEventListener('click', () => {
         col1.querySelectorAll('.miller-item').forEach(i => i.classList.remove('is-selected'))
         item.classList.add('is-selected')
-        renderColumn2(cat.id as any)
+        renderColumn2(cat.id)
       })
       list1.appendChild(item)
     })

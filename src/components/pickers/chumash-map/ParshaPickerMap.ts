@@ -1,8 +1,7 @@
 import { LeiningGenerator } from '../../../calendar-model/generator.ts'
 import { HDate } from '@hebcal/hdate'
-import { LeiningDate, LeiningInstance, LeiningRun, LeiningRunType } from '../../../calendar-model/model-types.ts'
+import { LeiningDate, LeiningInstance, LeiningRunType } from '../../../calendar-model/model-types.ts'
 import { getReadingShortcuts, formatEnglishDate, cleanReadingTitle, formatHebrewDateString } from '../utils.ts'
-import { Locale } from '@hebcal/hdate'
 
 export default (generator: LeiningGenerator) => {
   const styleNode = document.createElement('style')
@@ -227,7 +226,6 @@ export default (generator: LeiningGenerator) => {
     popoverTitle.textContent = cleanReadingTitle(inst)
 
     const popoverMeta = overlay.querySelector('.map-popover-meta')!
-    const hDate = new HDate(ld.date)
     popoverMeta.innerHTML = `
       <div style="font-size: 14px; color: var(--light-text-color, #666); margin-bottom: 10px;">
         <strong>תאריך עברי:</strong> ${formatHebrewDateString(ld.date)} ${currentHebrewYear}<br>

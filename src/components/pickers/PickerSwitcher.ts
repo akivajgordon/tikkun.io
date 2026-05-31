@@ -1,4 +1,3 @@
-import { LeiningGenerator } from '../../calendar-model/generator.ts'
 import OriginalPicker from '../ParshaPicker.ts'
 import PickerCollapsible from './collapsible-list/ParshaPickerCollapsible.ts'
 import PickerTimeline from './timeline-flow/ParshaPickerTimeline.ts'

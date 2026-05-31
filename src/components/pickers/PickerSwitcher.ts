@@ -6,8 +6,11 @@ import PickerHUD from './command-palette/ParshaPickerHUD.ts'
 import PickerMap from './chumash-map/ParshaPickerMap.ts'
 import PickerCalendar from './calendar-grid/ParshaPickerCalendar.ts'
 import PickerColumns from './miller-columns/ParshaPickerColumns.ts'
+import PickerRadial from './radial-cycle/ParshaPickerRadial.ts'
+import PickerKanban from './kanban-board/ParshaPickerKanban.ts'
+import PickerTerminal from './terminal-hud/ParshaPickerTerminal.ts'
 
-export type PickerVersion = 'original' | 'collapsible' | 'timeline' | 'hud' | 'chumash-map' | 'calendar' | 'columns'
+export type PickerVersion = 'original' | 'collapsible' | 'timeline' | 'hud' | 'chumash-map' | 'calendar' | 'columns' | 'radial' | 'kanban' | 'terminal'
 
 const PICKER_VERSIONS: { id: PickerVersion; name: string; factory: typeof OriginalPicker }[] = [
   { id: 'original', name: 'Original', factory: OriginalPicker },
@@ -16,7 +19,10 @@ const PICKER_VERSIONS: { id: PickerVersion; name: string; factory: typeof Origin
   { id: 'hud', name: 'V3: Command Palette', factory: PickerHUD },
   { id: 'chumash-map', name: 'V4: Chumash Map', factory: PickerMap },
   { id: 'calendar', name: 'V5: Calendar Grid', factory: PickerCalendar },
-  { id: 'columns', name: 'V6: Columns Cascade', factory: PickerColumns }
+  { id: 'columns', name: 'V6: Columns Cascade', factory: PickerColumns },
+  { id: 'radial', name: 'V7: Radial Cycle', factory: PickerRadial },
+  { id: 'kanban', name: 'V8: Kanban Board', factory: PickerKanban },
+  { id: 'terminal', name: 'V9: Terminal HUD', factory: PickerTerminal }
 ]
 
 export class PickerSwitcher {

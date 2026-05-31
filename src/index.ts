@@ -8,6 +8,7 @@ import { ScrollDisplay } from './components/ScrollDisplay.ts'
 import { ViewportTracker } from './viewport-tracker.ts'
 import { TopBarTracker } from './view-model/navigation/top-bar-model.ts'
 import { parseUrl } from './view-model/navigation/url-parser.ts'
+import { PickerSwitcher } from './components/pickers/PickerSwitcher.ts'
 
 declare function gtag(
   name: 'event',
@@ -24,6 +25,14 @@ const generator = new LeiningGenerator({
   israel: false,
 })
 let display: ScrollDisplay
+
+const switcher = new PickerSwitcher()
+switcher.onSwitch(() => {
+  if (isShowingParshaPicker()) {
+    hideParshaPicker()
+    showParshaPicker()
+  }
+})
 
 const app = {
   jumpTo: (target: ScrollViewModel) => {
@@ -58,9 +67,21 @@ const showParshaPicker = () => {
     { selector: '[data-target-id="tikkun-book"]', visible: false },
   ].forEach(({ selector, visible }) => setVisibility({ selector, visible }))
 
-  const jumper = ParshaPicker(generator)
+  const factory = switcher.getActiveFactory()
+  const jumper = factory(generator)
 
-  document.querySelector('#js-app').appendChild(jumper.node)
+  const appNode = document.querySelector('#js-app')
+  const bar = switcher.renderBar()
+  appNode.appendChild(bar)
+  appNode.appendChild(jumper.node)
+
+  // Dynamic padding to ensure pickers are below the top switcher bar
+  requestAnimationFrame(() => {
+    const barHeight = bar.offsetHeight || 42
+    const jumperNode = jumper.node as HTMLElement
+    jumperNode.style.top = `${barHeight}px`
+    jumperNode.style.height = `calc(100% - ${barHeight}px)`
+  })
 
   gtag('event', 'view', {
     event_category: 'navigation',
@@ -75,6 +96,12 @@ const hideParshaPicker = () => {
     { selector: '[data-target-id="repo-link"]', visible: true },
     { selector: '[data-target-id="tikkun-book"]', visible: true },
   ].forEach(({ selector, visible }) => setVisibility({ selector, visible }))
+
+  if (document.querySelector('.picker-switcher-bar')) {
+    document
+      .querySelector('#js-app')
+      .removeChild(document.querySelector('.picker-switcher-bar'))
+  }
 
   if (document.querySelector('.parsha-picker'))
     document

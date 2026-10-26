@@ -1,0 +1,173 @@
+.print-root {
+  display: none;
+}
+
+@page {
+  margin: 1cm;
+}
+
+.print-sheet {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1cm;
+  direction: ltr;
+}
+
+.print-pane {
+  flex: 0 0 8.5cm;
+  direction: rtl;
+  font-size: 10px;
+}
+
+.print-sheet .tikkun-page {
+  padding: 0;
+  border: none;
+  color: black;
+}
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .app,
+  .print-preview {
+    display: none !important;
+  }
+
+  .print-root {
+    display: block;
+  }
+
+  .print-sheet {
+    break-after: page;
+    break-inside: avoid;
+  }
+
+  .print-sheet:last-child {
+    break-after: auto;
+  }
+}
+
+.print-preview {
+  --z: 0.6;
+  --sheet-w: 20cm;
+  --sheet-h: 28cm;
+  --anchor-color: hsl(210, 90%, 50%);
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper-color);
+  color: var(--text-color);
+  direction: ltr;
+}
+
+.print-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 0.75em 1.5em;
+  border-bottom: 1px solid var(--heavy-accent-color);
+}
+
+.print-preview-heading {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.print-preview-hint {
+  font-size: 0.85em;
+  color: var(--light-text-color);
+}
+
+.print-preview-actions {
+  display: flex;
+  gap: 0.5em;
+}
+
+.print-preview-actions button {
+  font: inherit;
+  padding: 0.5em 1.25em;
+  border-radius: var(--button-border-radius);
+  border: 1px solid var(--heavy-accent-color);
+  background: var(--light-accent-color);
+  color: inherit;
+  cursor: pointer;
+}
+
+.print-preview-actions .mod-primary {
+  background: var(--text-color);
+  color: var(--paper-color);
+}
+
+.print-preview-carousel {
+  flex: 1;
+  display: flex;
+  direction: rtl;
+  gap: 1.5em;
+  overflow-x: auto;
+  padding: 1.5em;
+}
+
+.preview-slot {
+  flex: none;
+  margin-block: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  direction: ltr;
+}
+
+.preview-sheet-holder {
+  width: calc(var(--sheet-w) * var(--z));
+  height: calc(var(--sheet-h) * var(--z));
+  background: white;
+  box-shadow: 0 0 0 1px var(--heavy-accent-color);
+  transition: opacity 0.15s, filter 0.15s;
+}
+
+.preview-sheet-holder .print-sheet {
+  width: var(--sheet-w);
+  height: var(--sheet-h);
+  /* Matches the @page margin so the preview shows the paper edge. */
+  padding: 1cm;
+  zoom: var(--z);
+}
+
+.preview-slot[data-selected='true'] .preview-sheet-holder {
+  box-shadow: 0 0 0 3px var(--text-color);
+}
+
+.preview-slot[data-anchor='true'] .preview-sheet-holder {
+  box-shadow: 0 0 0 3px var(--anchor-color);
+}
+
+.preview-slot[data-anchor='true'] .preview-label {
+  color: var(--anchor-color);
+  font-weight: 600;
+}
+
+.preview-slot:not([data-selected='true']) .preview-sheet-holder {
+  filter: grayscale(1) brightness(0.75);
+  opacity: 0.7;
+}
+
+.preview-slot:not([data-selected='true']):hover .preview-sheet-holder {
+  opacity: 1;
+}
+
+.preview-label {
+  font-size: 0.85em;
+  white-space: nowrap;
+}

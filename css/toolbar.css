@@ -41,6 +41,14 @@
   background-color: var(--heavy-accent-color);
 }
 
+.toolbar-button {
+  background: transparent;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  margin-right: 0.5em;
+}
+
 .toolbar-github {
   vertical-align: middle; /* HACK: https://stackoverflow.com/a/27999850/2374361 */
 }

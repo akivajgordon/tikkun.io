@@ -1,5 +1,4 @@
-import type { LineType } from '../components/Page.ts'
-import type { Ref, RefWithScroll } from '../ref.ts'
+import type { Ref, RefWithScroll, ScrollName } from '../ref.ts'
 import { LeiningGenerator } from '../calendar-model/generator.ts'
 import type {
   LeiningAliyah,
@@ -19,11 +18,14 @@ import {
   toISODateString,
 } from '../calendar-model/utils.ts'
 import { AliyahLabeller } from './aliyah-labeller.ts'
-import { loadScroll, ScrollResolver } from '../location.ts'
+import { loadPage, loadScroll, ScrollResolver } from '../location.ts'
 
 /** Information to render a single page from a scroll. */
 export interface RenderedPageInfo {
   type: 'page'
+  scroll: ScrollName
+  /** The 1-based physical column number within the scroll. */
+  pageNumber: number
   lines: RenderedLineInfo[]
 }
 
@@ -199,18 +201,8 @@ export abstract class ScrollViewModel {
     if (!pageNumber || pageNumber <= 0) return null
 
 
-    let page: { default: LineType[] }
-    if (import.meta.env?.MODE)
-      // Vite dynamic imports doesn't support the second parameter
-      page = await import(
-        `../data/pages/${this.relevantRuns[0].scroll}/${pageNumber}.json`
-      )
-    else
-      page = await import(
-        `../data/pages/${this.relevantRuns[0].scroll}/${pageNumber}.json`,
-        // Node.js requires the second parameter.
-        { with: { type: 'json' } }
-      )
+    const scroll = this.relevantRuns[0].scroll
+    const page = await loadPage(scroll, pageNumber)
 
     let run: LeiningRun | undefined
     let aliyot: LeiningAliyah[] = []
@@ -228,7 +220,7 @@ export abstract class ScrollViewModel {
         labels: labeller.getLabelsForLine(run, verses),
       }
     })
-    return { type: 'page', lines }
+    return { type: 'page', scroll, pageNumber, lines }
   }
 
   private findContainingAliyot(

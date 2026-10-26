@@ -8,6 +8,8 @@ import { ScrollDisplay } from './components/ScrollDisplay.ts'
 import { ViewportTracker } from './viewport-tracker.ts'
 import { TopBarTracker } from './view-model/navigation/top-bar-model.ts'
 import { parseUrl } from './view-model/navigation/url-parser.ts'
+import { previewPrint } from './print/PrintPreview.ts'
+import { printColumns } from './print/print-columns.ts'
 
 declare function gtag(
   name: 'event',
@@ -286,6 +288,31 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     })
   )
+
+  const openPrintPreview = async () => {
+    if (document.querySelector('.print-preview')) return
+    const centerPage = document
+      .elementFromPoint(
+        document.documentElement.clientWidth / 2,
+        document.documentElement.clientHeight / 2
+      )
+      ?.closest('.tikkun-page')?.tikkunPage
+    if (!centerPage) return
+    const pageNumbers = await previewPrint(
+      centerPage.scroll,
+      centerPage.pageNumber
+    )
+    if (pageNumbers) await printColumns(centerPage.scroll, pageNumbers)
+  }
+  document
+    .querySelector('[data-target-id="print-button"]')!
+    .addEventListener('click', openPrintPreview)
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'p' && !isShowingParshaPicker()) {
+      e.preventDefault()
+      openPrintPreview()
+    }
+  })
 
   setAppHeight()
 

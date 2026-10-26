@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+import type { LineType } from './components/Page.ts'
 import type { RefWithScroll, ScrollName } from './ref.ts'
 
 type AppleSauce = {
@@ -20,6 +21,20 @@ export async function loadScroll(name: ScrollName) {
       with: { type: 'json' },
     })
   return new ScrollResolver(name, toc.default)
+}
+
+/** Loads the raw lines of a single physical page (column) of a scroll. */
+export async function loadPage(
+  scroll: ScrollName,
+  pageNumber: number
+): Promise<{ default: LineType[] }> {
+  if (import.meta.env?.MODE)
+    // Vite dynamic imports doesn't support the second parameter
+    return await import(`./data/pages/${scroll}/${pageNumber}.json`)
+  // Node.js requires the second parameter.
+  return await import(`./data/pages/${scroll}/${pageNumber}.json`, {
+    with: { type: 'json' },
+  })
 }
 
 export class ScrollResolver {

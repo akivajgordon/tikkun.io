@@ -89,7 +89,9 @@
 }
 
 .tikkun-book.mod-annotations-off .fragment.mod-annotations-on,
-.tikkun-book.mod-annotations-on .fragment.mod-annotations-off {
+.tikkun-book.mod-annotations-on .fragment.mod-annotations-off,
+.print-pane.mod-annotations-off .fragment.mod-annotations-on,
+.print-pane.mod-annotations-on .fragment.mod-annotations-off {
   display: none;
 }
 
@@ -114,7 +116,8 @@
   user-drag: none;
 }
 
-.tikkun-book.mod-annotations-off .location-indicator {
+.tikkun-book.mod-annotations-off .location-indicator,
+.print-pane.mod-annotations-off .location-indicator {
   display: none;
 }
 

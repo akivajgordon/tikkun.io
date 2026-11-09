@@ -43,7 +43,7 @@ ol {
 }
 
 .u-hidden {
-  display: none !important;
+  visibility: hidden;
 }
 
 .centerize {
